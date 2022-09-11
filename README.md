@@ -4,6 +4,18 @@ Vesialueen inventointi-ilmoitus frontend
 - Production branch: main
 - Staging branch: staging
 
+## Installation
+
+Requires Node version 16 or newer and npm.
+
+Install depedencies and start the application with the following commands:
+
+```bash
+npm install
+npm start
+```
+The application starts locally at port 3000.
+
 ## Heroku
 - [Staging](https://vesialue-front-staging.herokuapp.com)
 - [Production](https://vesialue-front.herokuapp.com)
