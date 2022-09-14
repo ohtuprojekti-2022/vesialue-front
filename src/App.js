@@ -1,14 +1,13 @@
 import React from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Hello from './components/Hello'
+import Navbar from './components/Navbar'
 
 const App = () => {
 	return (
 		<>
 			<div>
-				<Link to="/">root</Link>
-				<br />
-				<Link to="/component">/component</Link>
+				<Navbar></Navbar>
 			</div>
 			<Routes>
 				<Route path="/component" element={<Hello />} />
