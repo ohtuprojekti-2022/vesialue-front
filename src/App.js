@@ -4,14 +4,12 @@ import Navbar from './components/Navbar'
 
 const App = () => {
 	return (
-		<>
-			<div>
-				<Navbar></Navbar>
-			</div>
+		<div className="container">
+			<Navbar />
 			<Routes>
 				<Route path="/" element={<>Hello world!</>} />
 			</Routes>
-		</>
+		</div>
 	)
 }
 

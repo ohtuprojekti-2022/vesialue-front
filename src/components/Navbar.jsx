@@ -1,11 +1,11 @@
 import React from 'react'
-import { Navbar as BNavbar, Nav } from 'react-bootstrap'
+import { Navbar as BNavbar, Nav, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const Navbar = () => {
 	
 	return (
-		<BNavbar bg="dark" variant="dark" fixed="top" className="py-3" collapseOnSelect>
+		<BNavbar  fixed="top" className="py-3" collapseOnSelect>
 			<BNavbar.Brand href="/">
 				<img
 					src="/logo192.png"
@@ -17,17 +17,23 @@ const Navbar = () => {
 				Vesialueen inventointi-ilmoitus
 			</BNavbar.Brand>
 			<BNavbar.Toggle aria-controls="basic-navbar-nav" />
-			<BNavbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+			<BNavbar.Collapse id="basic-navbar-nav">
 				<Nav>
 					<LinkContainer to="/">
 						<Nav.Link>Etusivu</Nav.Link>
 					</LinkContainer>
-					<LinkContainer to="/kirjaudu">
-						<Nav.Link>Kirjaudu</Nav.Link>
-					</LinkContainer>
-					<LinkContainer to="/rekisteröidy">
-						<Nav.Link>Rekisteröidy</Nav.Link>
-					</LinkContainer>
+					<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
+						<NavDropdown.Item>
+							<LinkContainer to="/kirjaudu">
+								<Nav.Link>Kirjaudu</Nav.Link>
+							</LinkContainer>
+						</NavDropdown.Item>
+						<NavDropdown.Item>
+							<LinkContainer to="/rekisteröidy">
+								<Nav.Link>Rekisteröidy</Nav.Link>
+							</LinkContainer>
+						</NavDropdown.Item>
+					</NavDropdown>
 						
 				</Nav>
 			</BNavbar.Collapse>
