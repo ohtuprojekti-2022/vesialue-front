@@ -6,7 +6,15 @@ const Navbar = () => {
 	
 	return (
 		<BNavbar bg="#eeeeee" fixed="top" className="py-3" collapseOnSelect>
-			<BNavbar.Brand href="/">Vesialueen inventointi-ilmoitus</BNavbar.Brand>
+			<BNavbar.Brand href="/">
+				<img
+					src="/logo192.png"
+					width="30"
+					height="30"
+					className="d-inline-block align-top"
+					alt="MAS logo"
+				/>
+			</BNavbar.Brand>
 			<BNavbar.Toggle aria-controls="basic-navbar-nav" />
 			<BNavbar.Collapse id="basic-navbar-nav" className="justify-content-end">
 				<Nav>
