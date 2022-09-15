@@ -1,19 +1,15 @@
-import { Routes, Route, Link } from 'react-router-dom'
-import Hello from './components/Hello'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
 
 const App = () => {
 	return (
-		<>
-			<div>
-				<Link to="/">root</Link>
-				<br />
-				<Link to="/component">/component</Link>
-			</div>
+		<div className="container">
+			<Navbar />
 			<Routes>
-				<Route path="/component" element={<Hello />} />
 				<Route path="/" element={<>Hello world!</>} />
 			</Routes>
-		</>
+		</div>
 	)
 }
 

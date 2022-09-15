@@ -16,6 +16,14 @@ npm start
 ```
 The application starts locally at port 3000.
 
+## Commands
+
+### ESLint
+
+```bash
+npm run lint
+```
+
 ## Heroku
 - [Staging](https://vesialue-front-staging.herokuapp.com)
 - [Production](https://vesialue-front.herokuapp.com)
