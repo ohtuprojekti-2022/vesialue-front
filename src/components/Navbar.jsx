@@ -3,9 +3,8 @@ import { Navbar as BNavbar, Nav, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const Navbar = () => {
-	
 	return (
-		<BNavbar  fixed="top" className="py-3" collapseOnSelect>
+		<BNavbar className="py-3 px-2" collapseOnSelect>
 			<BNavbar.Brand href="/">
 				<img
 					src="/logo192.png"
@@ -29,17 +28,15 @@ const Navbar = () => {
 							</LinkContainer>
 						</NavDropdown.Item>
 						<NavDropdown.Item>
-							<LinkContainer to="/rekisteröidy">
+							<LinkContainer to="/rekisteroidy">
 								<Nav.Link>Rekisteröidy</Nav.Link>
 							</LinkContainer>
 						</NavDropdown.Item>
 					</NavDropdown>
-						
 				</Nav>
 			</BNavbar.Collapse>
 		</BNavbar>
 	)
-  
 }
 
 export default Navbar

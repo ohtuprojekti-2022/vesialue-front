@@ -1,8 +1,15 @@
 # vesialue-front
+
 Vesialueen inventointi-ilmoitus frontend
 
 - Production branch: main
 - Staging branch: staging
+
+## Heroku
+- [Staging](https://vesialue-front-staging.herokuapp.com)
+- [Production](https://vesialue-front.herokuapp.com)
+
+There are GitHub Actions building and pushing the Docker containers to Heroku on each commit to main and staging branches
 
 ## Installation
 
@@ -20,16 +27,16 @@ The application starts locally at port 3000.
 
 ### ESLint
 
+Static code analysis:
 ```bash
 npm run lint
 ```
 
-## Heroku
-- [Staging](https://vesialue-front-staging.herokuapp.com)
-- [Production](https://vesialue-front.herokuapp.com)
+Analyse and automatically fix errors:
+```bash
+npm run lint:fix
+```
 
-There are GitHub Actions to build the containers and
-push them to Heroku on each commit to main and staging branches
 ## Docker
 ### Building Docker image
 ```docker build -t vesialue-front .```
