@@ -5,7 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 const Navbar = () => {
 	
 	return (
-		<BNavbar  fixed="top" className="py-3" collapseOnSelect>
+		<BNavbar className="py-3 px-2" collapseOnSelect>
 			<BNavbar.Brand href="/">
 				<img
 					src="/logo192.png"
