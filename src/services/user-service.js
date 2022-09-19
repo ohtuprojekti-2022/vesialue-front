@@ -13,16 +13,27 @@ export const registerNewUser = async (
 		password,
 		email,
 		phone,
-		name,
+		name
 	})
 	const request = await axios.post(`${BACKEND_URL}/api/register/`, {
 		username,
 		password,
 		email,
 		phone,
-		name,
+		name
 	})
 	console.log(request.data)
 }
 
-export default { registerNewUser }
+export const loginRequest = async (
+	username,
+	password
+) => {
+	const request = await axios.post(`${BACKEND_URL}/api/login/`, {
+		username,
+		password
+	})
+	console.log(request.data)
+}
+
+export default { registerNewUser, loginRequest }
