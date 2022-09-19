@@ -1,3 +1,3 @@
-const { REACT_APP_BACKEND_URL } = process.env
+const { BACKEND_URL } = process.env
 
-export default REACT_APP_BACKEND_URL
+export default BACKEND_URL
