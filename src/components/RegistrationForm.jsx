@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Container, Form, FloatingLabel, Button } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+import { Container, Form, FloatingLabel, Button, Alert } from 'react-bootstrap'
 import { registerNewUser } from '../services/user-service'
 
 const RegistrationForm = () => {
@@ -9,30 +10,53 @@ const RegistrationForm = () => {
 	const [phone, setPhone] = useState('')
 	const [name, setName] = useState('')
 	const [validated, setValidated] = useState(false)
+	const [alert, setAlert] = useState(null)
+	const navigate = useNavigate()
+
+	const addAlert = text => {
+		setAlert(text)
+		setTimeout(() => {
+			setAlert(null)
+		}, 7500)
+	}
 
 	const handleSubmit = async event => {
-		event.preventDefault()
 		const form = event.currentTarget
+		const valid = form.checkValidity()
+		setValidated(true)
+		event.preventDefault()
+		if (valid) {
+			try {
+				const data = await registerNewUser(
+					username,
+					password,
+					email,
+					phone,
+					name
+				)
+				window.localStorage.setItem('auth', data.auth)
 
-		if (form.checkValidity() === false) {
-			// handle errors
-		} else {
-			setValidated(true)
-			const data = await registerNewUser(username, password, email, phone, name)
-			window.localStorage.setItem('auth', data.auth)
-
-			setUsername('')
-			setPassword('')
-			setEmail('')
-			setPhone('')
-			setName('')
-			setValidated(false)
+				setUsername('')
+				setPassword('')
+				setEmail('')
+				setPhone('')
+				setName('')
+				setValidated(false)
+				navigate('/')
+			} catch (error) {
+				if (error.response.data.message === 'username taken') {
+					addAlert('Käyttäjänimi varattu! Valitse uusi.')
+				} else {
+					addAlert(error.response.data.message)
+				}
+			}
 		}
 	}
 
 	return (
 		<Container fluid="sm">
 			<h2>Luo uusi tunnus</h2>
+			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
 				<FloatingLabel
 					controlId="username"
@@ -47,7 +71,7 @@ const RegistrationForm = () => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Käyttäjänimi ei voi olla tyhjä.
+						Anna vähintään 3 merkkiä pitkä käyttäjänimi!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
@@ -58,6 +82,9 @@ const RegistrationForm = () => {
 						onChange={e => setEmail(e.target.value)}
 						required
 					/>
+					<Form.Control.Feedback type="invalid">
+						Anna validi sähköpostiosoite!
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="password" label="Salasana" className="mb-3">
 					<Form.Control
@@ -68,7 +95,7 @@ const RegistrationForm = () => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Salasana ei voi olla tyhjä.
+						Anna vähintään 10 merkkiä pitkä salasana!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
