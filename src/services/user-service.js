@@ -1,5 +1,5 @@
 import axios from 'axios'
-import BACKEND_URL from '../utils/config'
+import REACT_APP_BACKEND_URL from '../utils/config'
 
 export const registerNewUser = async (
 	username,
@@ -15,23 +15,23 @@ export const registerNewUser = async (
 		phone,
 		name
 	})
-	const request = await axios.post(`${BACKEND_URL}/api/register/`, {
+	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/register/`, {
 		username,
 		password,
 		email,
 		phone,
-		name
+		name,
 	})
-	console.log(request.data)
+	return request.data
 }
 
 export const loginRequest = async (
 	username,
 	password
 ) => {
-	const request = await axios.post(`${BACKEND_URL}/api/login/`, {
+	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/login/`, {
 		username,
-		password
+		password,
 	})
 	console.log(request.data)
 }
