@@ -8,13 +8,6 @@ export const registerNewUser = async (
 	phone,
 	name
 ) => {
-	console.log({
-		username,
-		password,
-		email,
-		phone,
-		name
-	})
 	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/register/`, {
 		username,
 		password,
@@ -25,15 +18,12 @@ export const registerNewUser = async (
 	return request.data
 }
 
-export const loginRequest = async (
-	username,
-	password
-) => {
+export const loginRequest = async (username, password) => {
 	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/login/`, {
 		username,
 		password,
 	})
-	console.log(request.data)
+	return request.data
 }
 
 export default { registerNewUser, loginRequest }

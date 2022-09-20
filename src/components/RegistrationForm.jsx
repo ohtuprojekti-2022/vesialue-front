@@ -34,7 +34,7 @@ const RegistrationForm = () => {
 					phone,
 					name
 				)
-				window.localStorage.setItem('loggedUserDetails', JSON.stringify(data))
+				localStorage.setItem('userDetails', JSON.stringify(data))
 
 				setUsername('')
 				setPassword('')

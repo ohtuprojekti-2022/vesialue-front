@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import RegistrationForm from './components/RegistrationForm'
-import LoginForm from './components/Login/LoginForm'
+import LoginForm from './components/LoginForm'
 
 const App = () => {
 	return (
