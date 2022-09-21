@@ -1,5 +1,8 @@
 FROM node:latest as build-stage
 
+ARG BACKEND_URL
+ENV REACT_APP_BACKEND_URL=$BACKEND_URL
+
 WORKDIR /usr/src/app
 
 COPY . .
