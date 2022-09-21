@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navbar as BNavbar, Nav, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import LogoutButton from './LogoutButton'
 
 const Navbar = () => {
 	const userDetails = JSON.parse(localStorage.getItem('userDetails'))
@@ -23,7 +24,16 @@ const Navbar = () => {
 						<Nav.Link>Etusivu</Nav.Link>
 					</LinkContainer>
 					{userDetails && (
-						<BNavbar.Text>Signed in as: {userDetails.user.username}</BNavbar.Text>
+						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
+							<NavDropdown.Item>
+								<BNavbar.Text>
+									Signed in as: {userDetails.user.username}
+								</BNavbar.Text>
+							</NavDropdown.Item>
+							<NavDropdown.Item>
+								<LogoutButton />
+							</NavDropdown.Item>
+						</NavDropdown>
 					)}
 					{!userDetails && (
 						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
