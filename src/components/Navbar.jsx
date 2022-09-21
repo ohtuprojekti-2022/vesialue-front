@@ -21,6 +21,9 @@ const Navbar = () => {
 					<LinkContainer to="/">
 						<Nav.Link>Etusivu</Nav.Link>
 					</LinkContainer>
+					<LinkContainer to="/sukellus">
+						<Nav.Link>Sukellus</Nav.Link>
+					</LinkContainer>
 					<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
 						<NavDropdown.Item>
 							<LinkContainer to="/kirjaudu">
