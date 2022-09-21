@@ -3,8 +3,7 @@ import { Navbar as BNavbar, Nav, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import LogoutButton from './LogoutButton'
 
-const Navbar = () => {
-	const userDetails = JSON.parse(localStorage.getItem('userDetails'))
+const Navbar = ({ userDetails, setUserDetails }) => {
 	return (
 		<BNavbar className="py-3 px-2" collapseOnSelect>
 			<BNavbar.Brand href="/">
@@ -31,7 +30,7 @@ const Navbar = () => {
 								</BNavbar.Text>
 							</NavDropdown.Item>
 							<NavDropdown.Item>
-								<LogoutButton />
+								<LogoutButton setUserDetails={setUserDetails} />
 							</NavDropdown.Item>
 						</NavDropdown>
 					)}

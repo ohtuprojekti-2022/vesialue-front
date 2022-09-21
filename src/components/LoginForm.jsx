@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Form, FloatingLabel, Button, Alert } from 'react-bootstrap'
 import { loginRequest } from '../services/user-service'
 
-const LoginForm = () => {
+const LoginForm = ({ setUserDetails }) => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [alert, setAlert] = useState(null)
@@ -21,6 +21,7 @@ const LoginForm = () => {
 
 		try {
 			const data = await loginRequest(username, password)
+			setUserDetails(data)
 			localStorage.setItem('userDetails', JSON.stringify(data))
 
 			setUsername('')

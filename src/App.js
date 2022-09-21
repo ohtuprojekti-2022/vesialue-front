@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
@@ -6,13 +6,17 @@ import RegistrationForm from './components/RegistrationForm'
 import LoginForm from './components/LoginForm'
 
 const App = () => {
+	const [userDetails, setUserDetails] = useState(
+		JSON.parse(localStorage.getItem('userDetails'))
+	)
+
 	return (
 		<Container fluid>
-			<Navbar />
+			<Navbar userDetails={userDetails} setUserDetails={setUserDetails} />
 			<Routes>
 				<Route path="/" element={<>Hello world!</>} />
-				<Route path="rekisteroidy" element={<RegistrationForm />} />
-				<Route path="kirjaudu" element={<LoginForm />} />
+				<Route path="rekisteroidy" element={<RegistrationForm setUserDetails={setUserDetails} />} />
+				<Route path="kirjaudu" element={<LoginForm setUserDetails={setUserDetails} />} />
 			</Routes>
 		</Container>
 	)

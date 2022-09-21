@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Form, FloatingLabel, Button, Alert } from 'react-bootstrap'
 import { registerNewUser } from '../services/user-service'
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ setUserDetails }) => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [email, setEmail] = useState('')
@@ -34,6 +34,7 @@ const RegistrationForm = () => {
 					phone,
 					name
 				)
+				setUserDetails(data)
 				localStorage.setItem('userDetails', JSON.stringify(data))
 
 				setUsername('')
