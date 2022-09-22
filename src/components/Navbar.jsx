@@ -22,8 +22,8 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 					<LinkContainer to="/">
 						<Nav.Link>Etusivu</Nav.Link>
 					</LinkContainer>
-					<LinkContainer to="/sukellus">
-						<Nav.Link>Sukellus</Nav.Link>
+					<LinkContainer to="/inventointi">
+						<Nav.Link>Inventointi</Nav.Link>
 					</LinkContainer>
 					{userDetails && (
 						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">

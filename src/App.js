@@ -16,7 +16,7 @@ const App = () => {
 			<Navbar userDetails={userDetails} setUserDetails={setUserDetails} />
 			<Routes>
 				<Route path="/" element={<>Hello world!</>} />
-				<Route path="sukellus" element={<InventoryForm />} />
+				<Route path="inventointi" element={<InventoryForm />} />
 				<Route path="rekisteroidy" element={<RegistrationForm setUserDetails={setUserDetails} />} />
 				<Route path="kirjaudu" element={<LoginForm setUserDetails={setUserDetails} />} />
 			</Routes>

@@ -65,7 +65,7 @@ const InventoryForm = () => {
 
 	return (
 		<Container fluid="sm">
-			<h2>Lisää sukellus</h2>
+			<h2>Lisää inventointi</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
 				<FloatingLabel
