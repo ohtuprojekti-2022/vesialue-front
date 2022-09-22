@@ -3,32 +3,32 @@ import REACT_APP_BACKEND_URL from '../utils/config'
 
 export const addInventory = async (
 	coordinates,
-	time,
+	inventorydate,
 	attachments,
-	methods,
+	method,
 	name,
 	email,
-	phonenumber,
+	phone,
 	other
 ) => {
 	console.log({
 		coordinates,
-		time,
+		inventorydate,
 		attachments,
-		methods,
+		method,
 		name,
 		email,
-		phonenumber,
+		phone,
 		other
 	})
 	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/add_inventory/`, {
 		coordinates,
-		time,
+		inventorydate,
 		attachments,
-		methods,
+		method,
 		name,
 		email,
-		phonenumber,
+		phone,
 		other
 	})
 	return request.data

@@ -6,9 +6,9 @@ import { addInventory } from '../services/inventory-service'
 const InventoryForm = () => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
-	const [phonenumber, setPhonenumber] = useState('')
+	const [phone, setPhone] = useState('')
 	const [coordinates, setCoordinates] = useState('')
-	const [time, setTime] = useState('')
+	const [inventorydate, setInventorydate] = useState('')
 	const [attachments, setAttachments] = useState('')
 	const [method, setMethod] = useState('')
 	const [visibility, setVisibility] = useState('')
@@ -34,36 +34,31 @@ const InventoryForm = () => {
 		event.preventDefault()
 		if (valid) {
 			try {
-				const data = await addInventory(
+				await addInventory(
 					coordinates,
-					time,
+					inventorydate,
 					method,
 					visibility,
 					methodInfo,
 					attachments,
 					name,
 					email,
-					phonenumber,
+					phone,
 					moreInfo
 				)
-				window.localStorage.setItem('auth', data.auth)
 
 				setCoordinates('')
-				setTime('')
+				setInventorydate('')
 				setMethod('')
 				setAttachments('')
 				setName('')
 				setEmail('')
-				setPhonenumber('')
+				setPhone('')
 				setOther('')
 				setValidated(false)
 				navigate('/')
 			} catch (error) {
-				if (error.response.data.message === 'username taken') {
-					addAlert('Käyttäjänimi varattu! Valitse uusi.')
-				} else {
-					addAlert(error.response.data.message)
-				}
+				addAlert(error.response.data.message)
 			}
 		}
 	}
@@ -89,14 +84,14 @@ const InventoryForm = () => {
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
-					controlId="time"
+					controlId="inventorydate"
 					label="Inventoinnin päivämäärä"
 					className="mb-3"
 				>
 					<Form.Control
 						type="date"
-						value={time}
-						onChange={(e) => setTime(e.target.value)}
+						value={inventorydate}
+						onChange={(e) => setInventorydate(e.target.value)}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
@@ -202,8 +197,8 @@ const InventoryForm = () => {
 				>
 					<Form.Control
 						type="phone"
-						value={phonenumber}
-						onChange={(e) => setPhonenumber(e.target.value)}
+						value={phone}
+						onChange={(e) => setPhone(e.target.value)}
 					/>
 				</FloatingLabel>
 				<Button variant="primary" type="submit">
