@@ -9,7 +9,7 @@ const InventoryForm = () => {
 	const [phone, setPhone] = useState('')
 	const [coordinates, setCoordinates] = useState('')
 	const [inventorydate, setInventorydate] = useState('')
-	const [attachments, setAttachments] = useState('')
+	const [attachments, setAttachments] = useState(false)
 	const [method, setMethod] = useState('')
 	const [visibility, setVisibility] = useState('')
 	const [methodInfo, setMethodInfo] = useState('')
@@ -167,7 +167,11 @@ const InventoryForm = () => {
 					</FloatingLabel>
 				)}
 				<Form.Group controlId="attachments" className="mb-3">
-					<Form.Check type="checkbox" label="Minulla on liitetiedosto(ja)" />
+					<Form.Check
+						type="checkbox"
+						label="Minulla on liitetiedosto(ja)"
+						onClick={() => setAttachments(!attachments)}
+					/>
 				</Form.Group>
 				<FloatingLabel controlId="other" label="Muuta tietoa" className="mb-3">
 					<Form.Control
