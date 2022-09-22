@@ -107,6 +107,7 @@ const InventoryForm = () => {
 						id="sight"
 						onChange={handleMethodChange}
 						value="sight"
+						required
 					/>
 					<Form.Check
 						inline
@@ -162,7 +163,7 @@ const InventoryForm = () => {
 							required
 						/>
 						<Form.Control.Feedback type="invalid">
-							Anna sukelluksen koordinaatit!
+							Anna inventointimenetelmän tiedot!
 						</Form.Control.Feedback>
 					</FloatingLabel>
 				)}
