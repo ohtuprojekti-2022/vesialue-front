@@ -66,28 +66,28 @@ const InventoryForm = () => {
 		<Container fluid="sm">
 			<h2>Lisää sukellus</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
-		    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-				<FloatingLabel controlId="coordinates" label="Koordinaatit"	className="mb-3">
+			<Form noValidate validated={validated} onSubmit={handleSubmit}>
+				<FloatingLabel controlId="coordinates" label="Koordinaatit" className="mb-3">
 					<Form.Control
 						type="text"
 						value={coordinates}
 						onChange={e => setCoordinates(e.target.value)}
 						required
-				    />
-				    <Form.Control.Feedback type="invalid">
+					/>
+					<Form.Control.Feedback type="invalid">
 						Anna sukelluksen koordinaatit!
-				    </Form.Control.Feedback>
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="time" label="Aika" className="mb-3">
-				    <Form.Control
-						type="text"
+					<Form.Control
+						type="datetime-local"
 						value={time}
 						onChange={e => setTime(e.target.value)}
 						required
-				    />
-				    <Form.Control.Feedback type="invalid">
+					/>
+					<Form.Control.Feedback type="invalid">
 						Anna sukelluksen ajankohta!
-				    </Form.Control.Feedback>
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<Form.Group controlId="methods" className="mb-3">
 					{['checkbox'].map((type) => (
@@ -121,41 +121,41 @@ const InventoryForm = () => {
 					))}
 					<Form.Control.Feedback type="invalid">
 						Anna menetelmä!
-				    </Form.Control.Feedback>
+					</Form.Control.Feedback>
 				</Form.Group>
 				<Form.Group controlId="attachments" className="mb-3">
 					<Form.Check type="checkbox" label="Lisää liitetiedosto" />
 				</Form.Group>
 				<FloatingLabel controlId="other" label="Muuta tietoa" className="mb-3">
-				    <Form.Control
+					<Form.Control
 						type="text"
 						value={other}
 						onChange={e => setOther(e.target.value)}
-				    />
+					/>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
 					<Form.Control
 						type="text"
 						value={name}
 						onChange={e => setName(e.target.value)}
-				    />
+					/>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
 					<Form.Control
 						type="email"
 						value={email}
 						onChange={e => setEmail(e.target.value)}
-				    />
+					/>
 				</FloatingLabel>
 				<FloatingLabel controlId="phonenumber" label="Puhelinnumero" className="mb-3">
 					<Form.Control
 						type="phone"
 						value={phonenumber}
 						onChange={e => setPhonenumber(e.target.value)}
-				    />
+					/>
 				</FloatingLabel>
 				<Button variant="primary" type="submit">
-				    Lähetä
+					Lähetä
 				</Button>
 			</Form>
 		</Container>
