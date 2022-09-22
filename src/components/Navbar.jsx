@@ -22,6 +22,9 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 					<LinkContainer to="/">
 						<Nav.Link>Etusivu</Nav.Link>
 					</LinkContainer>
+					<LinkContainer to="/inventointi">
+						<Nav.Link>Inventointi</Nav.Link>
+					</LinkContainer>
 					{userDetails && (
 						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
 							<NavDropdown.Item>
@@ -48,6 +51,7 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 							</NavDropdown.Item>
 						</NavDropdown>
 					)}
+					
 				</Nav>
 			</BNavbar.Collapse>
 		</BNavbar>

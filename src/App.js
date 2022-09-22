@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import InventoryForm from './components/InventoryForm'
 import RegistrationForm from './components/RegistrationForm'
 import LoginForm from './components/LoginForm'
 
@@ -15,6 +16,7 @@ const App = () => {
 			<Navbar userDetails={userDetails} setUserDetails={setUserDetails} />
 			<Routes>
 				<Route path="/" element={<>Hello world!</>} />
+				<Route path="inventointi" element={<InventoryForm />} />
 				<Route path="rekisteroidy" element={<RegistrationForm setUserDetails={setUserDetails} />} />
 				<Route path="kirjaudu" element={<LoginForm setUserDetails={setUserDetails} />} />
 			</Routes>
