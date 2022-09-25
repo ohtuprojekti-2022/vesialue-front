@@ -17,5 +17,5 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_STAG_NAME }}
           dockerfile_directory: ./
           dockerfile_name: Dockerfile
-          docker_options: "--no-cache"
+          docker_options: "--no-cache --build-arg BACKEND_URL=${{ secrets.BACKEND_URL_STAG }}"
           process_type: web
