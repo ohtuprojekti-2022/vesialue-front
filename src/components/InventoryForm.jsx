@@ -13,7 +13,7 @@ const InventoryForm = () => {
 	const [method, setMethod] = useState('')
 	const [visibility, setVisibility] = useState('')
 	const [methodInfo, setMethodInfo] = useState('')
-	const [moreInfo, setOther] = useState('')
+	const [more_info, setMoreInfo] = useState('')
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 	const navigate = useNavigate()
@@ -44,7 +44,7 @@ const InventoryForm = () => {
 					name,
 					email,
 					phone,
-					moreInfo
+					more_info
 				)
 
 				setCoordinates('')
@@ -54,7 +54,7 @@ const InventoryForm = () => {
 				setName('')
 				setEmail('')
 				setPhone('')
-				setOther('')
+				setMoreInfo('')
 				setValidated(false)
 				navigate('/')
 			} catch (error) {
@@ -174,11 +174,11 @@ const InventoryForm = () => {
 						onClick={() => setAttachments(!attachments)}
 					/>
 				</Form.Group>
-				<FloatingLabel controlId="other" label="Muuta tietoa" className="mb-3">
+				<FloatingLabel controlId="more_info" label="Muuta tietoa" className="mb-3">
 					<Form.Control
 						type="text"
-						value={moreInfo}
-						onChange={(e) => setOther(e.target.value)}
+						value={more_info}
+						onChange={(e) => setMoreInfo(e.target.value)}
 					/>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
