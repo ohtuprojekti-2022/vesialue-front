@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches-ignore: [ "staging", "main" ]
+    branches-ignore: ['staging', 'main']
   pull_request:
-    branches: [ "staging" , "main" ]
+    branches: ['staging', 'main']
   workflow_call:
 
 jobs:
