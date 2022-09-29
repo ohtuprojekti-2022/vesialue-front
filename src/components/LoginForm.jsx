@@ -6,6 +6,7 @@ import { loginRequest } from '../services/user-service'
 const LoginForm = ({ setUserDetails }) => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
+	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 	const navigate = useNavigate()
 
@@ -17,21 +18,26 @@ const LoginForm = ({ setUserDetails }) => {
 	}
 
 	const handleSubmit = async event => {
+		const form = event.currentTarget
+		const valid = form.checkValidity()
+		setValidated(true)
 		event.preventDefault()
+		if (valid) {
+			try {
+				const data = await loginRequest(username, password)
+				setUserDetails(data)
+				localStorage.setItem('userDetails', JSON.stringify(data))
 
-		try {
-			const data = await loginRequest(username, password)
-			setUserDetails(data)
-			localStorage.setItem('userDetails', JSON.stringify(data))
-
-			setUsername('')
-			setPassword('')
-			navigate('/')
-		} catch (error) {
-			if (error.response.data.message === 'incorrect username or password') {
-				addAlert('Väärä käyttäjänimi tai salasana')
-			} else {
-				addAlert(error.response.data.message)
+				setUsername('')
+				setPassword('')
+				setValidated(false)
+				navigate('/')
+			} catch (error) {
+				if (error.response.data.message === 'incorrect username or password') {
+					addAlert('Väärä käyttäjänimi tai salasana')
+				} else {
+					addAlert(error.response.data.message)
+				}
 			}
 		}
 	}
@@ -40,7 +46,7 @@ const LoginForm = ({ setUserDetails }) => {
 		<Container fluid="sm">
 			<h2>Kirjaudu sisään</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
-			<Form onSubmit={handleSubmit}>
+			<Form noValidate validated={validated} onSubmit={handleSubmit}>
 				<FloatingLabel
 					controlId="username"
 					label="Käyttäjätunnus"
@@ -52,6 +58,9 @@ const LoginForm = ({ setUserDetails }) => {
 						onChange={e => setUsername(e.target.value)}
 						required
 					/>
+					<Form.Control.Feedback type="invalid">
+						Anna käyttäjänimi!
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="password" label="Salasana" className="mb-3">
 					<Form.Control
@@ -60,6 +69,9 @@ const LoginForm = ({ setUserDetails }) => {
 						onChange={e => setPassword(e.target.value)}
 						required
 					/>
+					<Form.Control.Feedback type="invalid">
+						Anna salasana!
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<Button variant="primary" type="submit">
 					Kirjaudu
