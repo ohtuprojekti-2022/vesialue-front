@@ -55,7 +55,7 @@ const RegistrationForm = ({ setUserDetails }) => {
 	}
 
 	return (
-		<Container fluid="sm" data-testid='registration-form'>
+		<Container fluid="sm" data-testid="registration-form">
 			<h2>Luo uusi tunnus</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			{localStorage.getItem('userDetails') && (
@@ -71,6 +71,7 @@ const RegistrationForm = ({ setUserDetails }) => {
 						className="mb-3"
 					>
 						<Form.Control
+							data-testid="username"
 							type="text"
 							placeholder="Käyttäjänimi"
 							value={username}
@@ -83,6 +84,7 @@ const RegistrationForm = ({ setUserDetails }) => {
 					</FloatingLabel>
 					<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
 						<Form.Control
+							data-testid="email"
 							type="email"
 							placeholder="Sähköposti"
 							value={email}
@@ -95,6 +97,7 @@ const RegistrationForm = ({ setUserDetails }) => {
 					</FloatingLabel>
 					<FloatingLabel controlId="password" label="Salasana" className="mb-3">
 						<Form.Control
+							data-testid="password"
 							type="password"
 							placeholder="Salasana"
 							value={password}
@@ -111,6 +114,7 @@ const RegistrationForm = ({ setUserDetails }) => {
 						className="mb-3"
 					>
 						<Form.Control
+							data-testid="name"
 							type="text"
 							placeholder="Etu- ja sukunimi"
 							value={name}
@@ -123,13 +127,14 @@ const RegistrationForm = ({ setUserDetails }) => {
 						className="mb-3"
 					>
 						<Form.Control
+							data-testid="phone"
 							type="phone"
 							placeholder="Puhelinnumero"
 							value={phone}
 							onChange={e => setPhone(e.target.value)}
 						/>
 					</FloatingLabel>
-					<Button variant="primary" type="submit">
+					<Button variant="primary" type="submit" data-testid="submit">
 						Rekisteröidy
 					</Button>
 				</Form>
