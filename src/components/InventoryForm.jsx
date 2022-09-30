@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Form, FloatingLabel, Button, Alert } from 'react-bootstrap'
 import { addInventory } from '../services/inventory-service'
+import Map from './Map'
 
 const InventoryForm = () => {
 	const [name, setName] = useState('')
@@ -206,6 +207,10 @@ const InventoryForm = () => {
 						onChange={(e) => setPhone(e.target.value)}
 					/>
 				</FloatingLabel>
+				<p>
+					<Map/>
+				</p>
+				
 				<Button variant="primary" type="submit">
 					Lähetä
 				</Button>

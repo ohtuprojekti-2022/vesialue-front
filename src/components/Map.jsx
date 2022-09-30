@@ -4,7 +4,7 @@ import { EditControl } from 'react-leaflet-draw'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 
-const MapDemo = () => {
+const Map = () => {
 	const [mapLayers, setMapLayers] = useState([])
 
 	const center = {
@@ -80,4 +80,4 @@ const MapDemo = () => {
 	)
 }
 
-export default MapDemo
+export default Map
