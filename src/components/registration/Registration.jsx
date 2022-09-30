@@ -56,7 +56,7 @@ const Registration = ({ setUserDetails }) => {
 	}
 
 	return (
-		<Container fluid="sm" data-testid="registration-form">
+		<Container fluid="sm">
 			<h2>Luo uusi tunnus</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			{localStorage.getItem('userDetails') && (

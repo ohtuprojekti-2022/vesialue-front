@@ -11,7 +11,7 @@ const RegistrationForm = ({
 	setPhone,
 }) => {
 	return (
-		<Form noValidate validated={validated} onSubmit={handleSubmit}>
+		<Form noValidate validated={validated} onSubmit={handleSubmit} data-testid="registration-form">
 			<FloatingLabel controlId="username" label="Käyttäjänimi" className="mb-3">
 				<Form.Control
 					data-testid="username"
