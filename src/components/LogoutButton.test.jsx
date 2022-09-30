@@ -16,7 +16,7 @@ describe('LogoutButton', () => {
 			username: 'testperson',
 		},
 	})
-	const setUserDetails = (newUserDetails) => {
+	const setUserDetails = newUserDetails => {
 		userDetails = newUserDetails
 	}
 
@@ -41,10 +41,10 @@ describe('LogoutButton', () => {
 			</MemoryRouter>
 		)
 		const button = screen.getByTestId('logout-button')
-        expect(localStorage.getItem('userDetails')).not.toBeNull()
+		expect(localStorage.getItem('userDetails')).not.toBeNull()
 		act(() => {
 			button.click()
 		})
-        expect(localStorage.getItem('userDetails')).toBeNull()
+		expect(localStorage.getItem('userDetails')).toBeNull()
 	})
 })
