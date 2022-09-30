@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import InventoryForm from './components/InventoryForm'
 import RegistrationForm from './components/RegistrationForm'
-import LoginForm from './components/LoginForm'
+import Login from './components/login/Login'
 import MapDemo from './components/MapDemo'
 
 const Hello = ({ userDetails }) => {
@@ -33,7 +33,7 @@ const App = () => {
 				/>
 				<Route
 					path="kirjaudu"
-					element={<LoginForm setUserDetails={setUserDetails} />}
+					element={<Login setUserDetails={setUserDetails} />}
 				/>
 				<Route path="kartta-demo" element={<MapDemo />} />
 			</Routes>
