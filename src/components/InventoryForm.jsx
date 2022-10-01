@@ -8,7 +8,6 @@ const InventoryForm = () => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [phone, setPhone] = useState('')
-	const [coordinates, setCoordinates] = useState('')
 	const [inventorydate, setInventorydate] = useState('')
 	const [attachments, setAttachments] = useState(false)
 	const [method, setMethod] = useState('')
@@ -17,6 +16,7 @@ const InventoryForm = () => {
 	const [moreInfo, setOther] = useState('')
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
+	const [mapLayers, setMapLayers] = useState([])
 	const navigate = useNavigate()
 
 	const addAlert = (text) => {
@@ -36,7 +36,7 @@ const InventoryForm = () => {
 		if (valid) {
 			try {
 				await addInventory(
-					coordinates,
+					JSON.stringify(mapLayers),
 					inventorydate,
 					method,
 					visibility,
@@ -48,7 +48,6 @@ const InventoryForm = () => {
 					moreInfo
 				)
 
-				setCoordinates('')
 				setInventorydate('')
 				setMethod('')
 				setAttachments('')
@@ -76,8 +75,7 @@ const InventoryForm = () => {
 				>
 					<Form.Control
 						type="text"
-						value={coordinates}
-						onChange={(e) => setCoordinates(e.target.value)}
+						value={JSON.stringify(mapLayers)}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
@@ -207,9 +205,9 @@ const InventoryForm = () => {
 						onChange={(e) => setPhone(e.target.value)}
 					/>
 				</FloatingLabel>
-				<p>
-					<Map/>
-				</p>
+				
+				<Map setMapLayers={setMapLayers}/>
+				
 				
 				<Button variant="primary" type="submit">
 					Lähetä
