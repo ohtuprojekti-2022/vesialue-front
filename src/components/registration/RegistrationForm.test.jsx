@@ -3,17 +3,19 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import { act } from 'react-dom/test-utils'
 import RegistrationForm from './RegistrationForm'
 
 
 describe('Registration Form', () => {
 	const mockHandleSubmit = jest.fn()
 	const mockSetUsername = jest.fn()
+	const mockSetPassword = jest.fn()
 	const mockSetEmail = jest.fn()
+	const mockSetName = jest.fn()
+	const mockSetPhone = jest.fn()
 	const mockValidated = jest.fn()
 
-	let username, email, password, submitButton
+	let username, email, password, name, phone, submitButton
 
 	beforeEach(() => {
 		render(
@@ -22,12 +24,17 @@ describe('Registration Form', () => {
 					handleSubmit={mockHandleSubmit}
 					validated={mockValidated}
 					setUsername={mockSetUsername}
-					setEmail={mockSetEmail} />
+					setPassword={mockSetPassword}
+					setEmail={mockSetEmail}
+					setName={mockSetName}
+					setPhone={mockSetPhone} />
 			</MemoryRouter>
 		)
 		username = screen.getByTestId('username')
 		email = screen.getByTestId('email')
 		password = screen.getByTestId('password')
+		name = screen.getByTestId('name')
+		phone = screen.getByTestId('phone')
 		submitButton = screen.getByTestId('submit')
 
 		mockHandleSubmit.mockImplementation(e => {
@@ -36,8 +43,8 @@ describe('Registration Form', () => {
 	})
 
 	test('renders the registration form', () => {
-		const element = screen.getByTestId('registration-form')
-		expect(element).toBeDefined()
+		const form = screen.getByTestId('registration-form')
+		expect(form).toBeDefined()
 	})
 
 	test('no user details stored before registration', () => {
@@ -45,39 +52,48 @@ describe('Registration Form', () => {
 	})
 
 	test('username is required', async () => {
-		act(() => {
-			submitButton.click()
-		})
 		expect(username).toBeRequired()
 		expect(username).toBeInvalid()
-		expect(screen.getByText('Anna vähintään 3 merkkiä pitkä käyttäjänimi!')).toBeVisible()
+
+		const user = userEvent.setup()
+		await user.type(username, 'testuser')
+		expect(username).toBeValid()
 	})
 
 	test('password is required', async () => {
-		act(() => {
-			submitButton.click()
-		})
 		expect(password).toBeRequired()
 		expect(password).toBeInvalid()
-		expect(screen.getByText('Anna vähintään 10 merkkiä pitkä salasana!')).toBeVisible()
+
+		const user = userEvent.setup()
+		await user.type(password, 'testpassword')
+		expect(password).toBeValid()
 	})
 
 	test('email address is required', async () => {
-		act(() => {
-			submitButton.click()
-		})
 		expect(email).toBeRequired()
 		expect(email).toBeInvalid()
-		expect(screen.getByText('Anna validi sähköpostiosoite!')).toBeVisible()
 	})
 
 	test('email address must be in the correct format', async () => {
 		const user = userEvent.setup()
-		await user.type(email, 'invalid.mail.com')
-
-		act(() => {
-			submitButton.click()
-		})
+		await user.type(email, 'invalid.testmail.com')
 		expect(email).toBeInvalid()
+
+		await user.clear(email)
+		await user.type(email, 'valid@testmail.com')
+		expect(email).toBeValid()
+	})
+
+	test('name and phone number are not required', async () => {
+		expect(name).not.toBeRequired()
+		expect(phone).not.toBeRequired()
+		expect(name).toBeValid()
+		expect(phone).toBeValid()
+	})
+
+	test('submit handler is called on submit', async () => {
+		const user = userEvent.setup()
+		await user.click(submitButton)
+		expect(mockHandleSubmit).toBeCalledTimes(1)
 	})
 })
