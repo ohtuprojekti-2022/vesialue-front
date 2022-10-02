@@ -3,7 +3,7 @@ import { Form, FloatingLabel, Button } from 'react-bootstrap'
 
 const LoginForm = ({ validated, handleSubmit, setUsername, setPassword }) => {
 	return (
-		<Form noValidate validated={validated} onSubmit={handleSubmit}>
+		<Form noValidate validated={validated} onSubmit={handleSubmit}  data-testid="login-form">
 			<FloatingLabel
 				controlId="username"
 				label="Käyttäjätunnus"
@@ -14,6 +14,7 @@ const LoginForm = ({ validated, handleSubmit, setUsername, setPassword }) => {
 					placeholder="Käyttäjätunnus"
 					onChange={(e) => setUsername(e.target.value)}
 					required
+					data-testid="user-name"
 				/>
 				<Form.Control.Feedback type="invalid">
 					Anna käyttäjänimi!
@@ -25,12 +26,13 @@ const LoginForm = ({ validated, handleSubmit, setUsername, setPassword }) => {
 					placeholder="Salasana"
 					onChange={(e) => setPassword(e.target.value)}
 					required
+					data-testid="pass-word"
 				/>
 				<Form.Control.Feedback type="invalid">
 					Anna salasana!
 				</Form.Control.Feedback>
 			</FloatingLabel>
-			<Button variant="primary" type="submit">
+			<Button variant="primary" type="submit" data-testid="loginbutton">
 				Kirjaudu
 			</Button>
 		</Form>
