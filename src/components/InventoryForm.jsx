@@ -58,7 +58,7 @@ const InventoryForm = () => {
 				setValidated(false)
 				navigate('/')
 			} catch (error) {
-				addAlert(error.response.data.message)
+				addAlert(error.toString())
 			}
 		}
 	}
@@ -193,7 +193,11 @@ const InventoryForm = () => {
 						type="email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						required
 					/>
+					<Form.Control.Feedback type="invalid">
+						Anna sähköposti!
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
 					controlId="phonenumber"
