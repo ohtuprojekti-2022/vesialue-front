@@ -13,9 +13,9 @@ describe('Registration Form', () => {
 	const mockSetEmail = jest.fn()
 	const mockSetName = jest.fn()
 	const mockSetPhone = jest.fn()
-	const mockValidated = jest.fn()
+	const mockValidated = true
 
-	let username, email, password, name, phone, submitButton
+	let form, username, email, password, name, phone, submitButton
 
 	beforeEach(() => {
 		render(
@@ -30,6 +30,7 @@ describe('Registration Form', () => {
 					setPhone={mockSetPhone} />
 			</MemoryRouter>
 		)
+		form = screen.getByTestId('registration-form')
 		username = screen.getByTestId('username')
 		email = screen.getByTestId('email')
 		password = screen.getByTestId('password')
@@ -43,7 +44,6 @@ describe('Registration Form', () => {
 	})
 
 	test('renders the registration form', () => {
-		const form = screen.getByTestId('registration-form')
 		expect(form).toBeDefined()
 	})
 
@@ -89,6 +89,17 @@ describe('Registration Form', () => {
 		expect(phone).not.toBeRequired()
 		expect(name).toBeValid()
 		expect(phone).toBeValid()
+	})
+
+	test('the form is valid if all required fields are filled', async () => {
+		expect(form).toBeInvalid()
+
+		const user = userEvent.setup()
+		await user.type(username, 'testuser')
+		await user.type(email, 'react@test.com')
+		await user.type(password, 'testpassword')
+
+		expect(form).toBeValid()
 	})
 
 	test('submit handler is called on submit', async () => {
