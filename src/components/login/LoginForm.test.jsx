@@ -7,14 +7,13 @@ import userEvent from '@testing-library/user-event'
 
 
 describe('Login Form', () => {
-	const mockValidated = true
+
+    const mockValidated = true
     const mockHandleSubmit = jest.fn()
     const mockSetUsername = jest.fn()
     const mockSetPassword = jest.fn()
 
 	beforeEach(() => {
-
-
         render(
             <MemoryRouter>
                 <LoginForm 
