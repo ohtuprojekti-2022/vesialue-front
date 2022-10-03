@@ -64,7 +64,7 @@ const InventoryForm = () => {
 	}
 
 	return (
-		<Container fluid="sm">
+		<Container fluid="sm" data-testid="inventory-form">
 			<h2>Lisää inventointi</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -74,6 +74,7 @@ const InventoryForm = () => {
 					className="mb-3"
 				>
 					<Form.Control
+						data-testid="coordinates"
 						type="text"
 						value={coordinates}
 						onChange={(e) => setCoordinates(e.target.value)}
@@ -89,6 +90,7 @@ const InventoryForm = () => {
 					className="mb-3"
 				>
 					<Form.Control
+						data-testid="date"
 						type="date"
 						value={inventorydate}
 						onChange={(e) => setInventorydate(e.target.value)}
@@ -100,6 +102,7 @@ const InventoryForm = () => {
 				</FloatingLabel>
 				<div key="method" className="mb-3">
 					<Form.Check
+						data-testid="method"
 						inline
 						label="Näköhavainto"
 						name="method"
@@ -110,6 +113,7 @@ const InventoryForm = () => {
 						required
 					/>
 					<Form.Check
+						data-testid="echo"
 						inline
 						label="Viistokaiutus"
 						name="method"
@@ -119,6 +123,7 @@ const InventoryForm = () => {
 						value="echo"
 					/>
 					<Form.Check
+						data-testid="dive"
 						inline
 						label="Sukellus"
 						name="method"
@@ -128,6 +133,7 @@ const InventoryForm = () => {
 						value="dive"
 					/>
 					<Form.Check
+						data-testid="other"
 						inline
 						label="Muu, mikä?"
 						name="method"
@@ -141,6 +147,7 @@ const InventoryForm = () => {
 					<Form.Group className="mb-3" controlId="formBasicEmail">
 						<Form.Label>Näkyvyys vedessä</Form.Label>
 						<Form.Select
+							data-testid="visibility"
 							onChange={(e) => setVisibility(e.target.value)}
 							aria-label="Default select example"
 						>
@@ -157,6 +164,7 @@ const InventoryForm = () => {
 						className="mb-3"
 					>
 						<Form.Control
+							data-testid="other_info"
 							type="text"
 							value={methodInfo}
 							onChange={(e) => setMethodInfo(e.target.value)}
@@ -169,6 +177,7 @@ const InventoryForm = () => {
 				)}
 				<Form.Group controlId="attachments" className="mb-3">
 					<Form.Check
+						data-testid="attachments"
 						type="checkbox"
 						label="Minulla on liitetiedosto(ja)"
 						onClick={() => setAttachments(!attachments)}
@@ -176,6 +185,7 @@ const InventoryForm = () => {
 				</Form.Group>
 				<FloatingLabel controlId="more_info" label="Muuta tietoa" className="mb-3">
 					<Form.Control
+						data-testid="more_info"
 						type="text"
 						value={more_info}
 						onChange={(e) => setMoreInfo(e.target.value)}
@@ -183,6 +193,7 @@ const InventoryForm = () => {
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
 					<Form.Control
+						data-testid="name"
 						type="text"
 						value={name}
 						onChange={(e) => setName(e.target.value)}
@@ -190,6 +201,7 @@ const InventoryForm = () => {
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
 					<Form.Control
+						data-testid="email"
 						type="email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
@@ -205,12 +217,13 @@ const InventoryForm = () => {
 					className="mb-3"
 				>
 					<Form.Control
+						data-testid="phone"
 						type="phone"
 						value={phone}
 						onChange={(e) => setPhone(e.target.value)}
 					/>
 				</FloatingLabel>
-				<Button variant="primary" type="submit">
+				<Button variant="primary" type="submit" data-testid="submit">
 					Lähetä
 				</Button>
 			</Form>
