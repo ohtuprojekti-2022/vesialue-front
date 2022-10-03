@@ -47,7 +47,7 @@ const Map = ({ setMapLayers }) => {
 	}
 
 	return (
-		<div>
+		<p>
 			<MapContainer
 				style={{ height: '500px', width: '100%' }}
 				center={center}
@@ -74,7 +74,7 @@ const Map = ({ setMapLayers }) => {
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 				/>
 			</MapContainer>
-		</div>
+		</p>
 	)
 }
 

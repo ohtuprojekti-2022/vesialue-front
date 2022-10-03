@@ -68,20 +68,7 @@ const InventoryForm = () => {
 			<h2>Lisää inventointi</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
-				<FloatingLabel
-					controlId="coordinates"
-					label="Koordinaatit"
-					className="mb-3"
-				>
-					<Form.Control
-						type="text"
-						value={JSON.stringify(mapLayers)}
-						required
-					/>
-					<Form.Control.Feedback type="invalid">
-						Anna sukelluksen koordinaatit!
-					</Form.Control.Feedback>
-				</FloatingLabel>
+				<Map setMapLayers={setMapLayers}/>
 				<FloatingLabel
 					controlId="inventorydate"
 					label="Inventoinnin päivämäärä"
@@ -205,10 +192,7 @@ const InventoryForm = () => {
 						onChange={(e) => setPhone(e.target.value)}
 					/>
 				</FloatingLabel>
-				
-				<Map setMapLayers={setMapLayers}/>
-				
-				
+
 				<Button variant="primary" type="submit">
 					Lähetä
 				</Button>
