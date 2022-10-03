@@ -48,6 +48,8 @@ const Registration = ({ setUserDetails }) => {
 			} catch (error) {
 				if (error.response.data.message === 'username taken') {
 					addAlert('Käyttäjänimi varattu! Valitse uusi.')
+				} else if (error.response.data.message === 'email taken') {
+					addAlert('Sähköpostiosoite on jo käytössä! Valitse uusi.')
 				} else {
 					addAlert(error.response.data.message)
 				}
