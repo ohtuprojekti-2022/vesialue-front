@@ -31,12 +31,12 @@ describe('Registration Form', () => {
 			</MemoryRouter>
 		)
 		form = screen.getByTestId('registration-form')
-		username = screen.getByTestId('username')
-		email = screen.getByTestId('email')
-		password = screen.getByTestId('password')
-		name = screen.getByTestId('name')
-		phone = screen.getByTestId('phone')
-		submitButton = screen.getByTestId('submit')
+		username = screen.getByRole('textbox', {  name: /käyttäjänimi/i })
+		email = screen.getByRole('textbox', { name: /sähköposti/i })
+		password = screen.getByLabelText(/salasana/i)
+		name = screen.getByRole('textbox', {  name: /etu- ja sukunimi/i })
+		phone = screen.getByRole('textbox', {  name: /puhelinnumero/i })
+		submitButton = screen.getByRole('button', {  name: /rekisteröidy/i } )
 
 		mockHandleSubmit.mockImplementation(e => {
 			e.preventDefault()
