@@ -14,7 +14,6 @@ const RegistrationForm = ({
 		<Form noValidate validated={validated} onSubmit={handleSubmit} data-testid="registration-form">
 			<FloatingLabel controlId="username" label="Käyttäjänimi" className="mb-3">
 				<Form.Control
-					data-testid="username"
 					type="text"
 					placeholder="Käyttäjänimi"
 					onChange={(e) => setUsername(e.target.value)}
@@ -26,7 +25,6 @@ const RegistrationForm = ({
 			</FloatingLabel>
 			<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
 				<Form.Control
-					data-testid="email"
 					type="email"
 					placeholder="Sähköposti"
 					onChange={(e) => setEmail(e.target.value)}
@@ -38,7 +36,6 @@ const RegistrationForm = ({
 			</FloatingLabel>
 			<FloatingLabel controlId="password" label="Salasana" className="mb-3">
 				<Form.Control
-					data-testid="password"
 					type="password"
 					placeholder="Salasana"
 					onChange={(e) => setPassword(e.target.value)}
@@ -50,7 +47,6 @@ const RegistrationForm = ({
 			</FloatingLabel>
 			<FloatingLabel controlId="name" label="Etu- ja sukunimi" className="mb-3">
 				<Form.Control
-					data-testid="name"
 					type="text"
 					placeholder="Etu- ja sukunimi"
 					onChange={(e) => setName(e.target.value)}
@@ -58,7 +54,6 @@ const RegistrationForm = ({
 			</FloatingLabel>
 			<FloatingLabel controlId="phone" label="Puhelinnumero" className="mb-3">
 				<Form.Control
-					data-testid="phone"
 					type="phone"
 					placeholder="Puhelinnumero"
 					onChange={(e) => setPhone(e.target.value)}
