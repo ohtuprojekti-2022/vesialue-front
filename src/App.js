@@ -3,8 +3,18 @@ import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import InventoryForm from './components/InventoryForm'
-import RegistrationForm from './components/RegistrationForm'
-import LoginForm from './components/LoginForm'
+import Registration from './components/registration/Registration'
+import Login from './components/login/Login'
+import MapDemo from './components/MapDemo'
+
+const Hello = ({ userDetails }) => {
+	return (
+		<>
+			Hello{' '}
+			{userDetails ? userDetails.user.username : !userDetails && 'world'}!
+		</>
+	)
+}
 
 const App = () => {
 	const [userDetails, setUserDetails] = useState(
@@ -15,10 +25,17 @@ const App = () => {
 		<Container fluid>
 			<Navbar userDetails={userDetails} setUserDetails={setUserDetails} />
 			<Routes>
-				<Route path="/" element={<>Hello world!</>} />
-				<Route path="inventointi" element={<InventoryForm />} />
-				<Route path="rekisteroidy" element={<RegistrationForm setUserDetails={setUserDetails} />} />
-				<Route path="kirjaudu" element={<LoginForm setUserDetails={setUserDetails} />} />
+				<Route path="/" element={<Hello userDetails={userDetails} />} />
+				<Route path="inventointi-ilmoitus" element={<InventoryForm />} />
+				<Route
+					path="rekisteroidy"
+					element={<Registration setUserDetails={setUserDetails} />}
+				/>
+				<Route
+					path="kirjaudu"
+					element={<Login setUserDetails={setUserDetails} />}
+				/>
+				<Route path="kartta-demo" element={<MapDemo />} />
 			</Routes>
 		</Container>
 	)

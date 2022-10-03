@@ -2,8 +2,8 @@
 
 Vesialueen inventointi-ilmoitus frontend
 
-- Production branch: main
-- Staging branch: staging
+- Production branch: main ![Tests](https://github.com/ohtuprojekti-2022/vesialue-front/actions/workflows/tests.yml/badge.svg?branch=main)
+- Staging branch: staging ![Tests](https://github.com/ohtuprojekti-2022/vesialue-front/actions/workflows/tests.yml/badge.svg?branch=staging)
 
 ## Heroku
 - [Staging](https://vesialue-front-staging.herokuapp.com)
@@ -14,6 +14,11 @@ There are GitHub Actions building and pushing the Docker containers to Heroku on
 ## Installation
 
 Requires Node version 16 or newer and npm.
+
+Provide environment variables by creating an `.env` file at the root of the project:
+```bash
+REACT_APP_BACKEND_URL=<Backend URL>
+```
 
 Install depedencies and start the application with the following commands:
 
