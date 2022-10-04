@@ -15,6 +15,7 @@ const RegistrationForm = ({
 			<FloatingLabel controlId="username" label="Käyttäjänimi" className="mb-3">
 				<Form.Control
 					type="text"
+					minLength="3"
 					placeholder="Käyttäjänimi"
 					onChange={(e) => setUsername(e.target.value)}
 					required
@@ -28,6 +29,7 @@ const RegistrationForm = ({
 					type="email"
 					placeholder="Sähköposti"
 					onChange={(e) => setEmail(e.target.value)}
+					pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
@@ -37,6 +39,7 @@ const RegistrationForm = ({
 			<FloatingLabel controlId="password" label="Salasana" className="mb-3">
 				<Form.Control
 					type="password"
+					minLength="10"
 					placeholder="Salasana"
 					onChange={(e) => setPassword(e.target.value)}
 					required
