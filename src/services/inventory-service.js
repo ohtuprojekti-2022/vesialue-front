@@ -11,19 +11,9 @@ export const addInventory = async (
 	name,
 	email,
 	phone,
-	more_info
+	moreInfo
 ) => {
-	console.log({
-		coordinates,
-		inventorydate,
-		attachments,
-		method,
-		name,
-		email,
-		phone,
-		more_info
-	})
-	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/add_inventory/`, {
+	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/inventory/`, {
 		coordinates,
 		inventorydate,
 		method,
@@ -33,7 +23,7 @@ export const addInventory = async (
 		name,
 		email,
 		phone,
-		more_info
+		moreInfo
 	})
 	return request.data
 }

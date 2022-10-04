@@ -13,7 +13,7 @@ const InventoryForm = () => {
 	const [method, setMethod] = useState('')
 	const [visibility, setVisibility] = useState('')
 	const [methodInfo, setMethodInfo] = useState('')
-	const [more_info, setMoreInfo] = useState('')
+	const [moreInfo, setMoreInfo] = useState('')
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 	const [mapLayers, setMapLayers] = useState([])
@@ -36,7 +36,7 @@ const InventoryForm = () => {
 		if (valid) {
 			try {
 				await addInventory(
-					JSON.stringify(mapLayers),
+					mapLayers.map(layer => layer.latlngs),
 					inventorydate,
 					method,
 					visibility,
@@ -45,7 +45,7 @@ const InventoryForm = () => {
 					name,
 					email,
 					phone,
-					more_info
+					moreInfo
 				)
 
 				setInventorydate('')
@@ -68,7 +68,7 @@ const InventoryForm = () => {
 			<h2>Lisää inventointi</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
-				<Map setMapLayers={setMapLayers}/>
+				<Map setMapLayers={setMapLayers} />
 				<FloatingLabel
 					controlId="inventorydate"
 					label="Inventoinnin päivämäärä"
@@ -163,7 +163,7 @@ const InventoryForm = () => {
 				<FloatingLabel controlId="more_info" label="Muuta tietoa" className="mb-3">
 					<Form.Control
 						type="text"
-						value={more_info}
+						value={moreInfo}
 						onChange={(e) => setMoreInfo(e.target.value)}
 					/>
 				</FloatingLabel>
