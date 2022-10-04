@@ -48,6 +48,14 @@ const Registration = ({ setUserDetails }) => {
 			} catch (error) {
 				if (error.response.data.message === 'username taken') {
 					addAlert('Käyttäjänimi varattu! Valitse uusi.')
+				} else if (error.response.data.message === 'password too short') {
+					addAlert('Salasanassa pitää olla vähintään 10 merkkiä!')
+				} else if (error.response.data.message === 'username too short') {
+					addAlert('Käyttäjänimessä pitää olla vähintään 3 merkkiä!')
+				} else if (error.response.data.message === 'email is not valid') {
+					addAlert('Anna validi sähköpostiosoite!')
+				} else if (error.response.data.message === 'email taken') {
+					addAlert('Sähköpostiosoite on jo käytössä!')
 				} else {
 					addAlert(error.response.data.message)
 				}

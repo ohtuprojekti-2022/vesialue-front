@@ -13,7 +13,7 @@ const InventoryForm = () => {
 	const [method, setMethod] = useState('')
 	const [visibility, setVisibility] = useState('')
 	const [methodInfo, setMethodInfo] = useState('')
-	const [moreInfo, setOther] = useState('')
+	const [more_info, setMoreInfo] = useState('')
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 	const [mapLayers, setMapLayers] = useState([])
@@ -45,7 +45,7 @@ const InventoryForm = () => {
 					name,
 					email,
 					phone,
-					moreInfo
+					more_info
 				)
 
 				setInventorydate('')
@@ -54,11 +54,11 @@ const InventoryForm = () => {
 				setName('')
 				setEmail('')
 				setPhone('')
-				setOther('')
+				setMoreInfo('')
 				setValidated(false)
 				navigate('/')
 			} catch (error) {
-				addAlert(error.response.data.message)
+				addAlert(error.toString())
 			}
 		}
 	}
@@ -160,11 +160,11 @@ const InventoryForm = () => {
 						onClick={() => setAttachments(!attachments)}
 					/>
 				</Form.Group>
-				<FloatingLabel controlId="other" label="Muuta tietoa" className="mb-3">
+				<FloatingLabel controlId="more_info" label="Muuta tietoa" className="mb-3">
 					<Form.Control
 						type="text"
-						value={moreInfo}
-						onChange={(e) => setOther(e.target.value)}
+						value={more_info}
+						onChange={(e) => setMoreInfo(e.target.value)}
 					/>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
@@ -179,7 +179,11 @@ const InventoryForm = () => {
 						type="email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						required
 					/>
+					<Form.Control.Feedback type="invalid">
+						Anna sähköposti!
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
 					controlId="phonenumber"
