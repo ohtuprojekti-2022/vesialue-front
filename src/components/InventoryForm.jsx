@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Form, FloatingLabel, Button, Alert } from 'react-bootstrap'
 import { addInventory } from '../services/inventory-service'
 import Map from './Map'
+import '../static/inventoryform.css'
 
 const InventoryForm = () => {
 	const [name, setName] = useState('')
@@ -69,6 +70,17 @@ const InventoryForm = () => {
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
 				<Map setMapLayers={setMapLayers} />
+				<FloatingLabel controlId="coordinates" className="mb-3">
+					<Form.Control
+						type="text"
+						value={JSON.stringify(mapLayers).slice(1, -1)}
+						onChange={(e) => setMapLayers(e.target.value)}
+						required
+					/>
+					<Form.Control.Feedback type="invalid">
+						Anna inventointialue!
+					</Form.Control.Feedback>
+				</FloatingLabel>
 				<FloatingLabel
 					controlId="inventorydate"
 					label="Inventoinnin päivämäärä"
