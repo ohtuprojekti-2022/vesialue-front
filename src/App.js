@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import InventoryForm from './components/InventoryForm'
+import Inventory from './components/inventory/Inventory'
 import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
 import Map from './components/Map'
@@ -26,7 +26,7 @@ const App = () => {
 			<Navbar userDetails={userDetails} setUserDetails={setUserDetails} />
 			<Routes>
 				<Route path="/" element={<Hello userDetails={userDetails} />} />
-				<Route path="inventointi-ilmoitus" element={<InventoryForm />} />
+				<Route path="inventointi-ilmoitus" element={<Inventory />} />
 				<Route
 					path="rekisteroidy"
 					element={<Registration setUserDetails={setUserDetails} />}
