@@ -2,32 +2,34 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Form, FloatingLabel, Button, Alert } from 'react-bootstrap'
 import { addInventory } from '../services/inventory-service'
+import Map from './Map'
+import '../static/inventoryform.css'
 
 const InventoryForm = () => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [phone, setPhone] = useState('')
-	const [coordinates, setCoordinates] = useState('')
 	const [inventorydate, setInventorydate] = useState('')
 	const [attachments, setAttachments] = useState(false)
 	const [method, setMethod] = useState('')
 	const [visibility, setVisibility] = useState('')
 	const [methodInfo, setMethodInfo] = useState('')
-	const [more_info, setMoreInfo] = useState('')
+	const [moreInfo, setMoreInfo] = useState('')
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
+	const [mapLayers, setMapLayers] = useState([])
 	const navigate = useNavigate()
 
-	const addAlert = (text) => {
+	const addAlert = text => {
 		setAlert(text)
 		setTimeout(() => {
 			setAlert(null)
 		}, 7500)
 	}
 
-	const handleMethodChange = (e) => setMethod(e.target.value)
+	const handleMethodChange = e => setMethod(e.target.value)
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = async event => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
 		setValidated(true)
@@ -35,7 +37,7 @@ const InventoryForm = () => {
 		if (valid) {
 			try {
 				await addInventory(
-					coordinates,
+					mapLayers.map(layer => layer.latlngs),
 					inventorydate,
 					method,
 					visibility,
@@ -44,10 +46,9 @@ const InventoryForm = () => {
 					name,
 					email,
 					phone,
-					more_info
+					moreInfo
 				)
 
-				setCoordinates('')
 				setInventorydate('')
 				setMethod('')
 				setAttachments('')
@@ -68,20 +69,17 @@ const InventoryForm = () => {
 			<h2>Lisää inventointi</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
-				<FloatingLabel
-					controlId="coordinates"
-					label="Koordinaatit"
-					className="mb-3"
-				>
+				<Map setMapLayers={setMapLayers} />
+				<FloatingLabel controlId="coordinates" className="mb-3">
 					<Form.Control
 						data-testid="coordinates"
 						type="text"
-						value={coordinates}
-						onChange={(e) => setCoordinates(e.target.value)}
+						value={JSON.stringify(mapLayers).slice(1, -1)}
+						onChange={e => setMapLayers(e.target.value)}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna sukelluksen koordinaatit!
+						Anna inventointialue!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
@@ -93,7 +91,7 @@ const InventoryForm = () => {
 						data-testid="date"
 						type="date"
 						value={inventorydate}
-						onChange={(e) => setInventorydate(e.target.value)}
+						onChange={e => setInventorydate(e.target.value)}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
@@ -148,7 +146,7 @@ const InventoryForm = () => {
 						<Form.Label>Näkyvyys vedessä</Form.Label>
 						<Form.Select
 							data-testid="visibility"
-							onChange={(e) => setVisibility(e.target.value)}
+							onChange={e => setVisibility(e.target.value)}
 							aria-label="Default select example"
 						>
 							<option value="bad">huono (alle 2m)</option>
@@ -167,7 +165,7 @@ const InventoryForm = () => {
 							data-testid="other_info"
 							type="text"
 							value={methodInfo}
-							onChange={(e) => setMethodInfo(e.target.value)}
+							onChange={e => setMethodInfo(e.target.value)}
 							required
 						/>
 						<Form.Control.Feedback type="invalid">
@@ -183,12 +181,16 @@ const InventoryForm = () => {
 						onClick={() => setAttachments(!attachments)}
 					/>
 				</Form.Group>
-				<FloatingLabel controlId="more_info" label="Muuta tietoa" className="mb-3">
+				<FloatingLabel
+					controlId="more_info"
+					label="Muuta tietoa"
+					className="mb-3"
+				>
 					<Form.Control
 						data-testid="more_info"
 						type="text"
-						value={more_info}
-						onChange={(e) => setMoreInfo(e.target.value)}
+						value={moreInfo}
+						onChange={e => setMoreInfo(e.target.value)}
 					/>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
@@ -196,7 +198,7 @@ const InventoryForm = () => {
 						data-testid="name"
 						type="text"
 						value={name}
-						onChange={(e) => setName(e.target.value)}
+						onChange={e => setName(e.target.value)}
 					/>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
@@ -204,7 +206,7 @@ const InventoryForm = () => {
 						data-testid="email"
 						type="email"
 						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={e => setEmail(e.target.value)}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
@@ -220,7 +222,7 @@ const InventoryForm = () => {
 						data-testid="phone"
 						type="phone"
 						value={phone}
-						onChange={(e) => setPhone(e.target.value)}
+						onChange={e => setPhone(e.target.value)}
 					/>
 				</FloatingLabel>
 				<Button variant="primary" type="submit" data-testid="submit">

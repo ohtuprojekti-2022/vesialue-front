@@ -10,7 +10,7 @@ const LogoutButton = ({ setUserDetails }) => {
 		navigate('/')
 	}
 	return (
-		<Button data-testid="logout-button" variant="primary" onClick={handleClick}>
+		<Button variant="primary" onClick={handleClick}>
 			Kirjaudu ulos
 		</Button>
 	)

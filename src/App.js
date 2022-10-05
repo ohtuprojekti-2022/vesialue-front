@@ -5,7 +5,7 @@ import Navbar from './components/Navbar'
 import InventoryForm from './components/InventoryForm'
 import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
-import MapDemo from './components/MapDemo'
+import Map from './components/Map'
 
 const Hello = ({ userDetails }) => {
 	return (
@@ -35,7 +35,7 @@ const App = () => {
 					path="kirjaudu"
 					element={<Login setUserDetails={setUserDetails} />}
 				/>
-				<Route path="kartta-demo" element={<MapDemo />} />
+				<Route path="kartta-demo" element={<Map />} />
 			</Routes>
 		</Container>
 	)
