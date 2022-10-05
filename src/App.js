@@ -3,9 +3,9 @@ import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import InventoryForm from './components/InventoryForm'
-import RegistrationForm from './components/RegistrationForm'
-import LoginForm from './components/LoginForm'
-import MapDemo from './components/MapDemo'
+import Registration from './components/registration/Registration'
+import Login from './components/login/Login'
+import Map from './components/Map'
 
 const Hello = ({ userDetails }) => {
 	return (
@@ -29,13 +29,13 @@ const App = () => {
 				<Route path="inventointi-ilmoitus" element={<InventoryForm />} />
 				<Route
 					path="rekisteroidy"
-					element={<RegistrationForm setUserDetails={setUserDetails} />}
+					element={<Registration setUserDetails={setUserDetails} />}
 				/>
 				<Route
 					path="kirjaudu"
-					element={<LoginForm setUserDetails={setUserDetails} />}
+					element={<Login setUserDetails={setUserDetails} />}
 				/>
-				<Route path="kartta-demo" element={<MapDemo />} />
+				<Route path="kartta-demo" element={<Map />} />
 			</Routes>
 		</Container>
 	)

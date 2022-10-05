@@ -1,9 +1,9 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import LogoutButton from './LogoutButton'
-import { act } from 'react-dom/test-utils'
 
 describe('LogoutButton', () => {
 	let userDetails = JSON.stringify({
@@ -30,21 +30,21 @@ describe('LogoutButton', () => {
 				<LogoutButton setUserDetails={setUserDetails} />
 			</MemoryRouter>
 		)
-		const button = screen.getByTestId('logout-button')
-		expect(button).toBeDefined()
+		const logoutButton = screen.getByRole('button', { name: /kirjaudu ulos/i })
+		expect(logoutButton).toBeDefined()
 	})
 
-	test('click removes auth-token and user details', () => {
+	test('click removes auth-token and user details', async () => {
 		render(
 			<MemoryRouter>
 				<LogoutButton setUserDetails={setUserDetails} />
 			</MemoryRouter>
 		)
-		const button = screen.getByTestId('logout-button')
+		const logoutButton = screen.getByRole('button', { name: /kirjaudu ulos/i })
 		expect(localStorage.getItem('userDetails')).not.toBeNull()
-		act(() => {
-			button.click()
-		})
+
+		const user = userEvent.setup()
+		await user.click(logoutButton)
 		expect(localStorage.getItem('userDetails')).toBeNull()
 	})
 })

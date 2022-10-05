@@ -2,20 +2,22 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Form, FloatingLabel, Button, Alert } from 'react-bootstrap'
 import { addInventory } from '../services/inventory-service'
+import Map from './Map'
+import '../static/inventoryform.css'
 
 const InventoryForm = () => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [phone, setPhone] = useState('')
-	const [coordinates, setCoordinates] = useState('')
 	const [inventorydate, setInventorydate] = useState('')
 	const [attachments, setAttachments] = useState(false)
 	const [method, setMethod] = useState('')
 	const [visibility, setVisibility] = useState('')
 	const [methodInfo, setMethodInfo] = useState('')
-	const [moreInfo, setOther] = useState('')
+	const [moreInfo, setMoreInfo] = useState('')
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
+	const [mapLayers, setMapLayers] = useState([])
 	const navigate = useNavigate()
 
 	const addAlert = (text) => {
@@ -35,7 +37,7 @@ const InventoryForm = () => {
 		if (valid) {
 			try {
 				await addInventory(
-					coordinates,
+					mapLayers.map(layer => layer.latlngs),
 					inventorydate,
 					method,
 					visibility,
@@ -47,18 +49,17 @@ const InventoryForm = () => {
 					moreInfo
 				)
 
-				setCoordinates('')
 				setInventorydate('')
 				setMethod('')
 				setAttachments('')
 				setName('')
 				setEmail('')
 				setPhone('')
-				setOther('')
+				setMoreInfo('')
 				setValidated(false)
 				navigate('/')
 			} catch (error) {
-				addAlert(error.response.data.message)
+				addAlert(error.toString())
 			}
 		}
 	}
@@ -68,19 +69,16 @@ const InventoryForm = () => {
 			<h2>Lisää inventointi</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
-				<FloatingLabel
-					controlId="coordinates"
-					label="Koordinaatit"
-					className="mb-3"
-				>
+				<Map setMapLayers={setMapLayers} />
+				<FloatingLabel controlId="coordinates" className="mb-3">
 					<Form.Control
 						type="text"
-						value={coordinates}
-						onChange={(e) => setCoordinates(e.target.value)}
+						value={JSON.stringify(mapLayers).slice(1, -1)}
+						onChange={(e) => setMapLayers(e.target.value)}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna sukelluksen koordinaatit!
+						Anna inventointialue!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
@@ -174,11 +172,11 @@ const InventoryForm = () => {
 						onClick={() => setAttachments(!attachments)}
 					/>
 				</Form.Group>
-				<FloatingLabel controlId="other" label="Muuta tietoa" className="mb-3">
+				<FloatingLabel controlId="more_info" label="Muuta tietoa" className="mb-3">
 					<Form.Control
 						type="text"
 						value={moreInfo}
-						onChange={(e) => setOther(e.target.value)}
+						onChange={(e) => setMoreInfo(e.target.value)}
 					/>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
@@ -193,7 +191,11 @@ const InventoryForm = () => {
 						type="email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						required
 					/>
+					<Form.Control.Feedback type="invalid">
+						Anna sähköposti!
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
 					controlId="phonenumber"
@@ -206,6 +208,7 @@ const InventoryForm = () => {
 						onChange={(e) => setPhone(e.target.value)}
 					/>
 				</FloatingLabel>
+
 				<Button variant="primary" type="submit">
 					Lähetä
 				</Button>

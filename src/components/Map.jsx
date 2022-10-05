@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { MapContainer, TileLayer, FeatureGroup } from 'react-leaflet'
 import { EditControl } from 'react-leaflet-draw'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 
-const MapDemo = () => {
-	const [mapLayers, setMapLayers] = useState([])
+const Map = ({ setMapLayers }) => {
 
 	const center = {
 		lat: 60.170702505729416,
@@ -48,7 +47,7 @@ const MapDemo = () => {
 	}
 
 	return (
-		<>
+		<p>
 			<MapContainer
 				style={{ height: '500px', width: '100%' }}
 				center={center}
@@ -75,9 +74,8 @@ const MapDemo = () => {
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 				/>
 			</MapContainer>
-			{JSON.stringify(mapLayers)}
-		</>
+		</p>
 	)
 }
 
-export default MapDemo
+export default Map
