@@ -8,53 +8,53 @@ import userEvent from '@testing-library/user-event'
 
 describe('Login Form', () => {
 
-    const mockValidated = true
-    const mockHandleSubmit = jest.fn()
-    const mockSetUsername = jest.fn()
-    const mockSetPassword = jest.fn()
+	const mockValidated = true
+	const mockHandleSubmit = jest.fn()
+	const mockSetUsername = jest.fn()
+	const mockSetPassword = jest.fn()
 
 	beforeEach(() => {
-        render(
-            <MemoryRouter>
-                <LoginForm 
-                    validated={mockValidated}
-                    handleSubmit={mockHandleSubmit}
-                    setUsername={mockSetUsername}
-                    setPassword={mockSetPassword} />
-            </MemoryRouter>
-        )
+		render(
+			<MemoryRouter>
+				<LoginForm 
+					validated={mockValidated}
+					handleSubmit={mockHandleSubmit}
+					setUsername={mockSetUsername}
+					setPassword={mockSetPassword} />
+			</MemoryRouter>
+		)
 	})
 
-    test('renders form', () => {
-        const loginform = screen.getByTestId('login-form')
-        expect(loginform).toBeDefined()
-    })
+	test('renders form', () => {
+		const loginform = screen.getByTestId('login-form')
+		expect(loginform).toBeDefined()
+	})
 
-    test('submit function called', async () => {
-        const user = userEvent.setup()
-        const submitButton = screen.getByTestId('loginbutton')
+	test('submit function called', async () => {
+		const user = userEvent.setup()
+		const submitButton = screen.getByTestId('loginbutton')
 		await user.click(submitButton)
-        expect(mockHandleSubmit).toBeCalledTimes(1)
-    })
+		expect(mockHandleSubmit).toBeCalledTimes(1)
+	})
 
-    test('login username required', async () => {
-        const username = screen.getByTestId('user-name')
-        expect(username).toBeRequired()
-        expect(username).toBeInvalid()
+	test('login username required', async () => {
+		const username = screen.getByTestId('user-name')
+		expect(username).toBeRequired()
+		expect(username).toBeInvalid()
 
-        const user = userEvent.setup()
-        await user.type(username, "testaaja")
-        expect(username).toBeValid()
-    })
+		const user = userEvent.setup()
+		await user.type(username, 'testaaja')
+		expect(username).toBeValid()
+	})
 
-    test('login password required', async () => {
-        const password = screen.getByTestId('pass-word')
-        expect(password).toBeRequired()
-        expect(password).toBeInvalid()
+	test('login password required', async () => {
+		const password = screen.getByTestId('pass-word')
+		expect(password).toBeRequired()
+		expect(password).toBeInvalid()
 
-        const user = userEvent.setup()
-        await user.type(password, "salainensana")
-        expect(password).toBeValid()
-    })
+		const user = userEvent.setup()
+		await user.type(password, 'salainensana')
+		expect(password).toBeValid()
+	})
 
 })
