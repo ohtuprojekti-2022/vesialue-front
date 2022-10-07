@@ -5,7 +5,7 @@ import LogoutButton from './LogoutButton'
 
 const Navbar = ({ userDetails, setUserDetails }) => {
 	return (
-		<BNavbar collapseOnSelect expand="sm" className="py-3 px-2">
+		<BNavbar collapseOnSelect expand="md" className="py-3 px-2">
 			<BNavbar.Brand href="/">
 				<img
 					src="/logo192.png"
