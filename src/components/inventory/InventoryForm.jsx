@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
-/* import Map from '../Map' */
 
 const InventoryForm = props => {
 	const handleMethodChange = e => props.setMethod(e.target.value)
@@ -12,13 +11,11 @@ const InventoryForm = props => {
 			onSubmit={props.handleSubmit}
 			data-testid="inventory-form"
 		>
-			{/* <Map setMapLayers={props.setMapLayers} /> */}
 			<FloatingLabel controlId="coordinates" className="mb-3">
 				<Form.Control
 					data-testid="coordinates"
 					type="text"
-					/* value={JSON.stringify(props.mapLayers).slice(1, -1)} */
-					onChange={e => props.setMapLayers(e.target.value)}
+					value={props.mapLayers}
 					hidden
 					required
 				/>
@@ -62,6 +59,7 @@ const InventoryForm = props => {
 					id="echo"
 					onChange={handleMethodChange}
 					value="echo"
+					required
 				/>
 				<Form.Check
 					data-testid="dive"
@@ -72,6 +70,7 @@ const InventoryForm = props => {
 					id="dive"
 					onChange={handleMethodChange}
 					value="dive"
+					required
 				/>
 				<Form.Check
 					data-testid="other"
@@ -82,6 +81,7 @@ const InventoryForm = props => {
 					id="other"
 					onChange={handleMethodChange}
 					value="other"
+					required
 				/>
 			</div>
 			{(props.method === 'sight' || props.method === 'dive') && (

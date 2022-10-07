@@ -1,8 +1,10 @@
+/* istanbul ignore file */
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { addInventory } from '../../services/inventory-service'
 import InventoryForm from './InventoryForm'
+import Map from '../Map'
 
 const Inventory = () => {
 	const [name, setName] = useState('')
@@ -65,6 +67,7 @@ const Inventory = () => {
 		<Container fluid="sm">
 			<h2>Lisää inventointi</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
+			<Map setMapLayers={setMapLayers} />
 			<InventoryForm
 				validated={validated}
 				handleSubmit={handleSubmit}

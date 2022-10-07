@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import InventoryForm from './InventoryForm'
 import { MemoryRouter } from 'react-router-dom'
@@ -10,17 +10,27 @@ describe('InventoryForm', () => {
 		coordinates,
 		inventorydate,
 		method,
+		checkSight,
+		checkEcho,
+		checkDive,
+		checkOther,
+		attachments,
 		moreInfo,
 		name,
 		email,
 		phone,
-		submitButton,
-		attachments
-
-	const mockHandleSubmit = jest.fn(e => e.preventDefault())
+		submitButton
+	const COORDINATES = [
+		[
+			{ lat: 60.17797731341533, lng: 1.903111488320214 },
+			{ lat: 60.17473315099313, lng: -24.886286597507773 },
+			{ lat: -70.17114712497474, lng: 24.899506154574706 },
+		],
+	]
+	const mockHandleSubmit = jest.fn()
 	const mockSetMapLayers = jest.fn()
 	const mockSetInventorydate = jest.fn()
-	const mockSetMethod = v => (method = v)
+	const mockSetMethod = jest.fn()
 	const mockSetVisibility = jest.fn()
 	const mockSetMethodInfo = jest.fn()
 	const mockSetAttachments = jest.fn()
@@ -51,15 +61,23 @@ describe('InventoryForm', () => {
 				/>
 			</MemoryRouter>
 		)
+
 		form = screen.getByTestId('inventory-form')
 		coordinates = screen.getByTestId('coordinates')
 		inventorydate = screen.getByTestId('inventorydate')
+		checkSight = screen.getByTestId('sight')
+		checkEcho = screen.getByTestId('echo')
+		checkDive = screen.getByTestId('dive')
+		checkOther = screen.getByTestId('other')
 		attachments = screen.getByTestId('attachments')
 		moreInfo = screen.getByTestId('moreInfo')
 		name = screen.getByTestId('name')
 		email = screen.getByTestId('email')
 		phone = screen.getByTestId('phone')
-		submitButton = screen.getByTestId('submit')
+		submitButton = screen.getByRole('button', { name: /lähetä/i })
+
+		mockHandleSubmit.mockImplementation((e) => e.preventDefault())
+		mockSetMethod.mockImplementation((v) => (method = v))
 	})
 
 	test('renders the inventory form', () => {
@@ -71,10 +89,16 @@ describe('InventoryForm', () => {
 		expect(inventorydate).toBeInvalid()
 	})
 
-	/* test('method is required', () => {
-		expect(methodInfo).toBeRequired()
-		expect(methodInfo).toBeInvalid()
-	}) */
+	test('method is required', () => {
+		expect(checkSight).toBeRequired()
+		expect(checkSight).toBeInvalid()
+		expect(checkEcho).toBeRequired()
+		expect(checkEcho).toBeInvalid()
+		expect(checkDive).toBeRequired()
+		expect(checkDive).toBeInvalid()
+		expect(checkOther).toBeRequired()
+		expect(checkOther).toBeInvalid()
+	})
 
 	test('email is required', () => {
 		expect(email).toBeRequired()
@@ -86,6 +110,39 @@ describe('InventoryForm', () => {
 		expect(phone).not.toBeRequired()
 		expect(name).toBeValid()
 		expect(phone).toBeValid()
+	})
+
+	test('changing date works', async () => {
+		fireEvent.change(inventorydate, {target: {value: '2022-10-07'}})
+		expect(mockSetInventorydate).toBeCalledTimes(1)
+		expect(inventorydate).toHaveValue('2022-10-07')
+	})
+
+	test('selecting method "sight" works', async () => {
+		const user = userEvent.setup()
+		await user.click(checkSight)
+		expect(screen.findByTestId('visibility')).toBeDefined()
+		expect(mockSetMethod).toBeCalledTimes(1)
+	})
+
+	test('selecting method "echo" works', async () => {
+		const user = userEvent.setup()
+		await user.click(checkEcho)
+		expect(mockSetMethod).toBeCalledTimes(1)
+	})
+
+	test('selecting method "dive" works', async () => {
+		const user = userEvent.setup()
+		await user.click(checkDive)
+		expect(screen.findByTestId('visibility')).toBeDefined()
+		expect(mockSetMethod).toBeCalledTimes(1)
+	})
+
+	test('selecting method "other" works', async () => {
+		const user = userEvent.setup()
+		await user.click(checkOther)
+		expect(screen.findByTestId('methodInfo')).toBeDefined()
+		expect(mockSetMethod).toBeCalledTimes(1)
 	})
 
 	test('changing name works', async () => {
@@ -112,30 +169,11 @@ describe('InventoryForm', () => {
 		expect(attachments).toBeChecked()
 	})
 
-	/* 	test('other methods option works', async () => {
-		const user = userEvent.setup()
-		await user.click(screen.getByTestId('other'))
-		await user.type(screen.getByTestId('methodInfo'), 'methodInfo test')
-		expect(screen.getByTestId('other')).toBeChecked()
-		expect(screen.getByTestId('methodInfo')).toHaveValue('methodInfo test')
-	}) */
-
 	test('submit handler is called on submit', async () => {
 		const user = userEvent.setup()
 		await user.click(submitButton)
 		expect(form).not.toBeValid()
 	})
-
-	/* 	test('the form is valid if all required fields are filled', async () => {
-		const user = userEvent.setup()
-		await user.type(coordinates, '123')
-		await user.type(inventorydate, '2000-01-01')
-		await user.click(screen.getByTestId('dive'))
-		await user.selectOptions(screen.getByTestId('visibility'), 'normal')
-		await user.type(email, 'react@test.com')
-		await user.click(submitButton)
-		expect(form).toBeValid()
-	}) */
 
 	test('Errors if no inputs', async () => {
 		const user = userEvent.setup()

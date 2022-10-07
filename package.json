@@ -17,6 +17,7 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
+		"test:cov": "CI=true npm test -- --coverage",
 		"eject": "react-scripts eject",
 		"lint": "eslint . --ext .jsx",
 		"lint:fix": "eslint . --ext .jsx --fix"
@@ -28,9 +29,9 @@
 		]
 	},
 	"jest": {
-		"moduleNameMapper": {
-			"\\.(css|less|sass|scss)$": "identity-obj-proxy"
-		}
+		"collectCoverageFrom": [
+			"src/**/*.jsx"
+		]
 	},
 	"browserslist": {
 		"production": [
