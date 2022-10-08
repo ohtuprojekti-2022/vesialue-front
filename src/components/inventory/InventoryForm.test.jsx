@@ -7,7 +7,6 @@ import userEvent from '@testing-library/user-event'
 
 describe('InventoryForm', () => {
 	let form,
-		coordinates,
 		inventorydate,
 		method,
 		checkSight,
@@ -20,15 +19,7 @@ describe('InventoryForm', () => {
 		email,
 		phone,
 		submitButton
-	const COORDINATES = [
-		[
-			{ lat: 60.17797731341533, lng: 1.903111488320214 },
-			{ lat: 60.17473315099313, lng: -24.886286597507773 },
-			{ lat: -70.17114712497474, lng: 24.899506154574706 },
-		],
-	]
 	const mockHandleSubmit = jest.fn()
-	const mockSetMapLayers = jest.fn()
 	const mockSetInventorydate = jest.fn()
 	const mockSetMethod = jest.fn()
 	const mockSetVisibility = jest.fn()
@@ -45,7 +36,6 @@ describe('InventoryForm', () => {
 				<InventoryForm
 					validated={true}
 					handleSubmit={mockHandleSubmit}
-					setMapLayers={mockSetMapLayers}
 					inventorydate={inventorydate}
 					setInventorydate={mockSetInventorydate}
 					method={method}
@@ -63,7 +53,6 @@ describe('InventoryForm', () => {
 		)
 
 		form = screen.getByTestId('inventory-form')
-		coordinates = screen.getByTestId('coordinates')
 		inventorydate = screen.getByTestId('inventorydate')
 		checkSight = screen.getByTestId('sight')
 		checkEcho = screen.getByTestId('echo')

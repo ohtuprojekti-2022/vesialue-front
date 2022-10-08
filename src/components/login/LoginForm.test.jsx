@@ -23,6 +23,8 @@ describe('Login Form', () => {
 					setPassword={mockSetPassword} />
 			</MemoryRouter>
 		)
+
+		mockHandleSubmit.mockImplementation((e) => e.preventDefault())
 	})
 
 	test('renders form', () => {

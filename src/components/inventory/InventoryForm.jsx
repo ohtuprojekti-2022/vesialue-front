@@ -15,7 +15,7 @@ const InventoryForm = props => {
 				<Form.Control
 					data-testid="coordinates"
 					type="text"
-					value={props.mapLayers}
+					defaultValue={props.mapLayers}
 					hidden
 					required
 				/>

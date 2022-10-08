@@ -72,7 +72,6 @@ const Inventory = () => {
 				validated={validated}
 				handleSubmit={handleSubmit}
 				mapLayers={mapLayers}
-				setMapLayers={setMapLayers}
 				setInventorydate={setInventorydate}
 				method={method}
 				setMethod={setMethod}
