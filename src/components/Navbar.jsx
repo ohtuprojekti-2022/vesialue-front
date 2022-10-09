@@ -5,7 +5,7 @@ import LogoutButton from './LogoutButton'
 
 const Navbar = ({ userDetails, setUserDetails }) => {
 	return (
-		<BNavbar collapseOnSelect expand="sm" className="py-3 px-2">
+		<BNavbar collapseOnSelect expand="md" className="py-3 px-2">
 			<BNavbar.Brand href="/">
 				<img
 					src="/logo192.png"
@@ -21,7 +21,6 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 				<Nav>
 					<NavLink eventKey="1" as={Link} to="/" >Etusivu</NavLink>
 					<NavLink eventKey="2" as={Link} to="/inventointi-ilmoitus" >Uusi ilmoitus</NavLink>
-					<NavLink eventKey="3" as={Link} to="/kartta-demo" >Kartta demo</NavLink>
 					{userDetails && (
 						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
 							<NavDropdown.Item>
