@@ -1,11 +1,11 @@
 import React from 'react'
-import { Navbar as BNavbar, Nav, NavDropdown } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import { Navbar as BNavbar, Nav, NavDropdown, NavLink } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import LogoutButton from './LogoutButton'
 
 const Navbar = ({ userDetails, setUserDetails }) => {
 	return (
-		<BNavbar className="py-3 px-2" collapseOnSelect>
+		<BNavbar collapseOnSelect expand="md" className="py-3 px-2">
 			<BNavbar.Brand href="/">
 				<img
 					src="/logo192.png"
@@ -17,17 +17,10 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 				Vesialueen inventointi-ilmoitus
 			</BNavbar.Brand>
 			<BNavbar.Toggle aria-controls="basic-navbar-nav" />
-			<BNavbar.Collapse id="basic-navbar-nav">
+			<BNavbar.Collapse id="responsive-navbar-nav">
 				<Nav>
-					<LinkContainer to="/">
-						<Nav.Link>Etusivu</Nav.Link>
-					</LinkContainer>
-					<LinkContainer to="/inventointi-ilmoitus">
-						<Nav.Link>Uusi ilmoitus</Nav.Link>
-					</LinkContainer>
-					<LinkContainer to="/kartta-demo">
-						<Nav.Link>Kartta demo</Nav.Link>
-					</LinkContainer>
+					<NavLink eventKey="1" as={Link} to="/" >Etusivu</NavLink>
+					<NavLink eventKey="2" as={Link} to="/inventointi-ilmoitus" >Uusi ilmoitus</NavLink>
 					{userDetails && (
 						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
 							<NavDropdown.Item>
@@ -42,16 +35,8 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 					)}
 					{!userDetails && (
 						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
-							<NavDropdown.Item>
-								<LinkContainer to="/kirjaudu">
-									<Nav.Link>Kirjaudu</Nav.Link>
-								</LinkContainer>
-							</NavDropdown.Item>
-							<NavDropdown.Item>
-								<LinkContainer to="/rekisteroidy">
-									<Nav.Link>Rekisteröidy</Nav.Link>
-								</LinkContainer>
-							</NavDropdown.Item>
+							<NavLink eventKey="4" as={Link} to="/kirjaudu">Kirjaudu</NavLink>
+							<NavLink eventKey="5" as={Link} to="/rekisteroidy">Rekisteröidy</NavLink>
 						</NavDropdown>
 					)}
 					
