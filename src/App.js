@@ -31,7 +31,7 @@ const App = () => {
 				/>
 				<Route
 					path="report"
-					element={<InventoryReport reportId={'6345717465d7e012d4ce650c'}/>}
+					element={<InventoryReport reportId={'6345717465d7e012d4ce650e'}/>}
 				/>
 			</Routes>
 		</Container>
