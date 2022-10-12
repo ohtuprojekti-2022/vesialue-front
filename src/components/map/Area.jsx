@@ -1,11 +1,11 @@
 import React from 'react'
 import { FeatureGroup, Polygon } from 'react-leaflet'
 
-const Area = ({ id, coordinates }) => {
+const Area = ({ coordinates }) => {
 	const positionList = coordinates.map((c) => [c.lat, c.lng])
 
 	return (
-		<FeatureGroup key={id}>
+		<FeatureGroup>
 			<Polygon positions={positionList} />
 		</FeatureGroup>
 	)

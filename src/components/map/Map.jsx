@@ -4,18 +4,20 @@ import DrawingTool from './DrawingTool'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 
-const Map = ({ setMapLayers }) => {
+const Map = ({ setMapLayers, children }) => {
 	const center = {
 		lat: 60.170702505729416,
 		lng: 24.941444393533125,
 	}
+
+	const zoom = 13
 
 	return (
 		<>
 			<MapContainer
 				style={{ height: '500px', width: '100%' }}
 				center={center}
-				zoom={13}
+				zoom={zoom}
 				scrollWheelZoom={true}
 			>
 				{setMapLayers && <DrawingTool setMapLayers={setMapLayers} />}
@@ -23,6 +25,7 @@ const Map = ({ setMapLayers }) => {
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 				/>
+				{children}
 			</MapContainer>
 		</>
 	)
