@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Inventory from './components/inventory/Inventory'
+import InventoryReport from './components/inventory/InventoryReport'
 import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
 import Frontpage from './components/Frontpage'
@@ -27,6 +28,10 @@ const App = () => {
 				<Route
 					path="kirjaudu"
 					element={<Login setUserDetails={setUserDetails} />}
+				/>
+				<Route
+					path="report"
+					element={<InventoryReport reportId={'6345717465d7e012d4ce650c'}/>}
 				/>
 			</Routes>
 		</Container>
