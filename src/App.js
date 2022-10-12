@@ -5,15 +5,9 @@ import Navbar from './components/Navbar'
 import Inventory from './components/inventory/Inventory'
 import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
+import Frontpage from './components/Frontpage'
 
-const Hello = ({ userDetails }) => {
-	return (
-		<>
-			Hello{' '}
-			{userDetails ? userDetails.user.username : !userDetails && 'world'}!
-		</>
-	)
-}
+
 
 const App = () => {
 	const [userDetails, setUserDetails] = useState(
@@ -24,7 +18,7 @@ const App = () => {
 		<Container fluid>
 			<Navbar userDetails={userDetails} setUserDetails={setUserDetails} />
 			<Routes>
-				<Route path="/" element={<Hello userDetails={userDetails} />} />
+				<Route path="/" element={<Frontpage />} />
 				<Route path="inventointi-ilmoitus" element={<Inventory />} />
 				<Route
 					path="rekisteroidy"
