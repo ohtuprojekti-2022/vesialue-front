@@ -20,6 +20,12 @@ const Inventory = () => {
 	const [alert, setAlert] = useState(null)
 	const [mapLayers, setMapLayers] = useState([])
 	const navigate = useNavigate()
+	
+	let [user] = useState(null)
+	if (localStorage.getItem('userDetails')) {
+		user = JSON.parse(localStorage.getItem('userDetails')).user
+	}
+	
 
 	const addAlert = text => {
 		setAlert(text)
@@ -45,7 +51,8 @@ const Inventory = () => {
 					name,
 					email,
 					phone,
-					moreInfo
+					moreInfo,
+					user
 				)
 
 				setInventorydate('')
@@ -68,6 +75,10 @@ const Inventory = () => {
 			<h2>Lisää inventointi</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Map setMapLayers={setMapLayers} />
+			<>
+				{ console.log(user) }
+				{user ? user.username : !user && 'world'}!
+			</>
 			<InventoryForm
 				validated={validated}
 				handleSubmit={handleSubmit}
