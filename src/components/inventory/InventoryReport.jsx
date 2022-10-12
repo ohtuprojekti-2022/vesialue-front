@@ -1,8 +1,10 @@
-import React, {useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Placeholder from 'react-bootstrap/Placeholder'
 import { getInventory } from '../../services/inventory-service'
+import Map from '../map/Map'
+import Area from '../map/Area'
 
 const InventoryReport = ({ reportId }) => {
 	const [report, setReport] = useState(null)
@@ -37,6 +39,9 @@ const InventoryReport = ({ reportId }) => {
 			<Card style={{ width: '40rem' }}>
 				<Card.Body>
 					<Card.Title>Ilmoitus</Card.Title>
+					<Map>
+						<Area coordinates={report.areas[0]} />
+					</Map>
 					<ListGroup>
 						<ListGroup.Item>Päivä ja aika: {report.inventorydate}</ListGroup.Item>
 						<ListGroup.Item>Tapa: {report.method}</ListGroup.Item>
