@@ -28,4 +28,9 @@ export const addInventory = async (
 	return request.data
 }
 
-export default { addInventory }
+export const getInventory = async (id) => {
+	const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory/${id}`)
+	return request.then(response => response.data)
+}
+
+export default { addInventory, getInventory }
