@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { addInventory } from '../../services/inventory-service'
 import InventoryForm from './InventoryForm'
-import Map from '../Map'
+import Map from '../map/Map'
 
 const Inventory = () => {
 	const [name, setName] = useState('')
