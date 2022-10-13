@@ -38,6 +38,7 @@ const Inventory = () => {
 		const valid = form.checkValidity()
 		setValidated(true)
 		event.preventDefault()
+		localStorage.setItem('values', JSON.stringify({'name': name, 'email': email, 'phone': phone}))
 		if (valid) {
 			try {
 				await addInventory(
