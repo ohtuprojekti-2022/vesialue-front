@@ -2,7 +2,7 @@ import axios from 'axios'
 import REACT_APP_BACKEND_URL from '../utils/config'
 
 export const addInventory = async (
-	coordinates,
+	areas,
 	inventorydate,
 	method,
 	visibility,
@@ -14,7 +14,7 @@ export const addInventory = async (
 	moreInfo
 ) => {
 	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/inventory/`, {
-		coordinates,
+		areas,
 		inventorydate,
 		method,
 		visibility,
@@ -35,9 +35,16 @@ export const getAllAreas = async () => {
 	return request.data
 }
 
-export const getAllReports = () => {
+export const getAllInventories = () => {
 	const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory/`)
 	return request.then((response) => response.data)
 }
 
-export default { addInventory, getAllReports }
+export const getInventoryById = async (inventoryId) => {
+	const request = await axios.get(
+		`${REACT_APP_BACKEND_URL}/api/inventory/${inventoryId}/`
+	)
+	return request.data
+}
+
+export default { addInventory, getAllAreas }
