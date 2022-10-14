@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react'
 import { FeatureGroup, Polygon } from 'react-leaflet'
 import InventoryPopup from './InventoryPopup'

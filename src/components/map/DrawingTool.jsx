@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react'
 import { FeatureGroup } from 'react-leaflet'
 import { EditControl } from 'react-leaflet-draw'

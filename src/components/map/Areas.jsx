@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React, { useEffect, useState } from 'react'
 import Area from './Area'
 import { getAllAreas } from '../../services/inventory-service'

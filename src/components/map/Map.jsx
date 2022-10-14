@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import DrawingTool from './DrawingTool'
