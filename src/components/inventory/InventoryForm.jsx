@@ -134,6 +134,7 @@ const InventoryForm = props => {
 				<Form.Control
 					data-testid="name"
 					type="text"
+					defaultValue={JSON.parse(localStorage.getItem('values'))?.name}
 					onChange={e => props.setName(e.target.value)}
 				/>
 			</FloatingLabel>
@@ -141,6 +142,7 @@ const InventoryForm = props => {
 				<Form.Control
 					data-testid="email"
 					type="email"
+					defaultValue={JSON.parse(localStorage.getItem('values'))?.email}
 					onChange={e => props.setEmail(e.target.value)}
 					required
 				/>
@@ -156,6 +158,7 @@ const InventoryForm = props => {
 				<Form.Control
 					data-testid="phone"
 					type="phone"
+					defaultValue={JSON.parse(localStorage.getItem('values'))?.phone}
 					onChange={e => props.setPhone(e.target.value)}
 				/>
 			</FloatingLabel>
