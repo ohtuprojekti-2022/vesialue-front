@@ -20,11 +20,6 @@ const Inventory = () => {
 	const [alert, setAlert] = useState(null)
 	const [mapLayers, setMapLayers] = useState([])
 	const navigate = useNavigate()
-	
-	let [user] = useState(null)
-	if (localStorage.getItem('userDetails')) {
-		user = JSON.parse(localStorage.getItem('userDetails')).user
-	}
 
 	const addAlert = text => {
 		setAlert(text)
@@ -50,8 +45,7 @@ const Inventory = () => {
 					name,
 					email,
 					phone,
-					moreInfo,
-					user
+					moreInfo
 				)
 
 				setInventorydate('')

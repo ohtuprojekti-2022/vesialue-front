@@ -6,6 +6,7 @@ import Inventory from './components/inventory/Inventory'
 import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
 import Frontpage from './components/Frontpage'
+import axios from 'axios'
 
 
 
@@ -13,6 +14,9 @@ const App = () => {
 	const [userDetails, setUserDetails] = useState(
 		JSON.parse(localStorage.getItem('userDetails'))
 	)
+	if (JSON.parse(localStorage.getItem('userDetails')) !== null) {
+		axios.defaults.headers.post['Authorization'] = `Bearer ${JSON.parse(localStorage.getItem('userDetails'))['auth']}`
+	}
 
 	return (
 		<Container fluid>
