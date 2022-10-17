@@ -29,10 +29,9 @@ const App = () => {
 					path="kirjaudu"
 					element={<Login setUserDetails={setUserDetails} />}
 				/>
-				<Route
-					path="report"
-					element={<InventoryReport reportId={'63469eef09ccf9faac6c63a8'}/>}
-				/>
+				<Route path="report/:id" element={
+					<InventoryReport />
+				}/>
 			</Routes>
 		</Container>
 	)

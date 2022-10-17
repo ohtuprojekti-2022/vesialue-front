@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Placeholder from 'react-bootstrap/Placeholder'
@@ -6,11 +7,13 @@ import { getInventory } from '../../services/inventory-service'
 import Map from '../map/Map'
 import Area from '../map/Area'
 
-const InventoryReport = ({ reportId }) => {
+const InventoryReport = () => {
 	const [report, setReport] = useState(null)
 	
+	let { id } = useParams()
+	
 	useEffect(() => {
-		getInventory(reportId).then(r => {
+		getInventory(id).then(r => {
 			setReport(r)
 		})
 	}, [])
