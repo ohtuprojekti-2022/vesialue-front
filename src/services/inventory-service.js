@@ -2,7 +2,7 @@ import axios from 'axios'
 import REACT_APP_BACKEND_URL from '../utils/config'
 
 export const addInventory = async (
-	coordinates,
+	areas,
 	inventorydate,
 	method,
 	visibility,
@@ -13,8 +13,9 @@ export const addInventory = async (
 	phone,
 	moreInfo
 ) => {
+
 	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/inventory/`, {
-		coordinates,
+		areas,
 		inventorydate,
 		method,
 		visibility,
