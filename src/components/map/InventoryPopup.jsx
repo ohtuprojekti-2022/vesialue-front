@@ -1,33 +1,20 @@
 /* istanbul ignore file */
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { Popup } from 'react-leaflet'
+import { translateMethod, formatDate } from '../../utils/tools'
 
 const InventoryPopup = ({ details }) => {
-	let method = ''
-	switch (details.method) {
-	case 'sight':
-		method = 'Näköhavainto'
-		break
-	case 'echo':
-		method = 'Viistokaiutus'
-		break
-	case 'dive':
-		method = 'Sukellus'
-		break
-	case 'other':
-		method = details.methodInfo
-	}
+	const navigate = useNavigate()
 	return (
 		<>
 			<Popup>
-				{method}
+				{translateMethod(details.method)}
 				<br />
-				{details.inventorydate.substring(8, 10)}.
-				{details.inventorydate.substring(5, 7)}.
-				{details.inventorydate.substring(0, 4)}
+				{formatDate(details.inventorydate)}
 				<br />
-				<Button onClick={() => alert('not implemented')} >Avaa raportti</Button>
+				<Button onClick={() => navigate(`/report/${details.id}`)} >Avaa raportti</Button>
 			</Popup>
 		</>
 	)
