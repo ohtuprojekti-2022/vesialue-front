@@ -1,15 +1,14 @@
 import React from 'react'
-import { Container} from 'react-bootstrap'
-import FrontMap from './FrontMap'
+import { Container } from 'react-bootstrap'
+import Areas from './map/Areas'
+import Map from './map/Map'
 
 function Frontpage() {
-
 	return (
 		<Container>
-			<FrontMap />
-			<p>
-				Yläpuolella näkyy kartta, johon ei voi piirtää.
-			</p>
+			<Map>
+				<Areas />
+			</Map>
 		</Container>
 	)
 }
