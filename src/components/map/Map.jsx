@@ -10,12 +10,14 @@ const Map = ({ setMapLayers, children }) => {
 		lng: 24.941444393533125,
 	}
 
+	const zoom = 13
+
 	return (
 		<>
 			<MapContainer
 				style={{ height: '500px', width: '100%' }}
 				center={center}
-				zoom={13}
+				zoom={zoom}
 				scrollWheelZoom={true}
 			>
 				{setMapLayers && <DrawingTool setMapLayers={setMapLayers} />}
