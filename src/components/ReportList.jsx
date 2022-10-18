@@ -3,7 +3,6 @@ import Report from './Report'
 import Table from 'react-bootstrap/Table'
 
 const ReportList = ({ inventories }) => {
-	console.log(inventories)
 	return (
 		<Table striped>
 			<thead>

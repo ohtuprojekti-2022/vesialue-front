@@ -9,7 +9,7 @@ const Area = ({ details, coordinates }) => {
 	return (
 		<FeatureGroup>
 			<Polygon positions={positionList} />
-			<InventoryPopup details={details} />
+			{details && <InventoryPopup details={details} />}
 		</FeatureGroup>
 	)
 }

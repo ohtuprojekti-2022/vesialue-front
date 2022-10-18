@@ -17,18 +17,17 @@ export const getCenter = (area) => {
 	const lat = (maxLat + minLat) / 2
 	const lng = (maxLng + minLng) / 2
 
-	return { lat: lat, lon: lng }
+	return { lat: lat, lng: lng }
 }
 
 export const getCity = async (areas) => {
 	const centers = areas.map((area) => getCenter(area))
 	const lat = centers[0].lat
-	const lon = centers[0].lon
+	const lon = centers[0].lng
 
 	const response = await axios.get(
 		`${REACT_APP_BACKEND_URL}/api/cities?latitude=${lat}&longitude=${lon}`
 	)
-	console.log(response.data)
 
 	return response.data.city
 		? `${response.data.city}, ${response.data.locality}`

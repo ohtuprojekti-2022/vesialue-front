@@ -10,7 +10,7 @@ const InventoryPopup = ({ details }) => {
 	return (
 		<>
 			<Popup>
-				{translateMethod(details.method)}
+				{translateMethod(details.method, details.methodInfo)}
 				<br />
 				{formatDate(details.inventorydate)}
 				<br />

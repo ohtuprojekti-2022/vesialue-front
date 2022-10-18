@@ -35,7 +35,7 @@ const Inventory = () => {
 		event.preventDefault()
 		if (valid) {
 			try {
-				await addInventory(
+				const inventory = await addInventory(
 					mapLayers.map(layer => layer.latlngs),
 					inventorydate,
 					method,
@@ -56,7 +56,7 @@ const Inventory = () => {
 				setPhone('')
 				setMoreInfo('')
 				setValidated(false)
-				navigate('/')
+				navigate(`/report/${inventory.id}`)
 			} catch (error) {
 				addAlert(error.toString())
 			}
