@@ -21,23 +21,22 @@ const Inventory = () => {
 	const [mapLayers, setMapLayers] = useState([])
 	const navigate = useNavigate()
 
-	const addAlert = text => {
+	const addAlert = (text) => {
 		setAlert(text)
 		setTimeout(() => {
 			setAlert(null)
 		}, 7500)
 	}
 
-	const handleSubmit = async event => {
+	const handleSubmit = async (event) => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
 		setValidated(true)
 		event.preventDefault()
-		localStorage.setItem('values', JSON.stringify({'name': name, 'email': email, 'phone': phone}))
 		if (valid) {
 			try {
 				const inventory = await addInventory(
-					mapLayers.map(layer => layer.latlngs),
+					mapLayers.map((layer) => layer.latlngs),
 					inventorydate,
 					method,
 					visibility,

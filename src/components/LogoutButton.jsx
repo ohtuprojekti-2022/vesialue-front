@@ -8,7 +8,6 @@ const LogoutButton = ({ setUserDetails }) => {
 		localStorage.removeItem('userDetails')
 		setUserDetails(null)
 		navigate('/')
-		location.reload()
 	}
 	return (
 		<Button variant="primary" onClick={handleClick}>
