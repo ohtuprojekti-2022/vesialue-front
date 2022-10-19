@@ -1,5 +1,6 @@
 import axios from 'axios'
 import REACT_APP_BACKEND_URL from '../utils/config'
+import { headers } from '../utils/tools'
 
 export const addInventory = async (
 	areas,
@@ -25,7 +26,7 @@ export const addInventory = async (
 		email,
 		phone,
 		moreInfo,
-	})
+	}, headers())
 	return request.data
 }
 

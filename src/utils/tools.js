@@ -61,4 +61,15 @@ export const parseCreator = (report) => {
 	return report.name ? report.name : report.email
 }
 
+export const headers = () => {
+	const userDetails = JSON.parse(localStorage.getItem('userDetails'))
+	return userDetails
+		? {
+			headers: {
+				Authorization: `Bearer ${userDetails['auth']}`,
+			},
+		}
+		: {}
+}
+
 export default { getCenter, getCity, translateMethod, formatDate, parseCreator }
