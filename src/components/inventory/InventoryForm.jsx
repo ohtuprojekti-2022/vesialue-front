@@ -136,7 +136,6 @@ const InventoryForm = props => {
 						data-testid="name"
 						type="text"
 						defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.name}
-						onChange={e => props.setName(e.target.value)}
 						disabled
 					/>
 				)||
@@ -153,7 +152,6 @@ const InventoryForm = props => {
 						data-testid="email"
 						type="text"
 						defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.email}
-						onChange={e => props.setName(e.target.value)}
 						disabled
 					/>
 				)||
@@ -178,7 +176,6 @@ const InventoryForm = props => {
 						data-testid="phone"
 						type="text"
 						defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.phone}
-						onChange={e => props.setName(e.target.value)}
 						disabled
 					/>
 				)||

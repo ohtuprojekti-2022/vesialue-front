@@ -12,23 +12,6 @@ const DrawingTool = ({ setMapLayers }) => {
 		}
 	}
 
-	const _onEditPath = (e) => {
-		console.log(e)
-		const {
-			layers: { _layers },
-		} = e
-
-		Object.values(_layers).map(({ _leaflet_id, editing }) => {
-			setMapLayers((layers) =>
-				layers.map((l) =>
-					l.id === _leaflet_id
-						? { ...l, latlngs: { ...editing.latlngs[0] } }
-						: l
-				)
-			)
-		})
-	}
-
 	const _onDeleted = (e) => {
 		const {
 			layers: { _layers },
@@ -44,7 +27,6 @@ const DrawingTool = ({ setMapLayers }) => {
 			<EditControl
 				position="topright"
 				onCreated={_onCreate}
-				onEdited={_onEditPath}
 				onDeleted={_onDeleted}
 				draw={{
 					rectangle: false,
