@@ -54,4 +54,11 @@ export const formatDate = (date) => {
 	)}`
 }
 
-export default { getCity, translateMethod, formatDate }
+export const parseCreator = (report) => {
+	if (report.user) {
+		return report.user.name ? report.user.name : report.user.email
+	}
+	return report.name ? report.name : report.email
+}
+
+export default { getCenter, getCity, translateMethod, formatDate, parseCreator }

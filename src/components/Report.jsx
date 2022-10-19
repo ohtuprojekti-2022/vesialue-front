@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { formatDate, getCity, translateMethod } from '../utils/tools'
+import { formatDate, getCity, parseCreator, translateMethod } from '../utils/tools'
 
 const Report = ({ report }) => {
 	const [city, setCity] = useState('')
@@ -10,7 +10,7 @@ const Report = ({ report }) => {
 		getCity(report.areas).then((response) => setCity(response))
 	}, [])
 
-	const name = report.name ? report.name : report.email
+	const name = parseCreator(report)
 
 	return (
 		<tr onClick={() => navigate(`/report/${report.id}`)}>
