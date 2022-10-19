@@ -30,7 +30,8 @@
 	},
 	"jest": {
 		"collectCoverageFrom": [
-			"src/**/*.jsx"
+			"src/**/*.jsx",
+			"src/services/*.js"
 		]
 	},
 	"browserslist": {
