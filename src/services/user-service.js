@@ -8,7 +8,7 @@ export const registerNewUser = async (
 	phone,
 	name
 ) => {
-	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/register/`, {
+	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/register`, {
 		username,
 		password,
 		email,
@@ -19,7 +19,7 @@ export const registerNewUser = async (
 }
 
 export const loginRequest = async (username, password) => {
-	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/login/`, {
+	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/login`, {
 		username,
 		password,
 	})
