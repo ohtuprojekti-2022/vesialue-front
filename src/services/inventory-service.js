@@ -42,13 +42,13 @@ export const getAllAreas = async () => {
 }
 
 export const getAllInventories = () => {
-	const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory/`)
+	const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory`)
 	return request.then((response) => response.data)
 }
 
 export const getInventoryById = async (inventoryId) => {
 	const request = await axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/${inventoryId}/`
+		`${REACT_APP_BACKEND_URL}/api/inventory/${inventoryId}`
 	)
 	return request.data
 }

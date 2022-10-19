@@ -6,7 +6,7 @@ import Placeholder from 'react-bootstrap/Placeholder'
 import { getInventory } from '../../services/inventory-service'
 import Map from '../map/Map'
 import Area from '../map/Area'
-import { formatDate, getCenter, translateMethod } from '../../utils/tools'
+import { formatDate, getCenter, translateMethod, translateVisibility } from '../../utils/tools'
 
 const InventoryReport = () => {
 	const [report, setReport] = useState(null)
@@ -60,6 +60,11 @@ const InventoryReport = () => {
 						<ListGroup.Item>
 							Tapa: {translateMethod(report.method, report.methodInfo)}
 						</ListGroup.Item>
+						{(report.method === 'dive' || report.method === 'sight') && (
+							<ListGroup.Item>
+								Näkyvyys: {translateVisibility(report.visibility)}
+							</ListGroup.Item>
+						)}
 						<ListGroup.Item>Lisätietoja: {report.moreInfo}</ListGroup.Item>
 					</ListGroup>
 				</Card.Body>

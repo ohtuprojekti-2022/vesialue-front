@@ -47,6 +47,17 @@ export const translateMethod = (method, methodInfo) => {
 	}
 }
 
+export const translateVisibility = (visibility) => {
+	switch (visibility) {
+	case 'bad':
+		return 'huono (alle 2m)'
+	case 'normal':
+		return 'normaali (2-5m)'
+	case 'good':
+		return 'hyvä (yli 5m)'
+	}
+}
+
 export const formatDate = (date) => {
 	return `${date.substring(8, 10)}.${date.substring(5, 7)}.${date.substring(
 		0,
