@@ -14,7 +14,7 @@ export const addInventory = async (
 	moreInfo
 ) => {
 
-	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/inventory/`, {
+	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/inventory`, {
 		areas,
 		inventorydate,
 		method,
@@ -36,7 +36,7 @@ export const getInventory = async (id) => {
 
 export const getAllAreas = async () => {
 	const request = await axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/areas/`
+		`${REACT_APP_BACKEND_URL}/api/inventory/areas`
 	)
 	return request.data
 }
