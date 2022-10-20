@@ -131,19 +131,37 @@ const InventoryForm = props => {
 				/>
 			</FloatingLabel>
 			<FloatingLabel controlId="name" label="Nimi" className="mb-3">
+				{( localStorage.getItem('userDetails')) && (
+					<Form.Control
+						data-testid="name"
+						type="text"
+						defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.name}
+						disabled
+					/>
+				)||
 				<Form.Control
 					data-testid="name"
 					type="text"
 					onChange={e => props.setName(e.target.value)}
 				/>
+				}
 			</FloatingLabel>
 			<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
+				{( localStorage.getItem('userDetails')) && (
+					<Form.Control
+						data-testid="email"
+						type="text"
+						defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.email}
+						disabled
+					/>
+				)||
 				<Form.Control
 					data-testid="email"
 					type="email"
 					onChange={e => props.setEmail(e.target.value)}
 					required
 				/>
+				}
 				<Form.Control.Feedback type="invalid">
 					Anna sähköposti!
 				</Form.Control.Feedback>
@@ -153,11 +171,20 @@ const InventoryForm = props => {
 				label="Puhelinnumero"
 				className="mb-3"
 			>
+				{( localStorage.getItem('userDetails')) && (
+					<Form.Control
+						data-testid="phone"
+						type="text"
+						defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.phone}
+						disabled
+					/>
+				)||
 				<Form.Control
 					data-testid="phone"
 					type="phone"
 					onChange={e => props.setPhone(e.target.value)}
 				/>
+				}
 			</FloatingLabel>
 			<Button variant="primary" type="submit" data-testid="submit">
 				Lähetä

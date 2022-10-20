@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { addInventory } from '../../services/inventory-service'
 import InventoryForm from './InventoryForm'
-import Map from '../Map'
+import Map from '../map/Map'
 
 const Inventory = () => {
 	const [name, setName] = useState('')
@@ -21,22 +21,22 @@ const Inventory = () => {
 	const [mapLayers, setMapLayers] = useState([])
 	const navigate = useNavigate()
 
-	const addAlert = text => {
+	const addAlert = (text) => {
 		setAlert(text)
 		setTimeout(() => {
 			setAlert(null)
 		}, 7500)
 	}
 
-	const handleSubmit = async event => {
+	const handleSubmit = async (event) => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
 		setValidated(true)
 		event.preventDefault()
 		if (valid) {
 			try {
-				await addInventory(
-					mapLayers.map(layer => layer.latlngs),
+				const inventory = await addInventory(
+					mapLayers.map((layer) => layer.latlngs),
 					inventorydate,
 					method,
 					visibility,
@@ -56,7 +56,7 @@ const Inventory = () => {
 				setPhone('')
 				setMoreInfo('')
 				setValidated(false)
-				navigate('/')
+				navigate(`/report/${inventory.id}`)
 			} catch (error) {
 				addAlert(error.toString())
 			}

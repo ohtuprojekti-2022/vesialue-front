@@ -3,17 +3,10 @@ import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Inventory from './components/inventory/Inventory'
+import InventoryReport from './components/inventory/InventoryReport'
 import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
-
-const Hello = ({ userDetails }) => {
-	return (
-		<>
-			Hello{' '}
-			{userDetails ? userDetails.user.username : !userDetails && 'world'}!
-		</>
-	)
-}
+import Frontpage from './components/Frontpage'
 
 const App = () => {
 	const [userDetails, setUserDetails] = useState(
@@ -24,7 +17,7 @@ const App = () => {
 		<Container fluid>
 			<Navbar userDetails={userDetails} setUserDetails={setUserDetails} />
 			<Routes>
-				<Route path="/" element={<Hello userDetails={userDetails} />} />
+				<Route path="/" element={<Frontpage />} />
 				<Route path="inventointi-ilmoitus" element={<Inventory />} />
 				<Route
 					path="rekisteroidy"
@@ -34,6 +27,7 @@ const App = () => {
 					path="kirjaudu"
 					element={<Login setUserDetails={setUserDetails} />}
 				/>
+				<Route path="report/:id" element={<InventoryReport />} />
 			</Routes>
 		</Container>
 	)
