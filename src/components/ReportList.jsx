@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table'
 
 const ReportList = ({ inventories }) => {
 	return (
-		<Table striped bordered hover>
+		<Table striped bordered hover style={{wordBreak: 'break-word'}}>
 			<thead>
 				<tr>
 					<th>Inventoinnin päivämäärä</th>
