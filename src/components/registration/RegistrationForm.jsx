@@ -16,12 +16,13 @@ const RegistrationForm = ({
 				<Form.Control
 					type="text"
 					minLength="3"
+					maxLength="32"
 					placeholder="Käyttäjänimi"
 					onChange={(e) => setUsername(e.target.value)}
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna vähintään 3 merkkiä pitkä käyttäjänimi!
+					Anna 3-32 merkkiä pitkä käyttäjänimi!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
