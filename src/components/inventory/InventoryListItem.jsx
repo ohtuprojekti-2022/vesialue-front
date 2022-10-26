@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { formatDate, getCity, parseCreator, translateMethod } from '../utils/tools'
+import { formatDate, getCity, parseCreator, translateMethod } from '../../utils/tools'
 
-const Report = ({ report }) => {
+const InventoryListItem = ({ report }) => {
 	const [city, setCity] = useState('')
 	const navigate = useNavigate()
 
@@ -22,4 +22,4 @@ const Report = ({ report }) => {
 	)
 }
 
-export default Report
+export default InventoryListItem

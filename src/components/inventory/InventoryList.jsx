@@ -1,8 +1,12 @@
 import React from 'react'
-import Report from './Report'
+import InventoryListItem from './InventoryListItem'
 import Table from 'react-bootstrap/Table'
+import { useSelector } from 'react-redux'
 
-const ReportList = ({ inventories }) => {
+const InventoryList = () => {
+	const inventories = useSelector(({inventories}) => {
+		return inventories
+	})
 	return (
 		<Table striped bordered hover>
 			<thead>
@@ -15,11 +19,11 @@ const ReportList = ({ inventories }) => {
 			</thead>
 			<tbody>
 				{inventories.map((report) => (
-					<Report key={report.id} report={report} />
+					<InventoryListItem key={report.id} report={report} />
 				))}
 			</tbody>
 		</Table>
 	)
 }
 
-export default ReportList
+export default InventoryList

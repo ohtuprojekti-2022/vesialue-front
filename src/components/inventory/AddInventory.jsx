@@ -6,7 +6,7 @@ import { addInventory } from '../../services/inventory-service'
 import InventoryForm from './InventoryForm'
 import Map from '../map/Map'
 
-const Inventory = () => {
+const AddInventory = () => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [phone, setPhone] = useState('')
@@ -88,4 +88,4 @@ const Inventory = () => {
 	)
 }
 
-export default Inventory
+export default AddInventory

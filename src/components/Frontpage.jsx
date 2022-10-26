@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap'
 import { getAllInventories } from '../services/inventory-service'
 import Areas from './map/Areas'
 import Map from './map/Map'
-import ReportList from './ReportList'
+import InventoryList from './inventory/InventoryList'
 
 function Frontpage() {
 	const [inventories, setInventories] = useState(null)
@@ -23,7 +23,7 @@ function Frontpage() {
 	return (
 		<Container>
 			<Map>{inventories && <Areas inventories={inventories} />}</Map>
-			{inventories && <ReportList inventories={inventories}/>}
+			<InventoryList/>
 		</Container>
 	)
 }
