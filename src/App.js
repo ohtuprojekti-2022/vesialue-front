@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
@@ -7,8 +7,14 @@ import InventoryReport from './components/inventory/InventoryReport'
 import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
 import Frontpage from './components/Frontpage'
+import { useDispatch } from 'react-redux'
+import { initializeInventories } from './redux/reducers/inventoryReducer'
 
 const App = () => {
+	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch(initializeInventories())
+	}, [dispatch])
 	const [userDetails, setUserDetails] = useState(
 		JSON.parse(localStorage.getItem('userDetails'))
 	)
