@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import React from 'react'
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { LayersControl, MapContainer, TileLayer } from 'react-leaflet'
 import DrawingTool from './DrawingTool'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
@@ -17,11 +17,26 @@ const Map = ({ center, zoom, setMapLayers, children }) => {
 				zoom={zoom}
 				scrollWheelZoom={true}
 			>
+				<LayersControl position="topright">
+					<LayersControl.BaseLayer checked name="OpenStreetMap">
+						<TileLayer
+							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+						/>
+					</LayersControl.BaseLayer>
+					<LayersControl.BaseLayer name="Maastokartta">
+						<TileLayer url="https://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.jpg" />
+					</LayersControl.BaseLayer>
+					<LayersControl.Overlay
+						name="Merimerkit"
+					>
+						<TileLayer
+							attribution='&copy; <a href="https://openseamap.org/index.php?id=imprint&L=1">OpenSeaMap</a> contributors'
+							url="https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
+						/>
+					</LayersControl.Overlay>
+				</LayersControl>
 				{setMapLayers && <DrawingTool setMapLayers={setMapLayers} />}
-				<TileLayer
-					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-				/>
 				{children}
 			</MapContainer>
 		</>
