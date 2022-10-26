@@ -2,8 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import Area from './Area'
 import { getAllAreas } from '../../services/inventory-service'
+import { useSelector } from 'react-redux'
 
-const Areas = ({ inventories }) => {
+const Areas = () => {
+	const inventories = useSelector(({inventories}) => {
+		return inventories
+	})
+
 	const [areas, setAreas] = useState(null)
 
 	useEffect(() => {
