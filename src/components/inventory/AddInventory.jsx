@@ -5,6 +5,8 @@ import { Container, Alert } from 'react-bootstrap'
 import { addInventory } from '../../services/inventory-service'
 import InventoryForm from './InventoryForm'
 import Map from '../map/Map'
+import { useDispatch } from 'react-redux'
+import { appendInventory } from '../../redux/reducers/inventoryReducer'
 
 const AddInventory = () => {
 	const [name, setName] = useState('')
@@ -28,6 +30,8 @@ const AddInventory = () => {
 		}, 7500)
 	}
 
+	const dispatch = useDispatch()
+
 	const handleSubmit = async (event) => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
@@ -47,6 +51,8 @@ const AddInventory = () => {
 					phone,
 					moreInfo
 				)
+
+				dispatch(appendInventory(inventory))
 
 				setInventorydate('')
 				setMethod('')

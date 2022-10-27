@@ -8,6 +8,9 @@ const areaSlice = createSlice({
 		setAreas: (_state, action) => {
 			return action.payload
 		},
+		updateAreas: (state, action) => {
+			state.push(action.payload)
+		}
 	},
 })
 
@@ -18,5 +21,5 @@ export const initializeAreas = () => {
 	}
 }
 
-export const { setAreas } = areaSlice.actions
+export const { setAreas, updateAreas } = areaSlice.actions
 export default areaSlice.reducer
