@@ -7,6 +7,7 @@ import InventoryForm from './InventoryForm'
 import Map from '../map/Map'
 import { useDispatch } from 'react-redux'
 import { appendInventory } from '../../redux/reducers/inventoryReducer'
+import { appendAreas } from '../../redux/reducers/areaReducer'
 
 const AddInventory = () => {
 	const [name, setName] = useState('')
@@ -39,7 +40,7 @@ const AddInventory = () => {
 		event.preventDefault()
 		if (valid) {
 			try {
-				const inventory = await addInventory(
+				const [inventory, areas] = await addInventory(
 					mapLayers.map((layer) => layer.latlngs),
 					inventorydate,
 					method,
@@ -53,6 +54,7 @@ const AddInventory = () => {
 				)
 
 				dispatch(appendInventory(inventory))
+				dispatch(appendAreas(areas))
 
 				setInventorydate('')
 				setMethod('')

@@ -8,18 +8,20 @@ const areaSlice = createSlice({
 		setAreas: (_state, action) => {
 			return action.payload
 		},
-		updateAreas: (state, action) => {
-			state.push(action.payload)
-		}
+		appendAreas: (state, action) => {
+			action.payload.forEach(area => {
+				state.push(area)
+			})
+		},
 	},
 })
 
 export const initializeAreas = () => {
-	return async (dispatch) => {
+	return async dispatch => {
 		const areas = await getAllAreas()
 		dispatch(setAreas(areas))
 	}
 }
 
-export const { setAreas, updateAreas } = areaSlice.actions
+export const { setAreas, appendAreas } = areaSlice.actions
 export default areaSlice.reducer
