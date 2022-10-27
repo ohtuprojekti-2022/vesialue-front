@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { formatDate, getCity, parseCreator, translateMethod } from '../../utils/tools'
+import {
+	formatDate,
+	getCity,
+	parseCreator,
+	translateMethod,
+} from '../../utils/tools'
 
-const InventoryListItem = ({ report }) => {
+const InventoryListItem = ({ report, areas }) => {
 	const [city, setCity] = useState('')
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		getCity(report.areas).then((response) => setCity(response))
+		getCity(areas).then(response => setCity(response))
 	}, [])
 
 	const name = parseCreator(report)

@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Placeholder from 'react-bootstrap/Placeholder'
-import { getInventory } from '../../services/inventory-service'
 import Map from '../map/Map'
 import Area from '../map/Area'
 import { formatDate, getCenter, translateMethod } from '../../utils/tools'
+import { useSelector } from 'react-redux'
 
 const InventoryReport = () => {
-	const [report, setReport] = useState(null)
-
 	let { id } = useParams()
+	const allInventories = useSelector(({ inventories }) => {
+		return inventories
+	})
+	const allAreas = useSelector(({ areas }) => {
+		return areas
+	})
 
-	useEffect(() => {
-		getInventory(id).then((r) => {
-			setReport(r)
-		})
-	}, [])
-
-	if (!report) {
+	if (allInventories.length === 0 || allAreas.length === 0) {
 		return (
 			<div className="d-flex justify-content-around">
 				<Card style={{ width: '40rem' }}>
@@ -40,8 +38,12 @@ const InventoryReport = () => {
 			</div>
 		)
 	}
+	const report = allInventories.filter(i => i.id === id)[0]
+	const areas = allAreas.filter(a => a.inventoryId === report.id)
 	const center = getCenter(
-		report.areas.reduce((prev, current) => [...prev, getCenter(current)], [])
+		areas.reduce((prev, current) => {
+			return [...prev, getCenter(current.coordinates)]
+		}, [])
 	)
 	return (
 		<div className="d-flex justify-content-around">
@@ -49,8 +51,8 @@ const InventoryReport = () => {
 				<Card.Body>
 					<Card.Title>Ilmoitus</Card.Title>
 					<Map center={center}>
-						{report.areas.map((area) => (
-							<Area key={area[0].lat} coordinates={area} />
+						{areas.map(area => (
+							<Area key={area.id} coordinates={area.coordinates} />
 						))}
 					</Map>
 					<ListGroup>
