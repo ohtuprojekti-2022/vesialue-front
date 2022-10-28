@@ -21,9 +21,9 @@ describe('LogoutButton', () => {
 	beforeEach(() => {
 		localStorage.setItem('userDetails', initialUserDetails)
 		renderWithProviders(
-		<MemoryRouter>
-			<LogoutButton />
-		</MemoryRouter>)
+			<MemoryRouter>
+				<LogoutButton />
+			</MemoryRouter>)
 	})
 
 	test('renders button', () => {
