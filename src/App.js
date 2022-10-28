@@ -10,7 +10,6 @@ import Frontpage from './components/Frontpage'
 import { useDispatch } from 'react-redux'
 import { initializeInventories } from './redux/reducers/inventoryReducer'
 import { initializeAreas } from './redux/reducers/areaReducer'
-import { initializeUserDetails } from './redux/reducers/userReducer'
 
 const App = () => {
 	const dispatch = useDispatch()
