@@ -25,11 +25,18 @@ const Map = ({ center, zoom, setMapLayers, children }) => {
 						/>
 					</LayersControl.BaseLayer>
 					<LayersControl.BaseLayer name="Maastokartta">
-						<TileLayer url="https://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.jpg" />
+						<TileLayer
+							attribution='<a href="https://www.maanmittauslaitos.fi/avoindata-lisenssi-cc40">Maanmittauslaitos</a> TMS <a href="https://kartat.kapsi.fi/#Peruskarttarasteri">Peruskartta</a>'
+							url="https://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.jpg"
+						/>
 					</LayersControl.BaseLayer>
-					<LayersControl.Overlay
-						name="Merimerkit"
-					>
+					<LayersControl.BaseLayer name="Satelliitti">
+						<TileLayer
+							attribution='&copy; <a href="https://www.esri.com/en-us/legal/overview">Esri</a> contributors'
+							url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+						/>
+					</LayersControl.BaseLayer>
+					<LayersControl.Overlay name="Merimerkit">
 						<TileLayer
 							attribution='&copy; <a href="https://openseamap.org/index.php?id=imprint&L=1">OpenSeaMap</a> contributors'
 							url="https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
