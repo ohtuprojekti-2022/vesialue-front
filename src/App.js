@@ -17,7 +17,6 @@ const App = () => {
 	useEffect(() => {
 		dispatch(initializeInventories())
 		dispatch(initializeAreas())
-		dispatch(initializeUserDetails())
 	}, [dispatch])
 
 	return (

@@ -2,20 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const userSlice = createSlice({
 	name: 'userDetails',
-	initialState: null,
+	initialState: JSON.parse(localStorage.getItem('userDetails')),
 	reducers: {
 		setUserDetails: (state, action) => {
 			return action.payload
 		}
 	},
 })
-
-export const initializeUserDetails = () => {
-	return async dispatch => {
-		const userDetails = JSON.parse(localStorage.getItem('userDetails'))
-		dispatch(setUserDetails(userDetails))
-	}
-}
 
 export const login = data => {
 	return async dispatch => {
