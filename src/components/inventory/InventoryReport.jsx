@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Placeholder from 'react-bootstrap/Placeholder'
 import Map from '../map/Map'
 import Area from '../map/Area'
-import { formatDate, getCenter, translateMethod } from '../../utils/tools'
+import { formatDate, getCenter, translateMethod, translateVisibility } from '../../utils/tools'
 import { useSelector } from 'react-redux'
 
 const InventoryReport = () => {
@@ -62,6 +62,11 @@ const InventoryReport = () => {
 						<ListGroup.Item>
 							Tapa: {translateMethod(report.method, report.methodInfo)}
 						</ListGroup.Item>
+						{(report.method === 'dive' || report.method === 'sight') && (
+							<ListGroup.Item>
+								Näkyvyys: {translateVisibility(report.visibility)}
+							</ListGroup.Item>
+						)}
 						<ListGroup.Item>Lisätietoja: {report.moreInfo}</ListGroup.Item>
 					</ListGroup>
 				</Card.Body>
