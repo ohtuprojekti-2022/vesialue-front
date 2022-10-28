@@ -4,8 +4,11 @@ import Table from 'react-bootstrap/Table'
 import { useSelector } from 'react-redux'
 
 const InventoryList = () => {
-	const inventories = useSelector(({inventories}) => {
+	const inventories = useSelector(({ inventories }) => {
 		return inventories
+	})
+	const areas = useSelector(({ areas }) => {
+		return areas
 	})
 	return (
 		<Table striped bordered hover>
@@ -18,9 +21,14 @@ const InventoryList = () => {
 				</tr>
 			</thead>
 			<tbody>
-				{inventories.map((report) => (
-					<InventoryListItem key={report.id} report={report} />
-				))}
+				{areas.length > 0 &&
+					inventories.map(report => (
+						<InventoryListItem
+							key={report.id}
+							report={report}
+							areas={areas.filter(a => a.inventoryId === report.id)}
+						/>
+					))}
 			</tbody>
 		</Table>
 	)

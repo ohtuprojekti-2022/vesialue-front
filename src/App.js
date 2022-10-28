@@ -9,11 +9,13 @@ import Login from './components/login/Login'
 import Frontpage from './components/Frontpage'
 import { useDispatch } from 'react-redux'
 import { initializeInventories } from './redux/reducers/inventoryReducer'
+import { initializeAreas } from './redux/reducers/areaReducer'
 
 const App = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(initializeInventories())
+		dispatch(initializeAreas())
 	}, [dispatch])
 	const [userDetails, setUserDetails] = useState(
 		JSON.parse(localStorage.getItem('userDetails'))

@@ -1,22 +1,16 @@
 /* istanbul ignore file */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Area from './Area'
-import { getAllAreas } from '../../services/inventory-service'
+import { useSelector } from 'react-redux'
 
-const Areas = ({ inventories }) => {
-	const [areas, setAreas] = useState(null)
-
-	useEffect(() => {
-		getAllAreas()
-			.then((a) => setAreas(a))
-			.catch(() => {
-				if (
-					window.confirm('Alueiden lataaminen epäonnistui! Yritä uudelleen?')
-				) {
-					window.location.reload()
-				}
-			})
-	}, [])
+const Areas = () => {
+	const inventories = useSelector(({inventories}) => {
+		return inventories
+	})
+	
+	const areas = useSelector(({areas}) => {
+		return areas
+	})
 
 	return (
 		<>

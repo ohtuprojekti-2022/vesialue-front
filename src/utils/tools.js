@@ -1,13 +1,13 @@
 import axios from 'axios'
 import REACT_APP_BACKEND_URL from '../utils/config'
 
-export const getCenter = (area) => {
+export const getCenter = (coordinates) => {
 	let maxLat = -Infinity
 	let minLat = Infinity
 	let maxLng = -Infinity
 	let minLng = Infinity
 
-	area.forEach((coordPair) => {
+	coordinates.forEach((coordPair) => {
 		maxLat = Math.max(maxLat, coordPair.lat)
 		minLat = Math.min(minLat, coordPair.lat)
 		maxLng = Math.max(maxLng, coordPair.lng)
@@ -21,7 +21,7 @@ export const getCenter = (area) => {
 }
 
 export const getCity = async (areas) => {
-	const centers = areas.map((area) => getCenter(area))
+	const centers = areas.map((area) => getCenter(area.coordinates))
 	const lat = centers[0].lat
 	const lon = centers[0].lng
 
@@ -44,6 +44,17 @@ export const translateMethod = (method, methodInfo) => {
 		return 'Sukellus'
 	case 'other':
 		return methodInfo
+	}
+}
+
+export const translateVisibility = (visibility) => {
+	switch (visibility) {
+	case 'bad':
+		return 'huono (alle 2m)'
+	case 'normal':
+		return 'normaali (2-5m)'
+	case 'good':
+		return 'hyvä (yli 5m)'
 	}
 }
 
