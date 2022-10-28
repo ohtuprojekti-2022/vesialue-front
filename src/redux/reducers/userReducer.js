@@ -1,0 +1,35 @@
+import { createSlice } from '@reduxjs/toolkit'
+
+const userSlice = createSlice({
+	name: 'userDetails',
+	initialState: null,
+	reducers: {
+		setUserDetails: (state, action) => {
+			return action.payload
+		}
+	},
+})
+
+export const initializeUserDetails = () => {
+	return async dispatch => {
+		const userDetails = JSON.parse(localStorage.getItem('userDetails'))
+		dispatch(setUserDetails(userDetails))
+	}
+}
+
+export const login = data => {
+	return async dispatch => {
+		localStorage.setItem('userDetails', JSON.stringify(data))
+		dispatch(setUserDetails(data))
+	}
+}
+
+export const logout = () => {
+	return async dispatch => {
+		localStorage.removeItem('userDetails')
+		dispatch(setUserDetails(null))
+	}
+}
+
+export const { setUserDetails } = userSlice.actions
+export default userSlice.reducer

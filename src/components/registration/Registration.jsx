@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { registerNewUser } from '../../services/user-service'
 import RegistrationForm from './RegistrationForm'
+import { login } from '../../redux/reducers/userReducer'
+import { useDispatch } from 'react-redux'
 
-const Registration = ({ setUserDetails }) => {
+const Registration = () => {
+	const dispatch = useDispatch()
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [email, setEmail] = useState('')
@@ -36,8 +39,7 @@ const Registration = ({ setUserDetails }) => {
 					phone,
 					name
 				)
-				setUserDetails(data)
-				localStorage.setItem('userDetails', JSON.stringify(data))
+				dispatch(login(data))
 
 				setUsername('')
 				setPassword('')

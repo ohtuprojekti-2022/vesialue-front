@@ -1,9 +1,14 @@
 import React from 'react'
 import { Navbar as BNavbar, Nav, NavDropdown, NavLink } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import LogoutButton from './LogoutButton'
 
-const Navbar = ({ userDetails, setUserDetails }) => {
+const Navbar = () => {
+	const userDetails = useSelector(({ userDetails }) => {
+		return userDetails
+	})
+	
 	return (
 		<BNavbar collapseOnSelect expand="md" className="py-3 px-2">
 			<BNavbar.Brand href="/">
@@ -29,7 +34,7 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 								</BNavbar.Text>
 							</NavDropdown.Item>
 							<NavDropdown.Item>
-								<LogoutButton setUserDetails={setUserDetails} />
+								<LogoutButton />
 							</NavDropdown.Item>
 						</NavDropdown>
 					)}
