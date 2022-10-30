@@ -37,9 +37,7 @@ const UserPage = () => {
 				</Card.Body>
 			</Card>
 		</div>
-		
-	)		
-
+	)
 }
 
 export default UserPage
