@@ -34,6 +34,9 @@ const Navbar = () => {
 								</BNavbar.Text>
 							</NavDropdown.Item>
 							<NavDropdown.Item>
+								<NavLink eventKey="3" as={Link} to="/omasivu">Oma sivu</NavLink>
+							</NavDropdown.Item>
+							<NavDropdown.Item>
 								<LogoutButton />
 							</NavDropdown.Item>
 						</NavDropdown>

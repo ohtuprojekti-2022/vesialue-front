@@ -6,6 +6,7 @@ import AddInventory from './components/inventory/AddInventory'
 import InventoryReport from './components/inventory/InventoryReport'
 import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
+import UserPage from './components/UserPage'
 import Frontpage from './components/Frontpage'
 import { useDispatch } from 'react-redux'
 import { initializeInventories } from './redux/reducers/inventoryReducer'
@@ -33,6 +34,7 @@ const App = () => {
 					element={<Login />}
 				/>
 				<Route path="report/:id" element={<InventoryReport />} />
+				<Route path="omasivu" element={<UserPage />} />
 			</Routes>
 		</Container>
 	)
