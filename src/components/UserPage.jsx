@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { useSelector } from 'react-redux'
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
-import setAdmin from '../services/user-service'
+import { setAdmin } from '../services/user-service'
 
 const UserPage = () => {
 
