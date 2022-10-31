@@ -112,7 +112,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna inventointimenetelmän tiedot enintään 100 merkillä!
+						Anna inventointimenetelmän tiedot!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 			)}
