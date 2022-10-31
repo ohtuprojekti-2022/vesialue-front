@@ -168,7 +168,7 @@ const InventoryForm = props => {
 				/>
 				}
 				<Form.Control.Feedback type="invalid">
-					Anna sähköposti!
+					Anna validi sähköposti!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel

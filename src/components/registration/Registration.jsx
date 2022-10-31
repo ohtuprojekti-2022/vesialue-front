@@ -59,6 +59,8 @@ const Registration = () => {
 					addAlert('Anna validi sähköpostiosoite!')
 				} else if (error.response.data.message === 'email taken') {
 					addAlert('Sähköpostiosoite on jo käytössä!')
+				} else if (error.response.data.message === 'phone number is not valid') {
+					addAlert('Anna validi suomalainen puhelinnumero!')
 				} else {
 					addAlert(error.response.data.message)
 				}
