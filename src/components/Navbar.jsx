@@ -8,9 +8,9 @@ const Navbar = () => {
 	const userDetails = useSelector(({ userDetails }) => {
 		return userDetails
 	})
-	
+
 	return (
-		<BNavbar collapseOnSelect expand="md" className="py-3 px-2">
+		<BNavbar collapseOnSelect expand="md" className="py-3 px-2" style={{ zIndex: 2000 }}>
 			<BNavbar.Brand href="/">
 				<img
 					src="/logo192.png"
@@ -47,7 +47,7 @@ const Navbar = () => {
 							<NavLink eventKey="5" as={Link} to="/rekisteroidy">Rekisteröidy</NavLink>
 						</NavDropdown>
 					)}
-					
+
 				</Nav>
 			</BNavbar.Collapse>
 		</BNavbar>
