@@ -1,12 +1,18 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Placeholder from 'react-bootstrap/Placeholder'
 import Map from '../map/Map'
 import Area from '../map/Area'
-import { formatDate, getCenter, translateMethod, translateVisibility } from '../../utils/tools'
+import {
+	formatDate,
+	getCenter,
+	translateMethod,
+	translateVisibility,
+} from '../../utils/tools'
 import { useSelector } from 'react-redux'
+import { Button } from 'react-bootstrap'
 
 const InventoryReport = () => {
 	let { id } = useParams()
@@ -16,6 +22,10 @@ const InventoryReport = () => {
 	const allAreas = useSelector(({ areas }) => {
 		return areas
 	})
+	const userDetails = useSelector(({ userDetails }) => {
+		return userDetails
+	})
+	const navigate = useNavigate()
 
 	if (allInventories.length === 0 || allAreas.length === 0) {
 		return (
@@ -49,7 +59,14 @@ const InventoryReport = () => {
 		<div className="d-flex justify-content-around">
 			<Card style={{ width: '40rem' }}>
 				<Card.Body>
-					<Card.Title>Ilmoitus</Card.Title>
+					<Card.Title>
+						Raportti{' '}
+						{report.user && userDetails.user.id === report.user.id && (
+							<Button onClick={() => navigate(`/report/${report.id}/edit`)}>
+								Muokkaa
+							</Button>
+						)}
+					</Card.Title>
 					<Map center={center}>
 						{areas.map(area => (
 							<Area key={area.id} coordinates={area.coordinates} />

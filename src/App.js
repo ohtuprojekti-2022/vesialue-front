@@ -34,6 +34,7 @@ const App = () => {
 					element={<Login />}
 				/>
 				<Route path="report/:id" element={<InventoryReport />} />
+				<Route path="report/:id/edit" element={<InventoryReport />} />
 				<Route path="omasivu" element={<UserPage />} />
 			</Routes>
 		</Container>
