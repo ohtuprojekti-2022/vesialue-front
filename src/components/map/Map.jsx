@@ -5,7 +5,7 @@ import DrawingTool from './DrawingTool'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 
-const Map = ({ center, zoom, setMapLayers, children }) => {
+const Map = ({ center, zoom, setMapLayers, editableAreas, children }) => {
 	if (!center) center = { lat: 60.170702505729416, lng: 24.941444393533125 }
 	if (!zoom) zoom = 12
 
@@ -43,7 +43,7 @@ const Map = ({ center, zoom, setMapLayers, children }) => {
 						/>
 					</LayersControl.Overlay>
 				</LayersControl>
-				{setMapLayers && <DrawingTool setMapLayers={setMapLayers} />}
+				{setMapLayers && <DrawingTool setMapLayers={setMapLayers} existingAreas={editableAreas} />}
 				{children}
 			</MapContainer>
 		</>
