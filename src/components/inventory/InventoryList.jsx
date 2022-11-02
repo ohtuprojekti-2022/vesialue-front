@@ -26,7 +26,6 @@ const InventoryList = () => {
 						<InventoryListItem
 							key={report.id}
 							report={report}
-							areas={areas.filter(a => a.inventoryId === report.id)}
 						/>
 					))}
 			</tbody>

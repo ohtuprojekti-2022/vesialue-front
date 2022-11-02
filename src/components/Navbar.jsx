@@ -27,14 +27,9 @@ const Navbar = () => {
 					<NavLink eventKey="1" as={Link} to="/" >Etusivu</NavLink>
 					<NavLink eventKey="2" as={Link} to="/inventointi-ilmoitus" >Uusi ilmoitus</NavLink>
 					{userDetails && (
-						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
-							<NavDropdown.Item>
-								<BNavbar.Text>
-									Signed in as: {userDetails.user.username}
-								</BNavbar.Text>
-							</NavDropdown.Item>
-							<NavDropdown.Item>
-								<NavLink eventKey="3" as={Link} to="/omasivu">Oma sivu</NavLink>
+						<NavDropdown title={userDetails.user.username} id="navbarScrollingDropdown">
+							<NavDropdown.Item eventKey="3" as={Link} to="/omasivu">
+								Oma sivu
 							</NavDropdown.Item>
 							<NavDropdown.Item>
 								<LogoutButton />

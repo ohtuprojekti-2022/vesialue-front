@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { getAllInventories } from '../../services/inventory-service'
 
 const inventorySlice = createSlice({
@@ -21,12 +21,16 @@ export const initializeInventories = () => {
 	}
 }
 
-/* export const createInventory = inventoryDetails => {
-	return async dispatch => {
-		const newInventory = await addInventory(inventoryDetails)
-		dispatch(appendInventory(newInventory))
-	}
-} */
+export const getInventoriesByUserId = createSelector(
+	[
+		state => state.inventories,
+		(_state, userId) => userId
+	],
+	// Output selector gets (inventories, userId) as args
+	(inventories, userId) => inventories.filter(inventory =>
+		inventory.user && inventory.user.id === userId)
+
+)
 
 export const { setInventories, appendInventory } = inventorySlice.actions
 export default inventorySlice.reducer
