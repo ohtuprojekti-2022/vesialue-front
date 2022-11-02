@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -19,14 +20,14 @@ const AddInventory = () => {
 	}) */
 	const [mapLayers, setMapLayers] = useState([])
 
-	console.log(mapLayers)
+	useEffect(() => console.log(mapLayers), [mapLayers])
 
 	if (allInventories.length === 0 || allAreas.length === 0) {
 		return <p>ladataan raporttia...</p>
 	}
 
-	const report = allInventories.filter(i => i.id === id)[0]
-	const areas = allAreas.filter(a => a.inventoryId === report.id)
+	const report = allInventories.filter((i) => i.id === id)[0]
+	const areas = allAreas.filter((a) => a.inventoryId === report.id)
 	const center = getCenter(
 		areas.reduce((prev, current) => {
 			return [...prev, getCenter(current.coordinates)]
