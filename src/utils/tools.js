@@ -1,6 +1,3 @@
-import axios from 'axios'
-import REACT_APP_BACKEND_URL from '../utils/config'
-
 export const getCenter = (coordinates) => {
 	let maxLat = -Infinity
 	let minLat = Infinity
@@ -18,20 +15,6 @@ export const getCenter = (coordinates) => {
 	const lng = (maxLng + minLng) / 2
 
 	return { lat: lat, lng: lng }
-}
-
-export const getCity = async (areas) => {
-	const centers = areas.map((area) => getCenter(area.coordinates))
-	const lat = centers[0].lat
-	const lon = centers[0].lng
-
-	const response = await axios.get(
-		`${REACT_APP_BACKEND_URL}/api/cities?latitude=${lat}&longitude=${lon}`
-	)
-
-	return response.data.city
-		? `${response.data.city}, ${response.data.locality}`
-		: response.data.locality
 }
 
 export const translateMethod = (method, methodInfo) => {
@@ -83,4 +66,4 @@ export const headers = () => {
 		: {}
 }
 
-export default { getCenter, getCity, translateMethod, formatDate, parseCreator }
+export default { getCenter, translateMethod, formatDate, parseCreator }
