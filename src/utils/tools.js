@@ -62,7 +62,7 @@ export const headers = () => {
 			headers: {
 				Authorization: `Bearer ${userDetails['auth']}`,
 			},
-		  }
+		}
 		: {}
 }
 
@@ -71,12 +71,14 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 		const { user, city, moreInfo } = report
 		const name = user ? user.name : report.name
 		const username = user ? user.username : ''
-		const inventoryDate = Date.parse(report.inventoryDate)
+		const inventoryDate = Date.parse(report.inventorydate)
 		const method = translateMethod(report.method, report.methodInfo)
 
 		return (
-			name.toLowerCase().includes(filter.creator) ||
-			username.toLowerCase().includes(filter.creator)
+			(name.toLowerCase().includes(filter.creator) ||
+				username.toLowerCase().includes(filter.creator)) &&
+			filter.startDate <= inventoryDate &&
+			inventoryDate <= filter.endDate
 		)
 	})
 	const inventoryIds = new Set(filteredInventories.map(i => i.id))

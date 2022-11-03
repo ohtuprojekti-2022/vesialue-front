@@ -4,8 +4,8 @@ const filterSlice = createSlice({
 	name: 'filter',
 	initialState: {
 		creator: '',
-		startDate: undefined,
-		endDate: undefined,
+		startDate: 0,
+		endDate: Date.now(),
 		method: '',
 		city: '',
 		moreInfo: '',
@@ -17,9 +17,9 @@ const filterSlice = createSlice({
 			case 'creator':
 				return { ...state, creator: value }
 			case 'startDate':
-				return { ...state, startDate: value }
+				return { ...state, startDate: Date.parse(value) }
 			case 'endDate':
-				return { ...state, endDate: value }
+				return { ...state, endDate: Date.parse(value) }
 			case 'method':
 				return { ...state, method: value }
 			case 'city':
