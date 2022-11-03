@@ -1,19 +1,36 @@
 import React from 'react'
-import { Col, FloatingLabel, Form, Row } from 'react-bootstrap'
+import { Button, Col, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateFilter } from '../redux/reducers/filterReducer'
+import { updateFilter, resetFilter } from '../redux/reducers/filterReducer'
 
 const FilterForm = () => {
 	const filter = useSelector(({ filter }) => filter)
 	const dispatch = useDispatch()
 
 	const handleFilter = e => {
-		dispatch(updateFilter({ id: e.target.id, value: e.target.value }))
+		if (e.target.value) {
+			dispatch(updateFilter({ id: e.target.id, value: e.target.value }))
+		}
 	}
 	return (
 		<>
-			<Form onSubmit={e => e.preventDefault()}>
-				<Form.Label style={{ fontSize: 22 }}>Filtteröi raportteja:</Form.Label>
+			<Form style={{ paddingTop: '0.5rem' }} onSubmit={e => e.preventDefault()}>
+				<Row className="mb-3">
+					<Col>
+						<Form.Label style={{ fontSize: 22 }}>
+							Filtteröi raportteja:
+						</Form.Label>
+					</Col>
+					<Col>
+						<Button
+							variant="outline-primary"
+							size="sm"
+							onClick={() => dispatch(resetFilter())}
+						>
+							Tyhjennä filtteri
+						</Button>
+					</Col>
+				</Row>
 				<Row className="mb-3">
 					<Col>
 						<FloatingLabel controlId="creator" label="Tekijä">
@@ -29,12 +46,24 @@ const FilterForm = () => {
 					<Form.Label>Aikaväli:</Form.Label>
 					<Col>
 						<FloatingLabel controlId="startDate" label="ensimmäinen päivä">
-							<Form.Control type="date" onChange={handleFilter} />
+							<Form.Control
+								type="date"
+								defaultValue={
+									new Date(filter.startDate).toISOString().split('T')[0]
+								}
+								onChange={handleFilter}
+							/>
 						</FloatingLabel>
 					</Col>
 					<Col>
 						<FloatingLabel controlId="endDate" label="viimeinen päivä">
-							<Form.Control type="date" onChange={handleFilter} />
+							<Form.Control
+								type="date"
+								defaultValue={
+									new Date(filter.endDate).toISOString().split('T')[0]
+								}
+								onChange={handleFilter}
+							/>
 						</FloatingLabel>
 					</Col>
 				</Form.Group>

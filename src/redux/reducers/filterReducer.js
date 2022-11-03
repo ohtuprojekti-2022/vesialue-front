@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const initialState = {
+	creator: '',
+	startDate: 1640995200000,
+	endDate: Date.now(),
+	method: '',
+	city: '',
+	moreInfo: '',
+}
+
 const filterSlice = createSlice({
 	name: 'filter',
-	initialState: {
-		creator: '',
-		startDate: 0,
-		endDate: Date.now(),
-		method: '',
-		city: '',
-		moreInfo: '',
-	},
+	initialState,
 	reducers: {
 		updateFilter: (state, action) => {
 			const value = action.payload.value.toLowerCase()
@@ -30,8 +32,11 @@ const filterSlice = createSlice({
 				return state
 			}
 		},
+		resetFilter: () => {
+			return initialState
+		}
 	},
 })
 
-export const { updateFilter } = filterSlice.actions
+export const { updateFilter, resetFilter } = filterSlice.actions
 export default filterSlice.reducer
