@@ -2,23 +2,20 @@
 import React from 'react'
 import Area from './Area'
 import { useSelector } from 'react-redux'
+import { filteredInventoriesAndAreas } from '../../utils/tools'
 
 const Areas = () => {
-	const inventories = useSelector(({inventories}) => {
-		return inventories
-	})
-	
-	const areas = useSelector(({areas}) => {
-		return areas
+	const [inventories, areas] = useSelector(({ inventories, areas, filter }) => {
+		return filteredInventoriesAndAreas(inventories, areas, filter)
 	})
 
 	return (
 		<>
 			{areas &&
-				areas.map((a) => (
+				areas.map(a => (
 					<Area
 						key={a.id}
-						details={inventories.filter((i) => i.id === a.inventoryId)[0]}
+						details={inventories.filter(i => i.id === a.inventoryId)[0]}
 						coordinates={a.coordinates}
 					/>
 				))}

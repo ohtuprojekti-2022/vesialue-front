@@ -2,14 +2,13 @@ import React from 'react'
 import InventoryListItem from './InventoryListItem'
 import Table from 'react-bootstrap/Table'
 import { useSelector } from 'react-redux'
+import { filteredInventoriesAndAreas } from '../../utils/tools'
 
 const InventoryList = () => {
-	const inventories = useSelector(({ inventories }) => {
-		return inventories
+	const [inventories, areas] = useSelector(({ inventories, areas, filter }) => {
+		return filteredInventoriesAndAreas(inventories, areas, filter)
 	})
-	const areas = useSelector(({ areas }) => {
-		return areas
-	})
+
 	return (
 		<Table striped bordered hover>
 			<thead>
@@ -23,10 +22,7 @@ const InventoryList = () => {
 			<tbody>
 				{areas.length > 0 &&
 					inventories.map(report => (
-						<InventoryListItem
-							key={report.id}
-							report={report}
-						/>
+						<InventoryListItem key={report.id} report={report} />
 					))}
 			</tbody>
 		</Table>
