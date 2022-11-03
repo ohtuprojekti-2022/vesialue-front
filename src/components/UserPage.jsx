@@ -7,6 +7,7 @@ import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import { setAdmin } from '../services/user-service'
 import { getInventoriesByUserId } from '../redux/reducers/inventoryReducer'
 import InventoryListItem from './inventory/InventoryListItem'
+import { useLocation } from 'react-router-dom'
 
 const UserDetails = () => {
 	const userDetails = useSelector(({ userDetails }) => {
@@ -39,25 +40,21 @@ const OwnInventories = () => {
 		return userDetails
 	})
 
-	const areas = useSelector(({ areas }) => {
-		return areas
-	})
-
 	const inventories = useSelector(state =>
-		getInventoriesByUserId(state, userDetails.user.id))
+		getInventoriesByUserId(state, userDetails.user.id)
+	)
 
 	return (
-		<Table striped bordered hover>
+		<Table responsive striped bordered hover>
 			<thead>
 				<tr>
 					<th>Inventoinnin päivämäärä</th>
 					<th>Havainnon tyyppi</th>
-					<th>Tekijä</th>
 					<th>Kaupunki</th>
 				</tr>
 			</thead>
 			<tbody>
-				{areas.length > 0 &&
+				{inventories.length > 0 &&
 					inventories.map(report => (
 						<InventoryListItem
 							key={report.id}
@@ -70,14 +67,14 @@ const OwnInventories = () => {
 }
 
 const UserPage = () => {
-	const [activeKey, setActiveKey] = useState('#tiedot')
+	const location = useLocation()
+	const [activeKey, setActiveKey] = useState(location.hash)
 
-	console.log(activeKey)
 	return (
 		<div className="d-flex justify-content-around">
 			<Card style={{ width: '40rem' }}>
 				<Card.Header>
-					<Nav variant="pills" defaultActiveKey="#tiedot" onSelect={key => setActiveKey(key)}>
+					<Nav justify variant="pills" defaultActiveKey={location.hash} onSelect={key => setActiveKey(key)}>
 						<Nav.Item>
 							<Nav.Link href="#tiedot">Käyttäjätiedot</Nav.Link>
 						</Nav.Item>

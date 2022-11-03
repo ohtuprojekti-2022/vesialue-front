@@ -28,9 +28,10 @@ const Navbar = () => {
 					<NavLink eventKey="2" as={Link} to="/inventointi-ilmoitus" >Uusi ilmoitus</NavLink>
 					{userDetails && (
 						<NavDropdown title={userDetails.user.username} id="navbarScrollingDropdown">
-							<NavDropdown.Item eventKey="3" as={Link} to="/omasivu">
+							<NavDropdown.Item eventKey="3" as={Link} to="/omasivu#tiedot">
 								Oma sivu
 							</NavDropdown.Item>
+							<NavDropdown.Divider />
 							<NavDropdown.Item>
 								<LogoutButton />
 							</NavDropdown.Item>
