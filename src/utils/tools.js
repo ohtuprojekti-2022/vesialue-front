@@ -68,15 +68,21 @@ export const headers = () => {
 
 export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 	const filteredInventories = inventories.filter(report => {
-		const { user, city, moreInfo } = report
+		const { user, city } = report
 		const name = user ? user.name : report.name
 		const username = user ? user.username : ''
 		const inventoryDate = Date.parse(report.inventorydate)
-		const method = translateMethod(report.method, report.methodInfo)
+		const method = translateMethod(report.method, report.methodInfo).toLowerCase()
+
+		console.log(filter.method)
+		console.log(method)
+		console.log(method === filter.method || filter.method === '-')
 
 		return (
 			(name.toLowerCase().includes(filter.creator) ||
 				username.toLowerCase().includes(filter.creator)) &&
+			city.toLowerCase().includes(filter.city) &&
+			(method === filter.method || filter.method === '-') &&
 			filter.startDate <= inventoryDate &&
 			inventoryDate <= filter.endDate
 		)

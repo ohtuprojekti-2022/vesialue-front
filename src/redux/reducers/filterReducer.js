@@ -4,7 +4,7 @@ const initialState = {
 	creator: '',
 	startDate: 1640995200000,
 	endDate: Date.now(),
-	method: '',
+	method: '-',
 	city: '',
 	moreInfo: '',
 }
