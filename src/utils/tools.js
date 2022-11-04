@@ -74,10 +74,6 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 		const inventoryDate = Date.parse(report.inventorydate)
 		const method = translateMethod(report.method, report.methodInfo).toLowerCase()
 
-		console.log(filter.method)
-		console.log(method)
-		console.log(method === filter.method || filter.method === '-')
-
 		return (
 			(name.toLowerCase().includes(filter.creator) ||
 				username.toLowerCase().includes(filter.creator)) &&

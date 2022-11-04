@@ -1,25 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { Nav, Table } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
-import BootstrapSwitchButton from 'bootstrap-switch-button-react'
-import { setAdmin } from '../services/user-service'
-import { getInventoriesByUserId } from '../redux/reducers/inventoryReducer'
-import InventoryListItem from './inventory/InventoryListItem'
+import { Nav } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+/* import BootstrapSwitchButton from 'bootstrap-switch-button-react'
+import { setAdmin } from '../services/user-service' */
 import { useLocation } from 'react-router-dom'
+import InventoryList from './inventory/InventoryList'
+import { resetFilter, updateFilter } from '../redux/reducers/filterReducer'
 
-const UserDetails = () => {
-	const userDetails = useSelector(({ userDetails }) => {
-		return userDetails
-	})
+const UserInfo = ({ userDetails }) => {
 	return (
 		<ListGroup>
 			<ListGroup.Item>Käyttäjätunnus: {userDetails.user.username}</ListGroup.Item>
 			<ListGroup.Item>Nimi: {userDetails.user.name}</ListGroup.Item>
 			<ListGroup.Item>Sähköposti: {userDetails.user.email}</ListGroup.Item>
 			<ListGroup.Item>Puhelinnumero: {userDetails.user.phone}</ListGroup.Item>
-			<ListGroup.Item>
+			{/* 			<ListGroup.Item>
 				{userDetails && ( // NOT FOR FINAL PRODUCT
 					<BootstrapSwitchButton
 						checked={userDetails.user.admin != 0}
@@ -31,44 +28,21 @@ const UserDetails = () => {
 						}}
 					/>
 				)}
-			</ListGroup.Item>
+			</ListGroup.Item> */}
 		</ListGroup>)
 }
 
-const OwnInventories = () => {
+const UserPage = () => {
 	const userDetails = useSelector(({ userDetails }) => {
 		return userDetails
 	})
-
-	const inventories = useSelector(state =>
-		getInventoriesByUserId(state, userDetails.user.id)
-	)
-
-	return (
-		<Table responsive striped bordered hover>
-			<thead>
-				<tr>
-					<th>Inventoinnin päivämäärä</th>
-					<th>Havainnon tyyppi</th>
-					<th>Kaupunki</th>
-				</tr>
-			</thead>
-			<tbody>
-				{inventories.length > 0 &&
-					inventories.map(report => (
-						<InventoryListItem
-							key={report.id}
-							report={report}
-						/>
-					))}
-			</tbody>
-		</Table>
-	)
-}
-
-const UserPage = () => {
 	const location = useLocation()
 	const [activeKey, setActiveKey] = useState(location.hash)
+	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch(resetFilter())
+		dispatch(updateFilter({ id: 'creator', value: userDetails.user.username }))
+	}, [])
 
 	return (
 		<div className="d-flex justify-content-around">
@@ -85,10 +59,10 @@ const UserPage = () => {
 				</Card.Header>
 				<Card.Body>
 					{activeKey === '#tiedot' && (
-						<UserDetails />
+						<UserInfo userDetails={userDetails} />
 					)}
 					{activeKey === '#inventoinnit' && (
-						<OwnInventories />
+						<InventoryList columns={{ creator: false }} />
 					)}
 				</Card.Body>
 			</Card>
