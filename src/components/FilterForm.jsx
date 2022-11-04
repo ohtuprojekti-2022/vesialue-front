@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { Button, Col, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateFilter, resetFilter } from '../redux/reducers/filterReducer'
@@ -7,14 +8,24 @@ const FilterForm = () => {
 	const filter = useSelector(({ filter }) => filter)
 	const dispatch = useDispatch()
 
-	const handleFilter = e => {
-		if (e.target.value) {
+	const handleReset = () => dispatch(resetFilter())
+
+	const handleFilter = (e) => {
+		if (e.target.value || e.target.type !== 'date') {
 			dispatch(updateFilter({ id: e.target.id, value: e.target.value }))
 		}
 	}
+
+	useEffect(() => {
+		handleReset()
+	}, [])
+
 	return (
 		<>
-			<Form style={{ paddingTop: '0.5rem' }} onSubmit={e => e.preventDefault()}>
+			<Form
+				style={{ paddingTop: '0.5rem' }}
+				onSubmit={(e) => e.preventDefault()}
+			>
 				<Row className="mb-3">
 					<Col>
 						<Form.Label style={{ fontSize: 22 }}>
@@ -22,11 +33,7 @@ const FilterForm = () => {
 						</Form.Label>
 					</Col>
 					<Col>
-						<Button
-							variant="outline-primary"
-							size="sm"
-							onClick={() => dispatch(resetFilter())}
-						>
+						<Button variant="outline-primary" size="sm" onClick={handleReset}>
 							Tyhjennä filtteri
 						</Button>
 					</Col>
@@ -34,11 +41,7 @@ const FilterForm = () => {
 				<Row className="mb-3">
 					<Col>
 						<FloatingLabel controlId="creator" label="Tekijä">
-							<Form.Control
-								type="text"
-								value={filter.creator}
-								onChange={handleFilter}
-							/>
+							<Form.Control type="text" onChange={handleFilter} />
 						</FloatingLabel>
 					</Col>
 				</Row>
@@ -48,7 +51,7 @@ const FilterForm = () => {
 						<FloatingLabel controlId="startDate" label="ensimmäinen päivä">
 							<Form.Control
 								type="date"
-								defaultValue={
+								value={
 									new Date(filter.startDate).toISOString().split('T')[0]
 								}
 								onChange={handleFilter}
@@ -59,7 +62,7 @@ const FilterForm = () => {
 						<FloatingLabel controlId="endDate" label="viimeinen päivä">
 							<Form.Control
 								type="date"
-								defaultValue={
+								value={
 									new Date(filter.endDate).toISOString().split('T')[0]
 								}
 								onChange={handleFilter}
