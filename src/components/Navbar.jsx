@@ -1,11 +1,16 @@
 import React from 'react'
 import { Navbar as BNavbar, Nav, NavDropdown, NavLink } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import LogoutButton from './LogoutButton'
 
-const Navbar = ({ userDetails, setUserDetails }) => {
+const Navbar = () => {
+	const userDetails = useSelector(({ userDetails }) => {
+		return userDetails
+	})
+
 	return (
-		<BNavbar collapseOnSelect expand="md" className="py-3 px-2">
+		<BNavbar collapseOnSelect expand="md" className="py-3 px-2" style={{ zIndex: 2000 }}>
 			<BNavbar.Brand href="/">
 				<img
 					src="/logo192.png"
@@ -22,14 +27,13 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 					<NavLink eventKey="1" as={Link} to="/" >Etusivu</NavLink>
 					<NavLink eventKey="2" as={Link} to="/inventointi-ilmoitus" >Uusi ilmoitus</NavLink>
 					{userDetails && (
-						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
-							<NavDropdown.Item>
-								<BNavbar.Text>
-									Signed in as: {userDetails.user.username}
-								</BNavbar.Text>
+						<NavDropdown title={userDetails.user.username} id="navbarScrollingDropdown">
+							<NavDropdown.Item eventKey="3" as={Link} to="/omasivu#tiedot">
+								Oma sivu
 							</NavDropdown.Item>
+							<NavDropdown.Divider />
 							<NavDropdown.Item>
-								<LogoutButton setUserDetails={setUserDetails} />
+								<LogoutButton />
 							</NavDropdown.Item>
 						</NavDropdown>
 					)}
@@ -39,7 +43,7 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 							<NavLink eventKey="5" as={Link} to="/rekisteroidy">Rekisteröidy</NavLink>
 						</NavDropdown>
 					)}
-					
+
 				</Nav>
 			</BNavbar.Collapse>
 		</BNavbar>

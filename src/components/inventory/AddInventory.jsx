@@ -5,8 +5,11 @@ import { Container, Alert } from 'react-bootstrap'
 import { addInventory } from '../../services/inventory-service'
 import InventoryForm from './InventoryForm'
 import Map from '../map/Map'
+import { useDispatch } from 'react-redux'
+import { appendInventory } from '../../redux/reducers/inventoryReducer'
+import { appendAreas } from '../../redux/reducers/areaReducer'
 
-const Inventory = () => {
+const AddInventory = () => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [phone, setPhone] = useState('')
@@ -28,6 +31,8 @@ const Inventory = () => {
 		}, 7500)
 	}
 
+	const dispatch = useDispatch()
+
 	const handleSubmit = async (event) => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
@@ -35,7 +40,7 @@ const Inventory = () => {
 		event.preventDefault()
 		if (valid) {
 			try {
-				const inventory = await addInventory(
+				const [inventory, areas] = await addInventory(
 					mapLayers.map((layer) => layer.latlngs),
 					inventorydate,
 					method,
@@ -47,6 +52,9 @@ const Inventory = () => {
 					phone,
 					moreInfo
 				)
+
+				dispatch(appendInventory(inventory))
+				dispatch(appendAreas(areas))
 
 				setInventorydate('')
 				setMethod('')
@@ -88,4 +96,4 @@ const Inventory = () => {
 	)
 }
 
-export default Inventory
+export default AddInventory

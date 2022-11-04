@@ -1,13 +1,10 @@
-import axios from 'axios'
-import REACT_APP_BACKEND_URL from '../utils/config'
-
-export const getCenter = (area) => {
+export const getCenter = coordinates => {
 	let maxLat = -Infinity
 	let minLat = Infinity
 	let maxLng = -Infinity
 	let minLng = Infinity
 
-	area.forEach((coordPair) => {
+	coordinates.forEach(coordPair => {
 		maxLat = Math.max(maxLat, coordPair.lat)
 		minLat = Math.min(minLat, coordPair.lat)
 		maxLng = Math.max(maxLng, coordPair.lng)
@@ -18,20 +15,6 @@ export const getCenter = (area) => {
 	const lng = (maxLng + minLng) / 2
 
 	return { lat: lat, lng: lng }
-}
-
-export const getCity = async (areas) => {
-	const centers = areas.map((area) => getCenter(area))
-	const lat = centers[0].lat
-	const lon = centers[0].lng
-
-	const response = await axios.get(
-		`${REACT_APP_BACKEND_URL}/api/cities?latitude=${lat}&longitude=${lon}`
-	)
-
-	return response.data.city
-		? `${response.data.city}, ${response.data.locality}`
-		: response.data.locality
 }
 
 export const translateMethod = (method, methodInfo) => {
@@ -47,14 +30,25 @@ export const translateMethod = (method, methodInfo) => {
 	}
 }
 
-export const formatDate = (date) => {
+export const translateVisibility = visibility => {
+	switch (visibility) {
+	case 'bad':
+		return 'huono (alle 2m)'
+	case 'normal':
+		return 'normaali (2-5m)'
+	case 'good':
+		return 'hyvä (yli 5m)'
+	}
+}
+
+export const formatDate = date => {
 	return `${date.substring(8, 10)}.${date.substring(5, 7)}.${date.substring(
 		0,
 		4
 	)}`
 }
 
-export const parseCreator = (report) => {
+export const parseCreator = report => {
 	if (report.user) {
 		return report.user.name ? report.user.name : report.user.email
 	}
@@ -72,4 +66,24 @@ export const headers = () => {
 		: {}
 }
 
-export default { getCenter, getCity, translateMethod, formatDate, parseCreator }
+export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
+	const filteredInventories = inventories.filter(report => {
+		const { user, city } = report
+		const name = user ? user.name : report.name
+		const username = user ? user.username : ''
+		const inventoryDate = Date.parse(report.inventorydate)
+		const method = translateMethod(report.method, report.methodInfo).toLowerCase()
+
+		return (
+			(name.toLowerCase().includes(filter.creator) ||
+				username.toLowerCase().includes(filter.creator)) &&
+			city.toLowerCase().includes(filter.city) &&
+			(method === filter.method || filter.method === '-') &&
+			filter.startDate <= inventoryDate &&
+			inventoryDate <= filter.endDate
+		)
+	})
+	const inventoryIds = new Set(filteredInventories.map(i => i.id))
+	const filteredAreas = areas.filter(a => inventoryIds.has(a.inventoryId))
+	return [filteredInventories, filteredAreas]
+}

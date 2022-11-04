@@ -1,12 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import { logout } from '../redux/reducers/userReducer'
+import { useDispatch } from 'react-redux'
 
-const LogoutButton = ({ setUserDetails }) => {
+const LogoutButton = () => {
+	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const handleClick = () => {
-		localStorage.removeItem('userDetails')
-		setUserDetails(null)
+		dispatch(logout())
 		navigate('/')
 	}
 	return (

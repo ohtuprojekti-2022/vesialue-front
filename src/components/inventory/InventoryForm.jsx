@@ -107,6 +107,7 @@ const InventoryForm = props => {
 					<Form.Control
 						data-testid="methodInfo"
 						type="text"
+						maxLength="100"
 						onChange={e => props.setMethodInfo(e.target.value)}
 						required
 					/>
@@ -127,8 +128,12 @@ const InventoryForm = props => {
 				<Form.Control
 					data-testid="moreInfo"
 					type="text"
+					maxLength="500"
 					onChange={e => props.setMoreInfo(e.target.value)}
 				/>
+				<Form.Control.Feedback type="invalid">
+					Lisätietojen maksimipituus on 500 merkkiä.
+				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="name" label="Nimi" className="mb-3">
 				{( localStorage.getItem('userDetails')) && (
@@ -163,7 +168,7 @@ const InventoryForm = props => {
 				/>
 				}
 				<Form.Control.Feedback type="invalid">
-					Anna sähköposti!
+					Anna validi sähköposti!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel

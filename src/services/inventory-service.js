@@ -14,7 +14,6 @@ export const addInventory = async (
 	phone,
 	moreInfo
 ) => {
-
 	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/inventory`, {
 		areas,
 		inventorydate,
