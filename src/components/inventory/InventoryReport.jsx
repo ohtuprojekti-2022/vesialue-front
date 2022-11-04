@@ -16,14 +16,8 @@ import { Button } from 'react-bootstrap'
 
 const InventoryReport = () => {
 	let { id } = useParams()
-	const allInventories = useSelector(({ inventories }) => {
-		return inventories
-	})
-	const allAreas = useSelector(({ areas }) => {
-		return areas
-	})
-	const userDetails = useSelector(({ userDetails }) => {
-		return userDetails
+	const [allInventories, allAreas, userDetails] = useSelector(({ inventories, areas, userDetails }) => {
+		return [inventories, areas, userDetails]
 	})
 	const navigate = useNavigate()
 
@@ -61,7 +55,7 @@ const InventoryReport = () => {
 				<Card.Body>
 					<Card.Title>
 						Raportti{' '}
-						{report.user && userDetails.user.id === report.user.id && (
+						{report.user && userDetails && userDetails.user.id === report.user.id && (
 							<Button onClick={() => navigate(`/report/${report.id}/edit`)}>
 								Muokkaa
 							</Button>
