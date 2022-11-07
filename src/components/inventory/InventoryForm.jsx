@@ -35,7 +35,7 @@ const InventoryForm = props => {
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna sukelluksen ajankohta!
+					Anna inventoinnin ajankohta!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<div key="method" className="mb-3">
@@ -168,7 +168,7 @@ const InventoryForm = props => {
 				/>
 				}
 				<Form.Control.Feedback type="invalid">
-					Anna validi sähköposti!
+					Anna kunnollinen sähköposti!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel
