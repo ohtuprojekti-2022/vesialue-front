@@ -1,20 +1,66 @@
 import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card'
-import ListGroup from 'react-bootstrap/ListGroup'
 import { Nav } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 /* import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import { setAdmin } from '../services/user-service' */
 import { useLocation } from 'react-router-dom'
-import InventoryList from './inventory/InventoryList'
-import { resetFilter, updateFilter } from '../redux/reducers/filterReducer'
+import InventoryList from './../inventory/InventoryList'
+import { resetFilter, updateFilter } from '../../redux/reducers/filterReducer'
+import UserEditForm from './UserEditForm'
+import { userEditRequest } from '../../services/user-service'
+import { Container, Alert } from 'react-bootstrap'
+import { login } from '../../redux/reducers/userReducer'
 
-const UserInfo = ({ userDetails }) => {
+
+const UserInfo = ({ userDetails, dispatch }) => {
+	const [name, setName] = useState(userDetails.user.name)
+	const [email, setEmail] = useState(userDetails.user.email)
+	const [phone, setPhone] = useState(userDetails.user.phone)
+	const [validated, setValidated] = useState(false)
+	const [alert, setAlert] = useState(null)
+
+	const addAlert = (text) => {
+		setAlert(text)
+		setTimeout(() => {
+			setAlert(null)
+		}, 7500)
+	}
+
+	const handleSubmit = async (event) => {
+		const form = event.currentTarget
+		const valid = form.checkValidity()
+		setValidated(true)
+		event.preventDefault()
+		if (valid) {
+			try {
+				const data = await userEditRequest(name, email, phone, userDetails.user.username)
+				dispatch(login(data))
+				
+				setValidated(false)
+			} catch (error) {
+				if (error.response.data.message === 'invalid') {
+					addAlert('Käyttäjänimi varattu')
+				} else {
+					addAlert(error.response.data.message)
+				}
+			}
+		}
+	}
+
 	return (
-		<ListGroup>
-			<ListGroup.Item>Käyttäjätunnus: {userDetails.user.username}</ListGroup.Item>
-			<ListGroup.Item>Nimi: {userDetails.user.name}</ListGroup.Item>
-			<ListGroup.Item>Sähköposti: {userDetails.user.email}</ListGroup.Item>
+		<Container fluid="sm">
+			{alert && <Alert variant="danger">{alert}</Alert>}
+			<UserEditForm
+				userDetails={userDetails}
+				validated={validated}
+				handleSubmit={handleSubmit}
+				setName={setName}
+				setEmail={setEmail}
+				setPhone={setPhone}
+			/>
+		</Container>
+		/*<ListGroup>
 			<ListGroup.Item>Puhelinnumero: {userDetails.user.phone}</ListGroup.Item>
 			{/* 			<ListGroup.Item>
 				{userDetails && ( // NOT FOR FINAL PRODUCT
@@ -28,8 +74,8 @@ const UserInfo = ({ userDetails }) => {
 						}}
 					/>
 				)}
-			</ListGroup.Item> */}
-		</ListGroup>)
+			</ListGroup.Item> }
+		</ListGroup>*/)
 }
 
 const UserPage = () => {
@@ -59,7 +105,7 @@ const UserPage = () => {
 				</Card.Header>
 				<Card.Body>
 					{activeKey === '#tiedot' && (
-						<UserInfo userDetails={userDetails} />
+						<UserInfo userDetails={userDetails} dispatch={dispatch}/>
 					)}
 					{activeKey === '#inventoinnit' && (
 						<InventoryList columns={{ creator: false }} />
