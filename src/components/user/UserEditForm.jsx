@@ -4,7 +4,13 @@ import { Form, FloatingLabel, Button } from 'react-bootstrap'
 const UserEditForm = props => {
 
 	return (
-		<Form noValidate validated={props.validated} onSubmit={props.handleSubmit}>
+		<Form
+			noValidate
+			validated={props.validated}
+			onSubmit={props.handleSubmit}
+			data-testid="useredit-form"
+		>
+
 			<FloatingLabel controlId="username" className="mb-3">
 				<Form.Control
 					type="text"
@@ -14,6 +20,7 @@ const UserEditForm = props => {
 			</FloatingLabel>
 			<FloatingLabel controlId="name" className="mb-3">
 				<Form.Control
+					data-testid="name"
 					type="text"
 					defaultValue={props.userDetails.user.name}
 					onChange={(e) => props.setName(e.target.value)}
@@ -21,6 +28,7 @@ const UserEditForm = props => {
 			</FloatingLabel>
 			<FloatingLabel controlId="email" className="mb-3">
 				<Form.Control
+					data-testid="email"
 					type="email"
 					defaultValue={props.userDetails.user.email}
 					onChange={(e) => props.setEmail(e.target.value)}
@@ -33,6 +41,7 @@ const UserEditForm = props => {
 			</FloatingLabel>
 			<FloatingLabel controlId="phone" className="mb-3">
 				<Form.Control
+					data-testid="phone"
 					type="text"
 					defaultValue={props.userDetails.user.phone}
 					onChange={(e) => props.setPhone(e.target.value)}
