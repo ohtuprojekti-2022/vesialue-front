@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import { getCenter } from '../../utils/tools'
 import Map from '../map/Map'
 
-const AddInventory = () => {
+const EditInventory = () => {
 	let { id } = useParams()
 	const allInventories = useSelector(({ inventories }) => {
 		return inventories
@@ -42,4 +42,4 @@ const AddInventory = () => {
 	)
 }
 
-export default AddInventory
+export default EditInventory
