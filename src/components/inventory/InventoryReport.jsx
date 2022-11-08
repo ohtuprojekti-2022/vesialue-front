@@ -8,6 +8,8 @@ import Area from '../map/Area'
 import {
 	formatDate,
 	getCenter,
+	parseEmail,
+	parsePhone,
 	translateMethod,
 	translateVisibility,
 } from '../../utils/tools'
@@ -79,6 +81,16 @@ const InventoryReport = () => {
 							</ListGroup.Item>
 						)}
 						<ListGroup.Item>Lisätietoja: {report.moreInfo}</ListGroup.Item>
+						{(parseEmail(report) !== '') && (
+							<ListGroup.Item>
+								Sähköposti: {parseEmail(report)}
+							</ListGroup.Item>
+						)}
+						{(parsePhone(report) !== '') && (
+							<ListGroup.Item>
+								Puhelinnumero: {parsePhone(report)}
+							</ListGroup.Item>
+						)}
 					</ListGroup>
 				</Card.Body>
 			</Card>
