@@ -30,7 +30,7 @@ export const addInventory = async (
 }
 
 export const getInventory = async (id) => {
-	const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory/${id}`)
+	const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory/${id}`, headers())
 	return request.then((response) => response.data)
 }
 
@@ -42,7 +42,7 @@ export const getAllAreas = async () => {
 }
 
 export const getAllInventories = () => {
-	const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory`)
+	const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory`, headers())
 	return request.then((response) => response.data)
 }
 
