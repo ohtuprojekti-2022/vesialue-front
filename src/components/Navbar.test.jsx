@@ -13,16 +13,16 @@ describe('Navbar', () => {
 			'email':'mikko@email.fi', 'phone':'0404040400',
 			'username':'mikko1', 'admin':'0'}}
     
-    beforeEach(() => {
-        renderWithProviders(
-            <MemoryRouter>
-                <Navbar />
-            </MemoryRouter>
-        )
-    })
+	beforeEach(() => {
+		renderWithProviders(
+			<MemoryRouter>
+				<Navbar />
+			</MemoryRouter>
+		)
+	})
 
-    test('shows user as Käyttäjä when logged out', () => {
-        expect(screen.getByText('Käyttäjä')).not.toBeNull
-    })
+	test('shows user as Käyttäjä when logged out', () => {
+		expect(screen.getByText('Käyttäjä')).not.toBeNull
+	})
 
 })
