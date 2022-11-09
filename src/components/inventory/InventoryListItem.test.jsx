@@ -1,33 +1,29 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
-import { MemoryRouter, useParams } from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom'
 import InventoryListItem from './InventoryListItem'
 import { renderWithProviders } from '../../utils/test-tools'
-import store from '../../redux/store'
-import { login } from '../../redux/reducers/userReducer'
-import { appendInventory } from '../../redux/reducers/inventoryReducer'
-import { appendAreas } from '../../redux/reducers/areaReducer'
 
 const columns = { date: true, method: true, creator: true, city: true }
 const report1 = {'id': '1',
-				'inventorydate': '2002-12-11',
-				'method': 'sight',
-				'visibility': 'good',
-				'moreInfo': 'ei',
-				'name': '',
-				'email': ''
+	'inventorydate': '2002-12-11',
+	'method': 'sight',
+	'visibility': 'good',
+	'moreInfo': 'ei',
+	'name': '',
+	'email': ''
 }
 const report2 = {'id': '1',
-				'inventorydate': '2007-10-11',
-				'method': 'dive',
-				'visibility': 'good',
-				'moreInfo': 'ei',
-				'city':'Kellokoski',
-				'user': {'id':'u2',
-						'name':'Testi-Pekka'}
+	'inventorydate': '2007-10-11',
+	'method': 'dive',
+	'visibility': 'good',
+	'moreInfo': 'ei',
+	'city':'Kellokoski',
+	'user': {'id':'u2',
+		'name':'Testi-Pekka'}
 }
 
 describe('InventoryListItem', () => {
