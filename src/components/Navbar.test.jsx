@@ -8,10 +8,10 @@ import { renderWithProviders } from '../utils/test-tools'
 
 describe('Navbar', () => {
 
-	const userDetails = {'auth':'xyz',
-		'user':{'id':'ifbr2sa3mxdqrzgjo6nmw862', 'name':'Mikko',
-			'email':'mikko@email.fi', 'phone':'0404040400',
-			'username':'mikko1', 'admin':'0'}}
+	// const userDetails = {'auth':'xyz',
+	//	'user':{'id':'ifbr2sa3mxdqrzgjo6nmw862', 'name':'Mikko',
+	//		'email':'mikko@email.fi', 'phone':'0404040400',
+	//		'username':'mikko1', 'admin':'0'}}
     
 	beforeEach(() => {
 		renderWithProviders(
