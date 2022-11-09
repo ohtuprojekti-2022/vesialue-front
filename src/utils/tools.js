@@ -55,6 +55,22 @@ export const parseCreator = report => {
 	return report.name ? report.name : report.email
 }
 
+export const parseEmail = report => {
+	if (report.user) {
+		return report.user.email
+	} else {
+		return report.email
+	}
+}
+
+export const parsePhone = report => {
+	if (report.user) {
+		return report.user.phone
+	} else {
+		return report.phone
+	}
+}
+
 export const headers = () => {
 	const userDetails = JSON.parse(localStorage.getItem('userDetails'))
 	return userDetails
