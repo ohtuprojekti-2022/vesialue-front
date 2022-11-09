@@ -37,7 +37,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-					Anna inventointialue!
+					Anna inventointialue! Alue piirretään ylläolevalle kartalle
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
@@ -63,7 +63,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-					Anna inventoinnin ajankohta!
+					Anna inventoinnin ajankohta! Valitse ajankohta kalenterista tai kirjoita se kenttään
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<div key="method" className="mb-3">
@@ -197,7 +197,7 @@ const InventoryForm = props => {
 				/>
 					}
 					<Form.Control.Feedback type="invalid">
-					Anna kunnollinen sähköpostiosoite!
+						Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
@@ -217,11 +217,11 @@ const InventoryForm = props => {
 					data-testid="phone"
 					type="phone"
 					onChange={e => props.setPhone(e.target.value)}
-					pattern="^((04[0-9]{1})(\s?|-?)|050(\s?|-?)|0457(\s?|-?)|[+]?358(\s?|-?)50|0358(\s?|-?)50|00358(\s?|-?)50|[+]?358(\s?|-?)4[0-9]{1}|0358(\s?|-?)4[0-9]{1}|00358(\s?|-?)4[0-9]{1})(\s?|-?)(([0-9]{3,4})(\s|-)?[0-9]{1,4})$"
+					pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 				/>
 					}
 					<Form.Control.Feedback type="invalid">
-					Anna suomalainen puhelinnumero!
+						Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<Button variant="primary" type="submit" data-testid="submit">
