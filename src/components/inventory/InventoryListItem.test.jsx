@@ -17,7 +17,8 @@ const report1 = {'id': '1',
 				'method': 'sight',
 				'visibility': 'good',
 				'moreInfo': 'ei',
-				'user': {'id':'u1'}
+				'name': '',
+				'email': ''
 }
 const report2 = {'id': '1',
 				'inventorydate': '2007-10-11',
@@ -25,7 +26,7 @@ const report2 = {'id': '1',
 				'visibility': 'good',
 				'moreInfo': 'ei',
 				'city':'Kellokoski',
-				'user': {'id':'u1',
+				'user': {'id':'u2',
 						'name':'Testi-Pekka'}
 }
 
@@ -48,11 +49,11 @@ describe('InventoryListItem', () => {
 		inventoryListItem = screen.getByRole('row')
 	})
 
-	test('Given text is included', () => {
+	test('Given text is included with anonymous user', () => {
 		expect(inventoryListItem).toBeDefined()
 		const rows = screen.getAllByRole('row')
 		expect(rows).toHaveLength(1)
-		expect(rows[0]).toHaveTextContent('11.12.2002Näköhavainto')
+		expect(rows[0]).toHaveTextContent('11.12.2002NäköhavaintoTuntematon')
 	})
 
 	test('Click row', async () => {
