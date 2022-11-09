@@ -34,7 +34,7 @@ const RegistrationForm = ({
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna kunnollinen sähköpostiosoite!
+					Anna kelvollinen sähköpostiosoite!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="password" label="Salasana" className="mb-3">
