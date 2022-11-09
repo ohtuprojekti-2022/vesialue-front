@@ -35,6 +35,9 @@
 		"collectCoverageFrom": [
 			"src/**/*.jsx",
 			"src/services/*.js"
+		],
+		"transformIgnorePatterns": [
+			"/node_modules/(?!(@react-leaflet/core|react-leaflet|leaflet|leaflet-draw|react-dom))"
 		]
 	},
 	"browserslist": {
