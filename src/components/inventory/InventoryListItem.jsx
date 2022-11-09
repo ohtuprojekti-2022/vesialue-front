@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Placeholder } from 'react-bootstrap'
 import {
 	formatDate,
 	parseCreator,
@@ -16,7 +15,7 @@ const InventoryListItem = ({ report, columns }) => {
 			{columns.date && <td>{formatDate(report.inventorydate)}</td>}
 			{columns.method && <td>{translateMethod(report.method, report.methodInfo)}</td>}
 			{(name !== '' && (<td>{name}</td>)) || name === '' && (
-				<td><Placeholder xs={12} /></td>
+				<td>Tuntematon</td>
 			)}
 			{columns.city && <td>{report.city}</td>}
 		</tr>
