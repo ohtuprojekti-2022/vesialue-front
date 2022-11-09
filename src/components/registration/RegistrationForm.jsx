@@ -22,7 +22,7 @@ const RegistrationForm = ({
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna 3-32 merkkiä pitkä käyttäjänimi!
+					Anna kelvollinen käyttäjänimi! Pituus 3-32 merkkiä
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
@@ -64,7 +64,7 @@ const RegistrationForm = ({
 					pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna suomalainen puhelinnumero!
+					Anna kelvollinen puhelinnumero!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<Button variant="primary" type="submit" data-testid="submit">
