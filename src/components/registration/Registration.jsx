@@ -49,15 +49,15 @@ const Registration = () => {
 				setValidated(false)
 				navigate('/')
 			} catch (error) {
-				if (error.response.data.message === 'username taken') {
+				if (error.response.data.message === 'Username already exists.') {
 					addAlert('Käyttäjänimi varattu! Valitse uusi.')
-				} else if (error.response.data.message === 'password too short') {
+				} else if (error.response.data.message === 'Password too short.') {
 					addAlert('Salasanassa pitää olla vähintään 10 merkkiä!')
-				} else if (error.response.data.message === 'username too short') {
+				} else if (error.response.data.message === 'Username too short.') {
 					addAlert('Käyttäjänimessä pitää olla vähintään 3 merkkiä!')
-				} else if (error.response.data.message === 'email is not valid') {
+				} else if (error.response.data.message === 'Invalid email.') {
 					addAlert('Anna validi sähköpostiosoite!')
-				} else if (error.response.data.message === 'email taken') {
+				} else if (error.response.data.message === 'Email already exists.') {
 					addAlert('Sähköpostiosoite on jo käytössä!')
 				} else if (error.response.data.message === 'phone number is not valid') {
 					addAlert('Anna validi suomalainen puhelinnumero!')
