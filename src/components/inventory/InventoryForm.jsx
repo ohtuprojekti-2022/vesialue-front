@@ -3,7 +3,12 @@ import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import NotifyMessage from '../NotifyMessage'
 
 const InventoryForm = props => {
-	const handleMethodChange = e => props.setMethod(e.target.value)
+	const handleMethodChange = e => {
+		props.setMethod(e.target.value)
+		e.target.value === 'sight' || e.target.value === 'dive'
+			? props.setVisibility('bad')
+			: props.setVisibility('')
+	}
 	const [showMessage, setShowMessage] = useState(false)
 	const [messageTitle, setMessageTitle] = useState('')
 	const [messageBody, setMessageBody] = useState('')
@@ -37,7 +42,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-					Anna inventointialue! Alue piirretään ylläolevalle kartalle
+						Anna inventointialue! Alue piirretään ylläolevalle kartalle
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
@@ -63,7 +68,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-					Anna inventoinnin ajankohta! Valitse ajankohta kalenterista tai kirjoita se kenttään
+						Anna inventoinnin ajankohta! Valitse ajankohta kalenterista tai kirjoita se kenttään
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<div key="method" className="mb-3">
@@ -140,7 +145,7 @@ const InventoryForm = props => {
 							required
 						/>
 						<Form.Control.Feedback type="invalid">
-						Anna inventointimenetelmän tiedot!
+							Anna inventointimenetelmän tiedot!
 						</Form.Control.Feedback>
 					</FloatingLabel>
 				)}
@@ -160,41 +165,41 @@ const InventoryForm = props => {
 						onChange={e => props.setMoreInfo(e.target.value)}
 					/>
 					<Form.Control.Feedback type="invalid">
-					Lisätietojen maksimipituus on 500 merkkiä.
+						Lisätietojen maksimipituus on 500 merkkiä.
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
-					{( localStorage.getItem('userDetails')) && (
+					{(localStorage.getItem('userDetails')) && (
 						<Form.Control
 							data-testid="name"
 							type="text"
 							defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.name}
 							disabled
 						/>
-					)||
-				<Form.Control
-					data-testid="name"
-					type="text"
-					onChange={e => props.setName(e.target.value)}
-				/>
+					) ||
+						<Form.Control
+							data-testid="name"
+							type="text"
+							onChange={e => props.setName(e.target.value)}
+						/>
 					}
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
-					{( localStorage.getItem('userDetails')) && (
+					{(localStorage.getItem('userDetails')) && (
 						<Form.Control
 							data-testid="email"
 							type="text"
 							defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.email}
 							disabled
 						/>
-					)||
-				<Form.Control
-					data-testid="email"
-					type="email"
-					onChange={e => props.setEmail(e.target.value)}
-					pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
-					required
-				/>
+					) ||
+						<Form.Control
+							data-testid="email"
+							type="email"
+							onChange={e => props.setEmail(e.target.value)}
+							pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+							required
+						/>
 					}
 					<Form.Control.Feedback type="invalid">
 						Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!
@@ -205,27 +210,27 @@ const InventoryForm = props => {
 					label="Puhelinnumero"
 					className="mb-3"
 				>
-					{( localStorage.getItem('userDetails')) && (
+					{(localStorage.getItem('userDetails')) && (
 						<Form.Control
 							data-testid="phone"
 							type="text"
 							defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.phone}
 							disabled
 						/>
-					)||
-				<Form.Control
-					data-testid="phone"
-					type="phone"
-					onChange={e => props.setPhone(e.target.value)}
-					pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
-				/>
+					) ||
+						<Form.Control
+							data-testid="phone"
+							type="phone"
+							onChange={e => props.setPhone(e.target.value)}
+							pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
+						/>
 					}
 					<Form.Control.Feedback type="invalid">
 						Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<Button variant="primary" type="submit" data-testid="submit">
-				Lähetä
+					Lähetä
 				</Button>
 			</Form>
 		</>
