@@ -9,9 +9,9 @@ import { login } from '../redux/reducers/userReducer'
 import userEvent from '@testing-library/user-event'
 
 const userDetails = {'auth':'xyz',
-					'user':{'id':'ifbr2sa3mxdqrzgjo6nmw862', 'name':'Mikko',
-					'email':'mikko@email.fi', 'phone':'0404040400',
-					'username':'mikko1', 'admin':'0'}}
+	'user':{'id':'ifbr2sa3mxdqrzgjo6nmw862', 'name':'Mikko',
+		'email':'mikko@email.fi', 'phone':'0404040400',
+		'username':'mikko1', 'admin':'0'}}
 
 store.dispatch(login(userDetails))
 
@@ -56,15 +56,15 @@ describe('Navbar', () => {
 
 	test('shows login when logged out', async () => {
 		const user = userEvent.setup()
-		const DropDown2 = screen.getByRole('button', { name: /Käyttäjä/i })
-		await user.click(DropDown2)
+		const DropDown = screen.getByRole('button', { name: /Käyttäjä/i })
+		await user.click(DropDown)
 		expect(screen.getByText('Kirjaudu')).not.toBeNull
 	})
 
 	test('shows register when logged out', async () => {
 		const user = userEvent.setup()
-		const DropDown2 = screen.getByRole('button', { name: /Käyttäjä/i })
-		await user.click(DropDown2)
+		const DropDown = screen.getByRole('button', { name: /Käyttäjä/i })
+		await user.click(DropDown)
 		expect(screen.getByText('Rekisteröidy')).not.toBeNull
 	})
 
