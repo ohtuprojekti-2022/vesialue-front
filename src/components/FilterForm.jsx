@@ -62,9 +62,6 @@ const FilterForm = () => {
 								<FloatingLabel controlId="startDate" label="ensimmäinen päivä">
 									<Form.Control
 										type="date"
-										value={
-											new Date(filter.startDate).toISOString().split('T')[0]
-										}
 										onChange={handleFilter}
 									/>
 								</FloatingLabel>
