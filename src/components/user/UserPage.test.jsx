@@ -26,26 +26,26 @@ describe('UserPage', () => {
 		
 	})
 
-    test('renders user details', () => {
-        expect(screen.getByText('Käyttäjätiedot')).not.toBeNull
-    })
+	test('renders user details', () => {
+		expect(screen.getByText('Käyttäjätiedot')).not.toBeNull
+	})
 
-    test('renders own inventories', () => {
-        expect(screen.getByText('Omat inventoinnit')).not.toBeNull
-    })
+	test('renders own inventories', () => {
+		expect(screen.getByText('Omat inventoinnit')).not.toBeNull
+	})
 
-    test('opens useredit form when clicked', async () => {
+	test('opens useredit form when clicked', async () => {
 		const button = screen.getByText('Käyttäjätiedot')
 		const user = userEvent.setup()
 		await user.click(button)
-        expect(screen.getByText('Käyttäjänimi')).not.toBeNull
-    })
+		expect(screen.getByText('Käyttäjänimi')).not.toBeNull
+	})
 
-    test('opens own inventories when clicked', async () => {
+	test('opens own inventories when clicked', async () => {
 		const button = screen.getByText('Omat inventoinnit')
 		const user = userEvent.setup()
 		await user.click(button)
-        expect(screen.getByText('Inventoinnin päivämäärä')).not.toBeNull
-    })
+		expect(screen.getByText('Inventoinnin päivämäärä')).not.toBeNull
+	})
 
 })
