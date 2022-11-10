@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import NotifyMessage from '../NotifyMessage'
+import TermsofserviceModal from './TermsofserviceModal'
 
 const InventoryForm = props => {
 	const handleMethodChange = e => props.setMethod(e.target.value)
@@ -13,6 +14,10 @@ const InventoryForm = props => {
 		setMessageBody(message)
 		setShowMessage(true)
 	}
+	
+	const [show, setShow] = useState(false)
+	const handleCloseModal = () => setShow(false)
+	const handleShowModal = () => setShow(true)
 
 	return (
 		<>
@@ -224,10 +229,25 @@ const InventoryForm = props => {
 						Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
 					</Form.Control.Feedback>
 				</FloatingLabel>
-				<Button variant="primary" type="submit" data-testid="submit">
+				<Form.Group controlId="terms-of-services" className="mb-3">
+					<Form.Check
+						data-testid="terms-of-services"
+						type="checkbox"
+						label={
+							<span>
+								Hyväksyn <a onClick={handleShowModal}>käyttöehdot</a>.
+							</span>
+						}
+					/>
+				</Form.Group>
+				<Button variant="primary" type="submit" data-testid="submit" className="mb-5">
 				Lähetä
 				</Button>
 			</Form>
+			<TermsofserviceModal
+				show={show}
+				handleCloseModal={handleCloseModal}
+			/>
 		</>
 	)
 }
