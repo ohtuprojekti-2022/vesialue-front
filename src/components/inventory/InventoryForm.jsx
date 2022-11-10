@@ -2,22 +2,22 @@ import React, { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import NotifyMessage from '../NotifyMessage'
 import TermsofserviceModal from './TermsofserviceModal'
+import PrivacyPolicyModal from './PrivacyPolicyModal'
 
 const InventoryForm = props => {
 	const handleMethodChange = e => props.setMethod(e.target.value)
 	const [showMessage, setShowMessage] = useState(false)
 	const [messageTitle, setMessageTitle] = useState('')
 	const [messageBody, setMessageBody] = useState('')
+	const [checked, setChecked] = useState('')
+	const [showTOS, setShowTOS] = useState(false)
+	const [showPP, setShowPP] = useState(false)
 
 	const notify = (title, message) => {
 		setMessageTitle(title)
 		setMessageBody(message)
 		setShowMessage(true)
 	}
-	
-	const [show, setShow] = useState(false)
-	const handleCloseModal = () => setShow(false)
-	const handleShowModal = () => setShow(true)
 
 	return (
 		<>
@@ -229,24 +229,33 @@ const InventoryForm = props => {
 						Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
 					</Form.Control.Feedback>
 				</FloatingLabel>
-				<Form.Group controlId="terms-of-services" className="mb-3">
+				<Form.Group controlId="terms-of-services" className="mb-3" style={{display: 'inline-flex'}}>
 					<Form.Check
 						data-testid="terms-of-services"
 						type="checkbox"
-						label={
-							<span>
-								Hyväksyn <a onClick={handleShowModal}>käyttöehdot</a>.
-							</span>
-						}
+						checked={checked}
+						onChange={() => setChecked(!checked)}
 					/>
+					<span style={{paddingLeft: '10px'}}>
+						Hyväksyn <span style={{cursor: 'pointer'}}><a className="text-primary" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
+					</span>
 				</Form.Group>
-				<Button variant="primary" type="submit" data-testid="submit" className="mb-5">
-				Lähetä
+				<Button variant="primary"
+					type="submit"
+					data-testid="submit"
+					className="mb-5"
+					disabled={!checked}
+					style={{display: 'block'}}>
+					Lähetä
 				</Button>
 			</Form>
 			<TermsofserviceModal
-				show={show}
-				handleCloseModal={handleCloseModal}
+				show={showTOS}
+				close={() => setShowTOS(false)}
+			/>
+			<PrivacyPolicyModal
+				show={showPP}
+				close={() => setShowPP(false)}
 			/>
 		</>
 	)
