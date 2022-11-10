@@ -14,23 +14,30 @@ export const addInventory = async (
 	phone,
 	moreInfo
 ) => {
-	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/inventory`, {
-		areas,
-		inventorydate,
-		method,
-		visibility,
-		methodInfo,
-		attachments,
-		name,
-		email,
-		phone,
-		moreInfo,
-	}, headers())
+	const request = await axios.post(
+		`${REACT_APP_BACKEND_URL}/api/inventory`,
+		{
+			areas,
+			inventorydate,
+			method,
+			visibility,
+			methodInfo,
+			attachments,
+			name,
+			email,
+			phone,
+			moreInfo,
+		},
+		headers()
+	)
 	return request.data
 }
 
 export const getInventory = async (id) => {
-	const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory/${id}`, headers())
+	const request = axios.get(
+		`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
+		headers()
+	)
 	return request.then((response) => response.data)
 }
 
@@ -49,6 +56,33 @@ export const getAllInventories = () => {
 export const getInventoryById = async (inventoryId) => {
 	const request = await axios.get(
 		`${REACT_APP_BACKEND_URL}/api/inventory/${inventoryId}`
+	)
+	return request.data
+}
+
+export const requestEdit = async (
+	areas,
+	inventorydate,
+	method,
+	methodInfo,
+	visibility,
+	attachments,
+	moreInfo,
+	reportId
+) => {
+	const request = await axios.post(
+		`${REACT_APP_BACKEND_URL}/api/inventory/edit`,
+		{
+			areas,
+			inventorydate,
+			method,
+			methodInfo,
+			visibility,
+			attachments,
+			moreInfo,
+			reportId
+		},
+		headers()
 	)
 	return request.data
 }

@@ -36,8 +36,8 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 			'a[title="Cancel editing, discards all changes"]'
 		)
 		const timer = setTimeout(() => {
-			cancelButton.click()
-		}, 100)
+			if (cancelButton) cancelButton.click()
+		}, 50)
 		return () => clearTimeout(timer)
 	}, [areas])
 	//--------------------------^^

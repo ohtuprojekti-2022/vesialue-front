@@ -48,6 +48,7 @@ const InventoryForm = props => {
 					<Form.Control
 						data-testid="inventorydate"
 						type="date"
+						max={new Date().toISOString().split('T')[0]}
 						onChange={e => {
 							const invDate = Date.parse(e.target.value)
 							const fiveYearsAgo = new Date().setFullYear(new Date().getFullYear() - 5)
@@ -194,6 +195,7 @@ const InventoryForm = props => {
 					onChange={e => props.setEmail(e.target.value)}
 					pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
 					required
+					max={new Date().toISOString().split('T')[0]}
 				/>
 					}
 					<Form.Control.Feedback type="invalid">
