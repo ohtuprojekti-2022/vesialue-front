@@ -8,6 +8,7 @@ const InventoryForm = props => {
 		e.target.value === 'sight' || e.target.value === 'dive'
 			? props.setVisibility('bad')
 			: props.setVisibility('')
+		if (e.target.value !== 'other') props.setMethodInfo('')
 	}
 	const [showMessage, setShowMessage] = useState(false)
 	const [messageTitle, setMessageTitle] = useState('')
