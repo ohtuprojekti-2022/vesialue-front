@@ -237,7 +237,8 @@ const InventoryForm = props => {
 						onChange={() => setChecked(!checked)}
 					/>
 					<span style={{paddingLeft: '10px'}}>
-						Hyväksyn <span style={{cursor: 'pointer'}}><a className="text-primary" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
+						Hyväksyn <span style={{cursor: 'pointer'}}>
+							<a className="text-primary" data-testid="tos" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" data-testid="pp"onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
 					</span>
 				</Form.Group>
 				<Button variant="primary"

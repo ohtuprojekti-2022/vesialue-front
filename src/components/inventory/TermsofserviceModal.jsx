@@ -5,8 +5,8 @@ import { Button, Modal } from 'react-bootstrap'
 const TermsofserviceModal = ({show, close}) => {
 
 	return (
-		<div className="container">
-			<Modal size="lg" show={show} onHide={close}>
+		<div className="container" data-testid="tos-modal">
+			<Modal size="lg" show={show} onHide={close} >
 				<Modal.Header closeButton>
 					<Modal.Title>Käyttöehdot</Modal.Title>
 				</Modal.Header>
