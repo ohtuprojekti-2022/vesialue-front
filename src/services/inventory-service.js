@@ -68,6 +68,7 @@ export const requestEdit = async (
 	visibility,
 	attachments,
 	moreInfo,
+	editReason,
 	originalReport
 ) => {
 	const request = await axios.post(
@@ -80,6 +81,7 @@ export const requestEdit = async (
 			visibility,
 			attachments,
 			moreInfo,
+			editReason,
 			originalReport
 		},
 		headers()

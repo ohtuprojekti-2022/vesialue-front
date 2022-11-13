@@ -21,8 +21,8 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 
 	useEffect(() => {
 		const layers = Object.values(map._layers)
-			.filter(l => l.options.isArea)
-			.map(l => {
+			.filter((l) => l.options.isArea)
+			.map((l) => {
 				return { id: l._leaflet_id, latlngs: l.getLatLngs()[0] }
 			})
 		setMapLayers(() => [...layers])
@@ -31,53 +31,55 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 	//-----PART OF THE HACK-----vv
 	useEffect(() => {
 		const editButton = document.querySelector('.leaflet-draw-edit-edit')
-		editButton.click()
-		const cancelButton = document.querySelector(
-			'a[title="Cancel editing, discards all changes"]'
-		)
-		const timer = setTimeout(() => {
-			if (cancelButton) cancelButton.click()
-		}, 50)
-		return () => clearTimeout(timer)
+		const delay = setTimeout(() => {
+			editButton.click()
+			const cancelButton = document.querySelector(
+				'a[title="Cancel editing, discards all changes"]'
+			)
+			setTimeout(() => {
+				if (cancelButton) cancelButton.click()
+			}, 50)
+		}, 3000)
+		return () => clearTimeout(delay)
 	})
 	//--------------------------^^
 
-	const _onCreate = e => {
+	const _onCreate = (e) => {
 		const { layerType, layer } = e
 		if (layerType === 'polygon') {
 			const newLayer = { id: layer._leaflet_id, latlngs: layer.getLatLngs()[0] }
-			setMapLayers(layers => [...layers, newLayer])
+			setMapLayers((layers) => [...layers, newLayer])
 		}
 	}
 
-	const _onEdited = e => {
+	const _onEdited = (e) => {
 		const {
 			layers: { _layers },
 		} = e
 
 		Object.values(_layers).map(({ _leaflet_id, _latlngs, options }) => {
 			//-----PART OF THE HACK-----vv
-			setAreas(areas =>
-				areas.map(a =>
+			setAreas((areas) =>
+				areas.map((a) =>
 					a.id === options.edit_id ? { ...a, coordinates: _latlngs[0] } : a
 				)
 			)
 			//--------------------------^^
-			setMapLayers(layers =>
-				layers.map(l =>
+			setMapLayers((layers) =>
+				layers.map((l) =>
 					l.id === _leaflet_id ? { ...l, latlngs: _latlngs[0] } : l
 				)
 			)
 		})
 	}
 
-	const _onDeleted = e => {
+	const _onDeleted = (e) => {
 		const {
 			layers: { _layers },
 		} = e
 
 		Object.values(_layers).map(({ _leaflet_id }) => {
-			setMapLayers(layers => layers.filter(l => l.id !== _leaflet_id))
+			setMapLayers((layers) => layers.filter((l) => l.id !== _leaflet_id))
 		})
 	}
 
@@ -98,7 +100,7 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 				}}
 			/>
 			{areas &&
-				areas.map(area => (
+				areas.map((area) => (
 					<Polygon
 						className="timeline-layer-polygon-editable"
 						key={area.id}
@@ -106,7 +108,7 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 						edit_id={area.id}
 						//--------------------------^^
 						isArea={true}
-						positions={area.coordinates.map(c => [c.lat, c.lng])}
+						positions={area.coordinates.map((c) => [c.lat, c.lng])}
 					/>
 				))}
 		</FeatureGroup>

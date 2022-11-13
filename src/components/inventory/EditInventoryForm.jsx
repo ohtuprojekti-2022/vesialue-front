@@ -139,7 +139,7 @@ const EditInventoryForm = (props) => {
 					data-testid="attachments"
 					type="checkbox"
 					label="Minulla on liitetiedosto(ja)"
-					onClick={() => props.setAttachments(!props.attachments)}
+					onChange={() => props.setAttachments(!props.attachments)}
 					checked={props.attachments}
 				/>
 			</Form.Group>
@@ -153,6 +153,18 @@ const EditInventoryForm = (props) => {
 				/>
 				<Form.Control.Feedback type="invalid">
 					Lisätietojen maksimipituus on 500 merkkiä.
+				</Form.Control.Feedback>
+			</FloatingLabel>
+			<FloatingLabel controlId="editReason" label="Muokkauksen syy" className="mb-3">
+				<Form.Control
+					data-testid="editReason"
+					type="text"
+					maxLength="500"
+					onChange={(e) => props.setEditReason(e.target.value)}
+					required
+				/>
+				<Form.Control.Feedback type="invalid">
+					Syy muokkaukselle vaaditaan. {'(max 500 merkkiä)'}
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<Button type="submit">Pyydä muokkausta</Button>

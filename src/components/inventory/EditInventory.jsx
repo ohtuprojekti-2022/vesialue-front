@@ -30,6 +30,7 @@ const EditInventory = () => {
 	const [visibility, setVisibility] = useState('')
 	const [attachments, setAttachments] = useState(false)
 	const [moreInfo, setMoreInfo] = useState('')
+	const [editReason, setEditReason] = useState('')
 	const navigate = useNavigate()
 	const [alert, setAlert] = useState(null)
 
@@ -70,6 +71,7 @@ const EditInventory = () => {
 					visibility,
 					attachments,
 					moreInfo,
+					editReason,
 					report.id
 				)
 
@@ -102,6 +104,7 @@ const EditInventory = () => {
 				setAttachments={setAttachments}
 				moreInfo={moreInfo}
 				setMoreInfo={setMoreInfo}
+				setEditReason={setEditReason}
 			/>
 		</Container>
 	)
