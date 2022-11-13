@@ -39,7 +39,7 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 			if (cancelButton) cancelButton.click()
 		}, 50)
 		return () => clearTimeout(timer)
-	}, [areas])
+	})
 	//--------------------------^^
 
 	const _onCreate = e => {

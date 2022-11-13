@@ -68,7 +68,7 @@ export const requestEdit = async (
 	visibility,
 	attachments,
 	moreInfo,
-	reportId
+	originalReport
 ) => {
 	const request = await axios.post(
 		`${REACT_APP_BACKEND_URL}/api/inventory/edit`,
@@ -80,7 +80,7 @@ export const requestEdit = async (
 			visibility,
 			attachments,
 			moreInfo,
-			reportId
+			originalReport
 		},
 		headers()
 	)
