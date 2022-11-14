@@ -5,8 +5,8 @@ import store from '../redux/store'
 
 export const renderWithProviders = element => {
     render(
-    <Provider store={store}>
-        {element}
-    </Provider>
+        <Provider store={store}>
+            {element}
+        </Provider>
     )
 }

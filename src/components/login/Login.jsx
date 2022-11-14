@@ -37,7 +37,7 @@ const Login = () => {
 				setValidated(false)
 				navigate('/')
 			} catch (error) {
-				if (error.response.data.message === 'incorrect username or password') {
+				if (error.response.data.message === 'Invalid username or password.') {
 					addAlert('Väärä käyttäjänimi tai salasana')
 				} else {
 					addAlert(error.response.data.message)

@@ -25,9 +25,9 @@ const Navbar = () => {
 			<BNavbar.Collapse id="responsive-navbar-nav">
 				<Nav>
 					<NavLink eventKey="1" as={Link} to="/" >Etusivu</NavLink>
-					<NavLink eventKey="2" as={Link} to="/inventointi-ilmoitus" >Uusi ilmoitus</NavLink>
+					<NavLink eventKey="2" as={Link} to="/inventointi-ilmoitus" data-testid="new-inventory" >Uusi ilmoitus</NavLink>
 					{userDetails && (
-						<NavDropdown title={userDetails.user.username} id="navbarScrollingDropdown">
+						<NavDropdown title={userDetails.user.username} id="navbarScrollingDropdown" data-testid="logged-in-user-dropdown">
 							<NavDropdown.Item eventKey="3" as={Link} to="/omasivu#tiedot">
 								Oma sivu
 							</NavDropdown.Item>
@@ -38,7 +38,7 @@ const Navbar = () => {
 						</NavDropdown>
 					)}
 					{!userDetails && (
-						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown">
+						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown" data-testid="user-dropdown">
 							<NavLink eventKey="4" as={Link} to="/kirjaudu">Kirjaudu</NavLink>
 							<NavLink eventKey="5" as={Link} to="/rekisteroidy">Rekisteröidy</NavLink>
 						</NavDropdown>

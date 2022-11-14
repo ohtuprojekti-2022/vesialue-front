@@ -55,6 +55,22 @@ export const parseCreator = report => {
 	return report.name ? report.name : report.email
 }
 
+export const parseEmail = report => {
+	if (report.user) {
+		return report.user.email
+	} else {
+		return report.email
+	}
+}
+
+export const parsePhone = report => {
+	if (report.user) {
+		return report.user.phone
+	} else {
+		return report.phone
+	}
+}
+
 export const headers = () => {
 	const userDetails = JSON.parse(localStorage.getItem('userDetails'))
 	return userDetails
@@ -79,7 +95,7 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 				username.toLowerCase().includes(filter.creator)) &&
 			city.toLowerCase().includes(filter.city) &&
 			(method === filter.method || filter.method === '-') &&
-			filter.startDate <= inventoryDate &&
+			(filter.startDate <= inventoryDate || !filter.startDate) &&
 			inventoryDate <= filter.endDate
 		)
 	})

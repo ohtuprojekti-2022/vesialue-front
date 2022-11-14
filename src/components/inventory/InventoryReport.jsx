@@ -2,12 +2,13 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import Placeholder from 'react-bootstrap/Placeholder'
 import Map from '../map/Map'
 import Area from '../map/Area'
 import {
 	formatDate,
 	getCenter,
+	parseEmail,
+	parsePhone,
 	translateMethod,
 	translateVisibility,
 } from '../../utils/tools'
@@ -21,27 +22,6 @@ const InventoryReport = () => {
 	})
 	const navigate = useNavigate()
 
-	if (allInventories.length === 0 || allAreas.length === 0) {
-		return (
-			<div className="d-flex justify-content-around">
-				<Card style={{ width: '40rem' }}>
-					<Card.Body>
-						<Placeholder as={Card.Title} animation="glow">
-							<Placeholder xs={6} />
-						</Placeholder>
-						<Placeholder as={Card.Title} animation="glow">
-							<Placeholder xs={6} />
-						</Placeholder>
-						<Placeholder as={Card.Text} animation="glow">
-							<Placeholder xs={7} /> <Placeholder xs={4} />{' '}
-							<Placeholder xs={4} /> <Placeholder xs={6} />{' '}
-							<Placeholder xs={8} />
-						</Placeholder>
-					</Card.Body>
-				</Card>
-			</div>
-		)
-	}
 	const report = allInventories.filter(i => i.id === id)[0]
 	const areas = allAreas.filter(a => a.inventoryId === report.id)
 	const center = getCenter(
@@ -49,19 +29,20 @@ const InventoryReport = () => {
 			return [...prev, getCenter(current.coordinates)]
 		}, [])
 	)
+
 	return (
 		<div className="d-flex justify-content-around">
-			<Card style={{ width: '40rem' }}>
+			<Card style={{ width: '40rem' }} data-testid="report-card">
 				<Card.Body>
-					<Card.Title>
+					<Card.Title >
 						Raportti{' '}
-						{report.user && userDetails && userDetails.user.id === report.user.id && (
+						{false && report.user && userDetails && userDetails.user.id === report.user.id && (
 							<Button onClick={() => navigate(`/report/${report.id}/edit`)}>
 								Muokkaa
 							</Button>
 						)}
 					</Card.Title>
-					<Map center={center}>
+					<Map center={center} >
 						{areas.map(area => (
 							<Area key={area.id} coordinates={area.coordinates} />
 						))}
@@ -79,6 +60,16 @@ const InventoryReport = () => {
 							</ListGroup.Item>
 						)}
 						<ListGroup.Item>Lisätietoja: {report.moreInfo}</ListGroup.Item>
+						{(parseEmail(report) !== '') && (
+							<ListGroup.Item>
+								Sähköposti: {parseEmail(report)}
+							</ListGroup.Item>
+						)}
+						{(parsePhone(report) !== '') && (
+							<ListGroup.Item>
+								Puhelinnumero: {parsePhone(report)}
+							</ListGroup.Item>
+						)}
 					</ListGroup>
 				</Card.Body>
 			</Card>
