@@ -31,17 +31,15 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 	//-----PART OF THE HACK-----vv
 	useEffect(() => {
 		const editButton = document.querySelector('.leaflet-draw-edit-edit')
+		editButton.click()
+		const cancelButton = document.querySelector(
+			'a[title="Cancel editing, discards all changes"]'
+		)
 		const delay = setTimeout(() => {
-			editButton.click()
-			const cancelButton = document.querySelector(
-				'a[title="Cancel editing, discards all changes"]'
-			)
-			setTimeout(() => {
-				if (cancelButton) cancelButton.click()
-			}, 50)
-		}, 3000)
+			if (cancelButton) cancelButton.click()
+		}, 50)
 		return () => clearTimeout(delay)
-	})
+	}, [areas])
 	//--------------------------^^
 
 	const _onCreate = (e) => {
