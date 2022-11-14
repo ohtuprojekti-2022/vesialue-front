@@ -24,8 +24,8 @@ const Navbar = () => {
 			<BNavbar.Toggle aria-controls="basic-navbar-nav" />
 			<BNavbar.Collapse id="responsive-navbar-nav">
 				<Nav>
-					<NavLink eventKey="1" as={Link} to="/" >Etusivu</NavLink>
-					<NavLink eventKey="2" as={Link} to="/inventointi-ilmoitus" >Uusi ilmoitus</NavLink>
+					<NavLink eventKey="1" as={Link} to="/" data-testid="front-page" >Etusivu</NavLink>
+					<NavLink eventKey="2" as={Link} to="/inventointi-ilmoitus" data-testid="new-inventory" >Uusi ilmoitus</NavLink>
 					{userDetails && (
 						<NavDropdown title={userDetails.user.username} id="navbarScrollingDropdown" data-testid="logged-in-user-dropdown">
 							<NavDropdown.Item eventKey="3" as={Link} to="/omasivu#tiedot">
@@ -39,8 +39,8 @@ const Navbar = () => {
 					)}
 					{!userDetails && (
 						<NavDropdown title="Käyttäjä" id="navbarScrollingDropdown" data-testid="user-dropdown">
-							<NavLink eventKey="4" as={Link} to="/kirjaudu">Kirjaudu</NavLink>
-							<NavLink eventKey="5" as={Link} to="/rekisteroidy">Rekisteröidy</NavLink>
+							<NavLink eventKey="4" as={Link} to="/kirjaudu" data-testid="login">Kirjaudu</NavLink>
+							<NavLink eventKey="5" as={Link} to="/rekisteroidy" data-testid="register">Rekisteröidy</NavLink>
 						</NavDropdown>
 					)}
 
