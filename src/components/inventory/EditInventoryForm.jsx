@@ -18,7 +18,7 @@ const EditInventoryForm = (props) => {
 	const handleMethodChange = (e) => {
 		props.setMethod(e.target.value)
 		e.target.value === 'sight' || e.target.value === 'dive'
-			? props.setVisibility(props.visibility)
+			? props.setVisibility(props.visibility ? props.visibility : 'bad')
 			: props.setVisibility('')
 		e.target.value === 'other'
 			? props.setMethodInfo(props.methodInfo)

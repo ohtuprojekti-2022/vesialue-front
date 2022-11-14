@@ -1,13 +1,19 @@
 /* istanbul ignore file */
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { Alert, Button, Container } from 'react-bootstrap'
+import { Alert, Button, Container, ListGroup, Modal } from 'react-bootstrap'
+import { Polygon } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { requestEdit } from '../../services/inventory-service'
-import { getCenter } from '../../utils/tools'
+import {
+	formatDate,
+	getCenter,
+	translateMethod,
+	translateVisibility,
+} from '../../utils/tools'
 import Map from '../map/Map'
 import EditInventoryForm from './EditInventoryForm'
 
@@ -35,6 +41,17 @@ const EditInventory = () => {
 	const [alert, setAlert] = useState(null)
 	const [page, setPage] = useState('map')
 
+	const [show, setShow] = useState(false)
+
+	const handleClose = () => setShow(false)
+	const handleShow = (e) => {
+		const form = e.currentTarget
+		const valid = form.checkValidity()
+		setValidated(true)
+		e.preventDefault()
+		if (valid) setShow(true)
+	}
+
 	useEffect(() => {
 		if (report) {
 			setInventorydate(report.inventorydate)
@@ -57,31 +74,25 @@ const EditInventory = () => {
 		}, 7500)
 	}
 
-	const handleSubmit = async (event) => {
-		const form = event.currentTarget
-		const valid = form.checkValidity()
-		setValidated(true)
-		event.preventDefault()
-		if (valid) {
-			try {
-				const result = await requestEdit(
-					mapLayers.map((layer) => layer.latlngs),
-					inventorydate,
-					method,
-					methodInfo,
-					visibility,
-					attachments,
-					moreInfo,
-					editReason,
-					report.id
-				)
+	const handleSubmit = async () => {
+		try {
+			const result = await requestEdit(
+				mapLayers.map((layer) => layer.latlngs),
+				inventorydate,
+				method,
+				methodInfo,
+				visibility,
+				attachments,
+				moreInfo,
+				editReason,
+				report.id
+			)
 
-				console.log(result)
+			console.log(result)
 
-				navigate(`/report/${report.id}`)
-			} catch (error) {
-				addAlert(error.toString())
-			}
+			navigate(`/report/${report.id}`)
+		} catch (error) {
+			addAlert(error.toString())
 		}
 	}
 
@@ -114,14 +125,14 @@ const EditInventory = () => {
 				<>
 					<EditInventoryForm
 						validated={validated}
-						handleSubmit={handleSubmit}
+						handleSubmit={handleShow}
 						inventorydate={inventorydate}
 						setInventorydate={setInventorydate}
 						method={method}
 						setMethod={setMethod}
-						methodInfo={report.methodInfo}
+						methodInfo={methodInfo}
 						setMethodInfo={setMethodInfo}
-						visibility={report.visibility}
+						visibility={visibility}
 						setVisibility={setVisibility}
 						attachments={attachments}
 						setAttachments={setAttachments}
@@ -138,6 +149,40 @@ const EditInventory = () => {
 					</Button>
 				</>
 			)}
+			<Modal show={show} onHide={handleClose} style={{ zIndex: 2001 }}>
+				<Modal.Header closeButton>
+					<Modal.Title>Vahvista muokkauspyyntö</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<Map center={center}>
+						<Polygon positions={mapLayers.map((layer) => layer.latlngs)} />
+					</Map>
+					<ListGroup>
+						<ListGroup.Item>
+							Päivämäärä: {formatDate(inventorydate)}
+						</ListGroup.Item>
+						<ListGroup.Item>
+							Tapa: {translateMethod(method, methodInfo)}
+						</ListGroup.Item>
+						{(method === 'dive' || method === 'sight') && (
+							<ListGroup.Item>
+								Näkyvyys: {translateVisibility(visibility)}
+							</ListGroup.Item>
+						)}
+						<ListGroup.Item>Lisätietoja: {moreInfo}</ListGroup.Item>
+					</ListGroup>
+					<br />
+					Muokkauksen syy: {editReason}
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleClose}>
+						Jatka muokkausta
+					</Button>
+					<Button variant="primary" onClick={handleSubmit}>
+						Lähetä
+					</Button>
+				</Modal.Footer>
+			</Modal>
 		</Container>
 	)
 }

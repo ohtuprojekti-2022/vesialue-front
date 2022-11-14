@@ -36,7 +36,7 @@ const InventoryReport = () => {
 				<Card.Body>
 					<Card.Title >
 						Raportti{' '}
-						{false && report.user && userDetails && userDetails.user.id === report.user.id && (
+						{report.user && userDetails && userDetails.user.id === report.user.id && (
 							<Button onClick={() => navigate(`/report/${report.id}/edit`)}>
 								Muokkaa
 							</Button>
