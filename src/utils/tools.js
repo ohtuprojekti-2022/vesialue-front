@@ -95,7 +95,7 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 				username.toLowerCase().includes(filter.creator)) &&
 			city.toLowerCase().includes(filter.city) &&
 			(method === filter.method || filter.method === '-') &&
-			filter.startDate <= inventoryDate &&
+			(filter.startDate <= inventoryDate || !filter.startDate) &&
 			inventoryDate <= filter.endDate
 		)
 	})

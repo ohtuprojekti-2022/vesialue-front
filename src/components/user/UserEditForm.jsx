@@ -34,7 +34,7 @@ const UserEditForm = props => {
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna kunnollinen sähköpostiosoite!
+					Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="phone" className="mb-3" label="Puhelinnumero">
@@ -43,10 +43,10 @@ const UserEditForm = props => {
 					type="text"
 					defaultValue={props.userDetails.user.phone}
 					onChange={e => props.setPhone(e.target.value)}
-					pattern="^((04[0-9]{1})(\s?|-?)|050(\s?|-?)|0457(\s?|-?)|[+]?358(\s?|-?)50|0358(\s?|-?)50|00358(\s?|-?)50|[+]?358(\s?|-?)4[0-9]{1}|0358(\s?|-?)4[0-9]{1}|00358(\s?|-?)4[0-9]{1})(\s?|-?)(([0-9]{3,4})(\s|-)?[0-9]{1,4})$"
+					pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna suomalainen puhelinnumero!
+					Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<Button variant="primary" type="submit">

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
 	creator: '',
-	startDate: 1640995200000,
+	startDate: undefined,
 	endDate: Date.now(),
 	method: '-',
 	city: '',

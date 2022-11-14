@@ -34,7 +34,7 @@ const RegistrationForm = ({
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna kelvollinen sähköpostiosoite!
+					Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="password" label="Salasana" className="mb-3">
@@ -64,7 +64,7 @@ const RegistrationForm = ({
 					pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna kelvollinen puhelinnumero!
+					Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<Button variant="primary" type="submit" data-testid="submit">
