@@ -76,10 +76,10 @@ describe('InventoryReport', () => {
 		expect(screen.getByText('Lisätietoja: ei')).toBeVisible()
 	})
 
-	test('Renders the modify button when the user has made the report', () => {
+	/*test('Renders the modify button when the user has made the report', () => {
 		const modifyButton = screen.getByRole('button', { name: /muokkaa/i })
 		expect(modifyButton).toBeDefined()
-	})
+	})*/
 })
 
 describe('InventoryReport2', () => {
@@ -106,7 +106,7 @@ describe('InventoryReport2', () => {
 		expect(screen.queryByText('Näkyvyys: hyvä (yli 5m)')).not.toBeInTheDocument()
 	})
 
-	test('Does not render the modify button when report is not users', () => {
+	/*test('Does not render the modify button when report is not users', () => {
 		expect(screen.queryByRole('button', { name: /muokkaa/i })).not.toBeInTheDocument()
-	})
+	})*/
 })
