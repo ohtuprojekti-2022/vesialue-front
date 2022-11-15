@@ -187,8 +187,12 @@ const InventoryForm = props => {
 							data-testid="name"
 							type="text"
 							onChange={e => props.setName(e.target.value)}
+							pattern="^[a-zA-Z\s]*$"
 						/>
 					}
+					<Form.Control.Feedback type="invalid">
+						Nimessä voi olla vain kirjaimia ja välilyöntejä!
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
 					{(localStorage.getItem('userDetails')) && (

@@ -54,7 +54,11 @@ const RegistrationForm = ({
 					type="text"
 					placeholder="Etu- ja sukunimi"
 					onChange={(e) => setName(e.target.value)}
+					pattern="^[a-zA-Z\s]*$"
 				/>
+				<Form.Control.Feedback type="invalid">
+					Nimessä voi olla vain kirjaimia ja välilyöntejä!
+				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="phone" label="Puhelinnumero" className="mb-3">
 				<Form.Control
