@@ -96,10 +96,10 @@ const UserPage = () => {
 				<Card.Header>
 					<Nav justify variant="pills" defaultActiveKey={location.hash} onSelect={key => setActiveKey(key)}>
 						<Nav.Item>
-							<Nav.Link href="#tiedot">Käyttäjätiedot</Nav.Link>
+							<Nav.Link href="#tiedot" data-testid="user-info">Käyttäjätiedot</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link href="#inventoinnit">Omat inventoinnit</Nav.Link>
+							<Nav.Link href="#inventoinnit" data-testid="own-inventories">Omat inventoinnit</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</Card.Header>
