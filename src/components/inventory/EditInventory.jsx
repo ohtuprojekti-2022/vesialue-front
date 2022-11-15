@@ -67,6 +67,13 @@ const EditInventory = () => {
 		return <p>ladataan raporttia...</p>
 	}
 
+	const handleNext = () => {
+		// Making sure the edits are saved
+		const saveButton = document.querySelector('a[title="Save changes"]')
+		if (saveButton) saveButton.click()
+		setPage('form')
+	}
+
 	const addAlert = (text) => {
 		setAlert(text)
 		setTimeout(() => {
@@ -108,7 +115,7 @@ const EditInventory = () => {
 						center={center}
 					/>
 					<div style={{ paddingTop: '0.5rem' }}>
-						<Button title="Muokkaa tietoja" onClick={() => setPage('form')}>
+						<Button title="Muokkaa tietoja" onClick={handleNext}>
 							Seuraava
 						</Button>
 						<Button
