@@ -84,6 +84,26 @@ describe('Registration Form', () => {
 		expect(email).toBeValid()
 	})
 
+	test('phone number must be in the correct format', async () => {
+		const user = userEvent.setup()
+		await user.type(phone, 'mun numero')
+		expect(phone).toBeInvalid()
+
+		await user.clear(phone)
+		await user.type(phone, '0457384723')
+		expect(phone).toBeValid()
+	})
+
+	test('name must be in the correct format', async () => {
+		const user = userEvent.setup()
+		await user.type(name, '@@$4353---,.,')
+		expect(name).toBeInvalid()
+
+		await user.clear(name)
+		await user.type(name, 'Urpo Urveloinen')
+		expect(name).toBeValid()
+	})
+
 	test('name and phone number are not required', async () => {
 		expect(name).not.toBeRequired()
 		expect(phone).not.toBeRequired()

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import NotifyMessage from '../NotifyMessage'
+import TermsofserviceModal from './TermsofserviceModal'
+import PrivacyPolicyModal from './PrivacyPolicyModal'
 
 const InventoryForm = props => {
 	const handleMethodChange = e => {
@@ -13,6 +15,9 @@ const InventoryForm = props => {
 	const [showMessage, setShowMessage] = useState(false)
 	const [messageTitle, setMessageTitle] = useState('')
 	const [messageBody, setMessageBody] = useState('')
+	const [checked, setChecked] = useState('')
+	const [showTOS, setShowTOS] = useState(false)
+	const [showPP, setShowPP] = useState(false)
 
 	const notify = (title, message) => {
 		setMessageTitle(title)
@@ -183,8 +188,12 @@ const InventoryForm = props => {
 							data-testid="name"
 							type="text"
 							onChange={e => props.setName(e.target.value)}
+							pattern="^[a-zA-Z\s]*$"
 						/>
 					}
+					<Form.Control.Feedback type="invalid">
+						Nimessä voi olla vain kirjaimia ja välilyöntejä!
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
 					{(localStorage.getItem('userDetails')) && (
@@ -231,10 +240,35 @@ const InventoryForm = props => {
 						Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
 					</Form.Control.Feedback>
 				</FloatingLabel>
-				<Button variant="primary" type="submit" data-testid="submit">
+				<Form.Group controlId="terms-of-services" className="mb-3" style={{display: 'inline-flex'}}>
+					<Form.Check
+						data-testid="terms-of-services"
+						type="checkbox"
+						checked={checked}
+						onChange={() => setChecked(!checked)}
+					/>
+					<span style={{paddingLeft: '10px'}}>
+						Hyväksyn <span style={{cursor: 'pointer'}}>
+							<a className="text-primary" data-testid="tos" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" data-testid="pp"onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
+					</span>
+				</Form.Group>
+				<Button variant="primary"
+					type="submit"
+					data-testid="submit"
+					className="mb-5"
+					disabled={!checked}
+					style={{display: 'block'}}>
 					Lähetä
 				</Button>
 			</Form>
+			<TermsofserviceModal
+				show={showTOS}
+				close={() => setShowTOS(false)}
+			/>
+			<PrivacyPolicyModal
+				show={showPP}
+				close={() => setShowPP(false)}
+			/>
 		</>
 	)
 }
