@@ -13,17 +13,14 @@ const userDetails = {'auth':'xyz',
 		'email':'mikko@email.fi', 'phone':'0404040400',
 		'username':'mikko1', 'admin':'0'}}
 
-store.dispatch(login(userDetails))
-
-describe('Navbar', () => {
-    
+describe('Navbar when logged in', () => {
 	beforeEach(() => {
+		store.dispatch(login(userDetails))
 		renderWithProviders(
 			<MemoryRouter>
 				<Navbar />
 			</MemoryRouter>
 		)
-		
 	})
 
 	test('shows username when logged in', () => {
@@ -52,7 +49,16 @@ describe('Navbar', () => {
 		await user.click(logoutButton)
 		expect(screen.getByText('Käyttäjä')).not.toBeNull
 	})
-	// after this test the user stays logged out
+})
+
+describe('Navbar when logged out', () => {
+	beforeEach(() => {
+		renderWithProviders(
+			<MemoryRouter>
+				<Navbar />
+			</MemoryRouter>
+		)
+	})
 
 	test('shows login when logged out', async () => {
 		const user = userEvent.setup()
