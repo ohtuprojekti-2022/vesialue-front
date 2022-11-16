@@ -187,12 +187,12 @@ const InventoryForm = props => {
 						<Form.Control
 							data-testid="name"
 							type="text"
+							maxLength="100"
 							onChange={e => props.setName(e.target.value)}
-							pattern="^[a-zA-Z\s]*$"
 						/>
 					}
 					<Form.Control.Feedback type="invalid">
-						Nimessä voi olla vain kirjaimia ja välilyöntejä!
+						Nimen maksimipituus on 100 merkkiä!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
