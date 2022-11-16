@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
-import PasswordEditModal from './PasswordEditModal'
 
 const UserEditForm = props => {
 
@@ -15,7 +14,7 @@ const UserEditForm = props => {
 				<Form.Control
 					type="text"
 					defaultValue={props.userDetails.user.username}
-					disabled
+					disabled={!props.edit}
 				/>
 			</FloatingLabel>
 			<FloatingLabel controlId="name" className="mb-3" label="Nimi">
@@ -24,7 +23,8 @@ const UserEditForm = props => {
 					type="text"
 					maxLength="100"
 					defaultValue={props.userDetails.user.name}
-					onChange={e => props.setName(e.target.value)}
+					onChange={(e) => props.setName(e.target.value)}
+					disabled={!props.edit}
 				/>
 				<Form.Control.Feedback type="invalid">
 					Nimen maksimipituus on 100 merkkiä!
@@ -35,8 +35,9 @@ const UserEditForm = props => {
 					data-testid="email"
 					type="email"
 					defaultValue={props.userDetails.user.email}
-					onChange={e => props.setEmail(e.target.value)}
+					onChange={(e) => props.setEmail(e.target.value)}
 					pattern="([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
+					disabled={!props.edit}
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
@@ -48,23 +49,19 @@ const UserEditForm = props => {
 					data-testid="phone"
 					type="text"
 					defaultValue={props.userDetails.user.phone}
-					onChange={e => props.setPhone(e.target.value)}
+					onChange={(e) => props.setPhone(e.target.value)}
 					pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
+					disabled={!props.edit}
 				/>
 				<Form.Control.Feedback type="invalid">
-					Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
+					Puhelinnumerossa voi olla vain plus-merkki, välilyöntejä ja 7-15 numeroa!
 				</Form.Control.Feedback>
 			</FloatingLabel>
-			<Button variant="primary" type="submit">
-				Tallenna
-			</Button>
-			<Button variant="secondary" onClick={() => props.setShowModal(true)} style={{ marginLeft: 20 }}>
-				Vaihda salasana
-			</Button>
-			<PasswordEditModal
-				show={props.showModal}
-				close={() => props.setShowModal(false)}
-			/>
+			{props.edit && (
+				<Button variant="primary" type="submit">
+					Tallenna
+				</Button>
+			)}
 		</Form>
 	)
 }

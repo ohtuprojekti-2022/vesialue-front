@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import React, {useState} from 'react'
 import { Form, FloatingLabel, Button, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,7 +25,7 @@ const PasswordEditModal = ({show, close}) => {
 		}, 7500)
 	}
 
-	const handleSubmit2 = async (event) => {
+	const handleSubmit = async (event) => {
 		const form = event.target
 		const valid = form.checkValidity()
 		setValidated(true)
@@ -60,7 +59,7 @@ const PasswordEditModal = ({show, close}) => {
 		<Form
 			noValidate
 			validated={validated}
-			onSubmit={handleSubmit2}
+			onSubmit={handleSubmit}
 			data-testid="passwordedit-form"
 		>
 			<FloatingLabel controlId="current-password" className="mb-3" label="Nykyinen salasana">
@@ -105,7 +104,8 @@ const PasswordEditModal = ({show, close}) => {
 
 	return (
 		<div className="container" data-testid="password-modal">
-			<Modal size="lg" show={show} onHide={()=> closeModal()}>
+			<Modal size="lg" show={show} onHide={()=> closeModal()} 
+				style={{ zIndex: 2001 }}>
 				<Modal.Header closeButton>
 					<Modal.Title>Vaihda salasana</Modal.Title>
 				</Modal.Header>
@@ -118,11 +118,6 @@ const PasswordEditModal = ({show, close}) => {
 						</div>
 					)}
 				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={()=> closeModal()}>
-						Sulje
-					</Button>
-				</Modal.Footer>
 			</Modal>
 		</div>
 	)

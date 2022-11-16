@@ -9,18 +9,23 @@ import store from '../../redux/store'
 import { login } from '../../redux/reducers/userReducer'
 
 describe('UserEditForm', () => {
-	let form,
-		name,
-		email,
-		phone,
-		submitButton
+	let form, name, email, phone, submitButton
 	const mockHandleSubmit = jest.fn()
 	const mockSetName = jest.fn()
 	const mockSetEmail = jest.fn()
 	const mockSetPhone = jest.fn()
-	const mockSetShowModal = jest.fn()
-	
-	const user = {'auth':'xxx', 'user':{'id':'u1', 'name':'Uusi', 'email':'uuden_maili@posti.fi', 'phone':'040667788', 'username':'uusi', 'admin':'0'}}
+
+	const user = {
+		auth: 'xxx',
+		user: {
+			id: 'u1',
+			name: 'Uusi',
+			email: 'uuden_maili@posti.fi',
+			phone: '040667788',
+			username: 'uusi',
+			admin: '0',
+		},
+	}
 	const userDetails = user
 
 	store.dispatch(login(user))
@@ -29,14 +34,13 @@ describe('UserEditForm', () => {
 		renderWithProviders(
 			<MemoryRouter>
 				<UserEditForm
+					edit={true}
+					userDetails={userDetails}
 					validated={true}
 					handleSubmit={mockHandleSubmit}
-					userDetails={userDetails}
 					setName={mockSetName}
 					setEmail={mockSetEmail}
 					setPhone={mockSetPhone}
-					showModal={false}
-					setShowModal={mockSetShowModal}
 				/>
 			</MemoryRouter>
 		)
@@ -90,20 +94,32 @@ describe('UserEditForm', () => {
 		email.value = ''
 		phone.value = ''
 		await user.click(submitButton)
-		expect(screen.getByText('Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!')).toBeVisible()
+		expect(
+			screen.getByText(
+				'Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!'
+			)
+		).toBeVisible()
 	})
 
 	test('Error with invalid email', async () => {
 		const user = userEvent.setup()
 		await user.type(email, 'testi.posti@posti.')
 		await user.click(submitButton)
-		expect(screen.getByText('Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!')).toBeVisible()
+		expect(
+			screen.getByText(
+				'Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!'
+			)
+		).toBeVisible()
 	})
 
 	test('Error with invalid phone', async () => {
 		const user = userEvent.setup()
 		await user.type(phone, '033')
 		await user.click(submitButton)
-		expect(screen.getByText('Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!')).toBeVisible()
+		expect(
+			screen.getByText(
+				'Puhelinnumerossa voi olla vain plus-merkki, välilyöntejä ja 7-15 numeroa!'
+			)
+		).toBeVisible()
 	})
 })
