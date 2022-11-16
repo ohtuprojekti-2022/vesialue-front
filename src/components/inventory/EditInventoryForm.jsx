@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
 
 /*
 {
@@ -24,7 +23,6 @@ const EditInventoryForm = (props) => {
 			? props.setMethodInfo(props.methodInfo)
 			: props.setMethodInfo('')
 	}
-	const navigate = useNavigate()
 
 	return (
 		<Form
@@ -160,6 +158,7 @@ const EditInventoryForm = (props) => {
 					data-testid="editReason"
 					type="text"
 					maxLength="500"
+					defaultValue={props.editReason}
 					onChange={(e) => props.setEditReason(e.target.value)}
 					required
 				/>
@@ -168,13 +167,6 @@ const EditInventoryForm = (props) => {
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<Button type="submit">Pyydä muokkausta</Button>
-			<Button
-				variant="secondary"
-				onClick={() => navigate(-1)}
-				style={{ marginLeft: '1rem' }}
-			>
-				Peruuta
-			</Button>
 		</Form>
 	)
 }

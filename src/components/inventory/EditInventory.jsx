@@ -145,6 +145,7 @@ const EditInventory = () => {
 						setAttachments={setAttachments}
 						moreInfo={moreInfo}
 						setMoreInfo={setMoreInfo}
+						editReason={editReason}
 						setEditReason={setEditReason}
 					/>
 					<Button
@@ -153,6 +154,13 @@ const EditInventory = () => {
 						onClick={() => setPage('map')}
 					>
 						Edellinen
+					</Button>
+					<Button
+						variant="secondary"
+						onClick={() => navigate(-1)}
+						style={{ marginLeft: '1rem' }}
+					>
+						Peruuta
 					</Button>
 				</>
 			)}
@@ -163,6 +171,13 @@ const EditInventory = () => {
 				<Modal.Body>
 					<Map center={center}>
 						<Polygon positions={mapLayers.map((layer) => layer.latlngs)} />
+						{/*areas &&
+							areas.map((a) => (
+								<Polygon
+									key={a.id}
+									positions={a.coordinates.map((c) => [c.lat, c.lng])}
+								/>
+							))*/}
 					</Map>
 					<ListGroup>
 						<ListGroup.Item>

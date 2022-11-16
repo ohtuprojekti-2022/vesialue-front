@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
-import NotifyMessage from '../NotifyMessage'
 import TermsofserviceModal from './TermsofserviceModal'
 import PrivacyPolicyModal from './PrivacyPolicyModal'
 
@@ -12,27 +11,12 @@ const InventoryForm = props => {
 			: props.setVisibility('')
 		if (e.target.value !== 'other') props.setMethodInfo('')
 	}
-	const [showMessage, setShowMessage] = useState(false)
-	const [messageTitle, setMessageTitle] = useState('')
-	const [messageBody, setMessageBody] = useState('')
 	const [checked, setChecked] = useState('')
 	const [showTOS, setShowTOS] = useState(false)
 	const [showPP, setShowPP] = useState(false)
 
-	const notify = (title, message) => {
-		setMessageTitle(title)
-		setMessageBody(message)
-		setShowMessage(true)
-	}
-
 	return (
 		<>
-			<NotifyMessage
-				show={showMessage}
-				handleClose={() => setShowMessage(false)}
-				title={messageTitle}
-				message={messageBody}
-			/>
 			<Form
 				noValidate
 				validated={props.validated}
@@ -61,15 +45,6 @@ const InventoryForm = props => {
 						type="date"
 						max={new Date().toISOString().split('T')[0]}
 						onChange={e => {
-							const invDate = Date.parse(e.target.value)
-							const fiveYearsAgo = new Date().setFullYear(new Date().getFullYear() - 5)
-							if (invDate < fiveYearsAgo) {
-								notify(
-									'Huomio',
-									'Asettamasi ajankohta on yli viisi vuotta sitten. ' +
-									'Oletko varma, että asettamasi aika on oikein?'
-								)
-							}
 							props.setInventorydate(e.target.value)
 						}}
 						required
@@ -187,12 +162,12 @@ const InventoryForm = props => {
 						<Form.Control
 							data-testid="name"
 							type="text"
+							maxLength="100"
 							onChange={e => props.setName(e.target.value)}
-							pattern="^[a-zA-Z\s]*$"
 						/>
 					}
 					<Form.Control.Feedback type="invalid">
-						Nimessä voi olla vain kirjaimia ja välilyöntejä!
+						Nimen maksimipituus on 100 merkkiä!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">

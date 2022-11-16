@@ -5,6 +5,7 @@ import { Container, Alert } from 'react-bootstrap'
 import { loginRequest } from '../../services/user-service'
 import LoginForm from './LoginForm'
 import { login } from '../../redux/reducers/userReducer'
+import { initializeInventories } from '../../redux/reducers/inventoryReducer'
 import { useDispatch } from 'react-redux'
 
 const Login = () => {
@@ -35,6 +36,7 @@ const Login = () => {
 				setUsername('')
 				setPassword('')
 				setValidated(false)
+				dispatch(initializeInventories())
 				navigate('/')
 			} catch (error) {
 				if (error.response.data.message === 'Invalid username or password.') {
