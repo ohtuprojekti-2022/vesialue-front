@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { registerNewUser } from '../../services/user-service'
 import RegistrationForm from './RegistrationForm'
+import { login } from '../../redux/reducers/userReducer'
+import { useDispatch } from 'react-redux'
 
-const Registration = ({ setUserDetails }) => {
+const Registration = () => {
+	const dispatch = useDispatch()
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [email, setEmail] = useState('')
@@ -36,8 +39,7 @@ const Registration = ({ setUserDetails }) => {
 					phone,
 					name
 				)
-				setUserDetails(data)
-				localStorage.setItem('userDetails', JSON.stringify(data))
+				dispatch(login(data))
 
 				setUsername('')
 				setPassword('')
@@ -47,16 +49,18 @@ const Registration = ({ setUserDetails }) => {
 				setValidated(false)
 				navigate('/')
 			} catch (error) {
-				if (error.response.data.message === 'username taken') {
+				if (error.response.data.message === 'Username already exists.') {
 					addAlert('Käyttäjänimi varattu! Valitse uusi.')
-				} else if (error.response.data.message === 'password too short') {
+				} else if (error.response.data.message === 'Password too short.') {
 					addAlert('Salasanassa pitää olla vähintään 10 merkkiä!')
-				} else if (error.response.data.message === 'username too short') {
+				} else if (error.response.data.message === 'Username too short.') {
 					addAlert('Käyttäjänimessä pitää olla vähintään 3 merkkiä!')
-				} else if (error.response.data.message === 'email is not valid') {
+				} else if (error.response.data.message === 'Invalid email.') {
 					addAlert('Anna validi sähköpostiosoite!')
-				} else if (error.response.data.message === 'email taken') {
+				} else if (error.response.data.message === 'Email already exists.') {
 					addAlert('Sähköpostiosoite on jo käytössä!')
+				} else if (error.response.data.message === 'phone number is not valid') {
+					addAlert('Anna validi suomalainen puhelinnumero!')
 				} else {
 					addAlert(error.response.data.message)
 				}

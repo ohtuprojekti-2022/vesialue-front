@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { loginRequest } from '../../services/user-service'
 import LoginForm from './LoginForm'
+import { login } from '../../redux/reducers/userReducer'
+import { useDispatch } from 'react-redux'
 
-const Login = ({ setUserDetails }) => {
+const Login = () => {
+	const dispatch = useDispatch()
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [validated, setValidated] = useState(false)
@@ -27,15 +30,14 @@ const Login = ({ setUserDetails }) => {
 		if (valid) {
 			try {
 				const data = await loginRequest(username, password)
-				setUserDetails(data)
-				localStorage.setItem('userDetails', JSON.stringify(data))
+				dispatch(login(data))
 
 				setUsername('')
 				setPassword('')
 				setValidated(false)
 				navigate('/')
 			} catch (error) {
-				if (error.response.data.message === 'incorrect username or password') {
+				if (error.response.data.message === 'Invalid username or password.') {
 					addAlert('Väärä käyttäjänimi tai salasana')
 				} else {
 					addAlert(error.response.data.message)

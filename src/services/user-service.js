@@ -26,4 +26,22 @@ export const loginRequest = async (username, password) => {
 	return request.data
 }
 
-export default { registerNewUser, loginRequest }
+export const setAdmin = async (username, admin_value) => {
+	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/user/admin`, {
+		username,
+		admin_value,
+	})
+	return request.data
+}
+
+export const userEditRequest = async (name, email, phone, username) => {
+	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/user/edit`, {
+		name,
+		phone,
+		email,
+		username,
+	})
+	return request.data
+}
+
+export default { registerNewUser, loginRequest, setAdmin, userEditRequest }

@@ -16,12 +16,13 @@ const RegistrationForm = ({
 				<Form.Control
 					type="text"
 					minLength="3"
+					maxLength="32"
 					placeholder="Käyttäjänimi"
 					onChange={(e) => setUsername(e.target.value)}
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna vähintään 3 merkkiä pitkä käyttäjänimi!
+					Anna kelvollinen käyttäjänimi! Pituus 3-32 merkkiä
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
@@ -33,7 +34,7 @@ const RegistrationForm = ({
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna validi sähköpostiosoite!
+					Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="password" label="Salasana" className="mb-3">
@@ -60,7 +61,11 @@ const RegistrationForm = ({
 					type="phone"
 					placeholder="Puhelinnumero"
 					onChange={(e) => setPhone(e.target.value)}
+					pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 				/>
+				<Form.Control.Feedback type="invalid">
+					Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
+				</Form.Control.Feedback>
 			</FloatingLabel>
 			<Button variant="primary" type="submit" data-testid="submit">
 				Rekisteröidy
