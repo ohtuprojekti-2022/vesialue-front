@@ -9,6 +9,7 @@ import {
 	getCenter,
 	parseEmail,
 	parsePhone,
+	parseCreator,
 	translateMethod,
 	translateVisibility,
 } from '../../utils/tools'
@@ -60,6 +61,7 @@ const InventoryReport = () => {
 							</ListGroup.Item>
 						)}
 						<ListGroup.Item>Lisätietoja: {report.moreInfo}</ListGroup.Item>
+						<ListGroup.Item>Tekijä: {parseCreator(report)}</ListGroup.Item>
 						{(parseEmail(report) !== '') && (
 							<ListGroup.Item>
 								Sähköposti: {parseEmail(report)}

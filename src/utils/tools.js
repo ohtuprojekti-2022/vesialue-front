@@ -50,9 +50,11 @@ export const formatDate = date => {
 
 export const parseCreator = report => {
 	if (report.user) {
-		return report.user.name ? report.user.name : report.user.username
+		const username = report.user.name ? report.user.name : report.user.username
+		return username !== '' ? username : 'Tuntematon'
 	}
-	return report.name ? report.name : report.email
+	const username = report.name ? report.name : report.email
+	return username !== '' ? username : 'Tuntematon'
 }
 
 export const parseEmail = report => {
