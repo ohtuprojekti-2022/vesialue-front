@@ -8,10 +8,16 @@ import store from '../redux/store'
 import { login } from '../redux/reducers/userReducer'
 import userEvent from '@testing-library/user-event'
 
-const userDetails = {'auth':'xyz',
-	'user':{'id':'ifbr2sa3mxdqrzgjo6nmw862', 'name':'Mikko',
-		'email':'mikko@email.fi', 'phone':'0404040400',
-		'username':'mikko1', 'admin':'0'}}
+jest.mock('axios')
+
+const userDetails = {
+	'auth': 'xyz',
+	'user': {
+		'id': 'ifbr2sa3mxdqrzgjo6nmw862', 'name': 'Mikko',
+		'email': 'mikko@email.fi', 'phone': '0404040400',
+		'username': 'mikko1', 'admin': '0'
+	}
+}
 
 describe('Navbar when logged in', () => {
 	beforeEach(() => {
