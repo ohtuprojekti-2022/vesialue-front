@@ -27,7 +27,7 @@ const PasswordEditModal = ({show, close}) => {
 	}
 
 	const handleSubmit2 = async (event) => {
-		const form = event.currentTarget
+		const form = event.target
 		const valid = form.checkValidity()
 		setValidated(true)
 		event.preventDefault()
@@ -69,7 +69,6 @@ const PasswordEditModal = ({show, close}) => {
 					type="password"
 					onChange={e => setCurrentPassword(e.target.value)}
 					required
-					novalidate
 				/>
 				<Form.Control.Feedback type="invalid">
 					Anna salasana!

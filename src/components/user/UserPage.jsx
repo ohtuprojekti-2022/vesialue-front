@@ -17,6 +17,7 @@ const UserInfo = ({ userDetails, dispatch }) => {
 	const [name, setName] = useState(userDetails.user.name)
 	const [email, setEmail] = useState(userDetails.user.email)
 	const [phone, setPhone] = useState(userDetails.user.phone)
+	const [showModal, setShowModal] = useState(false)
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 
@@ -28,21 +29,23 @@ const UserInfo = ({ userDetails, dispatch }) => {
 	}
 
 	const handleSubmit = async (event) => {
-		const form = event.currentTarget
-		const valid = form.checkValidity()
-		setValidated(true)
-		event.preventDefault()
-		if (valid) {
-			try {
-				const data = await userEditRequest(name, email, phone, userDetails.user.username)
-				dispatch(login(data))
-				
-				setValidated(false)
-			} catch (error) {
-				if (error.response.data.message === 'invalid') {
-					addAlert('Käyttäjänimi varattu')
-				} else {
-					addAlert(error.response.data.message)
+		if (showModal == false) {
+			const form = event.target
+			const valid = form.checkValidity()
+			setValidated(true)
+			event.preventDefault()
+			if (valid) {
+				try {
+					const data = await userEditRequest(name, email, phone, userDetails.user.username)
+					dispatch(login(data))
+					
+					setValidated(false)
+				} catch (error) {
+					if (error.response.data.message === 'invalid') {
+						addAlert('Käyttäjänimi varattu')
+					} else {
+						addAlert(error.response.data.message)
+					}
 				}
 			}
 		}
@@ -58,24 +61,11 @@ const UserInfo = ({ userDetails, dispatch }) => {
 				setName={setName}
 				setEmail={setEmail}
 				setPhone={setPhone}
+				showModal={showModal}
+				setShowModal={setShowModal}
 			/>
 		</Container>
-		/*<ListGroup>
-			<ListGroup.Item>Puhelinnumero: {userDetails.user.phone}</ListGroup.Item>
-			{/* 			<ListGroup.Item>
-				{userDetails && ( // NOT FOR FINAL PRODUCT
-					<BootstrapSwitchButton
-						checked={userDetails.user.admin != 0}
-						onlabel='Admin'
-						offlabel='Ei admin'
-						width={120}
-						onChange={(checked) => {
-							setAdmin(userDetails.user.username, checked)
-						}}
-					/>
-				)}
-			</ListGroup.Item> }
-		</ListGroup>*/)
+	)
 }
 
 const UserPage = () => {

@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import PasswordEditModal from './PasswordEditModal'
 
 const UserEditForm = props => {
-
-	const [showModal, setShowModal] = useState(false)
 
 	return (
 		<Form
@@ -60,12 +58,12 @@ const UserEditForm = props => {
 			<Button variant="primary" type="submit">
 				Tallenna
 			</Button>
-			<Button variant="secondary" onClick={() => setShowModal(true)} style={{ marginLeft: 20 }}>
+			<Button variant="secondary" onClick={() => props.setShowModal(true)} style={{ marginLeft: 20 }}>
 				Vaihda salasana
 			</Button>
 			<PasswordEditModal
-				show={showModal}
-				close={() => setShowModal(false)}
+				show={props.showModal}
+				close={() => props.setShowModal(false)}
 			/>
 		</Form>
 	)
