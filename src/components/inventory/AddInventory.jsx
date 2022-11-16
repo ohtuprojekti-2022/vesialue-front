@@ -8,6 +8,7 @@ import Map from '../map/Map'
 import { useDispatch } from 'react-redux'
 import { appendInventory } from '../../redux/reducers/inventoryReducer'
 import { appendAreas } from '../../redux/reducers/areaReducer'
+import { formatDate } from '../../utils/tools'
 
 const AddInventory = () => {
 	const [name, setName] = useState('')
@@ -33,12 +34,21 @@ const AddInventory = () => {
 
 	const dispatch = useDispatch()
 
+	const confirmDate = () => {
+		const invDate = Date.parse(inventorydate)
+		const fiveYearsAgo = new Date().setFullYear(new Date().getFullYear() - 5)
+		if (invDate < fiveYearsAgo) {
+			return window.confirm(`Asettamasi ajankohta on yli viisi vuotta sitten. Onko ajankohta ${formatDate(inventorydate)} oikein?`)
+		}
+		return true
+	}
+
 	const handleSubmit = async (event) => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
 		setValidated(true)
 		event.preventDefault()
-		if (valid) {
+		if (valid && confirmDate()) {
 			try {
 				const [inventory, areas] = await addInventory(
 					mapLayers.map((layer) => layer.latlngs),
