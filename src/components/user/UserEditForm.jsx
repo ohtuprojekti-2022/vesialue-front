@@ -1,7 +1,9 @@
 import React from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
+import PasswordEditModal from './PasswordEditModal'
 
 const UserEditForm = props => {
+
 	return (
 		<Form
 			noValidate
@@ -56,9 +58,13 @@ const UserEditForm = props => {
 			<Button variant="primary" type="submit">
 				Tallenna
 			</Button>
-			<Button variant="secondary" onClick={() => {}} style={{ marginLeft: 20 }}>
+			<Button variant="secondary" onClick={() => props.setShowModal(true)} style={{ marginLeft: 20 }}>
 				Vaihda salasana
 			</Button>
+			<PasswordEditModal
+				show={props.showModal}
+				close={() => props.setShowModal(false)}
+			/>
 		</Form>
 	)
 }
