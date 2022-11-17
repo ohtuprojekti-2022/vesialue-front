@@ -1,9 +1,12 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { renderWithProviders } from '../../utils/test-tools'
 import UserEditForm from './UserEditForm'
 import { MemoryRouter } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
+import store from '../../redux/store'
+import { login } from '../../redux/reducers/userReducer'
 
 describe('UserEditForm', () => {
 	let form,
@@ -15,13 +18,15 @@ describe('UserEditForm', () => {
 	const mockSetName = jest.fn()
 	const mockSetEmail = jest.fn()
 	const mockSetPhone = jest.fn()
-	const userDetails = {'auth':'xxx',
-		'user':{'id':'6368aeeb2ec2689b516f43b0', 'name':'Uusi',
-			'email':'uuden_maili@posti.fi', 'phone':'040667788',
-			'username':'uusi', 'admin':'0'}}
+	const mockSetShowModal = jest.fn()
+	
+	const user = {'auth':'xxx', 'user':{'id':'u1', 'name':'Uusi', 'email':'uuden_maili@posti.fi', 'phone':'040667788', 'username':'uusi', 'admin':'0'}}
+	const userDetails = user
+
+	store.dispatch(login(user))
 
 	beforeEach(() => {
-		render(
+		renderWithProviders(
 			<MemoryRouter>
 				<UserEditForm
 					validated={true}
@@ -30,6 +35,8 @@ describe('UserEditForm', () => {
 					setName={mockSetName}
 					setEmail={mockSetEmail}
 					setPhone={mockSetPhone}
+					showModal={false}
+					setShowModal={mockSetShowModal}
 				/>
 			</MemoryRouter>
 		)
@@ -83,20 +90,20 @@ describe('UserEditForm', () => {
 		email.value = ''
 		phone.value = ''
 		await user.click(submitButton)
-		expect(screen.findAllByText('Anna kunnollinen sähköpostiosoite!'))
+		expect(screen.getByText('Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!')).toBeVisible()
 	})
 
 	test('Error with invalid email', async () => {
 		const user = userEvent.setup()
 		await user.type(email, 'testi.posti@posti.')
 		await user.click(submitButton)
-		expect(screen.findAllByText('Anna kunnollinen sähköpostiosoite!'))
+		expect(screen.getByText('Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!')).toBeVisible()
 	})
 
 	test('Error with invalid phone', async () => {
 		const user = userEvent.setup()
 		await user.type(phone, '033')
 		await user.click(submitButton)
-		expect(screen.findAllByText('Anna suomalainen puhelinnumero!'))
+		expect(screen.getByText('Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!')).toBeVisible()
 	})
 })
