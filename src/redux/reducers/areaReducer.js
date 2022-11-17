@@ -9,7 +9,7 @@ const areaSlice = createSlice({
 			return action.payload
 		},
 		appendAreas: (state, action) => {
-			action.payload.forEach(area => {
+			action.payload.forEach((area) => {
 				state.push(area)
 			})
 		},
@@ -17,11 +17,19 @@ const areaSlice = createSlice({
 })
 
 export const initializeAreas = () => {
-	return async dispatch => {
+	return async (dispatch) => {
 		const areas = await getAllAreas()
 		dispatch(setAreas(areas))
 	}
 }
 
+export const selectAreasByReportId = (state, id) =>
+	state.areas.filter((a) => a.inventoryId === id)
+
 export const { setAreas, appendAreas } = areaSlice.actions
 export default areaSlice.reducer
+
+/**
+	const areas = allAreas.filter((a) =>
+		report ? a.inventoryId === report.id : false
+	) */

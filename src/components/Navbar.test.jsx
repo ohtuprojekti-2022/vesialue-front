@@ -8,22 +8,25 @@ import store from '../redux/store'
 import { login } from '../redux/reducers/userReducer'
 import userEvent from '@testing-library/user-event'
 
-const userDetails = {'auth':'xyz',
-	'user':{'id':'ifbr2sa3mxdqrzgjo6nmw862', 'name':'Mikko',
-		'email':'mikko@email.fi', 'phone':'0404040400',
-		'username':'mikko1', 'admin':'0'}}
+jest.mock('axios')
 
-store.dispatch(login(userDetails))
+const userDetails = {
+	'auth': 'xyz',
+	'user': {
+		'id': 'ifbr2sa3mxdqrzgjo6nmw862', 'name': 'Mikko',
+		'email': 'mikko@email.fi', 'phone': '0404040400',
+		'username': 'mikko1', 'admin': '0'
+	}
+}
 
-describe('Navbar', () => {
-    
+describe('Navbar when logged in', () => {
 	beforeEach(() => {
+		store.dispatch(login(userDetails))
 		renderWithProviders(
 			<MemoryRouter>
 				<Navbar />
 			</MemoryRouter>
 		)
-		
 	})
 
 	test('shows username when logged in', () => {
@@ -52,7 +55,16 @@ describe('Navbar', () => {
 		await user.click(logoutButton)
 		expect(screen.getByText('Käyttäjä')).not.toBeNull
 	})
-	// after this test the user stays logged out
+})
+
+describe('Navbar when logged out', () => {
+	beforeEach(() => {
+		renderWithProviders(
+			<MemoryRouter>
+				<Navbar />
+			</MemoryRouter>
+		)
+	})
 
 	test('shows login when logged out', async () => {
 		const user = userEvent.setup()
