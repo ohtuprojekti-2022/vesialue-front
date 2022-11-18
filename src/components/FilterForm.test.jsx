@@ -7,19 +7,19 @@ import { renderWithProviders } from '../utils/test-tools'
 
 
 describe('FilterForm', () => {
-    let filterForm
+	let filterForm
 
-    beforeEach(() => {
-        renderWithProviders(
-            <MemoryRouter>
-                <FilterForm />
-            </MemoryRouter>
-        )
-        filterForm = screen.getByTestId('filterform')
-    })
+	beforeEach(() => {
+		renderWithProviders(
+			<MemoryRouter>
+				<FilterForm />
+			</MemoryRouter>
+		)
+		filterForm = screen.getByTestId('filterform')
+	})
 
-    test('Form is defined', () => {
-        expect(filterForm).toBeDefined()
-    })
+	test('Form is defined', () => {
+		expect(filterForm).toBeDefined()
+	})
 
 })
