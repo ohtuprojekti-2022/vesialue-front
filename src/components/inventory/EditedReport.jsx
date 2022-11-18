@@ -33,9 +33,6 @@ const EditedReport = () => {
 			return [...prev, getCenter(current.coordinates)]
 		}, [])
 	)
-	console.log(report)
-	console.log(areas)
-	console.log(original)
 
 	return(
 		<>
