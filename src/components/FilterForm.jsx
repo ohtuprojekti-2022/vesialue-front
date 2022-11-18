@@ -32,7 +32,7 @@ const FilterForm = () => {
 			<Accordion.Item eventKey="0">
 				<Accordion.Header>Suodata raportteja</Accordion.Header>
 				<Accordion.Body>
-					<Form onSubmit={(e) => e.preventDefault()}>
+					<Form onSubmit={(e) => e.preventDefault()} data-testid="filterform">
 						<Row className="mb-3">
 							<Col>
 								<Button
