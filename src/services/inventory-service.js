@@ -89,6 +89,20 @@ export const requestEdit = async (
 	return request.data
 }
 
+export const getAllEditedInventories = () => {
+	const request = axios.get(
+		`${REACT_APP_BACKEND_URL}/api/inventory/edit`, headers()
+	)
+	return request.then((response) => response.data)
+}
+
+export const getEditedInventoryById = async (inventoryId) => {
+	const request = await axios.get(
+		`${REACT_APP_BACKEND_URL}/api/inventory/edit/${inventoryId}`
+	)
+	return request.then((response) => response.data)
+}
+
 export default {
 	addInventory,
 	getInventory,
