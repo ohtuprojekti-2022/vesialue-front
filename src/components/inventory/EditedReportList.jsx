@@ -4,34 +4,26 @@ import Table from 'react-bootstrap/Table'
 import EditedInventoryListItem from './EditedInventoryItem'
 
 
-const EditedReportList = ({ columns }) => {
-	const editedInventories = useSelector(({editedInventories}) => {
-		return editedInventories
+
+const EditedReportList = () => {
+	const editedInventories = useSelector((state) => {
+		return state.editedInventories
 	})
 
-	columns = columns
-		? columns
-		: { date: true, creator: true, reason: true }
-	
-	const render = option => option === undefined ? true : option
-	const date = render(columns.date)
-	const creator = render(columns.creator)
-	const reason = render(columns.reason)
-	
-	return(
-		<Table striped hover responsive>
+
+	return (
+		<Table striped bordered hover responsive>
 			<thead>
 				<tr>
-					{date && <th>Inventoinnin päivämäärä</th>}
-					{creator && <th>Tekijä</th>}
-					{reason && <th>Muokkauksen syy</th>}
+					<th>Inventoinnin päivämäärä</th>
+					<th>Tekijä</th>
+					<th>Muokkauksen syy</th>
 				</tr>
 			</thead>
 			<tbody>
 				{editedInventories.map(report => (
 					<EditedInventoryListItem
 						key={report.id}
-						columns={{ date,  creator, reason }}
 						report={report}
 					/>
 				))}
