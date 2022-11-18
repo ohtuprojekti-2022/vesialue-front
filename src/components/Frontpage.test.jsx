@@ -21,7 +21,7 @@ describe('Frontpage', () => {
 	})
 
 	test('shows filterform on screen', () => {
-		expect(screen.getByText('Filtteröi raportteja')).not.toBeNull
+		expect(screen.getByText('Suodata raportteja')).not.toBeNull
 	})
 
 	test('shows inventorylist on screen', () => {
