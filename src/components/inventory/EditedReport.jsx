@@ -14,6 +14,8 @@ import { selectEditedInventoryById } from '../../redux/reducers/editedInventoryR
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import Table from 'react-bootstrap/Table'
+import ApproveButton from './ApproveButton'
+import RejectButton from './RejectButton'
 
 const EditedReport = () => {
 	let { id } = useParams()
@@ -85,6 +87,8 @@ const EditedReport = () => {
 					</tr>
 				</tbody>
 			</Table>
+			<ApproveButton />
+			<RejectButton />
 
 
 		</>
