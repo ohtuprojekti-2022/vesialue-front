@@ -99,7 +99,7 @@ const UserPage = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(resetFilter())
-		dispatch(updateFilter({ id: 'creator', value: userDetails.user.username }))
+		dispatch(updateFilter({ id: 'userId', value: userDetails.user.id }))
 	}, [])
 
 	return (

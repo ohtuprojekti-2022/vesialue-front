@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
+	userId: undefined,
 	creator: '',
 	startDate: undefined,
 	endDate: Date.now(),
@@ -16,6 +17,8 @@ const filterSlice = createSlice({
 		updateFilter: (state, action) => {
 			const value = action.payload.value.toLowerCase()
 			switch (action.payload.id) {
+			case 'userId':
+				return { ...state, userId: value }
 			case 'creator':
 				return { ...state, creator: value }
 			case 'startDate':
