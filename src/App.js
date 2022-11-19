@@ -35,19 +35,19 @@ const App = () => {
 			<Routes>
 				<Route path="/" element={<Frontpage />} />
 				<Route path="inventointi-ilmoitus" element={<AddInventory />} />
-				<Route
-					path="rekisteroidy"
-					element={<Registration />}
-				/>
-				<Route
-					path="kirjaudu"
-					element={<Login />}
-				/>
+				<Route path="rekisteroidy" element={<Registration />} />
+				<Route path="kirjaudu" element={<Login />} />
 				<Route path="report/:id" element={<InventoryReport />} />
 				<Route path="report/:id/edit" element={<EditInventory />} />
 				<Route path="omasivu" element={<UserPage />} />
-				<Route path="muokatut/:id" element={admin? <EditedReport /> : <Navigate to='/'/>}/>
-				<Route path="muokatut" element={admin? <EditedReportList /> : <Navigate to='/'/>} />
+				<Route
+					path="muokatut/:id"
+					element={admin ? <EditedReport /> : <Navigate to="/" />}
+				/>
+				<Route
+					path="muokatut"
+					element={admin ? <EditedReportList /> : <Navigate to="/" />}
+				/>
 			</Routes>
 		</Container>
 	)
