@@ -9,16 +9,25 @@ import Login from './components/login/Login'
 import InventoryReport from './components/inventory/InventoryReport'
 import EditInventory from './components/inventory/EditInventory'
 import UserPage from './components/user/UserPage'
+import EditedReport from './components/inventory/EditedReport'
+import EditedReportList from './components/inventory/EditedReportList'
 import { useDispatch } from 'react-redux'
 import { initializeInventories } from './redux/reducers/inventoryReducer'
 import { initializeAreas } from './redux/reducers/areaReducer'
+import { initializeEditedInventories } from './redux/reducers/editedInventoryReducer'
+import { useSelector } from 'react-redux'
+import { selectAdminStatus } from './redux/reducers/userReducer'
+import { Navigate } from 'react-router-dom'
 
 const App = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(initializeInventories())
 		dispatch(initializeAreas())
+		dispatch(initializeEditedInventories())
 	}, [dispatch])
+
+	const admin = useSelector((state) => selectAdminStatus(state))
 
 	return (
 		<Container fluid>
@@ -37,6 +46,8 @@ const App = () => {
 				<Route path="report/:id" element={<InventoryReport />} />
 				<Route path="report/:id/edit" element={<EditInventory />} />
 				<Route path="omasivu" element={<UserPage />} />
+				<Route path="muokatut/:id" element={admin? <EditedReport /> : <Navigate to='/'/>}/>
+				<Route path="muokatut" element={admin? <EditedReportList /> : <Navigate to='/'/>} />
 			</Routes>
 		</Container>
 	)

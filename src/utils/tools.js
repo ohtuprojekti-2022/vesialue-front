@@ -109,3 +109,11 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 	const filteredAreas = areas.filter((a) => inventoryIds.has(a.inventoryId))
 	return [filteredInventories, filteredAreas]
 }
+
+export const attachmentsToString = (attachments) => {
+	if (!attachments) {
+		return 'Ei ole'
+	} else {
+		return 'On'
+	}
+}

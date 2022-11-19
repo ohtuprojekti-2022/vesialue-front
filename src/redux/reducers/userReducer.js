@@ -24,5 +24,10 @@ export const logout = () => {
 	}
 }
 
+export const selectAdminStatus = (state) => {
+	if (!state.userDetails) return 0
+	return state.userDetails.user.admin
+}
+
 export const { setUserDetails } = userSlice.actions
 export default userSlice.reducer
