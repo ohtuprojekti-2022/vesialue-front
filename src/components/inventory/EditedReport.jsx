@@ -13,7 +13,7 @@ import { Polygon } from 'react-leaflet'
 import { selectEditedInventoryById } from '../../redux/reducers/editedInventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
-import Table from 'react-bootstrap/Table'
+import { Table, Container} from 'react-bootstrap'
 import ApproveButton from './ApproveButton'
 import RejectButton from './RejectButton'
 
@@ -37,7 +37,7 @@ const EditedReport = () => {
 	)
 
 	return(
-		<>
+		<Container>
 			<Map center={center} >
 				{newAreas && newAreas.map(area => (
 					<Polygon key={'edited'+area.id} positions={area.coordinates.map((c)=>[c.lat, c.lng])} color='yellow'/>
@@ -87,11 +87,11 @@ const EditedReport = () => {
 					</tr>
 				</tbody>
 			</Table>
-			<ApproveButton />
-			<RejectButton />
+			<ApproveButton id={report.id}/>
+			<RejectButton id={report.id}/>
 
 
-		</>
+		</Container>
 	)
 
 }

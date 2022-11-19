@@ -107,10 +107,27 @@ export const getEditedInventoryById = async (inventoryId) => {
 	return request.then((response) => response.data)
 }
 
+export const rejectEditById = async (id) => {
+	await axios.delete(
+		`${REACT_APP_BACKEND_URL}/api/inventory/edit/${id}`,
+		headers()
+	)
+	return true
+}
+
+export const approveEditById = async (id) => {
+	const request= await axios.put(
+		`${REACT_APP_BACKEND_URL}/api/inventory`,
+		{id: id}, headers()
+	)
+	return request.data
+}
+
 export default {
 	addInventory,
 	getInventory,
 	getAllAreas,
 	getAllInventories,
 	getInventoryById,
+	rejectEditById,
 }
