@@ -12,6 +12,7 @@ const UserEditForm = props => {
 		>
 			<FloatingLabel controlId="username" className="mb-3" label="Käyttäjänimi">
 				<Form.Control
+					data-testid="username"
 					type="text"
 					minLength="3"
 					maxLength="32"

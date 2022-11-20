@@ -51,6 +51,7 @@ describe('UserEditForm', () => {
 		name = screen.getByTestId('name')
 		email = screen.getByTestId('email')
 		phone = screen.getByTestId('phone')
+		username = screen.getByTestId('username')
 		submitButton = screen.getByRole('button', { name: /tallenna/i })
 
 		mockHandleSubmit.mockImplementation((e) => e.preventDefault())
