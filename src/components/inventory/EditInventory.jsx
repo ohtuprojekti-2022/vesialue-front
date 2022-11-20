@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Alert, Button, Container, ListGroup, Modal } from 'react-bootstrap'
 import { Polygon } from 'react-leaflet'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
+import { appendEditedInventories } from '../../redux/reducers/editedInventoryReducer'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { requestEdit } from '../../services/inventory-service'
 import {
@@ -22,6 +23,7 @@ const EditInventory = () => {
 	const [report, areas] = useSelector((state) => {
 		return [selectInventoryById(state, id), selectAreasByReportId(state, id)]
 	})
+	const dispatch = useDispatch()
 	const center = getCenter(
 		areas.reduce((prev, current) => {
 			return [...prev, getCenter(current.coordinates)]
@@ -95,7 +97,7 @@ const EditInventory = () => {
 				report.id
 			)
 
-			console.log(result)
+			dispatch(appendEditedInventories(result))
 
 			navigate(`/report/${report.id}`)
 		} catch (error) {

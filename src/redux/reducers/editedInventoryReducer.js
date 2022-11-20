@@ -5,8 +5,14 @@ const editedInventorySlice = createSlice({
 	name: 'editedInventories',
 	initialState: [],
 	reducers: {
-		setInventories: (_state, action) => {
+		setEditedInventories: (_state, action) => {
 			return action.payload
+		},
+		appendEditedInventories: (state, action) => {
+			return [...state, action.payload]
+		},
+		removeEditedInventoryById: (state, action) => {
+			return state.filter(i => i.id !== action.payload)
 		}
 	},
 })
@@ -14,7 +20,7 @@ const editedInventorySlice = createSlice({
 export const initializeEditedInventories = () => {
 	return async (dispatch) => {
 		const inventories = await getAllEditedInventories()
-		dispatch(setInventories(inventories))
+		dispatch(setEditedInventories(inventories))
 	}
 }
 
@@ -22,5 +28,5 @@ export const selectEditedInventoryById = (state, id) => {
 	return state.editedInventories.find((i) => i.id === id)
 }
 
-export const { setInventories } = editedInventorySlice.actions
+export const { setEditedInventories, appendEditedInventories, removeEditedInventoryById } = editedInventorySlice.actions
 export default editedInventorySlice.reducer
