@@ -10,6 +10,8 @@ import { appendInventory } from '../redux/reducers/inventoryReducer'
 import { appendAreas } from '../redux/reducers/areaReducer'
 import userEvent from '@testing-library/user-event'
 
+jest.mock('axios')
+
 const user1 = {'auth':'xyz', 
 	'user':{'id':'u1', 
 		'name':'Miko', 

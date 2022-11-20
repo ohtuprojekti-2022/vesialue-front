@@ -6,6 +6,8 @@ import { MemoryRouter } from 'react-router-dom'
 import LogoutButton from './LogoutButton'
 import { renderWithProviders } from '../utils/test-tools'
 
+jest.mock('axios')
+
 describe('LogoutButton', () => {
 	let initialUserDetails = JSON.stringify({
 		auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzMmI1MDZjOTdiYjE2N2Q3ODk0MmNiIn0.yV8Ed4EugDC5dk6KYimhKNRkV5wDptg296sB6Ai_eBA',
