@@ -9,9 +9,10 @@ const areaSlice = createSlice({
 			return action.payload
 		},
 		appendAreas: (state, action) => {
-			action.payload.forEach((area) => {
-				state.push(area)
-			})
+			return [...state, ...action.payload]
+		},
+		removeAreas: (state, action) => {
+			return state.filter((a) => a.inventoryId !== action.payload)
 		},
 	},
 })
@@ -23,10 +24,17 @@ export const initializeAreas = () => {
 	}
 }
 
+export const updateAreas = (inventoryId, new_areas) => {
+	return (dispatch) => {
+		dispatch(removeAreas(inventoryId))
+		dispatch(appendAreas(new_areas))
+	}
+}
+
 export const selectAreasByReportId = (state, id) =>
 	state.areas.filter((a) => a.inventoryId === id)
 
-export const { setAreas, appendAreas } = areaSlice.actions
+export const { setAreas, appendAreas, removeAreas } = areaSlice.actions
 export default areaSlice.reducer
 
 /**

@@ -1,10 +1,10 @@
-export const getCenter = coordinates => {
+export const getCenter = (coordinates) => {
 	let maxLat = -Infinity
 	let minLat = Infinity
 	let maxLng = -Infinity
 	let minLng = Infinity
 
-	coordinates.forEach(coordPair => {
+	coordinates.forEach((coordPair) => {
 		maxLat = Math.max(maxLat, coordPair.lat)
 		minLat = Math.min(minLat, coordPair.lat)
 		maxLng = Math.max(maxLng, coordPair.lng)
@@ -30,7 +30,7 @@ export const translateMethod = (method, methodInfo) => {
 	}
 }
 
-export const translateVisibility = visibility => {
+export const translateVisibility = (visibility) => {
 	switch (visibility) {
 	case 'bad':
 		return 'huono (alle 2m)'
@@ -41,14 +41,14 @@ export const translateVisibility = visibility => {
 	}
 }
 
-export const formatDate = date => {
+export const formatDate = (date) => {
 	return `${date.substring(8, 10)}.${date.substring(5, 7)}.${date.substring(
 		0,
 		4
 	)}`
 }
 
-export const parseCreator = report => {
+export const parseCreator = (report) => {
 	if (report.user) {
 		const username = report.user.name ? report.user.name : report.user.username
 		return username !== '' ? username : 'Tuntematon'
@@ -57,7 +57,7 @@ export const parseCreator = report => {
 	return username !== '' ? username : 'Tuntematon'
 }
 
-export const parseEmail = report => {
+export const parseEmail = (report) => {
 	if (report.user) {
 		return report.user.email
 	} else {
@@ -65,7 +65,7 @@ export const parseEmail = report => {
 	}
 }
 
-export const parsePhone = report => {
+export const parsePhone = (report) => {
 	if (report.user) {
 		return report.user.phone
 	} else {
@@ -85,14 +85,18 @@ export const headers = () => {
 }
 
 export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
-	const filteredInventories = inventories.filter(report => {
+	const filteredInventories = inventories.filter((report) => {
 		const { user, city } = report
 		const name = user ? user.name : report.name
 		const username = user ? user.username : ''
 		const inventoryDate = Date.parse(report.inventorydate)
-		const method = translateMethod(report.method, report.methodInfo).toLowerCase()
+		const method = translateMethod(
+			report.method,
+			report.methodInfo
+		).toLowerCase()
 
 		return (
+			(!filter.userId || (user && user.id === filter.userId)) &&
 			(name.toLowerCase().includes(filter.creator) ||
 				username.toLowerCase().includes(filter.creator)) &&
 			city.toLowerCase().includes(filter.city) &&
@@ -101,7 +105,15 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 			inventoryDate <= filter.endDate
 		)
 	})
-	const inventoryIds = new Set(filteredInventories.map(i => i.id))
-	const filteredAreas = areas.filter(a => inventoryIds.has(a.inventoryId))
+	const inventoryIds = new Set(filteredInventories.map((i) => i.id))
+	const filteredAreas = areas.filter((a) => inventoryIds.has(a.inventoryId))
 	return [filteredInventories, filteredAreas]
+}
+
+export const attachmentsToString = (attachments) => {
+	if (!attachments) {
+		return 'Ei ole'
+	} else {
+		return 'On'
+	}
 }

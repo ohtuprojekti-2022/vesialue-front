@@ -19,6 +19,15 @@ const userDetails = {
 	}
 }
 
+const adminUserDetails = {
+	'auth': 'xyz',
+	'user': {
+		'id': 'ifbr2sa3mxdqrzgjo6nmw862', 'name': 'Mikko',
+		'email': 'mikko@email.fi', 'phone': '0404040400',
+		'username': 'mikko1', 'admin': '1'
+	}
+}
+
 describe('Navbar when logged in', () => {
 	beforeEach(() => {
 		store.dispatch(login(userDetails))
@@ -55,6 +64,7 @@ describe('Navbar when logged in', () => {
 		await user.click(logoutButton)
 		expect(screen.getByText('Käyttäjä')).not.toBeNull
 	})
+	
 })
 
 describe('Navbar when logged out', () => {
@@ -78,6 +88,25 @@ describe('Navbar when logged out', () => {
 		const DropDown = screen.getByRole('button', { name: /Käyttäjä/i })
 		await user.click(DropDown)
 		expect(screen.getByText('Rekisteröidy')).not.toBeNull
+	})
+
+})
+
+describe('Navbar when logged in as admin', () => {
+	beforeEach(() => {
+		store.dispatch(login(adminUserDetails))
+		renderWithProviders(
+			<MemoryRouter>
+				<Navbar />
+			</MemoryRouter>
+		)
+	})
+
+	test('shows edit requests when logged in as admin', async () => {
+		const user = userEvent.setup()
+		const DropDown = screen.getByRole('button', { name: /mikko1/i })
+		await user.click(DropDown)
+		expect(screen.getByText('Muokkauspyynnöt')).not.toBeNull
 	})
 
 })

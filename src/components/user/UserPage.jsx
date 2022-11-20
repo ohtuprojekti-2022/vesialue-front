@@ -13,6 +13,7 @@ import { login } from '../../redux/reducers/userReducer'
 
 const UserInfo = ({ userDetails, dispatch }) => {
 	const [edit, setEdit] = useState(false)
+	const [username, setUsername] = useState(userDetails.user.username)
 	const [name, setName] = useState(userDetails.user.name)
 	const [email, setEmail] = useState(userDetails.user.email)
 	const [phone, setPhone] = useState(userDetails.user.phone)
@@ -38,15 +39,17 @@ const UserInfo = ({ userDetails, dispatch }) => {
 					name,
 					email,
 					phone,
-					userDetails.user.username
+					username
 				)
 				dispatch(login(data))
 
 				setEdit(false)
 				setValidated(false)
 			} catch (error) {
-				if (error.response.data.message === 'invalid') {
-					addAlert('Käyttäjänimi varattu')
+				if (error.response.data.message === 'Username already exists.') {
+					addAlert('Käyttäjänimi varattu! Valitse uusi.')
+				} else if (error.response.data.message === 'Email already exists.') {
+					addAlert('Sähköpostiosoite on jo käytössä!')
 				} else {
 					addAlert(error.response.data.message)
 				}
@@ -62,6 +65,7 @@ const UserInfo = ({ userDetails, dispatch }) => {
 				userDetails={userDetails}
 				validated={validated}
 				handleSubmit={handleSubmit}
+				setUsername={setUsername}
 				setName={setName}
 				setEmail={setEmail}
 				setPhone={setPhone}
@@ -95,7 +99,7 @@ const UserPage = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(resetFilter())
-		dispatch(updateFilter({ id: 'creator', value: userDetails.user.username }))
+		dispatch(updateFilter({ id: 'userId', value: userDetails.user.id }))
 	}, [])
 
 	return (

@@ -12,10 +12,18 @@ const UserEditForm = props => {
 		>
 			<FloatingLabel controlId="username" className="mb-3" label="Käyttäjänimi">
 				<Form.Control
+					data-testid="username"
 					type="text"
+					minLength="3"
+					maxLength="32"
 					defaultValue={props.userDetails.user.username}
+					onChange={(e) => props.setUsername(e.target.value)}
 					disabled={!props.edit}
+					required
 				/>
+				<Form.Control.Feedback type="invalid">
+					Anna kelvollinen käyttäjänimi! Pituus 3-32 merkkiä
+				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="name" className="mb-3" label="Nimi">
 				<Form.Control
