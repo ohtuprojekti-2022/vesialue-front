@@ -8,6 +8,7 @@ import {
 	translateMethod,
 	translateVisibility,
 	attachmentsToString,
+	formatDate,
 } from '../../utils/tools'
 import { Polygon } from 'react-leaflet'
 import { selectEditedInventoryById } from '../../redux/reducers/editedInventoryReducer'
@@ -67,8 +68,8 @@ const EditedReport = () => {
 						<td>
 							<b>Päivämäärä</b>
 						</td>
-						<td>{original.inventorydate}</td>
-						<td>{report.inventorydate}</td>
+						<td>{formatDate(original.inventorydate)}</td>
+						<td>{formatDate(report.inventorydate)}</td>
 					</tr>
 					<tr>
 						<td>
