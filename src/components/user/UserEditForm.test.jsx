@@ -14,6 +14,7 @@ describe('UserEditForm', () => {
 	const mockSetName = jest.fn()
 	const mockSetEmail = jest.fn()
 	const mockSetPhone = jest.fn()
+	const mockSetUsername = jest.fn()
 
 	const user = {
 		auth: 'xxx',
@@ -41,6 +42,7 @@ describe('UserEditForm', () => {
 					setName={mockSetName}
 					setEmail={mockSetEmail}
 					setPhone={mockSetPhone}
+					setUsername={mockSetUsername}
 				/>
 			</MemoryRouter>
 		)
@@ -62,6 +64,10 @@ describe('UserEditForm', () => {
 		expect(email).toBeRequired()
 	})
 
+	test('username is required', () => {
+		expect(username).toBeRequired()
+	})
+
 	test('name and phone number are not required', () => {
 		expect(name).not.toBeRequired()
 		expect(phone).not.toBeRequired()
@@ -72,6 +78,13 @@ describe('UserEditForm', () => {
 		name.value = ''
 		await user.type(name, 'Testi')
 		expect(name).toHaveValue('Testi')
+	})
+
+	test('changing username works', async () => {
+		const user = userEvent.setup()
+		username.value = ''
+		await user.type(username, 'Testi')
+		expect(username).toHaveValue('Testi')
 	})
 
 	test('changing the email works', async () => {
