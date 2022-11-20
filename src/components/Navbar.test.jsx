@@ -102,7 +102,10 @@ describe('Navbar when logged in as admin', () => {
 		)
 	})
 
-	test('shows edit requests when logged in as admin', () => {
+	test('shows edit requests when logged in as admin', async () => {
+		const user = userEvent.setup()
+		const DropDown = screen.getByRole('button', { name: /mikko1/i })
+		await user.click(DropDown)
 		expect(screen.getByText('Muokkauspyynnöt')).not.toBeNull
 	})
 
