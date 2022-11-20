@@ -9,7 +9,7 @@ import store from '../../redux/store'
 import { login } from '../../redux/reducers/userReducer'
 
 describe('UserEditForm', () => {
-	let form, name, email, phone, submitButton
+	let form, name, email, phone, submitButton, username
 	const mockHandleSubmit = jest.fn()
 	const mockSetName = jest.fn()
 	const mockSetEmail = jest.fn()
