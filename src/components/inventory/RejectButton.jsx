@@ -2,30 +2,31 @@ import Button from 'react-bootstrap/Button'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { initializeEditedInventories } from '../../redux/reducers/editedInventoryReducer'
 import { rejectEditById } from '../../services/inventory-service'
+import { removeEditedInventoryById } from '../../redux/reducers/editedInventoryReducer'
 
-const ApproveButton = ({ id }) => {
+const RejectButton = ({ id }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const handleClick = async () => {
-		try{
-			const result = await rejectEditById(id)
-			dispatch(initializeEditedInventories())
-			if (result) {
-				navigate('/muokatut')
-			}
-			
+		try {
+			await rejectEditById(id)
+			dispatch(removeEditedInventoryById(id))
+			navigate('/muokatut')
 		} catch (error) {
 			console.log(error)
 		}
-		
 	}
-	return(
-		<Button variant='danger' style={{marginLeft:'0.5rem'}} onClick={handleClick}>
-            Hylkää
+
+	return (
+		<Button
+			variant="danger"
+			style={{ marginLeft: '0.5rem' }}
+			onClick={handleClick}
+		>
+			Hylkää
 		</Button>
 	)
 }
 
-export default ApproveButton
+export default RejectButton

@@ -7,13 +7,14 @@ import {
 	getCenter,
 	translateMethod,
 	translateVisibility,
-	attachmentsToString
+	attachmentsToString,
+	formatDate,
 } from '../../utils/tools'
 import { Polygon } from 'react-leaflet'
 import { selectEditedInventoryById } from '../../redux/reducers/editedInventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
-import { Table, Container} from 'react-bootstrap'
+import { Table, Container } from 'react-bootstrap'
 import ApproveButton from './ApproveButton'
 import RejectButton from './RejectButton'
 
@@ -24,7 +25,10 @@ const EditedReport = () => {
 	})
 	const originalId = report ? report.originalReport : ''
 	const [areas, original] = useSelector((state) => {
-		return [selectAreasByReportId(state, originalId), selectInventoryById(state, originalId)]
+		return [
+			selectAreasByReportId(state, originalId),
+			selectInventoryById(state, originalId),
+		]
 	})
 	if (!report || !areas || !original) {
 		return <p>ladataan raporttia...</p>
@@ -36,16 +40,20 @@ const EditedReport = () => {
 		}, [])
 	)
 
-	return(
+	return (
 		<Container>
-			<Map center={center} >
-				{newAreas && newAreas.map(area => (
-					<Polygon key={'edited'+area.id} positions={area.coordinates.map((c)=>[c.lat, c.lng])} color='yellow'/>
+			<Map center={center}>
+				{areas.map((area) => (
+					<Polygon
+						key={area.id}
+						positions={area.coordinates.map((c) => [c.lat, c.lng])}
+						color="red"
+					/>
 				))}
-				{areas.map(area => (
-					<Area key={area.id} coordinates={area.coordinates} />
-				))}
-				
+				{newAreas &&
+					newAreas.map((area) => (
+						<Area key={'edited' + area.id} coordinates={area.coordinates} />
+					))}
 			</Map>
 			<Table bordered responsive>
 				<thead>
@@ -57,43 +65,52 @@ const EditedReport = () => {
 				</thead>
 				<tbody>
 					<tr>
-						<td><b>Päivämäärä</b></td>
-						<td>{original.inventorydate}</td>
-						<td>{report.inventorydate}</td>
+						<td>
+							<b>Päivämäärä</b>
+						</td>
+						<td>{formatDate(original.inventorydate)}</td>
+						<td>{formatDate(report.inventorydate)}</td>
 					</tr>
 					<tr>
-						<td><b>Tapa</b></td>
+						<td>
+							<b>Tapa</b>
+						</td>
 						<td>{translateMethod(original.method, original.methodInfo)}</td>
 						<td>{translateMethod(report.method, report.methodInfo)}</td>
 					</tr>
 					<tr>
-						<td><b>Näkyvyys</b></td>
+						<td>
+							<b>Näkyvyys</b>
+						</td>
 						<td>{translateVisibility(original.visibility)}</td>
 						<td>{translateVisibility(report.visibility)}</td>
 					</tr>
 					<tr>
-						<td><b>Liitetiedostoja</b></td>
+						<td>
+							<b>Liitetiedostoja</b>
+						</td>
 						<td>{attachmentsToString(original.attachments)}</td>
 						<td>{attachmentsToString(report.attachments)}</td>
 					</tr>
 					<tr>
-						<td><b>Muuta tietoa</b></td>
+						<td>
+							<b>Muuta tietoa</b>
+						</td>
 						<td>{original.moreInfo}</td>
 						<td>{report.moreInfo}</td>
 					</tr>
 					<tr>
-						<td><b>Muokkauksen syy</b></td>
-						<td>{report.editReason}</td>
+						<td>
+							<b>Muokkauksen syy</b>
+						</td>
+						<td colSpan="2">{report.editReason}</td>
 					</tr>
 				</tbody>
 			</Table>
-			<ApproveButton id={report.id}/>
-			<RejectButton id={report.id}/>
-
-
+			<ApproveButton id={report.id} />
+			<RejectButton id={report.id} />
 		</Container>
 	)
-
 }
 
 export default EditedReport

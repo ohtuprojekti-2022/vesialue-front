@@ -50,7 +50,10 @@ export const getAllAreas = async () => {
 
 export const getAllInventories = () => {
 	try {
-		const request = axios.get(`${REACT_APP_BACKEND_URL}/api/inventory`, headers())
+		const request = axios.get(
+			`${REACT_APP_BACKEND_URL}/api/inventory`,
+			headers()
+		)
 		return request.then((response) => response.data)
 	} catch (error) {
 		console.log(error)
@@ -86,7 +89,7 @@ export const requestEdit = async (
 			attachments,
 			moreInfo,
 			editReason,
-			originalReport
+			originalReport,
 		},
 		headers()
 	)
@@ -95,7 +98,8 @@ export const requestEdit = async (
 
 export const getAllEditedInventories = () => {
 	const request = axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/edit`, headers()
+		`${REACT_APP_BACKEND_URL}/api/inventory/edit`,
+		headers()
 	)
 	return request.then((response) => response.data)
 }
@@ -116,9 +120,10 @@ export const rejectEditById = async (id) => {
 }
 
 export const approveEditById = async (id) => {
-	const request= await axios.put(
-		`${REACT_APP_BACKEND_URL}/api/inventory`,
-		{id: id}, headers()
+	const request = await axios.put(
+		`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
+		{},
+		headers()
 	)
 	return request.data
 }

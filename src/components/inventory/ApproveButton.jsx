@@ -3,27 +3,31 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { approveEditById } from '../../services/inventory-service'
-import { initializeEditedInventories } from '../../redux/reducers/editedInventoryReducer'
+import { updateAreas } from '../../redux/reducers/areaReducer'
+import { updateInventories } from '../../redux/reducers/inventoryReducer'
+import { removeEditedInventoryById } from '../../redux/reducers/editedInventoryReducer'
 
 const ApproveButton = ({ id }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-
 	const handleClick = async () => {
-		try{
-			const result = await approveEditById(id)
-			dispatch(initializeEditedInventories())
-			if (result) {
-				navigate('/muokatut')
-			}
+		try {
+			const [inventory, areas] = await approveEditById(id)
+
+			dispatch(updateAreas(inventory.id, areas))
+			dispatch(updateInventories(inventory))
+			dispatch(removeEditedInventoryById(id))
+
+			navigate('/muokatut')
 		} catch (error) {
 			console.log(error)
 		}
 	}
-	return(
-		<Button variant='primary' onClick={handleClick}>
-            Hyväksy
+
+	return (
+		<Button variant="primary" onClick={handleClick}>
+			Hyväksy
 		</Button>
 	)
 }

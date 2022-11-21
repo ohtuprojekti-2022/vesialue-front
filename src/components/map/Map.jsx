@@ -10,7 +10,7 @@ const Map = ({ center, zoom, setMapLayers, editableAreas, children }) => {
 	if (!zoom) zoom = 12
 
 	return (
-		<>
+		<div style={{ marginRight: '1.5rem' }}>
 			<MapContainer
 				style={{ height: '500px', width: '100%' }}
 				center={center}
@@ -43,10 +43,15 @@ const Map = ({ center, zoom, setMapLayers, editableAreas, children }) => {
 						/>
 					</LayersControl.Overlay>
 				</LayersControl>
-				{setMapLayers && <DrawingTool setMapLayers={setMapLayers} existingAreas={editableAreas} />}
+				{setMapLayers && (
+					<DrawingTool
+						setMapLayers={setMapLayers}
+						existingAreas={editableAreas}
+					/>
+				)}
 				{children}
 			</MapContainer>
-		</>
+		</div>
 	)
 }
 

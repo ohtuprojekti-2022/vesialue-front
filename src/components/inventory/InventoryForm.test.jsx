@@ -153,6 +153,12 @@ describe('InventoryForm', () => {
 		expect(phone).toHaveValue('4444')
 	})
 
+	test('changing email works', async () => {
+		const user = userEvent.setup()
+		await user.type(email, 'testi@email.com')
+		expect(email).toHaveValue('testi@email.com')
+	})
+
 	test('changing more info works', async () => {
 		const user = userEvent.setup()
 		await user.type(moreInfo, 'testi-info')
@@ -165,6 +171,13 @@ describe('InventoryForm', () => {
 		expect(attachments).toBeChecked()
 	})
 
+	test('changing methodInfo works', async () => {
+		const user = userEvent.setup()
+		await user.click(checkOther)
+		await user.type(await screen.findByTestId('methodInfo'), 'abc')
+		expect(await screen.findByTestId('methodInfo')).toHaveValue('abc')
+	})
+	
 	test('submit handler is called on submit', async () => {
 		const user = userEvent.setup()
 		await user.click(submitButton)

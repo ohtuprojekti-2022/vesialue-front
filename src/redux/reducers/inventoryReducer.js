@@ -11,6 +11,9 @@ const inventorySlice = createSlice({
 		appendInventory: (state, action) => {
 			state.push(action.payload)
 		},
+		removeInventory: (state, action) => {
+			return state.filter((i) => i.id !== action.payload.id)
+		},
 	},
 })
 
@@ -30,8 +33,16 @@ export const getInventoriesByUserId = createSelector(
 		)
 )
 
+export const updateInventories = (inventory) => {
+	return (dispatch) => {
+		dispatch(removeInventory(inventory))
+		dispatch(appendInventory(inventory))
+	}
+}
+
 export const selectInventoryById = (state, id) =>
 	state.inventories.find((i) => i.id === id)
 
-export const { setInventories, appendInventory } = inventorySlice.actions
+export const { setInventories, appendInventory, removeInventory } =
+	inventorySlice.actions
 export default inventorySlice.reducer
