@@ -15,7 +15,7 @@ describe('Registration Form', () => {
 	const mockSetPhone = jest.fn()
 	const mockValidated = true
 
-	let form, username, email, password, name, phone, submitButton
+	let form, username, email, password, name, phone, submitButton, terms
 
 	beforeEach(() => {
 		render(
@@ -37,6 +37,7 @@ describe('Registration Form', () => {
 		name = screen.getByRole('textbox', {  name: /etu- ja sukunimi/i })
 		phone = screen.getByRole('textbox', {  name: /puhelinnumero/i })
 		submitButton = screen.getByRole('button', {  name: /rekisteröidy/i } )
+		terms = screen.getByTestId('terms-of-services')
 
 		mockHandleSubmit.mockImplementation(e => {
 			e.preventDefault()
@@ -124,7 +125,10 @@ describe('Registration Form', () => {
 
 	test('submit handler is called on submit', async () => {
 		const user = userEvent.setup()
+		await user.click(terms)
 		await user.click(submitButton)
+		expect(terms).toBeChecked()
+		expect(submitButton).not.toBeDisabled()
 		expect(mockHandleSubmit).toBeCalledTimes(1)
 	})
 })
