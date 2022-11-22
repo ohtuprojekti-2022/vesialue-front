@@ -7,6 +7,7 @@ import LoginForm from './LoginForm'
 import { login } from '../../redux/reducers/userReducer'
 import { initializeInventories } from '../../redux/reducers/inventoryReducer'
 import { useDispatch } from 'react-redux'
+import { initializeEditedInventories } from '../../redux/reducers/editedInventoryReducer'
 
 const Login = () => {
 	const dispatch = useDispatch()
@@ -37,6 +38,7 @@ const Login = () => {
 				setPassword('')
 				setValidated(false)
 				dispatch(initializeInventories())
+				dispatch(initializeEditedInventories())
 				navigate('/')
 			} catch (error) {
 				if (error.response.data.message === 'Invalid username or password.') {
