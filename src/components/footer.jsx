@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Footer = () => {
+const Footer = ({ setShowTOS, setShowPP }) => {
 	return (
 		<footer
 			className="page-footer font-small blue pt-4"
@@ -40,10 +40,10 @@ const Footer = () => {
 						<h5 className="text-uppercase"></h5>
 						<ul className="list-unstyled">
 							<li>
-								<a href="#!">Käyttöehdot</a>
+								<a href="#!" onClick={() => setShowTOS(true)}>Käyttöehdot</a>
 							</li>
 							<li>
-								<a href="#!">Tietosuojaseloste</a>
+								<a href="#!" onClick={() => setShowPP(true)}>Tietosuojaseloste</a>
 							</li>
 						</ul>
 					</div>
