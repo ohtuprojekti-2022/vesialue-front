@@ -17,14 +17,14 @@ const Login = () => {
 	const [alert, setAlert] = useState(null)
 	const navigate = useNavigate()
 
-	const addAlert = (text) => {
+	const addAlert = text => {
 		setAlert(text)
 		setTimeout(() => {
 			setAlert(null)
 		}, 7500)
 	}
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = async event => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
 		setValidated(true)
@@ -51,7 +51,7 @@ const Login = () => {
 	}
 
 	return (
-		<Container fluid="sm">
+		<Container fluid="sm" style={{ marginBottom: '1rem' }}>
 			<h2>Kirjaudu sisään</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<LoginForm
@@ -60,6 +60,13 @@ const Login = () => {
 				setUsername={setUsername}
 				setPassword={setPassword}
 			/>
+			<a
+				href="#"
+				className="text-secondary"
+				onClick={() => navigate('/rekisteroidy')}
+			>
+				Rekisteröi uusi käyttäjä
+			</a>
 		</Container>
 	)
 }
