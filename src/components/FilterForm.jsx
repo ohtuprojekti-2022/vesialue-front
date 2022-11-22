@@ -30,9 +30,9 @@ const FilterForm = () => {
 	return (
 		<Accordion style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
 			<Accordion.Item eventKey="0">
-				<Accordion.Header>Filtteröi raportteja</Accordion.Header>
+				<Accordion.Header>Suodata raportteja</Accordion.Header>
 				<Accordion.Body>
-					<Form onSubmit={(e) => e.preventDefault()}>
+					<Form onSubmit={(e) => e.preventDefault()} data-testid="filterform">
 						<Row className="mb-3">
 							<Col>
 								<Button

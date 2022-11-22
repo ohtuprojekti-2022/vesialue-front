@@ -8,22 +8,34 @@ import store from '../redux/store'
 import { login } from '../redux/reducers/userReducer'
 import userEvent from '@testing-library/user-event'
 
-const userDetails = {'auth':'xyz',
-	'user':{'id':'ifbr2sa3mxdqrzgjo6nmw862', 'name':'Mikko',
-		'email':'mikko@email.fi', 'phone':'0404040400',
-		'username':'mikko1', 'admin':'0'}}
+jest.mock('axios')
 
-store.dispatch(login(userDetails))
+const userDetails = {
+	'auth': 'xyz',
+	'user': {
+		'id': 'ifbr2sa3mxdqrzgjo6nmw862', 'name': 'Mikko',
+		'email': 'mikko@email.fi', 'phone': '0404040400',
+		'username': 'mikko1', 'admin': '0'
+	}
+}
 
-describe('Navbar', () => {
-    
+const adminUserDetails = {
+	'auth': 'xyz',
+	'user': {
+		'id': 'ifbr2sa3mxdqrzgjo6nmw862', 'name': 'Mikko',
+		'email': 'mikko@email.fi', 'phone': '0404040400',
+		'username': 'mikko1', 'admin': '1'
+	}
+}
+
+describe('Navbar when logged in', () => {
 	beforeEach(() => {
+		store.dispatch(login(userDetails))
 		renderWithProviders(
 			<MemoryRouter>
 				<Navbar />
 			</MemoryRouter>
 		)
-		
 	})
 
 	test('shows username when logged in', () => {
@@ -52,7 +64,17 @@ describe('Navbar', () => {
 		await user.click(logoutButton)
 		expect(screen.getByText('Käyttäjä')).not.toBeNull
 	})
-	// after this test the user stays logged out
+	
+})
+
+describe('Navbar when logged out', () => {
+	beforeEach(() => {
+		renderWithProviders(
+			<MemoryRouter>
+				<Navbar />
+			</MemoryRouter>
+		)
+	})
 
 	test('shows login when logged out', async () => {
 		const user = userEvent.setup()
@@ -66,6 +88,25 @@ describe('Navbar', () => {
 		const DropDown = screen.getByRole('button', { name: /Käyttäjä/i })
 		await user.click(DropDown)
 		expect(screen.getByText('Rekisteröidy')).not.toBeNull
+	})
+
+})
+
+describe('Navbar when logged in as admin', () => {
+	beforeEach(() => {
+		store.dispatch(login(adminUserDetails))
+		renderWithProviders(
+			<MemoryRouter>
+				<Navbar />
+			</MemoryRouter>
+		)
+	})
+
+	test('shows edit requests when logged in as admin', async () => {
+		const user = userEvent.setup()
+		const DropDown = screen.getByRole('button', { name: /mikko1/i })
+		await user.click(DropDown)
+		expect(screen.getByText('Muokkauspyynnöt')).not.toBeNull
 	})
 
 })

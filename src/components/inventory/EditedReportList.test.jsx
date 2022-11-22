@@ -2,14 +2,15 @@ import React from 'react'
 import { screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { MemoryRouter } from 'react-router-dom'
-import InventoryList from './InventoryList'
+import EditedReportList from './EditedReportList'
 import { renderWithProviders } from '../../utils/test-tools'
 import store from '../../redux/store'
 import { login } from '../../redux/reducers/userReducer'
 import { appendInventory } from '../../redux/reducers/inventoryReducer'
 import { appendAreas } from '../../redux/reducers/areaReducer'
+import { setEditedInventories } from '../../redux/reducers/editedInventoryReducer'
 
-const user1 = {'auth':'xyz', 
+const user = {'auth':'xyz', 
 	'user':{'id':'u1', 
 		'name':'Miko', 
 		'email':'malliton@email.fi', 
@@ -32,80 +33,68 @@ const areas1 = [{'inventoryId': '1', 'id':'a1',
 		{lat: 60.140376, lng: 24.984626770},
 		{lat: 60.172837, lng: 24.99938}]}]
 
-const user2 = {'auth':'zyx', 
-	'user':{'id':'u2', 
-		'name':'Mako', 
-		'email':'mallillinen@email.fi', 
-		'phone':'+358000000000', 
-		'username':'mako2', 
-		'admin':'0'}
-}
+const editedList = [{
+	'id': '0',
+	'inventorydate': '2022-04-01',
+	'method': 'echo',
+	'areas': [{'coordinates': [{lat: 61.13918005, lng: 24.92832183},
+		{lat: 60.140376, lng: 24.984626770},
+		{lat: 60.172837, lng: 24.99938}]}],
+	'visibility': 'good',
+	'moreInfo': 'muokkaus on kivaa',
+	'user': {'id':'u1', 'name': 'Miko'},
+	'city': 'Utsjoki',
+	'editReason': 'huvin vuoksi',
+	'originalReport': '1'
 
-const inventory2 = {'id': '2',
-	'inventorydate': '2000-01-01',
-	'method': 'dive',
-	'visibility': 'bad',
-	'moreInfo': 'listaus on tylsää',
-	'user': {'id':'u2', 'name': 'Mako'},
-	'city': 'Maarianhamina'
-}
-	
-const areas2 = [{'inventoryId': '2', 'id':'a2',
-	'coordinates': [{lat: 30.13918005, lng: 14.92832183},
-		{lat: 30.140376, lng: 14.984626770},
-		{lat: 30.172837, lng: 14.99938}]}]
-	
+}]
 
-describe('InventoryList no reports', () => {
-	let inventoryList
+
+
+describe('EditedReportList no reports', () => {
+	let editedReportList
 
 	beforeEach(() => {
 		renderWithProviders(
 			<MemoryRouter>
-				<InventoryList />
+				<EditedReportList />
 			</MemoryRouter>
 		)
-		inventoryList = screen.getByRole('table')
+		editedReportList = screen.getByRole('table')
 	})
 
 	test('Renders only the header row if the list is empty', () => {
-		expect(inventoryList).toBeDefined()
+		expect(editedReportList).toBeDefined()
 		const rows = screen.getAllByRole('row')
 		expect(rows).toHaveLength(1)
 		expect(rows[0]).toHaveTextContent('Inventoinnin päivämäärä')
 		expect(rows[0]).toHaveTextContent('Tekijä')
-		expect(rows[0]).toHaveTextContent('Havainnon tyyppi')
-		expect(rows[0]).toHaveTextContent('Kaupunki')
+		expect(rows[0]).toHaveTextContent('Muokkauksen syy')
 	})
 
 })
 
-describe('InventoryList with reports', () => {
-	let inventoryList
+describe('EditedReportList with report', () => {
+	let editedReportList
 
 	beforeEach(() => {
-		store.dispatch(login(user1))
+		store.dispatch(login(user))
 		store.dispatch(appendInventory(inventory1))
 		store.dispatch(appendAreas(areas1))
-		store.dispatch(login(user2))
-		store.dispatch(appendInventory(inventory2))
-		store.dispatch(appendAreas(areas2))
+		store.dispatch(setEditedInventories(editedList))
 		renderWithProviders(
 			<MemoryRouter>
-				<InventoryList />
+				<EditedReportList />
 			</MemoryRouter>
 		)
-		inventoryList = screen.getByRole('table')
+		editedReportList = screen.getByRole('table')
 	})
 
 	test('Renders all the reports when filter not selected', () => {
-		expect(inventoryList).toBeDefined()
+		expect(editedReportList).toBeDefined()
 		expect(screen.getByText('Miko')).not.toBeNull()
-		expect(screen.getByText('Mako')).not.toBeNull()
-		expect(screen.getByText('Utsjoki')).not.toBeNull()
-		expect(screen.getByText('Maarianhamina')).not.toBeNull()
-		expect(screen.getByText('01.01.2022')).not.toBeNull()
-		expect(screen.getByText('01.01.2000')).not.toBeNull()
+		expect(screen.getByText('01.04.2022')).not.toBeNull()
+		expect(screen.getByText('huvin vuoksi')).not.toBeNull()
 	})
 
 })

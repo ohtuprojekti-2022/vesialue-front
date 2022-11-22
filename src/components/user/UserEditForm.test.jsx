@@ -1,35 +1,48 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { renderWithProviders } from '../../utils/test-tools'
 import UserEditForm from './UserEditForm'
 import { MemoryRouter } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
+import store from '../../redux/store'
+import { login } from '../../redux/reducers/userReducer'
 
 describe('UserEditForm', () => {
-	let form,
-		name,
-		email,
-		phone,
-		submitButton
+	let form, name, email, phone, submitButton, username
 	const mockHandleSubmit = jest.fn()
 	const mockSetName = jest.fn()
 	const mockSetEmail = jest.fn()
 	const mockSetPhone = jest.fn()
-	const userDetails = {'auth':'xxx',
-		'user':{'id':'6368aeeb2ec2689b516f43b0', 'name':'Uusi',
-			'email':'uuden_maili@posti.fi', 'phone':'040667788',
-			'username':'uusi', 'admin':'0'}}
+	const mockSetUsername = jest.fn()
+
+	const user = {
+		auth: 'xxx',
+		user: {
+			id: 'u1',
+			name: 'Uusi',
+			email: 'uuden_maili@posti.fi',
+			phone: '040667788',
+			username: 'uusi',
+			admin: '0',
+		},
+	}
+	const userDetails = user
+
+	store.dispatch(login(user))
 
 	beforeEach(() => {
-		render(
+		renderWithProviders(
 			<MemoryRouter>
 				<UserEditForm
+					edit={true}
+					userDetails={userDetails}
 					validated={true}
 					handleSubmit={mockHandleSubmit}
-					userDetails={userDetails}
 					setName={mockSetName}
 					setEmail={mockSetEmail}
 					setPhone={mockSetPhone}
+					setUsername={mockSetUsername}
 				/>
 			</MemoryRouter>
 		)
@@ -38,6 +51,7 @@ describe('UserEditForm', () => {
 		name = screen.getByTestId('name')
 		email = screen.getByTestId('email')
 		phone = screen.getByTestId('phone')
+		username = screen.getByTestId('username')
 		submitButton = screen.getByRole('button', { name: /tallenna/i })
 
 		mockHandleSubmit.mockImplementation((e) => e.preventDefault())
@@ -51,6 +65,10 @@ describe('UserEditForm', () => {
 		expect(email).toBeRequired()
 	})
 
+	test('username is required', () => {
+		expect(username).toBeRequired()
+	})
+
 	test('name and phone number are not required', () => {
 		expect(name).not.toBeRequired()
 		expect(phone).not.toBeRequired()
@@ -61,6 +79,13 @@ describe('UserEditForm', () => {
 		name.value = ''
 		await user.type(name, 'Testi')
 		expect(name).toHaveValue('Testi')
+	})
+
+	test('changing username works', async () => {
+		const user = userEvent.setup()
+		username.value = ''
+		await user.type(username, 'Testi')
+		expect(username).toHaveValue('Testi')
 	})
 
 	test('changing the email works', async () => {
@@ -83,20 +108,32 @@ describe('UserEditForm', () => {
 		email.value = ''
 		phone.value = ''
 		await user.click(submitButton)
-		expect(screen.findAllByText('Anna kunnollinen sähköpostiosoite!'))
+		expect(
+			screen.getByText(
+				'Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!'
+			)
+		).toBeVisible()
 	})
 
 	test('Error with invalid email', async () => {
 		const user = userEvent.setup()
 		await user.type(email, 'testi.posti@posti.')
 		await user.click(submitButton)
-		expect(screen.findAllByText('Anna kunnollinen sähköpostiosoite!'))
+		expect(
+			screen.getByText(
+				'Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!'
+			)
+		).toBeVisible()
 	})
 
 	test('Error with invalid phone', async () => {
 		const user = userEvent.setup()
 		await user.type(phone, '033')
 		await user.click(submitButton)
-		expect(screen.findAllByText('Anna suomalainen puhelinnumero!'))
+		expect(
+			screen.getByText(
+				'Puhelinnumerossa voi olla vain plus-merkki, välilyöntejä ja 7-15 numeroa!'
+			)
+		).toBeVisible()
 	})
 })

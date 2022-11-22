@@ -52,9 +52,13 @@ const RegistrationForm = ({
 			<FloatingLabel controlId="name" label="Etu- ja sukunimi" className="mb-3">
 				<Form.Control
 					type="text"
+					maxLength="100"
 					placeholder="Etu- ja sukunimi"
 					onChange={(e) => setName(e.target.value)}
 				/>
+				<Form.Control.Feedback type="invalid">
+					Nimen maksimipituus on 100 merkkiä!
+				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="phone" label="Puhelinnumero" className="mb-3">
 				<Form.Control
