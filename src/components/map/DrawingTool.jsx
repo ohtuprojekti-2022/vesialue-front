@@ -26,7 +26,9 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 				return { id: l._leaflet_id, latlngs: l.getLatLngs()[0] }
 			})
 		setMapLayers(() => [...layers])
+		//-----PART OF THE HACK-----vv
 		setAreas(existingAreas)
+		//--------------------------^^
 	}, [])
 
 	//-----PART OF THE HACK-----vv

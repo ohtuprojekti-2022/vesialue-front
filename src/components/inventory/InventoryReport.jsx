@@ -53,7 +53,7 @@ const InventoryReport = () => {
 							</Button>
 						)}
 					</Card.Title>
-					<Map center={center}>
+					<Map center={center} autoZoom={true} >
 						{areas.map((area) => (
 							<Area key={area.id} coordinates={area.coordinates} />
 						))}

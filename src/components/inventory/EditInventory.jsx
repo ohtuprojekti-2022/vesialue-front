@@ -73,7 +73,8 @@ const EditInventory = () => {
 		return <p>ladataan raporttia...</p>
 	}
 
-	if (!report.user || report.user.id !== userId) <Navigate to={`/report/${report.id}`} />
+	if (!report.user || report.user.id !== userId)
+		<Navigate to={`/report/${report.id}`} />
 
 	const handleNext = () => {
 		// Making sure the edits are saved
@@ -177,7 +178,7 @@ const EditInventory = () => {
 					<Modal.Title>Vahvista muokkauspyyntö</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Map center={center}>
+					<Map center={center} autoZoom={true}>
 						<Polygon positions={mapLayers.map((layer) => layer.latlngs)} />
 						{/*areas &&
 							areas.map((a) => (
