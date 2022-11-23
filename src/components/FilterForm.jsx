@@ -9,7 +9,7 @@ import {
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateFilter, resetFilter } from '../redux/reducers/filterReducer'
-import SortButton from './inventory/SortButton'
+import SortButton from './SortButton'
 
 const FilterForm = () => {
 	const filter = useSelector(({ filter }) => filter)
