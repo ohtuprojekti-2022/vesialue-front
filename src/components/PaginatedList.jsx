@@ -123,8 +123,9 @@ const PaginatedList = ({perPageNumber, columns}) => {
 						setCurrentPage={setCurrentPage}
 					/>
 				</>
-			) ||
+			) || window.location.pathname === '/' &&
 				<p> Haetaan raportteja... </p>
+			|| <p>Et ole vielä tehnyt inventointeja</p>
 			}
 		</Container>
 	)
