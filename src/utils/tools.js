@@ -19,25 +19,25 @@ export const getCenter = (coordinates) => {
 
 export const translateMethod = (method, methodInfo) => {
 	switch (method) {
-	case 'sight':
-		return 'Näköhavainto'
-	case 'echo':
-		return 'Viistokaiutus'
-	case 'dive':
-		return 'Sukellus'
-	case 'other':
-		return methodInfo
+		case 'sight':
+			return 'Näköhavainto'
+		case 'echo':
+			return 'Viistokaiutus'
+		case 'dive':
+			return 'Sukellus'
+		case 'other':
+			return methodInfo
 	}
 }
 
 export const translateVisibility = (visibility) => {
 	switch (visibility) {
-	case 'bad':
-		return 'huono (alle 2m)'
-	case 'normal':
-		return 'normaali (2-5m)'
-	case 'good':
-		return 'hyvä (yli 5m)'
+		case 'bad':
+			return 'huono (alle 2m)'
+		case 'normal':
+			return 'normaali (2-5m)'
+		case 'good':
+			return 'hyvä (yli 5m)'
 	}
 }
 
@@ -114,7 +114,15 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 	})
 	const inventoryIds = new Set(filteredInventories.map((i) => i.id))
 	const filteredAreas = areas.filter((a) => inventoryIds.has(a.inventoryId))
-	return [filteredInventories, filteredAreas]
+	const sortedInventories = sortedByDate(filteredInventories, filter.order)
+	return [sortedInventories, filteredAreas]
+}
+
+export const sortedByDate = (inventories, ascendingOrder) => {
+	const sortByDate = (a, b) => new Date(a.inventorydate) - new Date(b.inventorydate)
+	return (ascendingOrder)
+		? [...inventories].sort(sortByDate).reverse()
+		: [...inventories].sort(sortByDate)
 }
 
 export const filteredInventories = (inventories, filter) => {
