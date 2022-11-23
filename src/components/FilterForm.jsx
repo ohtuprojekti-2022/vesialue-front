@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateFilter, resetFilter } from '../redux/reducers/filterReducer'
+import SortButton from './inventory/SortButton'
 
 const FilterForm = () => {
 	const filter = useSelector(({ filter }) => filter)
@@ -40,7 +41,7 @@ const FilterForm = () => {
 									size="sm"
 									onClick={handleReset}
 								>
-									Tyhjennä filtteri
+									Tyhjennä suodatin
 								</Button>
 							</Col>
 						</Row>
@@ -85,6 +86,10 @@ const FilterForm = () => {
 									<option>Viistokaiutus</option>
 									<option>Sukellus</option>
 								</Form.Select>
+							</Form.Group>
+							<Form.Group as={Col} className="mb-3">
+								<Form.Label as={Row} style={{marginLeft: 3}}>Järjestys:</Form.Label>
+								<SortButton handleSort={handleFilter} />
 							</Form.Group>
 						</Row>
 						<hr></hr>

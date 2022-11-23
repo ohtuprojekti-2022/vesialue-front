@@ -18,7 +18,6 @@ const InventoryList = ({ columns }) => {
 	const method = render(columns.method)
 	const creator = render(columns.creator)
 	const city = render(columns.city)
-
 	return (
 		<Table striped bordered hover responsive>
 			<thead>
