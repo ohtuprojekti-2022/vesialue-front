@@ -67,9 +67,7 @@ const Navbar = () => {
 								</NavDropdown.Item>
 							)}
 							<NavDropdown.Divider />
-							<NavDropdown.Item>
-								<LogoutButton />
-							</NavDropdown.Item>
+							<NavDropdown.Item as={LogoutButton} />
 						</NavDropdown>
 					)}
 					{!userDetails && (
