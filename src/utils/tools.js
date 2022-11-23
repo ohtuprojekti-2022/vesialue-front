@@ -19,25 +19,25 @@ export const getCenter = (coordinates) => {
 
 export const translateMethod = (method, methodInfo) => {
 	switch (method) {
-		case 'sight':
-			return 'Näköhavainto'
-		case 'echo':
-			return 'Viistokaiutus'
-		case 'dive':
-			return 'Sukellus'
-		case 'other':
-			return methodInfo
+	case 'sight':
+		return 'Näköhavainto'
+	case 'echo':
+		return 'Viistokaiutus'
+	case 'dive':
+		return 'Sukellus'
+	case 'other':
+		return methodInfo
 	}
 }
 
 export const translateVisibility = (visibility) => {
 	switch (visibility) {
-		case 'bad':
-			return 'huono (alle 2m)'
-		case 'normal':
-			return 'normaali (2-5m)'
-		case 'good':
-			return 'hyvä (yli 5m)'
+	case 'bad':
+		return 'huono (alle 2m)'
+	case 'normal':
+		return 'normaali (2-5m)'
+	case 'good':
+		return 'hyvä (yli 5m)'
 	}
 }
 
@@ -123,6 +123,38 @@ export const sortedByDate = (inventories, ascendingOrder) => {
 	return (ascendingOrder)
 		? [...inventories].sort(sortByDate).reverse()
 		: [...inventories].sort(sortByDate)
+}
+
+export const filteredInventories = (inventories, filter) => {
+	const filteredInventories = inventories.filter((report) => {
+		const { user, city, moreInfo } = report
+		const name = user ? user.name : report.name
+		const username = user ? user.username : ''
+		const inventoryDate = Date.parse(report.inventorydate)
+		const method = translateMethod(
+			report.method,
+			report.methodInfo
+		).toLowerCase()
+
+		return (
+			(!filter.userId || (user && user.id === filter.userId)) &&
+			(name.toLowerCase().includes(filter.creator) ||
+				username.toLowerCase().includes(filter.creator)) &&
+			city.toLowerCase().includes(filter.city) &&
+
+			(name.toLowerCase().includes(filter.search) ||
+				username.toLowerCase().includes(filter.search) ||
+				city.toLowerCase().includes(filter.search) ||
+				moreInfo.toLowerCase().includes(filter.search) ||
+				method.toLowerCase().includes(filter.search)) &&
+
+			(method === filter.method || filter.method === '-') &&
+			(filter.startDate <= inventoryDate || !filter.startDate) &&
+			inventoryDate <= filter.endDate
+		)
+	})
+	const sortedInventories = sortedByDate(filteredInventories, filter.order)
+	return [sortedInventories]
 }
 
 export const attachmentsToString = (attachments) => {
