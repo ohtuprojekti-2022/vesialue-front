@@ -9,6 +9,10 @@ const InventoryList = ({ columns }) => {
 		return filteredInventoriesAndAreas(inventories, areas, filter)
 	})
 
+	if (inventories.length === 0) {
+		return <p><b>Ei tuloksia!</b></p>
+	}
+
 	columns = columns
 		? columns
 		: { date: true, method: true, creator: true, city: true }
