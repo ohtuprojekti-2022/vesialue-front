@@ -87,6 +87,14 @@ const FilterForm = () => {
 								</Form.Select>
 							</Form.Group>
 						</Row>
+						<hr></hr>
+						<Row>
+							<Form.Group>
+								<FloatingLabel controlId="search" label="Vapaa haku">
+									<Form.Control type="text" onChange={handleFilter} />
+								</FloatingLabel>
+							</Form.Group>
+						</Row>
 					</Form>
 				</Accordion.Body>
 			</Accordion.Item>

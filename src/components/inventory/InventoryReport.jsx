@@ -41,7 +41,7 @@ const InventoryReport = () => {
 
 	return (
 		<div className="d-flex justify-content-around">
-			<Card style={{ width: '40rem' }} data-testid="report-card">
+			<Card style={{ width: '40rem', marginBottom: '1rem' }} data-testid="report-card">
 				<Card.Body>
 					<Card.Title>
 						Raportti{' '}

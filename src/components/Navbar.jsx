@@ -50,6 +50,7 @@ const Navbar = () => {
 								eventKey="3"
 								as={Link}
 								to="/omasivu#tiedot"
+								style={{ paddingLeft: '1rem' }}
 								data-testid="user-page"
 							>
 								Oma sivu
@@ -59,6 +60,7 @@ const Navbar = () => {
 									eventKey="6"
 									as={Link}
 									to="/muokatut"
+									style={{ paddingLeft: '1rem' }}
 									data-testid="edit-requests"
 								>
 									Muokkauspyynnöt
@@ -80,6 +82,7 @@ const Navbar = () => {
 								eventKey="4"
 								as={Link}
 								to="/kirjaudu"
+								style={{ paddingLeft: '1rem' }}
 								data-testid="login"
 							>
 								Kirjaudu
@@ -88,6 +91,7 @@ const Navbar = () => {
 								eventKey="5"
 								as={Link}
 								to="/rekisteroidy"
+								style={{ paddingLeft: '1rem' }}
 								data-testid="register"
 							>
 								Rekisteröidy

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
@@ -18,6 +18,9 @@ import { initializeEditedInventories } from './redux/reducers/editedInventoryRed
 import { useSelector } from 'react-redux'
 import { selectAdminStatus } from './redux/reducers/userReducer'
 import { Navigate } from 'react-router-dom'
+import Footer from './components/footer'
+import TermsofserviceModal from './components/TermsofserviceModal'
+import PrivacyPolicyModal from './components/PrivacyPolicyModal'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -27,10 +30,19 @@ const App = () => {
 		dispatch(initializeEditedInventories())
 	}, [dispatch])
 
-	const admin = useSelector((state) => selectAdminStatus(state))
+	const [userDetails, admin] = useSelector(state => [
+		state.userDetails,
+		selectAdminStatus(state),
+	])
+
+	const [showTOS, setShowTOS] = useState(false)
+	const [showPP, setShowPP] = useState(false)
 
 	return (
-		<Container fluid>
+		<Container
+			fluid
+			style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
+		>
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<Frontpage />} />
@@ -39,7 +51,10 @@ const App = () => {
 				<Route path="kirjaudu" element={<Login />} />
 				<Route path="report/:id" element={<InventoryReport />} />
 				<Route path="report/:id/edit" element={<EditInventory />} />
-				<Route path="omasivu" element={<UserPage />} />
+				<Route
+					path="omasivu"
+					element={userDetails ? <UserPage /> : <Navigate to="/kirjaudu" />}
+				/>
 				<Route
 					path="muokatut/:id"
 					element={admin ? <EditedReport /> : <Navigate to="/" />}
@@ -49,6 +64,9 @@ const App = () => {
 					element={admin ? <EditedReportList /> : <Navigate to="/" />}
 				/>
 			</Routes>
+			<TermsofserviceModal show={showTOS} close={() => setShowTOS(false)} />
+			<PrivacyPolicyModal show={showPP} close={() => setShowPP(false)} />
+			<Footer setShowTOS={setShowTOS} setShowPP={setShowPP} />
 		</Container>
 	)
 }

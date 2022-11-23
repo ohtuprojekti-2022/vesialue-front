@@ -20,26 +20,21 @@ const UserInfo = ({ userDetails, dispatch }) => {
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 
-	const addAlert = (text) => {
+	const addAlert = text => {
 		setAlert(text)
 		setTimeout(() => {
 			setAlert(null)
 		}, 7500)
 	}
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = async event => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
 		setValidated(true)
 		event.preventDefault()
 		if (valid) {
 			try {
-				const data = await userEditRequest(
-					name,
-					email,
-					phone,
-					username
-				)
+				const data = await userEditRequest(name, email, phone, username)
 				dispatch(login(data))
 
 				setEdit(false)
@@ -102,14 +97,17 @@ const UserPage = () => {
 	}, [])
 
 	return (
-		<div className="d-flex justify-content-around">
+		<div
+			className="d-flex justify-content-around"
+			style={{ marginBottom: '1rem' }}
+		>
 			<Card style={{ width: '40rem' }}>
 				<Card.Header>
 					<Nav
 						justify
 						variant="pills"
 						defaultActiveKey={location.hash}
-						onSelect={(key) => setActiveKey(key)}
+						onSelect={key => setActiveKey(key)}
 					>
 						<Nav.Item>
 							<Nav.Link href="#tiedot" data-testid="user-info">

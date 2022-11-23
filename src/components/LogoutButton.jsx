@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { logout } from '../redux/reducers/userReducer'
 import { initializeInventories } from '../redux/reducers/inventoryReducer'
 import { useDispatch } from 'react-redux'
+import { initializeEditedInventories } from '../redux/reducers/editedInventoryReducer'
 
 const LogoutButton = () => {
 	const dispatch = useDispatch()
@@ -11,6 +12,7 @@ const LogoutButton = () => {
 	const handleClick = () => {
 		dispatch(logout())
 		dispatch(initializeInventories())
+		dispatch(initializeEditedInventories())
 		navigate('/')
 	}
 	return (

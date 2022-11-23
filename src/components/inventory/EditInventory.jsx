@@ -106,7 +106,7 @@ const EditInventory = () => {
 	}
 
 	return (
-		<Container fluid="sm">
+		<Container fluid="sm" style={{ marginBottom: '1rem' }}>
 			<h2>Muokkaa raporttia</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			{page === 'map' && (
