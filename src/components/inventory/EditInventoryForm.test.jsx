@@ -7,7 +7,7 @@ import { renderWithProviders } from '../../utils/test-tools'
 import userEvent from '@testing-library/user-event'
 
 describe('EditInventoryForm', () => {
-	let moreInfo, editReason, attachments, inventoryDate
+	let moreInfo, editReason, attachments
 	const mockSetMoreInfo = jest.fn()
 	const mockSetEditReason = jest.fn()
 	const mockSetAttachments = jest.fn()
