@@ -1,13 +1,8 @@
 import React from 'react'
 import InventoryListItem from './InventoryListItem'
 import Table from 'react-bootstrap/Table'
-import { useSelector } from 'react-redux'
-import { filteredInventoriesAndAreas } from '../../utils/tools'
 
-const InventoryList = ({ columns }) => {
-	const [inventories, areas] = useSelector(({ inventories, areas, filter }) => {
-		return filteredInventoriesAndAreas(inventories, areas, filter)
-	})
+const InventoryList = ({ data, columns }) => {
 
 	columns = columns
 		? columns
@@ -30,8 +25,8 @@ const InventoryList = ({ columns }) => {
 				</tr>
 			</thead>
 			<tbody>
-				{areas.length > 0 &&
-					inventories.map(report => (
+				{data.length > 0 &&
+					data.map(report => (
 						<InventoryListItem
 							key={report.id}
 							columns={{ date, method, creator, city }}

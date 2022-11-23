@@ -110,6 +110,30 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 	return [filteredInventories, filteredAreas]
 }
 
+export const filteredInventories = (inventories, filter) => {
+	const filteredInventories = inventories.filter((report) => {
+		const { user, city } = report
+		const name = user ? user.name : report.name
+		const username = user ? user.username : ''
+		const inventoryDate = Date.parse(report.inventorydate)
+		const method = translateMethod(
+			report.method,
+			report.methodInfo
+		).toLowerCase()
+
+		return (
+			(!filter.userId || (user && user.id === filter.userId)) &&
+			(name.toLowerCase().includes(filter.creator) ||
+				username.toLowerCase().includes(filter.creator)) &&
+			city.toLowerCase().includes(filter.city) &&
+			(method === filter.method || filter.method === '-') &&
+			(filter.startDate <= inventoryDate || !filter.startDate) &&
+			inventoryDate <= filter.endDate
+		)
+	})
+	return [filteredInventories]
+}
+
 export const attachmentsToString = (attachments) => {
 	if (!attachments) {
 		return 'Ei ole'

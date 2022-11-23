@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import Areas from './map/Areas'
 import Map from './map/Map'
-import InventoryList from './inventory/InventoryList'
+import PaginatedList from './PaginatedList'
 import FilterForm from './FilterForm'
 
 function Frontpage() {
@@ -12,7 +12,7 @@ function Frontpage() {
 				<Areas />
 			</Map>
 			<FilterForm />
-			<InventoryList />
+			<PaginatedList />
 		</Container>
 	)
 }
