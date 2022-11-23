@@ -12,7 +12,9 @@ const SortButton = ({ handleSort }) => {
 			id="orderByDate"
 			value=""
 		>
-			{filter.order && <>Uusin inventointi ensin</> || <>Vanhin inventointi ensin</>}
+			{(filter.order && <>Vanhin inventointi ensin</>) || (
+				<>Uusin inventointi ensin</>
+			)}
 		</Button>
 	)
 }
