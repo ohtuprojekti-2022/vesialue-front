@@ -119,7 +119,7 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 
 export const filteredInventories = (inventories, filter) => {
 	const filteredInventories = inventories.filter((report) => {
-		const { user, city } = report
+		const { user, city, moreInfo } = report
 		const name = user ? user.name : report.name
 		const username = user ? user.username : ''
 		const inventoryDate = Date.parse(report.inventorydate)
@@ -133,6 +133,13 @@ export const filteredInventories = (inventories, filter) => {
 			(name.toLowerCase().includes(filter.creator) ||
 				username.toLowerCase().includes(filter.creator)) &&
 			city.toLowerCase().includes(filter.city) &&
+
+			(name.toLowerCase().includes(filter.search) ||
+				username.toLowerCase().includes(filter.search) ||
+				city.toLowerCase().includes(filter.search) ||
+				moreInfo.toLowerCase().includes(filter.search) ||
+				method.toLowerCase().includes(filter.search)) &&
+
 			(method === filter.method || filter.method === '-') &&
 			(filter.startDate <= inventoryDate || !filter.startDate) &&
 			inventoryDate <= filter.endDate

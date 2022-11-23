@@ -126,7 +126,7 @@ const UserPage = () => {
 						<UserInfo userDetails={userDetails} dispatch={dispatch} />
 					)}
 					{activeKey === '#inventoinnit' && (
-						<PaginatedList columns={{ creator: false }} />
+						<PaginatedList perPageNumber={10} columns={{ creator: false }} />
 					)}
 				</Card.Body>
 			</Card>

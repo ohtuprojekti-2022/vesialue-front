@@ -12,7 +12,7 @@ function Frontpage() {
 				<Areas />
 			</Map>
 			<FilterForm />
-			<PaginatedList />
+			<PaginatedList perPageNumber={20} />
 		</Container>
 	)
 }
