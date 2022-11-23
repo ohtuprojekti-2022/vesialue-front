@@ -20,14 +20,14 @@ const UserInfo = ({ userDetails, dispatch }) => {
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 
-	const addAlert = text => {
+	const addAlert = (text) => {
 		setAlert(text)
 		setTimeout(() => {
 			setAlert(null)
 		}, 7500)
 	}
 
-	const handleSubmit = async event => {
+	const handleSubmit = async (event) => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
 		setValidated(true)
@@ -89,7 +89,9 @@ const UserPage = () => {
 		return userDetails
 	})
 	const location = useLocation()
-	const [activeKey, setActiveKey] = useState(location.hash)
+	const [activeKey, setActiveKey] = useState(
+		location.hash ? location.hash : '#tiedot'
+	)
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(resetFilter())
@@ -107,7 +109,7 @@ const UserPage = () => {
 						justify
 						variant="pills"
 						defaultActiveKey={location.hash}
-						onSelect={key => setActiveKey(key)}
+						onSelect={(key) => setActiveKey(key)}
 					>
 						<Nav.Item>
 							<Nav.Link href="#tiedot" data-testid="user-info">

@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { Alert, Button, Container, ListGroup, Modal } from 'react-bootstrap'
 import { Polygon } from 'react-leaflet'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import { appendEditedInventories } from '../../redux/reducers/editedInventoryReducer'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
@@ -20,8 +20,12 @@ import EditInventoryForm from './EditInventoryForm'
 
 const EditInventory = () => {
 	let { id } = useParams()
-	const [report, areas] = useSelector((state) => {
-		return [selectInventoryById(state, id), selectAreasByReportId(state, id)]
+	const [report, areas, userId] = useSelector((state) => {
+		return [
+			selectInventoryById(state, id),
+			selectAreasByReportId(state, id),
+			state.userDetails.id,
+		]
 	})
 	const dispatch = useDispatch()
 	const center = getCenter(
@@ -68,6 +72,8 @@ const EditInventory = () => {
 	if (!report || !areas) {
 		return <p>ladataan raporttia...</p>
 	}
+
+	if (!report.user || report.user.id !== userId) <Navigate to={`/report/${report.id}`} />
 
 	const handleNext = () => {
 		// Making sure the edits are saved
