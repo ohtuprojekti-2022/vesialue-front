@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
 	Accordion,
 	Button,
@@ -14,8 +14,7 @@ const FilterForm = () => {
 	const filter = useSelector(({ filter }) => filter)
 	const dispatch = useDispatch()
 
-	const handleReset = (e) => {
-		e.preventDefault()
+	const handleReset = () => {
 		dispatch(resetFilter())
 		document.getElementById('filter-form').reset()
 	}
@@ -25,6 +24,10 @@ const FilterForm = () => {
 			dispatch(updateFilter({ id: e.target.id, value: e.target.value }))
 		}
 	}
+
+	useEffect(() => {
+		handleReset()
+	}, [])
 
 	return (
 		<Accordion style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
