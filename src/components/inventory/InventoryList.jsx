@@ -8,7 +8,13 @@ const InventoryList = ({ columns }) => {
 	const [inventories, areas] = useSelector(({ inventories, areas, filter }) => {
 		return filteredInventoriesAndAreas(inventories, areas, filter)
 	})
-
+	
+	if (inventories.length === 0 && window.location.pathname === '/') {
+		return <p><b>Ei tuloksia!</b></p>
+	} else if (inventories.length === 0 && window.location.pathname === '/omasivu') {
+		return <p><b>Et ole vielä tehnyt inventointeja</b></p>
+	}
+	
 	columns = columns
 		? columns
 		: { date: true, method: true, creator: true, city: true }
