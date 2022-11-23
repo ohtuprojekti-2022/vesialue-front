@@ -11,6 +11,7 @@ import EditInventory from './components/inventory/EditInventory'
 import UserPage from './components/user/UserPage'
 import EditedReport from './components/inventory/EditedReport'
 import EditedReportList from './components/inventory/EditedReportList'
+import UploadTest from './components/UploadTest'
 import { useDispatch } from 'react-redux'
 import { initializeInventories } from './redux/reducers/inventoryReducer'
 import { initializeAreas } from './redux/reducers/areaReducer'
@@ -63,6 +64,7 @@ const App = () => {
 					path="muokatut"
 					element={admin ? <EditedReportList /> : <Navigate to="/" />}
 				/>
+				<Route path="uploadtest" element={<UploadTest/>} />
 			</Routes>
 			<TermsofserviceModal show={showTOS} close={() => setShowTOS(false)} />
 			<PrivacyPolicyModal show={showPP} close={() => setShowPP(false)} />
