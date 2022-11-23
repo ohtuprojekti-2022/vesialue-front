@@ -22,7 +22,7 @@ const inventory = {'id': '1',
 	'moreInfo': 'listaus on kivaa',
 	'user': {'id':'u1', 'name': 'Miko'},
 	'city': 'Utsjoki'
-	}
+}
 	
 const areas = [{'inventoryId': '1', 'id':'a1',
 	'coordinates': [{lat: 60.13918005, lng: 24.92832183},
