@@ -3,6 +3,12 @@ import InventoryListItem from './InventoryListItem'
 import Table from 'react-bootstrap/Table'
 
 const InventoryList = ({ data, columns }) => {
+	if (data.length === 0 && window.location.pathname === '/') {
+		return <p><b>Ei tuloksia</b></p>
+	} else if (data.length === 0 && window.location.pathname === '/omasivu') {
+		return <p>Et ole vielä tehnyt inventointeja</p>
+	}
+
 	columns = columns
 		? columns
 		: { date: true, method: true, creator: true, city: true }

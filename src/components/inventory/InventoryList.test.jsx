@@ -2,6 +2,7 @@ import React from 'react'
 import { screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { MemoryRouter } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import InventoryList from './InventoryList'
 import { renderWithProviders } from '../../utils/test-tools'
 import store from '../../redux/store'
@@ -49,31 +50,32 @@ const inventory2 = {'id': '2',
 	'user': {'id':'u2', 'name': 'Mako'},
 	'city': 'Maarianhamina'
 }
-	
-const areas2 = [{'inventoryId': '2', 'id':'a2',
-	'coordinates': [{lat: 30.13918005, lng: 14.92832183},
-		{lat: 30.140376, lng: 14.984626770},
-		{lat: 30.172837, lng: 14.99938}]}]
-	
 
 describe('InventoryList no reports', () => {
 
 	beforeEach(() => {
 		renderWithProviders(
 			<MemoryRouter>
-				<InventoryList />
+				<InventoryList data={[]}/>
 			</MemoryRouter>
 		)	
 	})
 
 	test('Does not render table if the list is empty', () => {
-		expect(screen.getByText('Ei tuloksia!')).not.toBeNull()
+		expect(screen.getByText('Ei tuloksia')).not.toBeNull()
 	})
 
 })
 
 describe('InventoryList with reports', () => {
 	let inventoryList
+	
+	const areas2 = [{'inventoryId': '2', 'id':'a2',
+		'coordinates': [{lat: 30.13918005, lng: 14.92832183},
+			{lat: 30.140376, lng: 14.984626770},
+			{lat: 30.172837, lng: 14.99938}]}]
+
+	const inventories = [inventory1, inventory2]
 
 	beforeEach(() => {
 		store.dispatch(login(user1))
@@ -84,7 +86,7 @@ describe('InventoryList with reports', () => {
 		store.dispatch(appendAreas(areas2))
 		renderWithProviders(
 			<MemoryRouter>
-				<InventoryList />
+				<InventoryList data={inventories}/>
 			</MemoryRouter>
 		)
 		inventoryList = screen.getByRole('table')
