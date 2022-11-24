@@ -10,7 +10,33 @@ const MaptoolinfoModal = ({ show, close }) => {
 					<Modal.Title>Käyttöohje</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					Käyttöohjeet
+					Hiirtä siirtäessä ylimmän vaihtoehdon päälle voidaan valita millaista karttaa käytetään tai halutaanko merimerkit näkyviin.
+					<div style={{display: 'flex', paddingLeft: '120px', paddingRight: '220px', paddingBottom:'20px'}}>
+						<img src='mti-menu.png' style={{border: '1px solid #000000', margin:'auto'}}></img>
+						<div style={{paddingLeft:'5px'}}>
+							<img src='mti-maps.png' style={{border: '1px solid #000000', margin:'auto'}}></img>
+						</div>
+					</div>
+					Viisikulmio-painike sallii uuden alueen piirtämisen kartalle.
+					Kartalle voi piirtää monimutkaisiakin alueita.
+					Alue on valmis, kun alku- ja loppupiste yhdistetään tai painetaan <q>Finish</q>-painiketta, 
+					jolloin se automaattisesti yhdistää alku- ja loppupisteen.
+					<div style={{display: 'flex', paddingBottom:'20px'}}>
+						<img src='mti-create.png' style={{border: '1px solid #000000', margin:'auto', maxWidth: '100%'}}></img>
+					</div>
+					Piirrustus-painike sallii alueiden muokkauksen.
+					Alueita muokataan vetämällä neliöistä.
+					Muokkauksen tallennus onnistuu painamalla <q>Save</q>-painiketta			
+					<div style={{display: 'flex', paddingBottom:'20px'}}>
+						<img src='mti-edit.png' style={{border: '1px solid #000000', margin:'auto', maxWidth: '100%'}}></img>
+					</div>
+					Alueiden poistaminen onnistuu roskakori-painikkeen avulla.
+					Alueita voi joko poistaa yksittäisinä valitsemalla niitä kartalta.
+					Tallentaminen onnistuu painamalla <q>Save</q>-painiketta.
+					<q>Clear All</q>-painike poistaa kaikki piirretyt alueet suoraan, eikä tallennusta tarvitse tehdä.
+					<div style={{display: 'flex'}}>
+						<img src='mti-remove.png' style={{border: '1px solid #000000', margin:'auto', maxWidth: '100%'}}></img>
+					</div>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="primary" onClick={close}>
