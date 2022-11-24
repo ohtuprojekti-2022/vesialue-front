@@ -94,4 +94,17 @@ describe('Frontpage', () => {
 		expect(screen.queryByText('Utsjoki')).not.toBeInTheDocument()
 	})
 
+	describe('SortButton', () => {
+		test('display text changes correctly when clicked', async () => {
+			const sortButton = screen.getByTestId('sortByDate')
+			expect(sortButton).toHaveTextContent('Uusin inventointi ensin')
+			const user = userEvent.setup()
+			await user.click(sortButton)
+			expect(sortButton).toHaveTextContent('Vanhin inventointi ensin')
+			await user.click(sortButton)
+			expect(sortButton).toHaveTextContent('Uusin inventointi ensin')
+		})
+	})
+	
+
 })

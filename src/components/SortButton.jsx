@@ -12,6 +12,7 @@ const SortButton = ({ handleSort }) => {
 				onClick={handleSort}
 				id="orderByDate"
 				value=""
+				data-testid="sortByDate"
 			>
 				{(filter.order && <>Vanhin inventointi ensin</>) || (
 					<>Uusin inventointi ensin</>
