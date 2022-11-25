@@ -52,6 +52,14 @@ const InventoryReport = () => {
 								Muokkaa
 							</Button>
 						)}
+						{' '}
+						{report.user &&
+							userDetails &&
+							userDetails.user.id === report.user.id && (
+							<Button variant='danger' onClick={() => navigate('/')}>
+								Poista
+							</Button>
+						)}
 					</Card.Title>
 					<Map center={center}>
 						{areas.map((area) => (
