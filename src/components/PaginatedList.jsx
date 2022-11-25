@@ -24,8 +24,8 @@ const PaginatedList = ({perPageNumber, columns}) => {
 
 	const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
 		const visibleNumbers = nPages == 1
-			? [currentPage] : (nPages == 2
-				? [currentPage, currentPage + 1] : (currentPage == 1
+			? [1] : (nPages == 2
+				? [1, 2] : (currentPage == 1
 					? [currentPage, currentPage + 1 ,currentPage + 2] : (currentPage == nPages
 						? [currentPage - 2, currentPage - 1, currentPage] : [currentPage - 1, currentPage, currentPage + 1])))
 		const nextPage = () => {
