@@ -136,14 +136,14 @@ export const approveEditById = async id => {
 }
 
 export const requestDelete = async (
-	deleteReason,
-	originalReport
+	reason,
+	inventory
 ) => {
 	const request = await axios.post(
 		`${REACT_APP_BACKEND_URL}/api/inventory/delete`,
 		{
-			deleteReason,
-			originalReport
+			reason,
+			inventory
 		},
 		headers()
 	)
