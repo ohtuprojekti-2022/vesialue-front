@@ -56,7 +56,7 @@ export const getAllInventories = () => {
 		)
 		return request.then(response => response.data)
 	} catch (error) {
-		console.log(error)
+		return [[], []]
 	}
 }
 
