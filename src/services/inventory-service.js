@@ -135,6 +135,60 @@ export const approveEditById = async id => {
 	return request.data
 }
 
+export const requestDelete = async (
+	deleteReason,
+	originalReport
+) => {
+	const request = await axios.post(
+		`${REACT_APP_BACKEND_URL}/api/inventory/delete`,
+		{
+			deleteReason,
+			originalReport
+		},
+		headers()
+	)
+	return request.data
+}
+
+export const getAllDeletedInventories = () => {
+	const auth = headers()
+	if (!auth.headers || !auth.headers.Authorization) return []
+	const request = axios.get(
+		`${REACT_APP_BACKEND_URL}/api/inventory/delete`,
+		auth
+	)
+	return request
+		.then(response => response.data)
+		.catch(error => {
+			console.log(error)
+			return []
+		})
+}
+
+export const getDeletedInventoryById = async inventoryId => {
+	const request = await axios.get(
+		`${REACT_APP_BACKEND_URL}/api/inventory/delete/${inventoryId}`
+	)
+	return request.then(response => response.data)
+}
+
+export const rejectDeleteById = async id => {
+	await axios.delete(
+		`${REACT_APP_BACKEND_URL}/api/inventory/delete/${id}`,
+		headers()
+	)
+	return true
+}
+
+export const approveDeleteById = async id => {
+	const request = await axios.put(
+		`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
+		{},
+		headers()
+	)
+	return request.data
+}
+
 export default {
 	addInventory,
 	getInventory,
@@ -142,4 +196,5 @@ export default {
 	getAllInventories,
 	getInventoryById,
 	rejectEditById,
+	rejectDeleteById
 }

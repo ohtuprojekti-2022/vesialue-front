@@ -8,6 +8,7 @@ import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
 import InventoryReport from './components/inventory/InventoryReport'
 import EditInventory from './components/inventory/EditInventory'
+import DeleteInventoryForm from './components/inventory/DeleteInventoryForm'
 import UserPage from './components/user/UserPage'
 import EditedReport from './components/inventory/EditedReport'
 import EditedReportList from './components/inventory/EditedReportList'
@@ -51,6 +52,7 @@ const App = () => {
 				<Route path="kirjaudu" element={<Login />} />
 				<Route path="report/:id" element={<InventoryReport />} />
 				<Route path="report/:id/edit" element={<EditInventory />} />
+				<Route path="report/:id/delete" element={<DeleteInventoryForm />} />
 				<Route
 					path="omasivu"
 					element={userDetails ? <UserPage /> : <Navigate to="/kirjaudu" />}
