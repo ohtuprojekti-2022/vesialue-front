@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux'
 import { appendInventory } from '../../redux/reducers/inventoryReducer'
 import { appendAreas } from '../../redux/reducers/areaReducer'
 import { formatDate } from '../../utils/tools'
+import axios from 'axios'
+import REACT_APP_BACKEND_URL from '../../utils/config'
 
 const AddInventory = () => {
 	const [name, setName] = useState('')
@@ -23,6 +25,7 @@ const AddInventory = () => {
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 	const [mapLayers, setMapLayers] = useState([])
+	const [attachmentFile, setAttachmentFile] = useState(null)
 	const navigate = useNavigate()
 
 	const addAlert = (text) => {
@@ -66,6 +69,26 @@ const AddInventory = () => {
 				dispatch(appendInventory(inventory))
 				dispatch(appendAreas(areas))
 
+				// attachment upload
+				if (attachments) {
+					const formData = new FormData()
+					formData.append('formFile', attachmentFile)
+					formData.append('inventory', inventory.id)
+					console.log('formData:', formData)
+					console.log('inventory:', inventory)
+					try {
+						const response = await axios({
+							method: 'post',
+							url: `${REACT_APP_BACKEND_URL}/api/upload`,
+							data: formData,
+							headers: { 'Content-Type': 'multipart/form-data' },
+						})
+						console.log(response)
+					} catch(error) {
+						console.log(error)
+					}
+				}
+
 				setInventorydate('')
 				setMethod('')
 				setAttachments('')
@@ -101,6 +124,7 @@ const AddInventory = () => {
 				setName={setName}
 				setEmail={setEmail}
 				setPhone={setPhone}
+				setAttachmentFile={setAttachmentFile}
 			/>
 		</Container>
 	)
