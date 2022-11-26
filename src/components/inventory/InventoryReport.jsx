@@ -59,9 +59,10 @@ const InventoryReport = () => {
 						{' '}
 						{report.user &&
 							userDetails &&
-							userDetails.user.id === report.user.id && (
-							<Button variant='danger' onClick={() => navigate('/')}>
-								Tee poistopyyntö
+							userDetails.user.id === report.user.id &&
+							userDetails.user.admin < 1 && (
+							<Button variant='danger' onClick={() => navigate(`/report/${report.id}/delete`)}>
+								Poista
 							</Button>
 						)}
 						{report.user &&
