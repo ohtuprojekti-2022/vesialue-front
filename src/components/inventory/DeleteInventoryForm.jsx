@@ -18,19 +18,22 @@ const DeleteInventoryForm = () => {
 	const navigate = useNavigate()
 
 	const handleSubmit = async () => {
-		try {
-			setValidated(true)
+		const confirmed = window.confirm('Oletko varma että haluat poistaa tämän inventoinnin?')
+		if (confirmed) {
+			try {
+				setValidated(true)
 
-			const result = await requestDelete(
-				deleteReason,
-				report.id
-			)
+				const result = await requestDelete(
+					deleteReason,
+					report.id
+				)
 
-			dispatch(appendDeletedInventories(result))
+				dispatch(appendDeletedInventories(result))
 
-			navigate(`/report/${report.id}`)
-		} catch (error) {
-			console.log('deletion request failed')
+				navigate(`/report/${report.id}`)
+			} catch (error) {
+				console.log('deletion request failed')
+			}
 		}
 	}
 
