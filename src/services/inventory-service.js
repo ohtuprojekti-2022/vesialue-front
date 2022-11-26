@@ -96,7 +96,7 @@ export const requestEdit = async (
 	return request.data
 }
 
-export const getAllEditedInventories = () => {
+export const getAllEditedInventories = async () => {
 	const auth = headers()
 	if (!auth.headers || !auth.headers.Authorization) return []
 	const request = axios.get(
@@ -133,6 +133,14 @@ export const approveEditById = async id => {
 		headers()
 	)
 	return request.data
+}
+
+export const deleteInventoryById = async id => {
+	await axios.delete(
+		`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
+		headers()
+	)
+	return true
 }
 
 export default {

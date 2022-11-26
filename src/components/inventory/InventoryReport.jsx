@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -17,9 +17,11 @@ import { useSelector } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
+import AdminDeleteModal from './AdminDeleteModal'
 
 const InventoryReport = () => {
 	let { id } = useParams()
+	const [showAdminModal, setShowAdminModal] = useState(false)
 	const [report, areas, userDetails] = useSelector((state) => {
 		return [
 			selectInventoryById(state, id),
@@ -39,6 +41,8 @@ const InventoryReport = () => {
 		}, [])
 	)
 
+	
+
 	return (
 		<div className="d-flex justify-content-around">
 			<Card style={{ width: '40rem', marginBottom: '1rem' }} data-testid="report-card">
@@ -57,6 +61,15 @@ const InventoryReport = () => {
 							userDetails &&
 							userDetails.user.id === report.user.id && (
 							<Button variant='danger' onClick={() => navigate('/')}>
+								Tee poistopyyntö
+							</Button>
+						)}
+						{report.user &&
+							userDetails &&
+							userDetails.user.admin > 0 && (
+							<Button variant='danger' 
+								onClick={() => setShowAdminModal(true)}
+								style={{ marginLeft: '0.5rem' }}>
 								Poista
 							</Button>
 						)}
@@ -92,6 +105,11 @@ const InventoryReport = () => {
 						)}
 					</ListGroup>
 				</Card.Body>
+				<AdminDeleteModal 
+					show={showAdminModal} 
+					close = {() => setShowAdminModal(false)} 
+					id = {id}
+				/>
 			</Card>
 		</div>
 	)

@@ -13,7 +13,10 @@ const editedInventorySlice = createSlice({
 		},
 		removeEditedInventoryById: (state, action) => {
 			return state.filter(i => i.id !== action.payload)
-		}
+		},
+		removeEditedInventoryByOriginalId: (state, action) => {
+			return state.filter(i => i.originalReport !== action.payload)
+		},
 	},
 })
 
@@ -28,5 +31,6 @@ export const selectEditedInventoryById = (state, id) => {
 	return state.editedInventories.find((i) => i.id === id)
 }
 
-export const { setEditedInventories, appendEditedInventories, removeEditedInventoryById } = editedInventorySlice.actions
+
+export const { setEditedInventories, appendEditedInventories, removeEditedInventoryById, removeEditedInventoryByOriginalId } = editedInventorySlice.actions
 export default editedInventorySlice.reducer
