@@ -1,28 +1,26 @@
 import React, { useState } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
+import { useNavigate, useParams } from 'react-router-dom'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { requestDelete } from '../../services/inventory-service'
-
+import { appendDeletedInventories } from '../../redux/reducers/deletedInventoryReducer'
 
 const DeleteInventoryForm = () => {
 	let { id } = useParams()
 	const [deleteReason, setDeleteReason] = useState('')
-	const [report, areas, userId] = useSelector((state) => {
+	const [report] = useSelector((state) => {
 		return [
-			selectInventoryById(state, id),
-			selectAreasByReportId(state, id),
-			state.userDetails.id,
-		]
+			selectInventoryById(state, id),]
 	})
 	const dispatch = useDispatch()
-
 	const [validated, setValidated] = useState(false)
+	const navigate = useNavigate()
 
 	const handleSubmit = async () => {
 		try {
+			setValidated(true)
+
 			const result = await requestDelete(
 				deleteReason,
 				report.id
@@ -32,7 +30,7 @@ const DeleteInventoryForm = () => {
 
 			navigate(`/report/${report.id}`)
 		} catch (error) {
-			addAlert(error.toString())
+			console.log('deletion request failed')
 		}
 	}
 
