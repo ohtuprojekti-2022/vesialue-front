@@ -40,10 +40,10 @@ const Footer = ({ setShowTOS, setShowPP }) => {
 						<h5 className="text-uppercase"></h5>
 						<ul className="list-unstyled">
 							<li>
-								<a href="#!" onClick={() => setShowTOS(true)}>Käyttöehdot</a>
+								<a href="#!" onClick={() => setShowTOS(true)} data-testid='tos'>Käyttöehdot</a>
 							</li>
 							<li>
-								<a href="#!" onClick={() => setShowPP(true)}>Tietosuojaseloste</a>
+								<a href="#!" onClick={() => setShowPP(true)} data-testid='pp'>Tietosuojaseloste</a>
 							</li>
 						</ul>
 					</div>
