@@ -14,6 +14,8 @@ describe('Registration Form', () => {
 	const mockSetName = jest.fn()
 	const mockSetPhone = jest.fn()
 	const mockValidated = true
+	const mockSetShowTOS = jest.fn()
+	const mockSetShowPP = jest.fn()
 
 	let form, username, email, password, name, phone, submitButton, terms
 
@@ -27,7 +29,9 @@ describe('Registration Form', () => {
 					setPassword={mockSetPassword}
 					setEmail={mockSetEmail}
 					setName={mockSetName}
-					setPhone={mockSetPhone} />
+					setPhone={mockSetPhone}
+					setShowTOS={mockSetShowTOS}
+					setShowPP={mockSetShowPP} />
 			</MemoryRouter>
 		)
 		form = screen.getByTestId('registration-form')
@@ -131,4 +135,13 @@ describe('Registration Form', () => {
 		expect(submitButton).not.toBeDisabled()
 		expect(mockHandleSubmit).toBeCalledTimes(1)
 	})
+
+	test('Terms of Service and Privacy Policy can be clicked', async () => {
+		const user = userEvent.setup()
+		const tos = screen.getByTestId('tos')
+		const pp = screen.getByTestId('pp')
+		await user.click(tos)
+		await user.click(pp)
+	})
+
 })
