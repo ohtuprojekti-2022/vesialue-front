@@ -11,7 +11,7 @@ const MaptoolinfoModal = ({ show, close }) => {
 				</Modal.Header>
 				<Modal.Body>
 					Hiirtä siirtäessä ylimmän vaihtoehdon päälle voidaan valita millaista karttaa käytetään tai halutaanko merimerkit näkyviin.
-					<div style={{display: 'flex', paddingLeft: '11%', paddingRight: '27%', paddingBottom:'4%'}}>
+					<div style={{display: 'flex', paddingLeft: '11%', paddingRight: '27%', paddingBottom:'2rem'}}>
 						<img src='mti-menu.png' style={{border: '1px solid #000000', margin:'auto', maxWidth: '30%'}}></img>
 						<div style={{paddingLeft:'4%'}}>
 							<img src='mti-maps.png' style={{border: '1px solid #000000', margin:'auto', maxWidth: '100%'}}></img>
@@ -21,13 +21,13 @@ const MaptoolinfoModal = ({ show, close }) => {
 					Kartalle voi piirtää monimutkaisiakin alueita.
 					Alue on valmis, kun alku- ja loppupiste yhdistetään tai painetaan <q>Finish</q>-painiketta, 
 					jolloin se automaattisesti yhdistää alku- ja loppupisteen.
-					<div style={{display: 'flex', paddingBottom:'4%'}}>
+					<div style={{display: 'flex', paddingBottom:'2rem'}}>
 						<img src='mti-create.png' style={{border: '1px solid #000000', margin:'auto', maxWidth: '100%'}}></img>
 					</div>
 					Piirrustus-painike sallii alueiden muokkauksen.
 					Alueita muokataan vetämällä neliöistä.
 					Muokkauksen tallennus onnistuu painamalla <q>Save</q>-painiketta			
-					<div style={{display: 'flex', paddingBottom:'4%'}}>
+					<div style={{display: 'flex', paddingBottom:'2rem'}}>
 						<img src='mti-edit.png' style={{border: '1px solid #000000', margin:'auto', maxWidth: '100%'}}></img>
 					</div>
 					Alueiden poistaminen onnistuu roskakori-painikkeen avulla.
