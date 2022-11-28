@@ -6,7 +6,6 @@ const DeletedInventoryItem = ({ report }) => {
 	const navigate = useNavigate()
 	return(
 		<tr onClick={() => navigate(`/report/${report.inventory}`)}>
-			<td>placeholder</td>
 			<td>{parseCreator(report)}</td>
 			<td>{report.reason}</td>
 		</tr>

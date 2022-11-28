@@ -13,7 +13,6 @@ const DeletedReportList = () => {
 			<Table striped bordered hover responsive>
 				<thead>
 					<tr>
-						<th>Inventoinnin päivämäärä</th>
 						<th>Tekijä</th>
 						<th>Poiston syy</th>
 					</tr>
