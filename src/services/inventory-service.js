@@ -172,23 +172,6 @@ export const getDeletedInventoryById = async inventoryId => {
 	return request.then(response => response.data)
 }
 
-export const rejectDeleteById = async id => {
-	await axios.delete(
-		`${REACT_APP_BACKEND_URL}/api/inventory/delete/${id}`,
-		headers()
-	)
-	return true
-}
-
-export const approveDeleteById = async id => {
-	const request = await axios.put(
-		`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
-		{},
-		headers()
-	)
-	return request.data
-}
-
 export const deleteInventoryById = async id => {
 	await axios.delete(
 		`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
