@@ -9,24 +9,23 @@ import { appendDeletedInventories } from '../../redux/reducers/deletedInventoryR
 const DeleteInventoryForm = () => {
 	let { id } = useParams()
 	const [deleteReason, setDeleteReason] = useState('')
-	const [report] = useSelector((state) => {
-		return [
-			selectInventoryById(state, id),]
+	const [report] = useSelector(state => {
+		return [selectInventoryById(state, id)]
 	})
 	const dispatch = useDispatch()
 	const [validated, setValidated] = useState(false)
 	const navigate = useNavigate()
 
-	const handleSubmit = async () => {
-		const confirmed = window.confirm('Oletko varma että haluat poistaa tämän inventoinnin?')
+	const handleSubmit = async e => {
+		e.preventDefault()
+		const confirmed = window.confirm(
+			'Oletko varma että haluat poistaa tämän inventoinnin?'
+		)
 		if (confirmed) {
 			try {
 				setValidated(true)
 
-				const result = await requestDelete(
-					deleteReason,
-					report.id
-				)
+				const result = await requestDelete(deleteReason, report.id)
 
 				dispatch(appendDeletedInventories(result))
 
@@ -44,13 +43,17 @@ const DeleteInventoryForm = () => {
 			validated={validated}
 			onSubmit={handleSubmit}
 		>
-			<FloatingLabel controlId="deleteReason" label="Poiston syy" className="mb-3">
+			<FloatingLabel
+				controlId="deleteReason"
+				label="Poiston syy"
+				className="mb-3"
+			>
 				<Form.Control
 					data-testid="deleteReason"
 					type="text"
 					maxLength="500"
 					defaultValue={deleteReason}
-					onChange={(e) => setDeleteReason(e.target.value)}
+					onChange={e => setDeleteReason(e.target.value)}
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
@@ -61,6 +64,5 @@ const DeleteInventoryForm = () => {
 		</Form>
 	)
 }
-
 
 export default DeleteInventoryForm
