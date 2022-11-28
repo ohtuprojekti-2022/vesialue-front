@@ -12,10 +12,12 @@ import DeleteInventoryForm from './components/inventory/DeleteInventoryForm'
 import UserPage from './components/user/UserPage'
 import EditedReport from './components/inventory/EditedReport'
 import EditedReportList from './components/inventory/EditedReportList'
+import DeletedReportList from './components/inventory/DeletedReportList'
 import { useDispatch } from 'react-redux'
 import { initializeInventories } from './redux/reducers/inventoryReducer'
 import { initializeAreas } from './redux/reducers/areaReducer'
 import { initializeEditedInventories } from './redux/reducers/editedInventoryReducer'
+import { initializeDeletedInventories } from './redux/reducers/deletedInventoryReducer'
 import { useSelector } from 'react-redux'
 import { selectAdminStatus } from './redux/reducers/userReducer'
 import { Navigate } from 'react-router-dom'
@@ -29,6 +31,7 @@ const App = () => {
 		dispatch(initializeInventories())
 		dispatch(initializeAreas())
 		dispatch(initializeEditedInventories())
+		dispatch(initializeDeletedInventories())
 	}, [dispatch])
 
 	const [userDetails, admin] = useSelector(state => [
@@ -64,6 +67,10 @@ const App = () => {
 				<Route
 					path="muokatut"
 					element={admin ? <EditedReportList /> : <Navigate to="/" />}
+				/>
+				<Route
+					path="poistetut"
+					element={admin ? <DeletedReportList /> : <Navigate to="/" />}
 				/>
 			</Routes>
 			<TermsofserviceModal show={showTOS} close={() => setShowTOS(false)} />
