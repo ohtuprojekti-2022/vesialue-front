@@ -65,8 +65,7 @@ const InventoryReport = () => {
 								Poista
 							</Button>
 						)}
-						{report.user &&
-							userDetails &&
+						{userDetails &&
 							userDetails.user.admin > 0 && (
 							<Button variant='danger' 
 								onClick={() => setShowAdminModal(true)}
