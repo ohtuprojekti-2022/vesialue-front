@@ -76,7 +76,7 @@ const RegistrationForm = ({
 						pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 					/>
 					<Form.Control.Feedback type="invalid">
-						Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
+					Puhelinnumerossa voi olla vain plus-merkki, välilyöntejä ja 7-15 numeroa!
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<Form.Group controlId="terms-of-services" className="mb-3" style={{display: 'inline-flex'}}>
