@@ -39,6 +39,7 @@ const RegistrationForm = ({
 						placeholder="Sähköposti"
 						onChange={(e) => setEmail(e.target.value)}
 						pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+						maxLength="100"
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
@@ -54,7 +55,7 @@ const RegistrationForm = ({
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna vähintään 10 merkkiä pitkä salasana!
+						Anna kelvollinen salasana! Pituus 10-100 merkkiä
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Etu- ja sukunimi" className="mb-3">

@@ -39,9 +39,10 @@ const PasswordEditModal = ({show, close}) => {
 			} catch (error) {
 				if (error.response.data.message === 'Invalid current password.') {
 					addAlert('Väärä salasana.')
-				}
-				else if (error.response.data.message === 'Password too short.') {
+				} else if (error.response.data.message === 'Password too short.') {
 					addAlert('Uusi salasana liian lyhyt.')
+				} else if (error.response.data.message === 'Password too long.') {
+					addAlert('Uusi salasana liian pitkä.')
 				} else {
 					addAlert(error.response.data.message)
 				}
@@ -82,7 +83,7 @@ const PasswordEditModal = ({show, close}) => {
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna vähintään 10 merkkiä pitkä salasana!
+				Anna kelvollinen salasana! Pituus 10-100 merkkiä
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="new-password2" className="mb-3" label="Salasana uudestaan">
