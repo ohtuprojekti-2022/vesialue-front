@@ -9,7 +9,7 @@ const initialState = {
 	city: '',
 	moreInfo: '',
 	search: '',
-	order: true
+	order: false
 }
 
 const filterSlice = createSlice({

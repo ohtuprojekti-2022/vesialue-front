@@ -178,7 +178,7 @@ const EditInventory = () => {
 					<Modal.Title>Vahvista muokkauspyyntö</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Map center={center} autoZoom={true}>
+					<Map center={center}>
 						<Polygon positions={mapLayers.map((layer) => layer.latlngs)} />
 						{/*areas &&
 							areas.map((a) => (

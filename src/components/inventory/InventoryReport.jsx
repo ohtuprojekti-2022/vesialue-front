@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -17,10 +17,12 @@ import { useSelector } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
+import AdminDeleteModal from './AdminDeleteModal'
 
 const InventoryReport = () => {
 	let { id } = useParams()
-	const [report, areas, userDetails] = useSelector((state) => {
+	const [showAdminModal, setShowAdminModal] = useState(false)
+	const [report, areas, userDetails] = useSelector(state => {
 		return [
 			selectInventoryById(state, id),
 			selectAreasByReportId(state, id),
@@ -41,7 +43,10 @@ const InventoryReport = () => {
 
 	return (
 		<div className="d-flex justify-content-around">
-			<Card style={{ width: '40rem', marginBottom: '1rem' }} data-testid="report-card">
+			<Card
+				style={{ width: '40rem', marginBottom: '1rem' }}
+				data-testid="report-card"
+			>
 				<Card.Body>
 					<Card.Title>
 						Raportti{' '}
@@ -50,6 +55,25 @@ const InventoryReport = () => {
 							userDetails.user.id === report.user.id && (
 							<Button onClick={() => navigate(`/report/${report.id}/edit`)}>
 								Muokkaa
+							</Button>
+						)}{' '}
+						{report.user &&
+							userDetails &&
+							userDetails.user.id === report.user.id &&
+							userDetails.user.admin < 1 && (
+							<Button
+								variant="danger"
+								onClick={() => navigate(`/report/${report.id}/delete`)}
+							>
+								Pyydä poistoa
+							</Button>
+						)}
+						{userDetails && userDetails.user.admin > 0 && (
+							<Button
+								variant="danger"
+								onClick={() => setShowAdminModal(true)}
+							>
+								Poista
 							</Button>
 						)}
 					</Card.Title>
@@ -72,10 +96,8 @@ const InventoryReport = () => {
 						)}
 						<ListGroup.Item>Lisätietoja: {report.moreInfo}</ListGroup.Item>
 						<ListGroup.Item>Tekijä: {parseCreator(report)}</ListGroup.Item>
-						{(parseEmail(report) !== '') && (
-							<ListGroup.Item>
-								Sähköposti: {parseEmail(report)}
-							</ListGroup.Item>
+						{parseEmail(report) !== '' && (
+							<ListGroup.Item>Sähköposti: {parseEmail(report)}</ListGroup.Item>
 						)}
 						{parsePhone(report) !== '' && (
 							<ListGroup.Item>
@@ -84,6 +106,11 @@ const InventoryReport = () => {
 						)}
 					</ListGroup>
 				</Card.Body>
+				<AdminDeleteModal
+					show={showAdminModal}
+					close={() => setShowAdminModal(false)}
+					id={id}
+				/>
 			</Card>
 		</div>
 	)

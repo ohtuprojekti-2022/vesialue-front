@@ -1,5 +1,4 @@
-import React from 'react'
-import { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import {
 	Accordion,
 	Button,
@@ -10,13 +9,16 @@ import {
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateFilter, resetFilter } from '../redux/reducers/filterReducer'
-import SortButton from './inventory/SortButton'
+import SortButton from './SortButton'
 
 const FilterForm = () => {
 	const filter = useSelector(({ filter }) => filter)
 	const dispatch = useDispatch()
 
-	const handleReset = () => dispatch(resetFilter())
+	const handleReset = () => {
+		dispatch(resetFilter())
+		document.getElementById('filter-form').reset()
+	}
 
 	const handleFilter = (e) => {
 		if (e.target.value || e.target.type !== 'date') {
@@ -33,27 +35,28 @@ const FilterForm = () => {
 			<Accordion.Item eventKey="0">
 				<Accordion.Header>Suodata raportteja</Accordion.Header>
 				<Accordion.Body>
-					<Form onSubmit={(e) => e.preventDefault()} data-testid="filterform">
-						<Row className="mb-3">
-							<Col>
-								<Button
-									variant="outline-primary"
-									size="sm"
-									onClick={handleReset}
-								>
-									Tyhjennä suodatin
-								</Button>
-							</Col>
-						</Row>
+					<Form id='filter-form' data-testid="filterform">
+						<Button
+							className="mb-3"
+							variant="outline-primary"
+							size="sm"
+							onClick={handleReset}
+						>
+							Tyhjennä suodatin
+						</Button>
 						<Row className="mb-3">
 							<Col>
 								<FloatingLabel controlId="creator" label="Tekijä">
-									<Form.Control type="text" onChange={handleFilter} />
+									<Form.Control
+										type="text"
+										onChange={handleFilter} />
 								</FloatingLabel>
 							</Col>
 							<Col>
 								<FloatingLabel controlId="city" label="Kaupunki">
-									<Form.Control type="text" onChange={handleFilter} />
+									<Form.Control
+										type="text"
+										onChange={handleFilter} />
 								</FloatingLabel>
 							</Col>
 						</Row>
