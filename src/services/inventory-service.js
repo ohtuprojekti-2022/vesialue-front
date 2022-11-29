@@ -187,5 +187,4 @@ export default {
 	getAllInventories,
 	getInventoryById,
 	rejectEditById,
-	rejectDeleteById
 }
