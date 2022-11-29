@@ -14,6 +14,7 @@ const DeletedReportList = () => {
 				<thead>
 					<tr>
 						<th>Tekijä</th>
+						<th>Inventoinnin id</th>
 						<th>Poiston syy</th>
 					</tr>
 				</thead>

@@ -65,7 +65,7 @@ const InventoryReport = () => {
 								variant="danger"
 								onClick={() => navigate(`/report/${report.id}/delete`)}
 							>
-								Poista
+								Pyydä poistoa
 							</Button>
 						)}
 						{userDetails && userDetails.user.admin > 0 && (
