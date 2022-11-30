@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { deleteInventoryById } from '../../services/inventory-service'
 import { removeInventoryById } from '../../redux/reducers/inventoryReducer'
 import { removeEditedInventoryByOriginalId } from '../../redux/reducers/editedInventoryReducer'
-import { removeDeletedInventoryById } from '../../redux/reducers/deletedInventoryReducer'
+import { removeDeletedInventoryByInventory } from '../../redux/reducers/deletedInventoryReducer'
 
 
 const AdminDeleteButton = ({ id }) => {
@@ -16,7 +16,7 @@ const AdminDeleteButton = ({ id }) => {
 			await deleteInventoryById(id)
 			dispatch(removeInventoryById(id))
 			dispatch(removeEditedInventoryByOriginalId(id))
-			dispatch(removeDeletedInventoryById(id))
+			dispatch(removeDeletedInventoryByInventory(id))
 			navigate('/')
 		} catch (error) {
 			console.log(error)

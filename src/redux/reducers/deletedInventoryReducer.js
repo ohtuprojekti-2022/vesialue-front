@@ -13,6 +13,9 @@ const deletedInventorySlice = createSlice({
 		},
 		removeDeletedInventoryById: (state, action) => {
 			return state.filter(i => i.id !== action.payload)
+		},
+		removeDeletedInventoryByInventory: (state, action) => {
+			return state.filter(i => i.inventory !== action.payload)
 		}
 	},
 })
@@ -28,5 +31,9 @@ export const selectDeletedInventoryById = (state, id) => {
 	return state.deletedInventories.find((i) => i.id === id)
 }
 
-export const { setDeletedInventories, appendDeletedInventories, removeDeletedInventoryById } = deletedInventorySlice.actions
+export const selectDeletedInventoryByInventory = (state, inventory) => {
+	return state.deletedInventories.find((i) => i.inventory === inventory)
+}
+
+export const { setDeletedInventories, appendDeletedInventories, removeDeletedInventoryById, removeDeletedInventoryByInventory } = deletedInventorySlice.actions
 export default deletedInventorySlice.reducer
