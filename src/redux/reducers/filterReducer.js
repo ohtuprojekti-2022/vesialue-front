@@ -8,6 +8,8 @@ const initialState = {
 	method: '-',
 	city: '',
 	moreInfo: '',
+	search: '',
+	order: false
 }
 
 const filterSlice = createSlice({
@@ -31,6 +33,10 @@ const filterSlice = createSlice({
 				return { ...state, city: value }
 			case 'moreInfo':
 				return { ...state, moreInfo: value }
+			case 'search':
+				return { ...state, search: value }
+			case 'orderByDate':
+				return {...state, order: !state.order}
 			default:
 				return state
 			}

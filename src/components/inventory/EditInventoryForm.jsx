@@ -141,19 +141,24 @@ const EditInventoryForm = (props) => {
 					checked={props.attachments}
 				/>
 			</Form.Group>
-			<FloatingLabel controlId="moreInfo" label="Muuta tietoa" className="mb-3">
+			<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
 				<Form.Control
 					data-testid="moreInfo"
 					type="text"
 					maxLength="500"
 					defaultValue={props.moreInfo}
 					onChange={(e) => props.setMoreInfo(e.target.value)}
+					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Lisätietojen maksimipituus on 500 merkkiä.
+					{'Kirjoita kuvaus (max 500 merkkiä)'}
 				</Form.Control.Feedback>
 			</FloatingLabel>
-			<FloatingLabel controlId="editReason" label="Muokkauksen syy" className="mb-3">
+			<FloatingLabel
+				controlId="editReason"
+				label="Muokkauksen syy"
+				className="mb-3"
+			>
 				<Form.Control
 					data-testid="editReason"
 					type="text"
@@ -163,7 +168,7 @@ const EditInventoryForm = (props) => {
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Syy muokkaukselle vaaditaan. {'(max 500 merkkiä)'}
+					Syy muokkaukselle vaaditaan {'(max 500 merkkiä)'}
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<Button type="submit">Pyydä muokkausta</Button>

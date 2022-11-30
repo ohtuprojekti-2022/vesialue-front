@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
-import TermsofserviceModal from './TermsofserviceModal'
-import PrivacyPolicyModal from './PrivacyPolicyModal'
+import TermsofserviceModal from '../TermsofserviceModal'
+import PrivacyPolicyModal from '../PrivacyPolicyModal'
 
 const InventoryForm = props => {
 	const handleMethodChange = e => {
@@ -139,15 +139,16 @@ const InventoryForm = props => {
 						onClick={() => props.setAttachments(!props.attachments)}
 					/>
 				</Form.Group>
-				<FloatingLabel controlId="moreInfo" label="Muuta tietoa" className="mb-3">
+				<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
 					<Form.Control
 						data-testid="moreInfo"
 						type="text"
 						maxLength="500"
 						onChange={e => props.setMoreInfo(e.target.value)}
+						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Lisätietojen maksimipituus on 500 merkkiä.
+						{'Kirjoita kuvaus (max 500 merkkiä)'}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
@@ -184,6 +185,7 @@ const InventoryForm = props => {
 							type="email"
 							onChange={e => props.setEmail(e.target.value)}
 							pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+							maxLength="100"
 							required
 						/>
 					}
@@ -215,26 +217,38 @@ const InventoryForm = props => {
 						Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
 					</Form.Control.Feedback>
 				</FloatingLabel>
-				<Form.Group controlId="terms-of-services" className="mb-3" style={{display: 'inline-flex'}}>
-					<Form.Check
-						data-testid="terms-of-services"
-						type="checkbox"
-						checked={checked}
-						onChange={() => setChecked(!checked)}
-					/>
-					<span style={{paddingLeft: '10px'}}>
-						Hyväksyn <span style={{cursor: 'pointer'}}>
-							<a className="text-primary" data-testid="tos" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" data-testid="pp"onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
-					</span>
-				</Form.Group>
-				<Button variant="primary"
-					type="submit"
-					data-testid="submit"
-					className="mb-5"
-					disabled={!checked}
-					style={{display: 'block'}}>
-					Lähetä
-				</Button>
+				{!(localStorage.getItem('userDetails')) && (
+					<>
+						<Form.Group controlId="terms-of-services" className="mb-3" style={{display: 'inline-flex'}}>
+							<Form.Check
+								data-testid="terms-of-services"
+								type="checkbox"
+								checked={checked}
+								onChange={() => setChecked(!checked)}
+							/>
+							<span style={{paddingLeft: '10px'}}>
+								Hyväksyn <span style={{cursor: 'pointer'}}>
+									<a className="text-primary" data-testid="tos" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" data-testid="pp"onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
+							</span>
+						</Form.Group>
+						<Button variant="primary"
+							type="submit"
+							data-testid="submit"
+							className="mb-5"
+							disabled={!checked}
+							style={{display: 'block'}}>
+							Lähetä
+						</Button>
+					</>
+				) ||
+					<Button variant="primary"
+						type="submit"
+						data-testid="submit"
+						className="mb-5"
+						style={{display: 'block'}}>
+						Lähetä
+					</Button>
+				}
 			</Form>
 			<TermsofserviceModal
 				show={showTOS}

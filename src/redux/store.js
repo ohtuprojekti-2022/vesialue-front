@@ -4,6 +4,7 @@ import areaReducer from './reducers/areaReducer'
 import userReducer from './reducers/userReducer'
 import filterReducer from './reducers/filterReducer'
 import editedInventoryReducer from './reducers/editedInventoryReducer'
+import deletedInventoryReducer from './reducers/deletedInventoryReducer'
 
 export default configureStore({
 	reducer: {
@@ -11,6 +12,7 @@ export default configureStore({
 		areas: areaReducer,
 		userDetails: userReducer,
 		filter: filterReducer,
-		editedInventories: editedInventoryReducer
+		editedInventories: editedInventoryReducer,
+		deletedInventories: deletedInventoryReducer
 	},
 })
