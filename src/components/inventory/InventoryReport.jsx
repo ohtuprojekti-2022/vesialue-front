@@ -20,6 +20,7 @@ import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import AdminDeleteModal from './AdminDeleteModal'
 import { selectDeletedInventoryByInventory } from '../../redux/reducers/deletedInventoryReducer'
 import DeleteRequestView from './DeleteRequestView'
+import REACT_APP_BACKEND_URL from '../../utils/config'
 
 const InventoryReport = () => {
 	let { id } = useParams()
@@ -112,6 +113,19 @@ const InventoryReport = () => {
 							</ListGroup.Item>
 						)}
 					</ListGroup>
+					{(report.attachment_files.length > 0) && (
+						<ListGroup>
+							<p>Liitteet</p>
+							{report.attachment_files.map(file => (
+								<ListGroup.Item key={file.filename}>
+									{file.filename}
+									<Button onClick={() => window.open(`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`, '_blank')}>
+										Lataa
+									</Button>
+								</ListGroup.Item>
+							))}
+						</ListGroup>
+					)}
 				</Card.Body>
 				<AdminDeleteModal
 					show={showAdminModal}

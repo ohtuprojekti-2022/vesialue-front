@@ -140,7 +140,7 @@ const InventoryForm = props => {
 					/>
 					{props.attachments && (
 						<Form.Control
-							type="file"
+							type="file" multiple
 							required
 							data-testid="attachment"
 							onChange={event => props.setAttachmentFile(event.target.files[0])}
