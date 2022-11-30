@@ -180,6 +180,14 @@ export const deleteInventoryById = async id => {
 	return true
 }
 
+export const rejectDeletionById = async id => {
+	await axios.delete(
+		`${REACT_APP_BACKEND_URL}/api/inventory/delete/${id}`,
+		headers()
+	)
+	return true
+}
+
 export default {
 	addInventory,
 	getInventory,
@@ -187,4 +195,5 @@ export default {
 	getAllInventories,
 	getInventoryById,
 	rejectEditById,
+	rejectDeletionById
 }
