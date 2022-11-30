@@ -81,7 +81,7 @@ const AddInventory = () => {
 					try {
 						const response = await axios({
 							method: 'post',
-							url: `${REACT_APP_BACKEND_URL}/api/upload`,
+							url: `${REACT_APP_BACKEND_URL}/api/files/upload`,
 							data: formData,
 							headers: { 'Content-Type': 'multipart/form-data' },
 						})
