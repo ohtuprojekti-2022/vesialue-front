@@ -200,7 +200,7 @@ const EditInventory = () => {
 								Näkyvyys: {translateVisibility(visibility)}
 							</ListGroup.Item>
 						)}
-						<ListGroup.Item>Lisätietoja: {moreInfo}</ListGroup.Item>
+						<ListGroup.Item>Kuvaus: {moreInfo}</ListGroup.Item>
 					</ListGroup>
 					<br />
 					Muokkauksen syy: {editReason}

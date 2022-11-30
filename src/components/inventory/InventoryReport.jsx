@@ -101,7 +101,7 @@ const InventoryReport = () => {
 								Näkyvyys: {translateVisibility(report.visibility)}
 							</ListGroup.Item>
 						)}
-						<ListGroup.Item>Lisätietoja: {report.moreInfo}</ListGroup.Item>
+						<ListGroup.Item>Kuvaus: {report.moreInfo}</ListGroup.Item>
 						<ListGroup.Item>Tekijä: {parseCreator(report)}</ListGroup.Item>
 						{parseEmail(report) !== '' && (
 							<ListGroup.Item>Sähköposti: {parseEmail(report)}</ListGroup.Item>

@@ -21,7 +21,7 @@ import { initializeDeletedInventories } from './redux/reducers/deletedInventoryR
 import { useSelector } from 'react-redux'
 import { selectAdminStatus } from './redux/reducers/userReducer'
 import { Navigate } from 'react-router-dom'
-import Footer from './components/footer'
+import Footer from './components/Footer'
 import TermsofserviceModal from './components/TermsofserviceModal'
 import PrivacyPolicyModal from './components/PrivacyPolicyModal'
 

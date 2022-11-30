@@ -17,7 +17,7 @@ const Area = ({ details, coordinates, activeLayer, setActiveLayer }) => {
 			layer.bringToBack()
 			layer.setStyle({
 				fillColor: '#CA6969',
-				fillOpacity: 0.4,
+				fillOpacity: 0.6,
 			})
 			setActiveLayer(layer)
 		}
