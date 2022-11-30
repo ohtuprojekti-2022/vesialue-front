@@ -12,7 +12,10 @@ const inventorySlice = createSlice({
 			state.push(action.payload)
 		},
 		removeInventory: (state, action) => {
-			return state.filter((i) => i.id !== action.payload.id)
+			return state.filter(i => i.id !== action.payload.id)
+		},
+		removeInventoryById: (state, action) => {
+			return state.filter(i => i.id !== action.payload)
 		},
 	},
 })
@@ -43,6 +46,6 @@ export const updateInventories = (inventory) => {
 export const selectInventoryById = (state, id) =>
 	state.inventories.find((i) => i.id === id)
 
-export const { setInventories, appendInventory, removeInventory } =
+export const { setInventories, appendInventory, removeInventory, removeInventoryById } =
 	inventorySlice.actions
 export default inventorySlice.reducer

@@ -66,10 +66,19 @@ const Navbar = () => {
 									Muokkauspyynnöt
 								</NavDropdown.Item>
 							)}
+							{userDetails.user.admin > 0 && (
+								<NavDropdown.Item
+									eventKey="7"
+									as={Link}
+									to="/poistetut"
+									style={{ paddingLeft: '1rem' }}
+									data-testid="delete-requests"
+								>
+									Poistopyynnöt
+								</NavDropdown.Item>
+							)}
 							<NavDropdown.Divider />
-							<NavDropdown.Item>
-								<LogoutButton />
-							</NavDropdown.Item>
+							<NavDropdown.Item as={LogoutButton} />
 						</NavDropdown>
 					)}
 					{!userDetails && (

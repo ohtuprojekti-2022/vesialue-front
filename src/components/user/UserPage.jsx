@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card'
-import { Button, Nav } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
+import { Button, Nav, Container, Alert } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
-import InventoryList from './../inventory/InventoryList'
+import { useDispatch, useSelector } from 'react-redux'
 import { resetFilter, updateFilter } from '../../redux/reducers/filterReducer'
+import { userEditRequest } from '../../services/user-service'
+import { login } from '../../redux/reducers/userReducer'
 import UserEditForm from './UserEditForm'
 import PasswordEditModal from './PasswordEditModal'
-import { userEditRequest } from '../../services/user-service'
-import { Container, Alert } from 'react-bootstrap'
-import { login } from '../../redux/reducers/userReducer'
+import PaginatedList from './../PaginatedList'
 
 const UserInfo = ({ userDetails, dispatch }) => {
 	const [edit, setEdit] = useState(false)
@@ -21,14 +20,14 @@ const UserInfo = ({ userDetails, dispatch }) => {
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 
-	const addAlert = text => {
+	const addAlert = (text) => {
 		setAlert(text)
 		setTimeout(() => {
 			setAlert(null)
 		}, 7500)
 	}
 
-	const handleSubmit = async event => {
+	const handleSubmit = async (event) => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
 		setValidated(true)
@@ -90,7 +89,9 @@ const UserPage = () => {
 		return userDetails
 	})
 	const location = useLocation()
-	const [activeKey, setActiveKey] = useState(location.hash)
+	const [activeKey, setActiveKey] = useState(
+		location.hash ? location.hash : '#tiedot'
+	)
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(resetFilter())
@@ -108,7 +109,7 @@ const UserPage = () => {
 						justify
 						variant="pills"
 						defaultActiveKey={location.hash}
-						onSelect={key => setActiveKey(key)}
+						onSelect={(key) => setActiveKey(key)}
 					>
 						<Nav.Item>
 							<Nav.Link href="#tiedot" data-testid="user-info">
@@ -127,7 +128,7 @@ const UserPage = () => {
 						<UserInfo userDetails={userDetails} dispatch={dispatch} />
 					)}
 					{activeKey === '#inventoinnit' && (
-						<InventoryList columns={{ creator: false }} />
+						<PaginatedList perPageNumber={10} columns={{ creator: false }} />
 					)}
 				</Card.Body>
 			</Card>

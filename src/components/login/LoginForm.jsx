@@ -12,18 +12,18 @@ const LoginForm = ({ validated, handleSubmit, setUsername, setPassword }) => {
 		>
 			<FloatingLabel
 				controlId="username"
-				label="Käyttäjätunnus"
+				label="Käyttäjätunnus tai sähköposti"
 				className="mb-3"
 			>
 				<Form.Control
 					type="text"
-					placeholder="Käyttäjätunnus"
+					placeholder="Käyttäjätunnus tai sähköposti"
 					onChange={e => setUsername(e.target.value)}
 					required
 					data-testid="user-name"
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna käyttäjänimi!
+					Anna käyttäjätunnus tai sähköpostiosoite!
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="password" label="Salasana" className="mb-3">

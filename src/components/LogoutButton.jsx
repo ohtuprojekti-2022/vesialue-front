@@ -16,7 +16,11 @@ const LogoutButton = () => {
 		navigate('/')
 	}
 	return (
-		<Button variant="primary" onClick={handleClick}>
+		<Button
+			variant="primary"
+			onClick={handleClick}
+			style={{ marginLeft: '1rem' }}
+		>
 			Kirjaudu ulos
 		</Button>
 	)

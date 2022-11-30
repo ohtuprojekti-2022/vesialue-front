@@ -1,13 +1,13 @@
 import React from 'react'
 import InventoryListItem from './InventoryListItem'
 import Table from 'react-bootstrap/Table'
-import { useSelector } from 'react-redux'
-import { filteredInventoriesAndAreas } from '../../utils/tools'
 
-const InventoryList = ({ columns }) => {
-	const [inventories, areas] = useSelector(({ inventories, areas, filter }) => {
-		return filteredInventoriesAndAreas(inventories, areas, filter)
-	})
+const InventoryList = ({ data, columns }) => {
+	if (data.length === 0 && window.location.pathname === '/') {
+		return <p><b>Ei tuloksia</b></p>
+	} else if (data.length === 0 && window.location.pathname === '/omasivu') {
+		return <p>Et ole vielä tehnyt inventointeja</p>
+	}
 
 	columns = columns
 		? columns
@@ -18,7 +18,6 @@ const InventoryList = ({ columns }) => {
 	const method = render(columns.method)
 	const creator = render(columns.creator)
 	const city = render(columns.city)
-
 	return (
 		<Table striped bordered hover responsive>
 			<thead>
@@ -30,8 +29,8 @@ const InventoryList = ({ columns }) => {
 				</tr>
 			</thead>
 			<tbody>
-				{areas.length > 0 &&
-					inventories.map(report => (
+				{data.length > 0 &&
+					data.map(report => (
 						<InventoryListItem
 							key={report.id}
 							columns={{ date, method, creator, city }}

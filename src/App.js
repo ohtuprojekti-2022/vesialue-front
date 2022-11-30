@@ -8,14 +8,17 @@ import Registration from './components/registration/Registration'
 import Login from './components/login/Login'
 import InventoryReport from './components/inventory/InventoryReport'
 import EditInventory from './components/inventory/EditInventory'
+import DeleteInventoryForm from './components/inventory/DeleteInventoryForm'
 import UserPage from './components/user/UserPage'
 import EditedReport from './components/inventory/EditedReport'
 import EditedReportList from './components/inventory/EditedReportList'
 import UploadTest from './components/UploadTest'
+import DeletedReportList from './components/inventory/DeletedReportList'
 import { useDispatch } from 'react-redux'
 import { initializeInventories } from './redux/reducers/inventoryReducer'
 import { initializeAreas } from './redux/reducers/areaReducer'
 import { initializeEditedInventories } from './redux/reducers/editedInventoryReducer'
+import { initializeDeletedInventories } from './redux/reducers/deletedInventoryReducer'
 import { useSelector } from 'react-redux'
 import { selectAdminStatus } from './redux/reducers/userReducer'
 import { Navigate } from 'react-router-dom'
@@ -29,6 +32,7 @@ const App = () => {
 		dispatch(initializeInventories())
 		dispatch(initializeAreas())
 		dispatch(initializeEditedInventories())
+		dispatch(initializeDeletedInventories())
 	}, [dispatch])
 
 	const [userDetails, admin] = useSelector(state => [
@@ -52,6 +56,7 @@ const App = () => {
 				<Route path="kirjaudu" element={<Login />} />
 				<Route path="report/:id" element={<InventoryReport />} />
 				<Route path="report/:id/edit" element={<EditInventory />} />
+				<Route path="report/:id/delete" element={<DeleteInventoryForm />} />
 				<Route
 					path="omasivu"
 					element={userDetails ? <UserPage /> : <Navigate to="/kirjaudu" />}
@@ -65,6 +70,10 @@ const App = () => {
 					element={admin ? <EditedReportList /> : <Navigate to="/" />}
 				/>
 				<Route path="uploadtest" element={<UploadTest/>} />
+				<Route
+					path="poistetut"
+					element={admin ? <DeletedReportList /> : <Navigate to="/" />}
+				/>
 			</Routes>
 			<TermsofserviceModal show={showTOS} close={() => setShowTOS(false)} />
 			<PrivacyPolicyModal show={showPP} close={() => setShowPP(false)} />

@@ -192,6 +192,7 @@ const InventoryForm = props => {
 							type="email"
 							onChange={e => props.setEmail(e.target.value)}
 							pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+							maxLength="100"
 							required
 						/>
 					}
