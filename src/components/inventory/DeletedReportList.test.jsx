@@ -38,18 +38,18 @@ store.dispatch(appendInventory(inventory))
 store.dispatch(appendAreas(areas))
 store.dispatch(appendDeletedInventories(inventory))
 
-        describe('DeletedReportList', () => {
+describe('DeletedReportList', () => {
 
-            beforeEach(() => {
-                renderWithProviders(
-                    <MemoryRouter>
-                        <DeletedReportList />
-                    </MemoryRouter>
-                )	
-            })
+	beforeEach(() => {
+		renderWithProviders(
+			<MemoryRouter>
+				<DeletedReportList />
+			</MemoryRouter>
+		)	
+	})
         
-            test('Deletion request shows on screen', () => {
-                expect(screen.getByText('Miko')).not.toBeNull()
-            })
+	test('Deletion request shows on screen', () => {
+		expect(screen.getByText('Miko')).not.toBeNull()
+	})
         
-        })
+})
