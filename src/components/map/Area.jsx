@@ -3,23 +3,24 @@ import React from 'react'
 import { FeatureGroup, Polygon } from 'react-leaflet'
 import InventoryPopup from './InventoryPopup'
 
-const Area = ({ details, coordinates }) => {
+const Area = ({ details, coordinates, activeLayer, setActiveLayer }) => {
 	const positionList = coordinates.map((c) => [c.lat, c.lng])
-	const defaultStyle = {
-		fillColor: '',
-		fillOpacity: 0.2
-	}
 
-	const highlightArea = (e) => {
-		const layer = e.target
-		layer.setStyle({
-			fillColor: '#CA6969',
-			fillOpacity: 0.4
-		})
-	}
-	const resetStyle = (e) => {
-		const layer = e.target
-		layer.setStyle(defaultStyle)
+	const handleClick = (e) => {
+		if (setActiveLayer) {
+			if (activeLayer)
+				activeLayer.setStyle({
+					fillColor: '',
+					fillOpacity: 0.2,
+				})
+			const layer = e.target
+			layer.bringToBack()
+			layer.setStyle({
+				fillColor: '#CA6969',
+				fillOpacity: 0.4,
+			})
+			setActiveLayer(layer)
+		}
 	}
 
 	return (
@@ -27,9 +28,9 @@ const Area = ({ details, coordinates }) => {
 			<Polygon
 				positions={positionList}
 				eventHandlers={{
-					mouseover: (e) => highlightArea(e),
-					mouseout: (e) => resetStyle(e)
-				}} />
+					click: (e) => handleClick(e),
+				}}
+			/>
 			{details && <InventoryPopup details={details} />}
 		</FeatureGroup>
 	)
