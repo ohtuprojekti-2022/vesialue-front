@@ -73,7 +73,7 @@ describe('InventoryReport', () => {
 		expect(screen.getByText('Päivämäärä: 11.12.2002')).toBeVisible()
 		expect(screen.getByText('Tapa: Näköhavainto')).toBeVisible()
 		expect(screen.getByText('Näkyvyys: hyvä (yli 5m)')).toBeVisible()
-		expect(screen.getByText('Lisätietoja: ei')).toBeVisible()
+		expect(screen.getByText('Kuvaus: ei')).toBeVisible()
 	})
 
 	test('Renders the modify button when the user has made the report', () => {
@@ -102,7 +102,7 @@ describe('InventoryReport2', () => {
 	test('Open a different report', () => {
 		expect(screen.getByText('Päivämäärä: 10.02.2022')).toBeVisible()
 		expect(screen.getByText('Tapa: Viistokaiutus')).toBeVisible()
-		expect(screen.getByText('Lisätietoja: tähän pidempi teksti')).toBeVisible()
+		expect(screen.getByText('Kuvaus: tähän pidempi teksti')).toBeVisible()
 		expect(screen.queryByText('Näkyvyys: hyvä (yli 5m)')).not.toBeInTheDocument()
 	})
 
