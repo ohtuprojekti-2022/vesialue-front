@@ -46,33 +46,36 @@ const InventoryReport = () => {
 
 	return (
 		<div className="d-flex justify-content-around">
-			
+
 			<Card
 				style={{ width: '40rem', marginBottom: '1rem' }}
 				data-testid="report-card"
 			>
 				<Card.Body>
 					<Card.Title>
-						{userDetails && userDetails.user.admin > 0 && deleteRequest && (
-							<DeleteRequestView id={deleteRequest.id} />
+						{userDetails && deleteRequest && (
+							<DeleteRequestView
+								deleteRequest={deleteRequest}
+								isAdmin={userDetails.user.admin > 0}
+							/>
 						)}
 						Raportti{' '}
 						{report.user &&
 							userDetails &&
 							userDetails.user.id === report.user.id && (
 							<Button onClick={() => navigate(`/report/${report.id}/edit`)}>
-								Muokkaa
+									Muokkaa
 							</Button>
 						)}{' '}
 						{report.user &&
 							userDetails &&
 							userDetails.user.id === report.user.id &&
-							userDetails.user.admin < 1 && (
+							userDetails.user.admin < 1 && !deleteRequest && (
 							<Button
 								variant="danger"
 								onClick={() => navigate(`/report/${report.id}/delete`)}
 							>
-								Pyydä poistoa
+									Pyydä poistoa
 							</Button>
 						)}
 						{userDetails && userDetails.user.admin > 0 && !deleteRequest && (
