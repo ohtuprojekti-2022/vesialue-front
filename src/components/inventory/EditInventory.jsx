@@ -6,7 +6,7 @@ import { Polygon } from 'react-leaflet'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
-import { appendEditedInventories } from '../../redux/reducers/editedInventoryReducer'
+import { updateEditedInventories } from '../../redux/reducers/editedInventoryReducer'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { requestEdit } from '../../services/inventory-service'
 import {
@@ -74,7 +74,7 @@ const EditInventory = () => {
 	}
 
 	if (!report.user || report.user.id !== userId)
-		<Navigate to={`/report/${report.id}`} />
+		<Navigate to={`/raportti/${report.id}`} />
 
 	const handleNext = () => {
 		// Making sure the edits are saved
@@ -104,9 +104,9 @@ const EditInventory = () => {
 				report.id
 			)
 
-			dispatch(appendEditedInventories(result))
+			dispatch(updateEditedInventories(result))
 
-			navigate(`/report/${report.id}`)
+			navigate(`/raportti/${report.id}`)
 		} catch (error) {
 			addAlert(error.toString())
 		}

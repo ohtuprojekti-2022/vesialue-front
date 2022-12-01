@@ -16,7 +16,7 @@ const InventoryPopup = ({ details }) => {
 				<br />
 				{parseCreator(details)}
 				<br />
-				<Button onClick={() => navigate(`/report/${details.id}`)}>
+				<Button onClick={() => navigate(`/raportti/${details.id}`)}>
 					Avaa raportti
 				</Button>
 			</Popup>
