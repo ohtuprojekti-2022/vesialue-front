@@ -112,7 +112,7 @@ const EditedReport = () => {
 			</Table>
 			{userDetails.user.admin > 0 &&
 			<ApproveButton id={report.id} />}
-			<RejectButton id={report.id} isAdmin={userDetails.user.admin > 0} />
+			<RejectButton id={report.id} originalReportId={original.id} isAdmin={userDetails.user.admin > 0} />
 		</Container>
 	)
 }

@@ -5,14 +5,16 @@ import { useNavigate } from 'react-router-dom'
 import { rejectEditById } from '../../services/inventory-service'
 import { removeEditedInventoryById } from '../../redux/reducers/editedInventoryReducer'
 
-const RejectButton = ({ id, isAdmin }) => {
+const RejectButton = ({ id, originalReportId, isAdmin }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const handleClick = async () => {
 		try {
 			await rejectEditById(id)
 			dispatch(removeEditedInventoryById(id))
-			navigate('/muokatut')
+			isAdmin
+				? navigate('/muokatut')
+				: navigate(`/report/${originalReportId}`)
 		} catch (error) {
 			console.log(error)
 		}
