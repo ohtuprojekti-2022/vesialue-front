@@ -20,16 +20,19 @@ import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import AdminDeleteModal from './AdminDeleteModal'
 import { selectDeletedInventoryByInventory } from '../../redux/reducers/deletedInventoryReducer'
 import DeleteRequestView from './DeleteRequestView'
+import { selectEditedInventoryByOriginalId } from '../../redux/reducers/editedInventoryReducer'
+import EditRequestView from './EditRequestView'
 
 const InventoryReport = () => {
 	let { id } = useParams()
 	const [showAdminModal, setShowAdminModal] = useState(false)
-	const [report, areas, userDetails, deleteRequest] = useSelector(state => {
+	const [report, areas, userDetails, deleteRequest, editRequest] = useSelector(state => {
 		return [
 			selectInventoryById(state, id),
 			selectAreasByReportId(state, id),
 			state.userDetails,
 			selectDeletedInventoryByInventory(state, id),
+			selectEditedInventoryByOriginalId(state, id)
 		]
 	})
 	const navigate = useNavigate()
@@ -58,6 +61,11 @@ const InventoryReport = () => {
 								deleteRequest={deleteRequest}
 								isAdmin={userDetails.user.admin > 0}
 							/>
+						)}
+						{userDetails &&
+						userDetails.user.admin > 0 &&
+						editRequest && (
+							<EditRequestView editRequest={editRequest}/>
 						)}
 						Raportti{' '}
 						{report.user &&
