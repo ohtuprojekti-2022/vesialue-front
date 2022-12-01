@@ -53,9 +53,9 @@ const App = () => {
 				<Route path="inventointi-ilmoitus" element={<AddInventory />} />
 				<Route path="rekisteroidy" element={<Registration />} />
 				<Route path="kirjaudu" element={<Login />} />
-				<Route path="report/:id" element={<InventoryReport />} />
-				<Route path="report/:id/edit" element={<EditInventory />} />
-				<Route path="report/:id/delete" element={<DeleteInventoryForm />} />
+				<Route path="raportti/:id" element={<InventoryReport />} />
+				<Route path="raportti/:id/muokkaa" element={<EditInventory />} />
+				<Route path="raportti/:id/poista" element={<DeleteInventoryForm />} />
 				<Route
 					path="omasivu"
 					element={userDetails ? <UserPage /> : <Navigate to="/kirjaudu" />}

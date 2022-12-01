@@ -14,7 +14,7 @@ const RejectButton = ({ id, originalReportId, isAdmin }) => {
 			dispatch(removeEditedInventoryById(id))
 			isAdmin
 				? navigate('/muokatut')
-				: navigate(`/report/${originalReportId}`)
+				: navigate(`/raportti/${originalReportId}`)
 		} catch (error) {
 			console.log(error)
 		}

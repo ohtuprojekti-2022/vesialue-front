@@ -76,7 +76,7 @@ const AddInventory = () => {
 				setPhone('')
 				setMoreInfo('')
 				setValidated(false)
-				navigate(`/report/${inventory.id}`)
+				navigate(`/raportti/${inventory.id}`)
 			} catch (error) {
 				addAlert(error.toString())
 			}

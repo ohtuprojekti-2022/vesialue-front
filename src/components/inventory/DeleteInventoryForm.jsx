@@ -29,7 +29,7 @@ const DeleteInventoryForm = () => {
 
 				dispatch(appendDeletedInventories(result))
 
-				navigate(`/report/${report.id}`)
+				navigate(`/raportti/${report.id}`)
 			} catch (error) {
 				console.log('deletion request failed')
 			}
