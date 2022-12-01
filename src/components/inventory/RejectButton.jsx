@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { rejectEditById } from '../../services/inventory-service'
 import { removeEditedInventoryById } from '../../redux/reducers/editedInventoryReducer'
 
-const RejectButton = ({ id }) => {
+const RejectButton = ({ id, isAdmin }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const handleClick = async () => {
@@ -23,8 +23,9 @@ const RejectButton = ({ id }) => {
 			variant="danger"
 			style={{ marginLeft: '0.5rem' }}
 			onClick={handleClick}
-		>
-			Hylkää
+		>{isAdmin &&
+			'Hylkää'
+			|| 'Peruuta muokkauspyyntö'}
 		</Button>
 	)
 }

@@ -63,9 +63,10 @@ const InventoryReport = () => {
 							/>
 						)}
 						{userDetails &&
-						userDetails.user.admin > 0 &&
-						editRequest && (
-							<EditRequestView editRequest={editRequest}/>
+							editRequest && (
+							<EditRequestView
+								editRequest={editRequest}
+								isAdmin={userDetails.user.admin > 0} />
 						)}
 						Raportti{' '}
 						{report.user &&

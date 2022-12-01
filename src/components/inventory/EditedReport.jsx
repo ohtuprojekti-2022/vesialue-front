@@ -19,6 +19,9 @@ import ApproveButton from './ApproveButton'
 import RejectButton from './RejectButton'
 
 const EditedReport = () => {
+	const userDetails = useSelector(({ userDetails }) => {
+		return userDetails
+	})
 	let { id } = useParams()
 	const report = useSelector((state) => {
 		return selectEditedInventoryById(state, id)
@@ -107,8 +110,9 @@ const EditedReport = () => {
 					</tr>
 				</tbody>
 			</Table>
-			<ApproveButton id={report.id} />
-			<RejectButton id={report.id} />
+			{userDetails.user.admin > 0 &&
+			<ApproveButton id={report.id} />}
+			<RejectButton id={report.id} isAdmin={userDetails.user.admin > 0} />
 		</Container>
 	)
 }
