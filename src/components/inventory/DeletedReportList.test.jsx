@@ -9,6 +9,7 @@ import { login } from '../../redux/reducers/userReducer'
 import { appendInventory } from '../../redux/reducers/inventoryReducer'
 import { appendAreas } from '../../redux/reducers/areaReducer'
 import { appendDeletedInventories } from '../../redux/reducers/deletedInventoryReducer'
+import userEvent from '@testing-library/user-event'
 
 const user = {'auth':'xyz', 
 	'user':{'id':'u1', 
@@ -28,6 +29,13 @@ const inventory = {'id': '1',
 	'city': 'Utsjoki'
 }
 
+const deleteRequest = {
+	'id': '0',
+	'inventory': '1',
+	'user': user['user'],
+	'reason': 'on kivaa poistaa :)'
+}
+
 const areas = [{'inventoryId': '1', 'id':'a1',
 	'coordinates': [{lat: 60.13918005, lng: 24.92832183},
 		{lat: 60.140376, lng: 24.984626770},
@@ -36,7 +44,7 @@ const areas = [{'inventoryId': '1', 'id':'a1',
 store.dispatch(login(user))
 store.dispatch(appendInventory(inventory))
 store.dispatch(appendAreas(areas))
-store.dispatch(appendDeletedInventories(inventory))
+store.dispatch(appendDeletedInventories(deleteRequest))
 
 describe('DeletedReportList', () => {
 
@@ -50,6 +58,13 @@ describe('DeletedReportList', () => {
         
 	test('Deletion request shows on screen', () => {
 		expect(screen.getByText('Miko')).not.toBeNull()
+	})
+
+	test('list item can be clicked', async () => {
+		const request = screen.getByText('Miko')
+		const user = userEvent.setup()
+		await user.click(request)
+		
 	})
         
 })
