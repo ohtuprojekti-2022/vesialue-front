@@ -1,32 +1,28 @@
 import Alert from 'react-bootstrap/Alert'
 import React, { useState } from 'react'
-import RejectDeletionButton from './RejectDeleteRequest'
-import { useSelector } from 'react-redux'
-import { selectDeletedInventoryById } from '../../redux/reducers/deletedInventoryReducer'
+import RejectDeletionButton from './RejectDeletionButton'
 import AdminDeleteModal from './AdminDeleteModal'
 import { Button } from 'react-bootstrap'
 
-const DeleteRequestView = ({ id }) => {
+const DeleteRequestView = ({ deleteRequest, isAdmin }) => {
 	const [showAdminModal, setShowAdminModal] = useState(false)
-	const deleteRequest = useSelector(state => {
-		return selectDeletedInventoryById(state, id)
-	})
-	return(
+	
+	return (
 		<>
 			<Alert variant='warning'>
 				<Alert.Heading>Tälle inventoinnille on tehty poistopyyntö</Alert.Heading>
-				<hr/>
+				<hr />
 				<p>
-                Poiston syy: {deleteRequest.reason}
+					Poiston syy: {deleteRequest.reason}
 				</p>
-				<RejectDeletionButton id={id}/>
-				<Button 
-					onClick={()=> setShowAdminModal(true)}
+				<RejectDeletionButton id={deleteRequest.id} />
+				{isAdmin && <Button
+					onClick={() => setShowAdminModal(true)}
 					variant='danger'
 					style={{ marginLeft: '0.5rem' }}
 				>
-                    Hyväksy poistopyyntö
-				</Button>
+					Hyväksy poistopyyntö
+				</Button>}
 			</Alert>
 			<AdminDeleteModal
 				show={showAdminModal}
@@ -34,7 +30,7 @@ const DeleteRequestView = ({ id }) => {
 				id={deleteRequest.inventory}
 			/>
 		</>
-		
+
 	)
 }
 

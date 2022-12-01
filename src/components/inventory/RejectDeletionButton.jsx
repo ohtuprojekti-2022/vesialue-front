@@ -10,18 +10,14 @@ const RejectDeletionButton = ({ id }) => {
 		try {
 			await rejectDeletionById(id)
 			dispatch(removeDeletedInventoryById(id))
-
 		} catch (error) {
 			console.log(error)
 		}
 	}
 
-	return(
-		<Button
-			variant="secondary"
-			onClick={handleClick}
-		>
-            Hylkää poistopyyntö
+	return (
+		<Button variant="secondary" onClick={handleClick}>
+			Hylkää poistopyyntö
 		</Button>
 	)
 }

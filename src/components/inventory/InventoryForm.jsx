@@ -139,15 +139,16 @@ const InventoryForm = props => {
 						onClick={() => props.setAttachments(!props.attachments)}
 					/>
 				</Form.Group>
-				<FloatingLabel controlId="moreInfo" label="Muuta tietoa" className="mb-3">
+				<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
 					<Form.Control
 						data-testid="moreInfo"
 						type="text"
 						maxLength="500"
 						onChange={e => props.setMoreInfo(e.target.value)}
+						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Lisätietojen maksimipituus on 500 merkkiä.
+						{'Kirjoita kuvaus (max 500 merkkiä)'}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">

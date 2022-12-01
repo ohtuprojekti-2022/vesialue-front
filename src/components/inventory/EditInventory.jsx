@@ -6,7 +6,7 @@ import { Polygon } from 'react-leaflet'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
-import { appendEditedInventories } from '../../redux/reducers/editedInventoryReducer'
+import { updateEditedInventories } from '../../redux/reducers/editedInventoryReducer'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { requestEdit } from '../../services/inventory-service'
 import {
@@ -73,7 +73,8 @@ const EditInventory = () => {
 		return <p>ladataan raporttia...</p>
 	}
 
-	if (!report.user || report.user.id !== userId) <Navigate to={`/report/${report.id}`} />
+	if (!report.user || report.user.id !== userId)
+		<Navigate to={`/report/${report.id}`} />
 
 	const handleNext = () => {
 		// Making sure the edits are saved
@@ -103,7 +104,7 @@ const EditInventory = () => {
 				report.id
 			)
 
-			dispatch(appendEditedInventories(result))
+			dispatch(updateEditedInventories(result))
 
 			navigate(`/report/${report.id}`)
 		} catch (error) {
@@ -199,7 +200,7 @@ const EditInventory = () => {
 								Näkyvyys: {translateVisibility(visibility)}
 							</ListGroup.Item>
 						)}
-						<ListGroup.Item>Lisätietoja: {moreInfo}</ListGroup.Item>
+						<ListGroup.Item>Kuvaus: {moreInfo}</ListGroup.Item>
 					</ListGroup>
 					<br />
 					Muokkauksen syy: {editReason}

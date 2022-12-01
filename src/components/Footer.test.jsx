@@ -1,7 +1,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import Footer from './footer'
+import Footer from './Footer'
 import { MemoryRouter } from 'react-router-dom'
 import { renderWithProviders } from '../utils/test-tools'
 import userEvent from '@testing-library/user-event'
