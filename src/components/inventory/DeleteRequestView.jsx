@@ -10,7 +10,9 @@ const DeleteRequestView = ({ deleteRequest, isAdmin }) => {
 	return (
 		<>
 			<Alert variant='warning'>
-				<Alert.Heading>Tälle inventoinnille on tehty poistopyyntö</Alert.Heading>
+				<Alert.Heading>{isAdmin &&
+					'Tälle inventoinnille on tehty poistopyyntö'
+					|| 'Olet tehnyt tälle inventoinnille poistopyynnön'}</Alert.Heading>
 				<hr />
 				<p>
 					Poiston syy: {deleteRequest.reason}

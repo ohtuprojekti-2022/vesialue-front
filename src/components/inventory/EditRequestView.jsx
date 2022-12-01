@@ -9,7 +9,7 @@ const EditRequestView = ({ editRequest, isAdmin }) => {
 		<Alert variant='primary' data-testid='edit-request-alert'>
 			<Alert.Heading>{
 				isAdmin && 'Tälle inventoinnille on tehty muokkauspyyntö'
-				|| 'Olet jättänyt tälle inventoinnille muokkauspyynnön'
+				|| 'Olet tehnyt tälle inventoinnille muokkauspyynnön'
 			}
 			</Alert.Heading>
 			<hr />

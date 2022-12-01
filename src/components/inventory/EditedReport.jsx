@@ -44,7 +44,7 @@ const EditedReport = () => {
 	)
 
 	return (
-		<Container>
+		<Container style={{marginBottom: '0.5rem'}}>
 			<Map center={center} autoZoom={true}>
 				{areas.map((area) => (
 					<Polygon
