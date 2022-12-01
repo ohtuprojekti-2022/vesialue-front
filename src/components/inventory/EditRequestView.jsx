@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const EditRequestView = ({ editRequest }) => {
 	const navigate = useNavigate()
 	return(
-		<Alert variant='primary'>
+		<Alert variant='primary' data-testid='edit-request-alert'>
 			<Alert.Heading>Tälle inventoinnille on tehty muokkauspyyntö</Alert.Heading>
 			<hr />
 			<Button
