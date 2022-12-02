@@ -9,7 +9,9 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import PaginatedList from '../PaginatedList'
 
+jest.mock('axios')
 const user = {'auth':'xxx', 'user':{'id':'u1', 'name':'Uusi', 'email':'uuden_maili@posti.fi', 'phone':'040667788', 'username':'uusi', 'admin':'0'}
 }
 const inventory1 = {
@@ -89,12 +91,19 @@ describe('AdminDeleteButton', () => {
 		expect(button).toBeDefined()
 	})
 
-	test('On click does not cause error', async () => {
+	test('Clicking removes inventory', async () => {
 		const user = userEvent.setup()
 		const consoleSpy = jest.spyOn(console, 'log')
 
 		await user.click(button)
 		expect(consoleSpy).toHaveBeenCalledTimes(0)
+		renderWithProviders(
+			<MemoryRouter>
+				<PaginatedList perPageNumber={20} />
+			</MemoryRouter>
+		)
+		expect(screen.getByText('Näköhavainto')).toBeVisible()
+		expect(screen.queryByText('Sukellus')).not.toBeInTheDocument()
 		
 		
 	})
