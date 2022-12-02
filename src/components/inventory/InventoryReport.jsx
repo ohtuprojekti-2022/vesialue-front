@@ -63,15 +63,16 @@ const InventoryReport = () => {
 							/>
 						)}
 						{userDetails &&
-						userDetails.user.admin > 0 &&
-						editRequest && (
-							<EditRequestView editRequest={editRequest}/>
+							editRequest && (
+							<EditRequestView
+								editRequest={editRequest}
+								isAdmin={userDetails.user.admin > 0} />
 						)}
 						Raportti{' '}
 						{report.user &&
 							userDetails &&
 							userDetails.user.id === report.user.id && (
-							<Button onClick={() => navigate(`/report/${report.id}/edit`)}>
+							<Button onClick={() => navigate(`/raportti/${report.id}/muokkaa`)}>
 									Muokkaa
 							</Button>
 						)}{' '}
@@ -81,7 +82,7 @@ const InventoryReport = () => {
 							userDetails.user.admin < 1 && !deleteRequest && (
 							<Button
 								variant="danger"
-								onClick={() => navigate(`/report/${report.id}/delete`)}
+								onClick={() => navigate(`/raportti/${report.id}/poista`)}
 							>
 									Pyydä poistoa
 							</Button>

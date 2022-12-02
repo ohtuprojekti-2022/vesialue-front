@@ -15,7 +15,7 @@ describe('EditRequestView', () => {
 
 		renderWithProviders(
 			<MemoryRouter>
-				<EditRequestView />
+				<EditRequestView isAdmin={true}/>
 			</MemoryRouter>
 		)
 		alert = screen.getByTestId('edit-request-alert')

@@ -10,6 +10,7 @@ const EditedReportList = () => {
 
 	return (
 		<Container>
+			<h2>Muokkauspyynnöt</h2>
 			<Table striped bordered hover responsive>
 				<thead>
 					<tr>
