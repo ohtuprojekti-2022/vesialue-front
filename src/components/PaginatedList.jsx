@@ -8,7 +8,6 @@ const PaginatedList = ({perPageNumber, columns}) => {
 	const [inventories] = useSelector(({ inventories, filter }) => {
 		return filteredInventories(inventories, filter)
 	})
-	inventories.reverse()
 
 	const [currentPage, setCurrentPage] = useState(1)
 	const [recordsPerPage] = useState(perPageNumber)

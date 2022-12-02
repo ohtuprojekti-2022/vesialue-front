@@ -28,7 +28,7 @@ const AdminDeleteButton = ({ id }) => {
 			variant="danger"
 			style={{ marginLeft: '0.5rem' }}
 			onClick={handleClick}
-			data-testId='admin-delete-button'
+			data-testid='admin-delete-button'
 		>
 			Poista
 		</Button>

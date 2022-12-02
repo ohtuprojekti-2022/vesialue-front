@@ -10,11 +10,11 @@ const SortButton = ({ handleSort }) => {
 			<Button
 				variant="outline-primary"
 				onClick={handleSort}
-				id="orderByDate"
+				id="sortByDate"
 				value=""
 				data-testid="sortByDate"
 			>
-				{(filter.order && <>Vanhin inventointi ensin</>) || (
+				{(filter.ascendingOrder && <>Vanhin inventointi ensin</>) || (
 					<>Uusin inventointi ensin</>
 				)}
 			</Button>
