@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import TermsofserviceModal from '../TermsofserviceModal'
 import PrivacyPolicyModal from '../PrivacyPolicyModal'
+import { autosizeTextarea } from '../../utils/tools'
 
 const InventoryForm = props => {
 	const handleMethodChange = e => {
@@ -142,9 +143,13 @@ const InventoryForm = props => {
 				<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
 					<Form.Control
 						data-testid="moreInfo"
-						type="text"
+						as="textarea"
+						placeholder="Kuvaus"
 						maxLength="500"
-						onChange={e => props.setMoreInfo(e.target.value)}
+						onChange={e => {
+							props.setMoreInfo(e.target.value)
+							autosizeTextarea(e.target)
+						}}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
@@ -163,6 +168,7 @@ const InventoryForm = props => {
 						<Form.Control
 							data-testid="name"
 							type="text"
+							placeholder="Nimi"
 							maxLength="100"
 							onChange={e => props.setName(e.target.value)}
 						/>
@@ -183,6 +189,7 @@ const InventoryForm = props => {
 						<Form.Control
 							data-testid="email"
 							type="email"
+							placeholder="Sähköposti"
 							onChange={e => props.setEmail(e.target.value)}
 							pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
 							maxLength="100"
@@ -209,6 +216,7 @@ const InventoryForm = props => {
 						<Form.Control
 							data-testid="phone"
 							type="phone"
+							placeholder="Puhelinnumero"
 							onChange={e => props.setPhone(e.target.value)}
 							pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 						/>
@@ -219,16 +227,16 @@ const InventoryForm = props => {
 				</FloatingLabel>
 				{!(localStorage.getItem('userDetails')) && (
 					<>
-						<Form.Group controlId="terms-of-services" className="mb-3" style={{display: 'inline-flex'}}>
+						<Form.Group controlId="terms-of-services" className="mb-3" style={{ display: 'inline-flex' }}>
 							<Form.Check
 								data-testid="terms-of-services"
 								type="checkbox"
 								checked={checked}
 								onChange={() => setChecked(!checked)}
 							/>
-							<span style={{paddingLeft: '10px'}}>
-								Hyväksyn <span style={{cursor: 'pointer'}}>
-									<a className="text-primary" data-testid="tos" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" data-testid="pp"onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
+							<span style={{ paddingLeft: '10px' }}>
+								Hyväksyn <span style={{ cursor: 'pointer' }}>
+									<a className="text-primary" data-testid="tos" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" data-testid="pp" onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
 							</span>
 						</Form.Group>
 						<Button variant="primary"
@@ -236,7 +244,7 @@ const InventoryForm = props => {
 							data-testid="submit"
 							className="mb-5"
 							disabled={!checked}
-							style={{display: 'block'}}>
+							style={{ display: 'block' }}>
 							Lähetä
 						</Button>
 					</>
@@ -245,7 +253,7 @@ const InventoryForm = props => {
 						type="submit"
 						data-testid="submit"
 						className="mb-5"
-						style={{display: 'block'}}>
+						style={{ display: 'block' }}>
 						Lähetä
 					</Button>
 				}

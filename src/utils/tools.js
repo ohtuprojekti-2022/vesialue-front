@@ -164,3 +164,9 @@ export const attachmentsToString = (attachments) => {
 		return 'On'
 	}
 }
+
+export const autosizeTextarea = (textarea) => {
+	textarea.value !== ''
+		? textarea.style.height = `${textarea.scrollHeight}px`
+		: textarea.style.height = ''
+}
