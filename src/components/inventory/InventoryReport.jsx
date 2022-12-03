@@ -127,11 +127,18 @@ const InventoryReport = () => {
 					</ListGroup>
 					{(report.attachment_files.length > 0) && (
 						<ListGroup>
-							<p>Liitteet</p>
+							Liitteet
 							{report.attachment_files.map(file => (
 								<ListGroup.Item key={file.filename}>
 									{file.filename}
-									<Button onClick={() => window.open(`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`, '_blank')}>
+									<Button
+										style={{ marginLeft: '1rem' }}
+										size="sm"
+										onClick={() => window.open(
+											`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`,
+											'_blank')
+										}
+									>
 										Lataa
 									</Button>
 								</ListGroup.Item>
