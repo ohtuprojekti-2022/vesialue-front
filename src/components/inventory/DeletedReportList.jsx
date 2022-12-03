@@ -10,6 +10,7 @@ const DeletedReportList = () => {
 
 	return (
 		<Container>
+			<h2>Poistopyynnöt</h2>
 			<Table striped bordered hover responsive>
 				<thead>
 					<tr>

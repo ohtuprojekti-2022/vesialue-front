@@ -19,6 +19,9 @@ import ApproveButton from './ApproveButton'
 import RejectButton from './RejectButton'
 
 const EditedReport = () => {
+	const userDetails = useSelector(({ userDetails }) => {
+		return userDetails
+	})
 	let { id } = useParams()
 	const report = useSelector((state) => {
 		return selectEditedInventoryById(state, id)
@@ -41,8 +44,8 @@ const EditedReport = () => {
 	)
 
 	return (
-		<Container>
-			<Map center={center}>
+		<Container style={{marginBottom: '0.5rem'}}>
+			<Map center={center} autoZoom={true}>
 				{areas.map((area) => (
 					<Polygon
 						key={area.id}
@@ -107,8 +110,9 @@ const EditedReport = () => {
 					</tr>
 				</tbody>
 			</Table>
-			<ApproveButton id={report.id} />
-			<RejectButton id={report.id} />
+			{userDetails.user.admin > 0 &&
+			<ApproveButton id={report.id} />}
+			<RejectButton id={report.id} originalReportId={original.id} isAdmin={userDetails.user.admin > 0} />
 		</Container>
 	)
 }

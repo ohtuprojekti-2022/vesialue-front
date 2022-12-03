@@ -40,10 +40,20 @@ const Footer = ({ setShowTOS, setShowPP }) => {
 						<h5 className="text-uppercase"></h5>
 						<ul className="list-unstyled">
 							<li>
-								<a href="#!" onClick={() => setShowTOS(true)} data-testid='tos'>Käyttöehdot</a>
+								<a href="#!" onClick={() => setShowTOS(true)} data-testid="tos">
+									Käyttöehdot
+								</a>
 							</li>
 							<li>
-								<a href="#!" onClick={() => setShowPP(true)} data-testid='pp'>Tietosuojaseloste</a>
+								<a href="#!" onClick={() => setShowPP(true)} data-testid="pp">
+									Tietosuojaseloste
+								</a>
+							</li>
+							<li>
+								<img
+									src="/logo192.png"
+									style={{ width: '4rem', height: '4rem', marginTop: '1rem' }}
+								/>
 							</li>
 						</ul>
 					</div>
@@ -51,7 +61,7 @@ const Footer = ({ setShowTOS, setShowPP }) => {
 			</div>
 
 			<div className="footer-copyright text-center py-3">
-				© 2022 Copyright:{' '}
+				Tämä verkkosovellus on lisensoitu MIT-lisenssillä © 2022 Copyright:{' '}
 				<a href="https://www.helsinki.fi/">Helsingin Yliopisto</a>
 			</div>
 		</footer>

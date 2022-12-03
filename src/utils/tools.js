@@ -114,12 +114,12 @@ export const filteredInventoriesAndAreas = (inventories, areas, filter) => {
 	})
 	const inventoryIds = new Set(filteredInventories.map((i) => i.id))
 	const filteredAreas = areas.filter((a) => inventoryIds.has(a.inventoryId))
-	const sortedInventories = sortedByDate(filteredInventories, filter.order)
+	const sortedInventories = sortedByDate(filteredInventories, filter.ascendingOrder)
 	return [sortedInventories, filteredAreas]
 }
 
 export const sortedByDate = (inventories, ascendingOrder) => {
-	const sortByDate = (a, b) => new Date(a.inventorydate) - new Date(b.inventorydate)
+	const sortByDate = (a, b) => new Date(b.inventorydate) - new Date(a.inventorydate)
 	return (ascendingOrder)
 		? [...inventories].sort(sortByDate).reverse()
 		: [...inventories].sort(sortByDate)
@@ -153,7 +153,7 @@ export const filteredInventories = (inventories, filter) => {
 			inventoryDate <= filter.endDate
 		)
 	})
-	const sortedInventories = sortedByDate(filteredInventories, filter.order)
+	const sortedInventories = sortedByDate(filteredInventories, filter.ascendingOrder)
 	return [sortedInventories]
 }
 
@@ -163,4 +163,10 @@ export const attachmentsToString = (attachments) => {
 	} else {
 		return 'On'
 	}
+}
+
+export const autosizeTextarea = (textarea) => {
+	textarea.value !== ''
+		? textarea.style.height = `${textarea.scrollHeight}px`
+		: textarea.style.height = ''
 }

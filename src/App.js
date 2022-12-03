@@ -22,7 +22,7 @@ import { initializeDeletedInventories } from './redux/reducers/deletedInventoryR
 import { useSelector } from 'react-redux'
 import { selectAdminStatus } from './redux/reducers/userReducer'
 import { Navigate } from 'react-router-dom'
-import Footer from './components/footer'
+import Footer from './components/Footer'
 import TermsofserviceModal from './components/TermsofserviceModal'
 import PrivacyPolicyModal from './components/PrivacyPolicyModal'
 
@@ -54,9 +54,9 @@ const App = () => {
 				<Route path="inventointi-ilmoitus" element={<AddInventory />} />
 				<Route path="rekisteroidy" element={<Registration />} />
 				<Route path="kirjaudu" element={<Login />} />
-				<Route path="report/:id" element={<InventoryReport />} />
-				<Route path="report/:id/edit" element={<EditInventory />} />
-				<Route path="report/:id/delete" element={<DeleteInventoryForm />} />
+				<Route path="raportti/:id" element={<InventoryReport />} />
+				<Route path="raportti/:id/muokkaa" element={<EditInventory />} />
+				<Route path="raportti/:id/poista" element={<DeleteInventoryForm />} />
 				<Route
 					path="omasivu"
 					element={userDetails ? <UserPage /> : <Navigate to="/kirjaudu" />}

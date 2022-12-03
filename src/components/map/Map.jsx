@@ -1,11 +1,32 @@
 /* istanbul ignore file */
 import React from 'react'
-import { LayersControl, MapContainer, TileLayer } from 'react-leaflet'
+import { LayersControl, MapContainer, TileLayer, useMap } from 'react-leaflet'
 import DrawingTool from './DrawingTool'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
+import { useEffect } from 'react'
 
-const Map = ({ center, zoom, setMapLayers, editableAreas, children }) => {
+const ZoomHandler = () => {
+	const map = useMap()
+	useEffect(() => {
+		const areas = Object.values(map._targets).slice(1)
+		const bounds = [
+			[-100, -100],
+			[100, 100],
+		]
+		areas.forEach((a) => {
+			const aBounds = Object.values(a._bounds)
+			bounds[0][0] = Math.max(aBounds[1].lat, bounds[0][0])
+			bounds[0][1] = Math.max(aBounds[1].lng, bounds[0][1])
+			bounds[1][0] = Math.min(aBounds[0].lat, bounds[1][0])
+			bounds[1][1] = Math.min(aBounds[0].lng, bounds[1][1])
+		})
+		map.fitBounds(bounds)
+	}, [])
+	return <></>
+}
+
+const Map = ({ center, zoom, setMapLayers, editableAreas, children, autoZoom }) => {
 	if (!center) center = { lat: 60.170702505729416, lng: 24.941444393533125 }
 	if (!zoom) zoom = 12
 
@@ -50,6 +71,7 @@ const Map = ({ center, zoom, setMapLayers, editableAreas, children }) => {
 					/>
 				)}
 				{children}
+				{autoZoom && <ZoomHandler />}
 			</MapContainer>
 		</div>
 	)
