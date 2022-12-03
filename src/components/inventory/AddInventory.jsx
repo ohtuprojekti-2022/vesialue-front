@@ -3,14 +3,13 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { addInventory } from '../../services/inventory-service'
+import { uploadAttachment } from '../../services/attachment-service'
 import InventoryForm from './InventoryForm'
 import Map from '../map/Map'
 import { useDispatch } from 'react-redux'
 import { appendInventory } from '../../redux/reducers/inventoryReducer'
 import { appendAreas } from '../../redux/reducers/areaReducer'
 import { formatDate } from '../../utils/tools'
-import axios from 'axios'
-import REACT_APP_BACKEND_URL from '../../utils/config'
 import MaptoolinfoModal from '../MaptoolinfoModal'
 
 const AddInventory = () => {
@@ -68,28 +67,20 @@ const AddInventory = () => {
 					moreInfo
 				)
 
-				dispatch(appendInventory(inventory))
-				dispatch(appendAreas(areas))
-
 				// attachment upload
 				if (attachments) {
 					const formData = new FormData()
 					formData.append('formFile', attachmentFile)
 					formData.append('inventory', inventory.id)
-					console.log('formData:', formData)
-					console.log('inventory:', inventory)
 					try {
-						const response = await axios({
-							method: 'post',
-							url: `${REACT_APP_BACKEND_URL}/api/files/upload`,
-							data: formData,
-							headers: { 'Content-Type': 'multipart/form-data' },
-						})
-						console.log(response)
+						await uploadAttachment(formData)
 					} catch(error) {
 						console.log(error)
 					}
 				}
+
+				dispatch(appendInventory(inventory))
+				dispatch(appendAreas(areas))
 
 				setInventorydate('')
 				setMethod('')
