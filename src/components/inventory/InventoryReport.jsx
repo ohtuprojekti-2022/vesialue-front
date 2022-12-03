@@ -125,7 +125,7 @@ const InventoryReport = () => {
 							</ListGroup.Item>
 						)}
 					</ListGroup>
-					{(report.attachment_files.length > 0) && (
+					{(report.attachments && report.attachment_files.length > 0) && (
 						<ListGroup>
 							Liitteet
 							{report.attachment_files.map(file => (
