@@ -144,7 +144,7 @@ const InventoryForm = props => {
 							type="file" multiple
 							required
 							data-testid="attachment"
-							onChange={event => props.setAttachmentFile(event.target.files[0])}
+							onChange={event => props.setAttachmentFiles(event.target.files)}
 						/>
 					)}
 				</Form.Group>
