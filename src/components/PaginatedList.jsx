@@ -131,7 +131,7 @@ const PaginatedList = ({perPageNumber, columns}) => {
 			) || window.location.pathname === '/' && !filtered &&
 				<p> Haetaan raportteja... </p>
 				|| window.location.pathname === '/' && filtered &&
-				<p><b>Suodatinasetuksilla ei löydy inventointeja, kokeile muuttaa suodatusehtoja</b></p>
+				<p><b>Suodatusehdoilla ei löydy inventointeja!</b></p>
 			|| <p>Et ole vielä tehnyt inventointeja</p>
 			}
 		</Container>
