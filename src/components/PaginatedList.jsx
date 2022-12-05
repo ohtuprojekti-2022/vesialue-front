@@ -105,7 +105,6 @@ const PaginatedList = ({perPageNumber, columns}) => {
 		)
 	}
 
-	console.log(filtered)
 	if (inventories.length !== 0) {
 		filtered = true}
 
