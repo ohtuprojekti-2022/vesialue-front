@@ -75,7 +75,9 @@ const AddInventory = () => {
 					}
 					formData.append('inventory', inventory.id)
 					try {
-						await uploadAttachment(formData)
+						const attachmentReferences = await uploadAttachment(formData)
+						// Update attachment file references to the new inventory
+						inventory.attachment_files = attachmentReferences
 					} catch(error) {
 						console.log(error)
 					}
