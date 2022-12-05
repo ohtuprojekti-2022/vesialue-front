@@ -140,12 +140,17 @@ const InventoryForm = props => {
 						onClick={() => props.setAttachments(!props.attachments)}
 					/>
 					{props.attachments && (
-						<Form.Control
-							type="file" multiple
-							required
-							data-testid="attachment"
-							onChange={event => props.setAttachmentFiles(event.target.files)}
-						/>
+						<>
+							<Form.Control
+								type="file" multiple
+								required
+								data-testid="attachment"
+								onChange={event => props.setAttachmentFiles(event.target.files)}
+							/>
+							<Form.Control.Feedback type="invalid">
+								Liitetiedosto vaaditaan!
+							</Form.Control.Feedback>
+						</>
 					)}
 				</Form.Group>
 				<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
