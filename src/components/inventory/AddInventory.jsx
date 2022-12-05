@@ -25,7 +25,7 @@ const AddInventory = () => {
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 	const [mapLayers, setMapLayers] = useState([])
-	const [attachmentFile, setAttachmentFile] = useState(null)
+	const [attachmentFiles, setAttachmentFiles] = useState(null)
 	const navigate = useNavigate()
 	const [showMTI, setShowMTI] = useState(false)
 
@@ -70,10 +70,14 @@ const AddInventory = () => {
 				// attachment upload
 				if (attachments) {
 					const formData = new FormData()
-					formData.append('formFile', attachmentFile)
+					for (let i = 0; i < attachmentFiles.length; i++) {
+						formData.append('file', attachmentFiles[i])
+					}
 					formData.append('inventory', inventory.id)
 					try {
-						await uploadAttachment(formData)
+						const attachmentReferences = await uploadAttachment(formData)
+						// Update attachment file references to the new inventory
+						inventory.attachment_files = attachmentReferences
 					} catch(error) {
 						console.log(error)
 					}
@@ -122,7 +126,7 @@ const AddInventory = () => {
 				setName={setName}
 				setEmail={setEmail}
 				setPhone={setPhone}
-				setAttachmentFile={setAttachmentFile}
+				setAttachmentFiles={setAttachmentFiles}
 			/>
 			<MaptoolinfoModal
 				show={showMTI}
