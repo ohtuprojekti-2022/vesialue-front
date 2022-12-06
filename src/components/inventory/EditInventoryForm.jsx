@@ -148,13 +148,14 @@ const EditInventoryForm = (props) => {
 					checked={props.attachments}
 				/>
 			</Form.Group>
-			<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
+			<FloatingLabel style={{paddingTop: '2rem'}} controlId="moreInfo" label="Kuvaus" className="mb-3">
 				<Form.Control
 					ref={moreInfoRef}
 					data-testid="moreInfo"
 					as="textarea"
-					maxLength="500"
+					maxLength="5000"
 					defaultValue={props.moreInfo}
+					style={{ maxHeight: '12rem' }}
 					onChange={(e) => {
 						props.setMoreInfo(e.target.value)
 						autosizeTextarea(e.target)		
@@ -162,7 +163,7 @@ const EditInventoryForm = (props) => {
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					{'Kirjoita kuvaus (max 500 merkkiä)'}
+					{'Kirjoita kuvaus (max 5000 merkkiä)'}
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel
