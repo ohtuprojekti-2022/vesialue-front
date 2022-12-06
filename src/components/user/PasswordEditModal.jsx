@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { passwordEditRequest } from '../../services/user-service'
 import { Alert } from 'react-bootstrap'
 import { login } from '../../redux/reducers/userReducer'
+import {PASSWORD_ERROR} from '../../utils/error_messages.js'
 
 const PasswordEditModal = ({show, close}) => {
 	
@@ -83,7 +84,7 @@ const PasswordEditModal = ({show, close}) => {
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-				Anna kelvollinen salasana! Pituus 10-100 merkkiä
+					{PASSWORD_ERROR}
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="new-password2" className="mb-3" label="Salasana uudestaan">

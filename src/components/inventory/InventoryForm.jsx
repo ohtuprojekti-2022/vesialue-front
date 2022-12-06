@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import TermsofserviceModal from '../TermsofserviceModal'
 import PrivacyPolicyModal from '../PrivacyPolicyModal'
+import {AREA_ERROR, DATE_ERROR, DESCRIPTION_ERROR, EMAIL_ERROR, METHOD_ERROR, NAME_ERROR, PHONE_ERROR, EMAIL_PATTERN, PHONE_PATTERN} from '../../utils/error_messages.js'
 
 const InventoryForm = props => {
 	const handleMethodChange = e => {
@@ -32,7 +33,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna inventointialue! Alue piirretään ylläolevalle kartalle
+						{AREA_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
@@ -50,7 +51,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna inventoinnin ajankohta! Valitse ajankohta kalenterista tai kirjoita se kenttään
+						{DATE_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<div key="method" className="mb-3">
@@ -127,7 +128,7 @@ const InventoryForm = props => {
 							required
 						/>
 						<Form.Control.Feedback type="invalid">
-							Anna inventointimenetelmän tiedot!
+							{METHOD_ERROR}
 						</Form.Control.Feedback>
 					</FloatingLabel>
 				)}
@@ -148,7 +149,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						{'Kirjoita kuvaus (max 500 merkkiä)'}
+						{DESCRIPTION_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
@@ -168,7 +169,7 @@ const InventoryForm = props => {
 						/>
 					}
 					<Form.Control.Feedback type="invalid">
-						Nimen maksimipituus on 100 merkkiä!
+						{NAME_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
@@ -184,13 +185,13 @@ const InventoryForm = props => {
 							data-testid="email"
 							type="email"
 							onChange={e => props.setEmail(e.target.value)}
-							pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+							pattern={EMAIL_PATTERN}
 							maxLength="100"
 							required
 						/>
 					}
 					<Form.Control.Feedback type="invalid">
-						Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!
+						{EMAIL_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
@@ -210,11 +211,11 @@ const InventoryForm = props => {
 							data-testid="phone"
 							type="phone"
 							onChange={e => props.setPhone(e.target.value)}
-							pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
+							pattern={PHONE_PATTERN}
 						/>
 					}
 					<Form.Control.Feedback type="invalid">
-						Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
+						{PHONE_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				{!(localStorage.getItem('userDetails')) && (

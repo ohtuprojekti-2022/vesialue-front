@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
+import {EMAIL_ERROR, NAME_ERROR, PHONE_ERROR, USERNAME_ERROR, EMAIL_PATTERN, PHONE_PATTERN} from '../../utils/error_messages.js'
 
 const UserEditForm = props => {
 
@@ -22,20 +23,20 @@ const UserEditForm = props => {
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Anna kelvollinen käyttäjänimi! Pituus 3-32 merkkiä
+					{USERNAME_ERROR}
 				</Form.Control.Feedback>
 			</FloatingLabel>
-			<FloatingLabel controlId="name" className="mb-3" label="Nimi">
+			<FloatingLabel controlId="name" label="Etu- ja sukunimi" className="mb-3">
 				<Form.Control
 					data-testid="name"
 					type="text"
-					maxLength="100"
+					maxLength="60"
 					defaultValue={props.userDetails.user.name}
 					onChange={(e) => props.setName(e.target.value)}
 					disabled={!props.edit}
 				/>
 				<Form.Control.Feedback type="invalid">
-					Nimen maksimipituus on 100 merkkiä!
+					{NAME_ERROR}
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="email" className="mb-3" label="Sähköposti">
@@ -44,13 +45,12 @@ const UserEditForm = props => {
 					type="email"
 					defaultValue={props.userDetails.user.email}
 					onChange={(e) => props.setEmail(e.target.value)}
-					pattern="([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
-					maxLength="100"
+					pattern={EMAIL_PATTERN}
 					disabled={!props.edit}
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!
+					{EMAIL_ERROR}
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel controlId="phone" className="mb-3" label="Puhelinnumero">
@@ -59,11 +59,11 @@ const UserEditForm = props => {
 					type="text"
 					defaultValue={props.userDetails.user.phone}
 					onChange={(e) => props.setPhone(e.target.value)}
-					pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
+					pattern={PHONE_PATTERN}
 					disabled={!props.edit}
 				/>
 				<Form.Control.Feedback type="invalid">
-					Puhelinnumerossa voi olla vain plus-merkki, välilyöntejä ja 7-15 numeroa!
+					{PHONE_ERROR}
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			{props.edit && (
