@@ -20,16 +20,20 @@ import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import AdminDeleteModal from './AdminDeleteModal'
 import { selectDeletedInventoryByInventory } from '../../redux/reducers/deletedInventoryReducer'
 import DeleteRequestView from './DeleteRequestView'
+import { selectEditedInventoryByOriginalId } from '../../redux/reducers/editedInventoryReducer'
+import EditRequestView from './EditRequestView'
+import REACT_APP_BACKEND_URL from '../../utils/config'
 
 const InventoryReport = () => {
 	let { id } = useParams()
 	const [showAdminModal, setShowAdminModal] = useState(false)
-	const [report, areas, userDetails, deleteRequest] = useSelector(state => {
+	const [report, areas, userDetails, deleteRequest, editRequest] = useSelector(state => {
 		return [
 			selectInventoryById(state, id),
 			selectAreasByReportId(state, id),
 			state.userDetails,
 			selectDeletedInventoryByInventory(state, id),
+			selectEditedInventoryByOriginalId(state, id)
 		]
 	})
 	const navigate = useNavigate()
@@ -59,11 +63,17 @@ const InventoryReport = () => {
 								isAdmin={userDetails.user.admin > 0}
 							/>
 						)}
+						{userDetails &&
+							editRequest && (
+							<EditRequestView
+								editRequest={editRequest}
+								isAdmin={userDetails.user.admin > 0} />
+						)}
 						Raportti{' '}
 						{report.user &&
 							userDetails &&
 							userDetails.user.id === report.user.id && (
-							<Button onClick={() => navigate(`/report/${report.id}/edit`)}>
+							<Button onClick={() => navigate(`/raportti/${report.id}/muokkaa`)}>
 									Muokkaa
 							</Button>
 						)}{' '}
@@ -73,7 +83,7 @@ const InventoryReport = () => {
 							userDetails.user.admin < 1 && !deleteRequest && (
 							<Button
 								variant="danger"
-								onClick={() => navigate(`/report/${report.id}/delete`)}
+								onClick={() => navigate(`/raportti/${report.id}/poista`)}
 							>
 									Pyydä poistoa
 							</Button>
@@ -115,6 +125,26 @@ const InventoryReport = () => {
 							</ListGroup.Item>
 						)}
 					</ListGroup>
+					{(report.attachments && report.attachment_files.length > 0) && (
+						<ListGroup>
+							Liitteet
+							{report.attachment_files.map(file => (
+								<ListGroup.Item key={file.filename}>
+									{file.filename}
+									<Button
+										style={{ marginLeft: '1rem' }}
+										size="sm"
+										onClick={() => window.open(
+											`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`,
+											'_blank')
+										}
+									>
+										Lataa
+									</Button>
+								</ListGroup.Item>
+							))}
+						</ListGroup>
+					)}
 				</Card.Body>
 				<AdminDeleteModal
 					show={showAdminModal}

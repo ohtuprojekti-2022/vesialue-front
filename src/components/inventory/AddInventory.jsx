@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { addInventory } from '../../services/inventory-service'
+import { uploadAttachment } from '../../services/attachment-service'
 import InventoryForm from './InventoryForm'
 import Map from '../map/Map'
 import { useDispatch } from 'react-redux'
@@ -24,6 +25,7 @@ const AddInventory = () => {
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 	const [mapLayers, setMapLayers] = useState([])
+	const [attachmentFiles, setAttachmentFiles] = useState(null)
 	const navigate = useNavigate()
 	const [showMTI, setShowMTI] = useState(false)
 
@@ -65,6 +67,22 @@ const AddInventory = () => {
 					moreInfo
 				)
 
+				// attachment upload
+				if (attachments) {
+					const formData = new FormData()
+					for (let i = 0; i < attachmentFiles.length; i++) {
+						formData.append('file', attachmentFiles[i])
+					}
+					formData.append('inventory', inventory.id)
+					try {
+						const attachmentReferences = await uploadAttachment(formData)
+						// Update attachment file references to the new inventory
+						inventory.attachment_files = attachmentReferences
+					} catch(error) {
+						console.log(error)
+					}
+				}
+
 				dispatch(appendInventory(inventory))
 				dispatch(appendAreas(areas))
 
@@ -76,7 +94,7 @@ const AddInventory = () => {
 				setPhone('')
 				setMoreInfo('')
 				setValidated(false)
-				navigate(`/report/${inventory.id}`)
+				navigate(`/raportti/${inventory.id}`)
 			} catch (error) {
 				addAlert(error.toString())
 			}
@@ -108,6 +126,7 @@ const AddInventory = () => {
 				setName={setName}
 				setEmail={setEmail}
 				setPhone={setPhone}
+				setAttachmentFiles={setAttachmentFiles}
 			/>
 			<MaptoolinfoModal
 				show={showMTI}

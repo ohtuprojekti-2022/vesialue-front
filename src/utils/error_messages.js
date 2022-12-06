@@ -1,4 +1,5 @@
 export const AREA_ERROR = 'Anna inventointialue! Alue piirretään ylläolevalle kartalle.'
+export const ATTACHMENT_ERROR = 'Liitetiedosto vaaditaan!'
 export const DATE_ERROR = 'Anna inventoinnin ajankohta! Valitse ajankohta kalenterista tai kirjoita se kenttään.'
 export const DESCRIPTION_ERROR = 'Kirjoita kuvaus (enintään 500 merkkiä).'
 export const EMAIL_ERROR = 'Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com! Pituus enintään 60 merkkiä.'

@@ -4,11 +4,12 @@ import { useSelector } from 'react-redux'
 import { filteredInventories } from '../utils/tools'
 import InventoryList from './inventory/InventoryList'
 
+var filtered = false
+
 const PaginatedList = ({perPageNumber, columns}) => {
 	const [inventories] = useSelector(({ inventories, filter }) => {
 		return filteredInventories(inventories, filter)
 	})
-	inventories.reverse()
 
 	const [currentPage, setCurrentPage] = useState(1)
 	const [recordsPerPage] = useState(perPageNumber)
@@ -104,6 +105,9 @@ const PaginatedList = ({perPageNumber, columns}) => {
 		)
 	}
 
+	if (inventories.length !== 0) {
+		filtered = true}
+
 	return (
 		<Container>
 			{inventories.length !== 0 && (
@@ -123,8 +127,10 @@ const PaginatedList = ({perPageNumber, columns}) => {
 						setCurrentPage={setCurrentPage}
 					/>
 				</>
-			) || window.location.pathname === '/' &&
+			) || window.location.pathname === '/' && !filtered &&
 				<p> Haetaan raportteja... </p>
+				|| window.location.pathname === '/' && filtered &&
+				<p><b>Suodatusehdoilla ei löydy inventointeja!</b></p>
 			|| <p>Et ole vielä tehnyt inventointeja</p>
 			}
 		</Container>

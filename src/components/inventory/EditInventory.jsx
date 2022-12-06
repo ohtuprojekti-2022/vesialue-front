@@ -74,7 +74,7 @@ const EditInventory = () => {
 	}
 
 	if (!report.user || report.user.id !== userId)
-		<Navigate to={`/report/${report.id}`} />
+		<Navigate to={`/raportti/${report.id}`} />
 
 	const handleNext = () => {
 		// Making sure the edits are saved
@@ -106,7 +106,7 @@ const EditInventory = () => {
 
 			dispatch(updateEditedInventories(result))
 
-			navigate(`/report/${report.id}`)
+			navigate(`/raportti/${report.id}`)
 		} catch (error) {
 			addAlert(error.toString())
 		}

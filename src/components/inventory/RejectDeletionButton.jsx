@@ -16,7 +16,11 @@ const RejectDeletionButton = ({ id }) => {
 	}
 
 	return (
-		<Button variant="secondary" onClick={handleClick}>
+		<Button
+			variant="secondary"
+			onClick={handleClick}
+			style={{ marginLeft: '0.5rem', marginTop: '0.5rem' }}
+		>
 			Hylkää poistopyyntö
 		</Button>
 	)

@@ -12,6 +12,7 @@ import DeleteInventoryForm from './components/inventory/DeleteInventoryForm'
 import UserPage from './components/user/UserPage'
 import EditedReport from './components/inventory/EditedReport'
 import EditedReportList from './components/inventory/EditedReportList'
+import UploadTest from './components/UploadTest'
 import DeletedReportList from './components/inventory/DeletedReportList'
 import { useDispatch } from 'react-redux'
 import { initializeInventories } from './redux/reducers/inventoryReducer'
@@ -53,9 +54,9 @@ const App = () => {
 				<Route path="inventointi-ilmoitus" element={<AddInventory />} />
 				<Route path="rekisteroidy" element={<Registration />} />
 				<Route path="kirjaudu" element={<Login />} />
-				<Route path="report/:id" element={<InventoryReport />} />
-				<Route path="report/:id/edit" element={<EditInventory />} />
-				<Route path="report/:id/delete" element={<DeleteInventoryForm />} />
+				<Route path="raportti/:id" element={<InventoryReport />} />
+				<Route path="raportti/:id/muokkaa" element={<EditInventory />} />
+				<Route path="raportti/:id/poista" element={<DeleteInventoryForm />} />
 				<Route
 					path="omasivu"
 					element={userDetails ? <UserPage /> : <Navigate to="/kirjaudu" />}
@@ -68,6 +69,7 @@ const App = () => {
 					path="muokatut"
 					element={admin ? <EditedReportList /> : <Navigate to="/" />}
 				/>
+				<Route path="uploadtest" element={<UploadTest/>} />
 				<Route
 					path="poistetut"
 					element={admin ? <DeletedReportList /> : <Navigate to="/" />}

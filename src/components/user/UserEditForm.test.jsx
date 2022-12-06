@@ -136,4 +136,12 @@ describe('UserEditForm', () => {
 			)
 		).toBeVisible()
 	})
+
+	test('handleSubmit is called', async () => {
+		const user = userEvent.setup()
+		name.value = ''
+		await user.type(name, 'Testi')
+		await user.click(submitButton)
+		expect(mockHandleSubmit).toBeCalledTimes(1)
+	})
 })

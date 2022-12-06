@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
+import { autosizeTextarea } from '../../utils/tools'
 
 /*
 {
@@ -23,6 +24,12 @@ const EditInventoryForm = (props) => {
 			? props.setMethodInfo(props.methodInfo)
 			: props.setMethodInfo('')
 	}
+	const moreInfoRef = useRef(null)
+
+	useEffect(() => {
+		const moreInfoField = moreInfoRef.current
+		autosizeTextarea(moreInfoField)
+	}, [])
 
 	return (
 		<Form
@@ -143,11 +150,15 @@ const EditInventoryForm = (props) => {
 			</Form.Group>
 			<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
 				<Form.Control
+					ref={moreInfoRef}
 					data-testid="moreInfo"
-					type="text"
+					as="textarea"
 					maxLength="500"
 					defaultValue={props.moreInfo}
-					onChange={(e) => props.setMoreInfo(e.target.value)}
+					onChange={(e) => {
+						props.setMoreInfo(e.target.value)
+						autosizeTextarea(e.target)		
+					}}
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
@@ -161,10 +172,13 @@ const EditInventoryForm = (props) => {
 			>
 				<Form.Control
 					data-testid="editReason"
-					type="text"
+					as="textarea"
 					maxLength="500"
 					defaultValue={props.editReason}
-					onChange={(e) => props.setEditReason(e.target.value)}
+					onChange={(e) => {
+						props.setEditReason(e.target.value)
+						autosizeTextarea(e.target)
+					}}
 					required
 				/>
 				<Form.Control.Feedback type="invalid">

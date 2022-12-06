@@ -38,6 +38,10 @@ export const selectEditedInventoryById = (state, id) => {
 	return state.editedInventories.find((i) => i.id === id)
 }
 
+export const selectEditedInventoryByOriginalId = (state, original) => {
+	return state.editedInventories.find((i) => i.originalReport === original)
+}
+
 export const {
 	setEditedInventories,
 	appendEditedInventories,
