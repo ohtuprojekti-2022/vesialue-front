@@ -4,9 +4,9 @@ import { useEffect } from 'react'
 import { Alert, Button, Container, ListGroup, Modal } from 'react-bootstrap'
 import { Polygon } from 'react-leaflet'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
-import { appendEditedInventories } from '../../redux/reducers/editedInventoryReducer'
+import { updateEditedInventories } from '../../redux/reducers/editedInventoryReducer'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { requestEdit } from '../../services/inventory-service'
 import {
@@ -20,8 +20,12 @@ import EditInventoryForm from './EditInventoryForm'
 
 const EditInventory = () => {
 	let { id } = useParams()
-	const [report, areas] = useSelector((state) => {
-		return [selectInventoryById(state, id), selectAreasByReportId(state, id)]
+	const [report, areas, userId] = useSelector((state) => {
+		return [
+			selectInventoryById(state, id),
+			selectAreasByReportId(state, id),
+			state.userDetails.id,
+		]
 	})
 	const dispatch = useDispatch()
 	const center = getCenter(
@@ -69,6 +73,9 @@ const EditInventory = () => {
 		return <p>ladataan raporttia...</p>
 	}
 
+	if (!report.user || report.user.id !== userId)
+		<Navigate to={`/raportti/${report.id}`} />
+
 	const handleNext = () => {
 		// Making sure the edits are saved
 		const saveButton = document.querySelector('a[title="Save changes"]')
@@ -97,16 +104,16 @@ const EditInventory = () => {
 				report.id
 			)
 
-			dispatch(appendEditedInventories(result))
+			dispatch(updateEditedInventories(result))
 
-			navigate(`/report/${report.id}`)
+			navigate(`/raportti/${report.id}`)
 		} catch (error) {
 			addAlert(error.toString())
 		}
 	}
 
 	return (
-		<Container fluid="sm">
+		<Container fluid="sm" style={{ marginBottom: '1rem' }}>
 			<h2>Muokkaa raporttia</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			{page === 'map' && (
@@ -193,7 +200,7 @@ const EditInventory = () => {
 								Näkyvyys: {translateVisibility(visibility)}
 							</ListGroup.Item>
 						)}
-						<ListGroup.Item>Lisätietoja: {moreInfo}</ListGroup.Item>
+						<ListGroup.Item>Kuvaus: {moreInfo}</ListGroup.Item>
 					</ListGroup>
 					<br />
 					Muokkauksen syy: {editReason}

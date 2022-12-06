@@ -11,7 +11,7 @@ const InventoryListItem = ({ report, columns }) => {
 
 	const name = parseCreator(report)
 	return (
-		<tr onClick={() => navigate(`/report/${report.id}`)}>
+		<tr onClick={() => navigate(`/raportti/${report.id}`)}>
 			{columns.date && <td>{formatDate(report.inventorydate)}</td>}
 			{columns.method && <td>{translateMethod(report.method, report.methodInfo)}</td>}
 			{columns.creator && <td>{name}</td>}

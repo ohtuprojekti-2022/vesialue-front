@@ -14,8 +14,10 @@ describe('Registration Form', () => {
 	const mockSetName = jest.fn()
 	const mockSetPhone = jest.fn()
 	const mockValidated = true
+	const mockSetShowTOS = jest.fn()
+	const mockSetShowPP = jest.fn()
 
-	let form, username, email, password, name, phone, submitButton
+	let form, username, email, password, name, phone, submitButton, terms
 
 	beforeEach(() => {
 		render(
@@ -27,7 +29,9 @@ describe('Registration Form', () => {
 					setPassword={mockSetPassword}
 					setEmail={mockSetEmail}
 					setName={mockSetName}
-					setPhone={mockSetPhone} />
+					setPhone={mockSetPhone}
+					setShowTOS={mockSetShowTOS}
+					setShowPP={mockSetShowPP} />
 			</MemoryRouter>
 		)
 		form = screen.getByTestId('registration-form')
@@ -37,6 +41,7 @@ describe('Registration Form', () => {
 		name = screen.getByRole('textbox', {  name: /etu- ja sukunimi/i })
 		phone = screen.getByRole('textbox', {  name: /puhelinnumero/i })
 		submitButton = screen.getByRole('button', {  name: /rekisteröidy/i } )
+		terms = screen.getByTestId('terms-of-services')
 
 		mockHandleSubmit.mockImplementation(e => {
 			e.preventDefault()
@@ -124,7 +129,19 @@ describe('Registration Form', () => {
 
 	test('submit handler is called on submit', async () => {
 		const user = userEvent.setup()
+		await user.click(terms)
 		await user.click(submitButton)
+		expect(terms).toBeChecked()
+		expect(submitButton).not.toBeDisabled()
 		expect(mockHandleSubmit).toBeCalledTimes(1)
 	})
+
+	test('Terms of Service and Privacy Policy can be clicked', async () => {
+		const user = userEvent.setup()
+		const tos = screen.getByTestId('tos')
+		const pp = screen.getByTestId('pp')
+		await user.click(tos)
+		await user.click(pp)
+	})
+
 })

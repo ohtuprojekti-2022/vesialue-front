@@ -26,7 +26,9 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 				return { id: l._leaflet_id, latlngs: l.getLatLngs()[0] }
 			})
 		setMapLayers(() => [...layers])
+		//-----PART OF THE HACK-----vv
 		setAreas(existingAreas)
+		//--------------------------^^
 	}, [])
 
 	//-----PART OF THE HACK-----vv
@@ -58,7 +60,7 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 
 		Object.values(_layers).map(({ _leaflet_id, _latlngs, options }) => {
 			//-----PART OF THE HACK-----vv
-			setAreas((areas) =>
+			setAreas((areas) => areas &&
 				areas.map((a) =>
 					a.id === options.edit_id ? { ...a, coordinates: _latlngs[0] } : a
 				)
@@ -79,7 +81,7 @@ const DrawingTool = ({ setMapLayers, existingAreas }) => {
 
 		Object.values(_layers).map(({ _leaflet_id, options }) => {
 			//-----PART OF THE HACK-----vv
-			setAreas((areas) => areas.filter((a) => a.id !== options.edit_id))
+			setAreas((areas) => areas && areas.filter((a) => a.id !== options.edit_id))
 			//--------------------------^^
 			setMapLayers((layers) => layers.filter((l) => l.id !== _leaflet_id))
 		})

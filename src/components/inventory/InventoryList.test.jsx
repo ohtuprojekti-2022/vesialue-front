@@ -49,39 +49,32 @@ const inventory2 = {'id': '2',
 	'user': {'id':'u2', 'name': 'Mako'},
 	'city': 'Maarianhamina'
 }
-	
-const areas2 = [{'inventoryId': '2', 'id':'a2',
-	'coordinates': [{lat: 30.13918005, lng: 14.92832183},
-		{lat: 30.140376, lng: 14.984626770},
-		{lat: 30.172837, lng: 14.99938}]}]
-	
 
 describe('InventoryList no reports', () => {
-	let inventoryList
 
 	beforeEach(() => {
 		renderWithProviders(
 			<MemoryRouter>
-				<InventoryList />
+				<InventoryList data={[]}/>
 			</MemoryRouter>
-		)
-		inventoryList = screen.getByRole('table')
+		)	
 	})
 
-	test('Renders only the header row if the list is empty', () => {
-		expect(inventoryList).toBeDefined()
-		const rows = screen.getAllByRole('row')
-		expect(rows).toHaveLength(1)
-		expect(rows[0]).toHaveTextContent('Inventoinnin päivämäärä')
-		expect(rows[0]).toHaveTextContent('Tekijä')
-		expect(rows[0]).toHaveTextContent('Havainnon tyyppi')
-		expect(rows[0]).toHaveTextContent('Kaupunki')
+	test('Does not render table if the list is empty', () => {
+		expect(screen.getByText('Ei tuloksia')).not.toBeNull()
 	})
 
 })
 
 describe('InventoryList with reports', () => {
 	let inventoryList
+	
+	const areas2 = [{'inventoryId': '2', 'id':'a2',
+		'coordinates': [{lat: 30.13918005, lng: 14.92832183},
+			{lat: 30.140376, lng: 14.984626770},
+			{lat: 30.172837, lng: 14.99938}]}]
+
+	const inventories = [inventory1, inventory2]
 
 	beforeEach(() => {
 		store.dispatch(login(user1))
@@ -92,7 +85,7 @@ describe('InventoryList with reports', () => {
 		store.dispatch(appendAreas(areas2))
 		renderWithProviders(
 			<MemoryRouter>
-				<InventoryList />
+				<InventoryList data={inventories}/>
 			</MemoryRouter>
 		)
 		inventoryList = screen.getByRole('table')

@@ -36,8 +36,3 @@ export const selectAreasByReportId = (state, id) =>
 
 export const { setAreas, appendAreas, removeAreas } = areaSlice.actions
 export default areaSlice.reducer
-
-/**
-	const areas = allAreas.filter((a) =>
-		report ? a.inventoryId === report.id : false
-	) */

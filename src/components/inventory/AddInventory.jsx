@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { appendInventory } from '../../redux/reducers/inventoryReducer'
 import { appendAreas } from '../../redux/reducers/areaReducer'
 import { formatDate } from '../../utils/tools'
+import MaptoolinfoModal from '../MaptoolinfoModal'
 
 const AddInventory = () => {
 	const [name, setName] = useState('')
@@ -24,6 +25,7 @@ const AddInventory = () => {
 	const [alert, setAlert] = useState(null)
 	const [mapLayers, setMapLayers] = useState([])
 	const navigate = useNavigate()
+	const [showMTI, setShowMTI] = useState(false)
 
 	const addAlert = (text) => {
 		setAlert(text)
@@ -74,7 +76,7 @@ const AddInventory = () => {
 				setPhone('')
 				setMoreInfo('')
 				setValidated(false)
-				navigate(`/report/${inventory.id}`)
+				navigate(`/raportti/${inventory.id}`)
 			} catch (error) {
 				addAlert(error.toString())
 			}
@@ -83,7 +85,12 @@ const AddInventory = () => {
 
 	return (
 		<Container fluid="sm">
-			<h2>Lisää inventointi</h2>
+			<h2>Lisää inventointi 
+				<button style={{backgroundColor: 'Transparent', border: 'none', float: 'right', paddingRight: '25px'}} 
+					onClick={() => setShowMTI(true)}>
+					<img src="/info-logo.png" width='28' height='28'></img>
+				</button>
+			</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
 			<Map setMapLayers={setMapLayers} />
 			<InventoryForm
@@ -101,6 +108,10 @@ const AddInventory = () => {
 				setName={setName}
 				setEmail={setEmail}
 				setPhone={setPhone}
+			/>
+			<MaptoolinfoModal
+				show={showMTI}
+				close={() => setShowMTI(false)}
 			/>
 		</Container>
 	)
