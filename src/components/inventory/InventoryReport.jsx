@@ -115,16 +115,19 @@ const InventoryReport = () => {
 								Näkyvyys: {translateVisibility(report.visibility)}
 							</ListGroup.Item>
 						)}
-						<ListGroup.Item>Kuvaus: {
-							showMoreText
+						<ListGroup.Item>
+							Kuvaus:{' '}
+							{showMoreText
 								? report.moreInfo
 								: report.moreInfo.substring(0, 300)}
-						{report.moreInfo.length > 300 &&
-								<Nav.Link onClick={() => setShowMoreText(!showMoreText)}>
-									{showMoreText
-										? 'Näytä vähemmän'
-										: 'Näytä enemmän'}
-								</Nav.Link>}
+							{report.moreInfo.length > 300 && (
+								<Nav.Link
+									style={{ color: 'blue' }}
+									onClick={() => setShowMoreText(!showMoreText)}
+								>
+									{showMoreText ? 'Näytä vähemmän⯅' : 'Näytä enemmän⯆'}
+								</Nav.Link>
+							)}
 						</ListGroup.Item>
 						<ListGroup.Item>Tekijä: {parseCreator(report)}</ListGroup.Item>
 						{parseEmail(report) !== '' && (
