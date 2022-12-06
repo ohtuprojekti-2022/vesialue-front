@@ -105,18 +105,18 @@ const InventoryReport = () => {
 					</Map>
 					<ListGroup>
 						<ListGroup.Item>
-							Päivämäärä: {formatDate(report.inventorydate)}
+							<b>Päivämäärä:</b> {formatDate(report.inventorydate)}
 						</ListGroup.Item>
 						<ListGroup.Item>
-							Tapa: {translateMethod(report.method, report.methodInfo)}
+							<b>Tapa:</b> {translateMethod(report.method, report.methodInfo)}
 						</ListGroup.Item>
 						{(report.method === 'dive' || report.method === 'sight') && (
 							<ListGroup.Item>
-								Näkyvyys: {translateVisibility(report.visibility)}
+								<b>Näkyvyys:</b> {translateVisibility(report.visibility)}
 							</ListGroup.Item>
 						)}
 						<ListGroup.Item>
-							Kuvaus:{' '}
+							<b>Kuvaus:</b>{' '}
 							{showMoreText
 								? report.moreInfo
 								: report.moreInfo.substring(0, 300)}
@@ -129,19 +129,19 @@ const InventoryReport = () => {
 								</Nav.Link>
 							)}
 						</ListGroup.Item>
-						<ListGroup.Item>Tekijä: {parseCreator(report)}</ListGroup.Item>
+						<ListGroup.Item><b>Tekijä:</b> {parseCreator(report)}</ListGroup.Item>
 						{parseEmail(report) !== '' && (
-							<ListGroup.Item>Sähköposti: {parseEmail(report)}</ListGroup.Item>
+							<ListGroup.Item><b>Sähköposti:</b> {parseEmail(report)}</ListGroup.Item>
 						)}
 						{parsePhone(report) !== '' && (
 							<ListGroup.Item>
-								Puhelinnumero: {parsePhone(report)}
+								<b>Puhelinnumero:</b> {parsePhone(report)}
 							</ListGroup.Item>
 						)}
 					</ListGroup>
 					{(report.attachments && report.attachment_files.length > 0) && (
 						<ListGroup>
-							Liitteet
+							<b>Liitteet:</b>
 							{report.attachment_files.map(file => (
 								<ListGroup.Item key={file.filename}>
 									{file.filename}
