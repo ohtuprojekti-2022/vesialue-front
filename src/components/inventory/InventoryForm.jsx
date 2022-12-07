@@ -247,7 +247,7 @@ const InventoryForm = props => {
 							/>
 							<span style={{ paddingLeft: '10px' }}>
 								Hyväksyn <span style={{ cursor: 'pointer' }}>
-									<a className="text-primary" data-testid="tos" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" data-testid="pp" onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
+									<a className="text-primary" data-testid="tos" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" data-testid="pp" href="https://www.mas.fi/fi/tietosuojaseloste" target="_blank" rel="noopener noreferrer">tietosuojaselosteen</a></span>.
 							</span>
 						</Form.Group>
 						<Button variant="primary"
