@@ -14,7 +14,7 @@ import {
 	translateVisibility,
 } from '../../utils/tools'
 import { useSelector } from 'react-redux'
-import { Button } from 'react-bootstrap'
+import { Button, Nav } from 'react-bootstrap'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import AdminDeleteModal from './AdminDeleteModal'
@@ -26,6 +26,7 @@ import REACT_APP_BACKEND_URL from '../../utils/config'
 
 const InventoryReport = () => {
 	let { id } = useParams()
+	const [showMoreText, setShowMoreText] = useState(false)
 	const [showAdminModal, setShowAdminModal] = useState(false)
 	const [report, areas, userDetails, deleteRequest, editRequest] = useSelector(state => {
 		return [
@@ -104,30 +105,43 @@ const InventoryReport = () => {
 					</Map>
 					<ListGroup>
 						<ListGroup.Item>
-							Päivämäärä: {formatDate(report.inventorydate)}
+							<b>Päivämäärä:</b> {formatDate(report.inventorydate)}
 						</ListGroup.Item>
 						<ListGroup.Item>
-							Tapa: {translateMethod(report.method, report.methodInfo)}
+							<b>Tapa:</b> {translateMethod(report.method, report.methodInfo)}
 						</ListGroup.Item>
 						{(report.method === 'dive' || report.method === 'sight') && (
 							<ListGroup.Item>
-								Näkyvyys: {translateVisibility(report.visibility)}
+								<b>Näkyvyys:</b> {translateVisibility(report.visibility)}
 							</ListGroup.Item>
 						)}
-						<ListGroup.Item>Kuvaus: {report.moreInfo}</ListGroup.Item>
-						<ListGroup.Item>Tekijä: {parseCreator(report)}</ListGroup.Item>
+						<ListGroup.Item>
+							<b>Kuvaus:</b>{' '}
+							{showMoreText
+								? report.moreInfo
+								: report.moreInfo.substring(0, 300)}
+							{report.moreInfo.length > 300 && (
+								<Nav.Link
+									style={{ color: 'blue' }}
+									onClick={() => setShowMoreText(!showMoreText)}
+								>
+									{showMoreText ? 'Näytä vähemmän⯅' : 'Näytä enemmän⯆'}
+								</Nav.Link>
+							)}
+						</ListGroup.Item>
+						<ListGroup.Item><b>Tekijä:</b> {parseCreator(report)}</ListGroup.Item>
 						{parseEmail(report) !== '' && (
-							<ListGroup.Item>Sähköposti: {parseEmail(report)}</ListGroup.Item>
+							<ListGroup.Item><b>Sähköposti:</b> {parseEmail(report)}</ListGroup.Item>
 						)}
 						{parsePhone(report) !== '' && (
 							<ListGroup.Item>
-								Puhelinnumero: {parsePhone(report)}
+								<b>Puhelinnumero:</b> {parsePhone(report)}
 							</ListGroup.Item>
 						)}
 					</ListGroup>
 					{(report.attachments && report.attachment_files.length > 0) && (
 						<ListGroup>
-							Liitteet
+							<b>Liitteet:</b>
 							{report.attachment_files.map(file => (
 								<ListGroup.Item key={file.filename}>
 									{file.filename}

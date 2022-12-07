@@ -70,10 +70,10 @@ describe('InventoryReport', () => {
 	})
 
 	test('Report includes the given data (inventorydate, method, visibility, and moreInfo)', () => {
-		expect(screen.getByText('Päivämäärä: 11.12.2002')).toBeVisible()
-		expect(screen.getByText('Tapa: Näköhavainto')).toBeVisible()
-		expect(screen.getByText('Näkyvyys: hyvä (yli 5m)')).toBeVisible()
-		expect(screen.getByText('Kuvaus: ei')).toBeVisible()
+		expect(screen.getByText('11.12.2002')).toBeVisible()
+		expect(screen.getByText('Näköhavainto')).toBeVisible()
+		expect(screen.getByText('hyvä (yli 5m)')).toBeVisible()
+		expect(screen.getByText('ei')).toBeVisible()
 	})
 
 	test('Renders the modify button when the user has made the report', () => {
@@ -100,10 +100,10 @@ describe('InventoryReport2', () => {
 	})
 
 	test('Open a different report', () => {
-		expect(screen.getByText('Päivämäärä: 10.02.2022')).toBeVisible()
-		expect(screen.getByText('Tapa: Viistokaiutus')).toBeVisible()
-		expect(screen.getByText('Kuvaus: tähän pidempi teksti')).toBeVisible()
-		expect(screen.queryByText('Näkyvyys: hyvä (yli 5m)')).not.toBeInTheDocument()
+		expect(screen.getByText('10.02.2022')).toBeVisible()
+		expect(screen.getByText('Viistokaiutus')).toBeVisible()
+		expect(screen.getByText('tähän pidempi teksti')).toBeVisible()
+		expect(screen.queryByText('hyvä (yli 5m)')).not.toBeInTheDocument()
 	})
 
 	test('Does not render the modify button when report is not users', () => {

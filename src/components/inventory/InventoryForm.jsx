@@ -154,11 +154,12 @@ const InventoryForm = props => {
 						</>
 					)}
 				</Form.Group>
-				<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
+				<FloatingLabel style={{paddingTop: '2rem'}} controlId="moreInfo" label="Kuvaus" className="mb-3">
 					<Form.Control
 						data-testid="moreInfo"
 						as="textarea"
-						maxLength="500"
+						maxLength="5000"
+						style={{maxHeight: '12rem'}}
 						onChange={e => {
 							props.setMoreInfo(e.target.value)
 							autosizeTextarea(e.target)
