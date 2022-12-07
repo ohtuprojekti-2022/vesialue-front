@@ -14,23 +14,24 @@ export const addInventory = async (
 	phone,
 	moreInfo
 ) => {
-	try {const request = await axios.post(
-		`${REACT_APP_BACKEND_URL}/api/inventory`,
-		{
-			areas,
-			inventorydate,
-			method,
-			visibility,
-			methodInfo,
-			attachments,
-			name,
-			email,
-			phone,
-			moreInfo,
-		},
-		headers()
-	)
-	return request.data
+	try {
+		const request = await axios.post(
+			`${REACT_APP_BACKEND_URL}/api/inventory`,
+			{
+				areas,
+				inventorydate,
+				method,
+				visibility,
+				methodInfo,
+				attachments,
+				name,
+				email,
+				phone,
+				moreInfo,
+			},
+			headers()
+		)
+		return request.data
 	} catch (error) {
 		return null
 	}
@@ -89,22 +90,23 @@ export const requestEdit = async (
 	editReason,
 	originalReport
 ) => {
-	try {const request = await axios.post(
-		`${REACT_APP_BACKEND_URL}/api/inventory/edit`,
-		{
-			areas,
-			inventorydate,
-			method,
-			methodInfo,
-			visibility,
-			attachments,
-			moreInfo,
-			editReason,
-			originalReport,
-		},
-		headers()
-	)
-	return request.data
+	try {
+		const request = await axios.post(
+			`${REACT_APP_BACKEND_URL}/api/inventory/edit`,
+			{
+				areas,
+				inventorydate,
+				method,
+				methodInfo,
+				visibility,
+				attachments,
+				moreInfo,
+				editReason,
+				originalReport,
+			},
+			headers()
+		)
+		return request.data
 	} catch (error) {
 		return null
 	}
@@ -162,15 +164,15 @@ export const requestDelete = async (
 	inventory
 ) => {
 	try {
-	const request = await axios.post(
-		`${REACT_APP_BACKEND_URL}/api/inventory/delete`,
-		{
-			reason,
-			inventory
-		},
-		headers()
-	)
-	return request.data
+		const request = await axios.post(
+			`${REACT_APP_BACKEND_URL}/api/inventory/delete`,
+			{
+				reason,
+				inventory
+			},
+			headers()
+		)
+		return request.data
 	} catch (error) {
 		return null
 	}
