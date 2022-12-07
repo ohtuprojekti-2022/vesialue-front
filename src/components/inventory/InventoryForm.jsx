@@ -3,7 +3,7 @@ import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import TermsofserviceModal from '../TermsofserviceModal'
 import PrivacyPolicyModal from '../PrivacyPolicyModal'
 import { autosizeTextarea } from '../../utils/tools'
-import {AREA_ERROR, ATTACHMENT_ERROR, DATE_ERROR, DESCRIPTION_ERROR, EMAIL_ERROR, METHOD_ERROR, NAME_ERROR, PHONE_ERROR} from '../../utils/error_messages.js'
+import { AREA_ERROR, ATTACHMENT_ERROR, DATE_ERROR, DESCRIPTION_ERROR, EMAIL_ERROR, METHOD_ERROR, NAME_ERROR, PHONE_ERROR } from '../../utils/error_messages.js'
 
 const InventoryForm = props => {
 	const handleMethodChange = e => {
@@ -146,7 +146,24 @@ const InventoryForm = props => {
 								type="file" multiple
 								required
 								data-testid="attachment"
-								onChange={event => props.setAttachmentFiles(event.target.files)}
+								onChange={event => {
+									// Check if there are more than 5 attachments
+									if (event.target.files.length > 5) {
+										event.target.value = null
+										props.setAttachmentFiles(null)
+										alert('Raporttiin voi lisätä enintään viisi liitetiedostoa!')
+									}
+									// Go through the attachment files. Discard attachment if over 64 MB
+									for (let i = 0; i < event.target.files.length; i++) {
+										if (event.target.files[i].size > 67108864) {
+											event.target.value = null
+											props.setAttachmentFiles(null)
+											alert('Liitetiedoston maksimikoko on 64 megatavua!')
+										}
+									}
+									props.setAttachmentFiles(event.target.files)
+								}
+								}
 							/>
 							<Form.Control.Feedback type="invalid">
 								{ATTACHMENT_ERROR}
@@ -154,12 +171,12 @@ const InventoryForm = props => {
 						</>
 					)}
 				</Form.Group>
-				<FloatingLabel style={{paddingTop: '2rem'}} controlId="moreInfo" label="Kuvaus" className="mb-3">
+				<FloatingLabel style={{ paddingTop: '2rem' }} controlId="moreInfo" label="Kuvaus" className="mb-3">
 					<Form.Control
 						data-testid="moreInfo"
 						as="textarea"
 						maxLength="5000"
-						style={{maxHeight: '12rem'}}
+						style={{ maxHeight: '12rem' }}
 						onChange={e => {
 							props.setMoreInfo(e.target.value)
 							autosizeTextarea(e.target)
