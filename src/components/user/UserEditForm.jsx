@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
-import {EMAIL_ERROR, NAME_ERROR, PHONE_ERROR, USERNAME_ERROR, EMAIL_PATTERN, PHONE_PATTERN} from '../../utils/error_messages.js'
+import {EMAIL_ERROR, NAME_ERROR, PHONE_ERROR, USERNAME_ERROR} from '../../utils/error_messages.js'
 
 const UserEditForm = props => {
 
@@ -45,7 +45,7 @@ const UserEditForm = props => {
 					type="email"
 					defaultValue={props.userDetails.user.email}
 					onChange={(e) => props.setEmail(e.target.value)}
-					pattern={EMAIL_PATTERN}
+					pattern="([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
 					disabled={!props.edit}
 					required
 				/>
@@ -59,7 +59,7 @@ const UserEditForm = props => {
 					type="text"
 					defaultValue={props.userDetails.user.phone}
 					onChange={(e) => props.setPhone(e.target.value)}
-					pattern={PHONE_PATTERN}
+					pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 					disabled={!props.edit}
 				/>
 				<Form.Control.Feedback type="invalid">

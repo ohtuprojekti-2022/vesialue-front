@@ -8,6 +8,3 @@ export const NAME_ERROR = 'Nimen enimmäispituus on 60 merkkiä!'
 export const PASSWORD_ERROR = 'Anna kelvollinen salasana! Pituus 10-100 merkkiä.'
 export const PHONE_ERROR = 'Puhelinnumerossa voi olla vain plus-merkki, välilyöntejä ja 7-15 numeroa!'
 export const USERNAME_ERROR = 'Anna kelvollinen käyttäjänimi! Pituus 3-32 merkkiä.'
-
-export const EMAIL_PATTERN = /([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+/
-export const PHONE_PATTERN = /^\+?(?:[0-9][ |-]?){6,14}[0-9]$/

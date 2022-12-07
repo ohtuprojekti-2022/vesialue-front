@@ -17,7 +17,6 @@ const LoginForm = ({ validated, handleSubmit, setUsername, setPassword }) => {
 			>
 				<Form.Control
 					type="text"
-					placeholder="Käyttäjätunnus tai sähköposti"
 					onChange={e => setUsername(e.target.value)}
 					required
 					data-testid="user-name"
@@ -29,7 +28,6 @@ const LoginForm = ({ validated, handleSubmit, setUsername, setPassword }) => {
 			<FloatingLabel controlId="password" label="Salasana" className="mb-3">
 				<Form.Control
 					type="password"
-					placeholder="Salasana"
 					onChange={e => setPassword(e.target.value)}
 					required
 					data-testid="pass-word"

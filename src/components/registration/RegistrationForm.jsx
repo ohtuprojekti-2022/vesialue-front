@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import TermsofserviceModal from '../TermsofserviceModal'
 import PrivacyPolicyModal from '../PrivacyPolicyModal'
-import {EMAIL_ERROR, NAME_ERROR, PASSWORD_ERROR, PHONE_ERROR, USERNAME_ERROR, EMAIL_PATTERN, PHONE_PATTERN} from '../../utils/error_messages.js'
+import {EMAIL_ERROR, NAME_ERROR, PASSWORD_ERROR, PHONE_ERROR, USERNAME_ERROR} from '../../utils/error_messages.js'
 
 const RegistrationForm = ({
 	validated,
@@ -26,7 +26,6 @@ const RegistrationForm = ({
 						type="text"
 						minLength="3"
 						maxLength="32"
-						placeholder="Käyttäjänimi"
 						onChange={(e) => setUsername(e.target.value)}
 						required
 					/>
@@ -37,9 +36,8 @@ const RegistrationForm = ({
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
 					<Form.Control
 						type="email"
-						placeholder="Sähköposti"
 						onChange={(e) => setEmail(e.target.value)}
-						pattern={EMAIL_PATTERN}
+						pattern="([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
 						maxLength="100"
 						required
 					/>
@@ -51,7 +49,6 @@ const RegistrationForm = ({
 					<Form.Control
 						type="password"
 						minLength="10"
-						placeholder="Salasana"
 						onChange={(e) => setPassword(e.target.value)}
 						required
 					/>
@@ -73,9 +70,8 @@ const RegistrationForm = ({
 				<FloatingLabel controlId="phone" label="Puhelinnumero" className="mb-3">
 					<Form.Control
 						type="phone"
-						placeholder="Puhelinnumero"
 						onChange={(e) => setPhone(e.target.value)}
-						pattern={PHONE_PATTERN}
+						pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 					/>
 					<Form.Control.Feedback type="invalid">
 						{PHONE_ERROR}

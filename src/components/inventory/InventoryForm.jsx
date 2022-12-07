@@ -3,7 +3,7 @@ import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import TermsofserviceModal from '../TermsofserviceModal'
 import PrivacyPolicyModal from '../PrivacyPolicyModal'
 import { autosizeTextarea } from '../../utils/tools'
-import {AREA_ERROR, DATE_ERROR, DESCRIPTION_ERROR, EMAIL_ERROR, METHOD_ERROR, NAME_ERROR, PHONE_ERROR, EMAIL_PATTERN, PHONE_PATTERN} from '../../utils/error_messages.js'
+import {AREA_ERROR, ATTACHMENT_ERROR, DATE_ERROR, DESCRIPTION_ERROR, EMAIL_ERROR, METHOD_ERROR, NAME_ERROR, PHONE_ERROR} from '../../utils/error_messages.js'
 
 const InventoryForm = props => {
 	const handleMethodChange = e => {
@@ -158,7 +158,6 @@ const InventoryForm = props => {
 					<Form.Control
 						data-testid="moreInfo"
 						as="textarea"
-						placeholder="Kuvaus"
 						maxLength="500"
 						onChange={e => {
 							props.setMoreInfo(e.target.value)
@@ -182,7 +181,6 @@ const InventoryForm = props => {
 						<Form.Control
 							data-testid="name"
 							type="text"
-							placeholder="Nimi"
 							maxLength="100"
 							onChange={e => props.setName(e.target.value)}
 						/>
@@ -203,9 +201,8 @@ const InventoryForm = props => {
 						<Form.Control
 							data-testid="email"
 							type="email"
-							placeholder="Sähköposti"
 							onChange={e => props.setEmail(e.target.value)}
-							pattern={EMAIL_PATTERN}
+							pattern="([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
 							maxLength="100"
 							required
 						/>
@@ -230,9 +227,8 @@ const InventoryForm = props => {
 						<Form.Control
 							data-testid="phone"
 							type="phone"
-							placeholder="Puhelinnumero"
 							onChange={e => props.setPhone(e.target.value)}
-							pattern={PHONE_PATTERN}
+							pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 						/>
 					}
 					<Form.Control.Feedback type="invalid">
