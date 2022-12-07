@@ -99,10 +99,10 @@ describe('Registration Form', () => {
 		expect(phone).toBeValid()
 	})
 
-	test('name cant be longer than 100', async () => {
+	test('name cant be longer than 60 characters', async () => {
 		const user = userEvent.setup()
-		await user.type(name, 'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg213455645764564555555555645645645643')
-		expect(name).toHaveValue('abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg21345564576456455555555')
+		await user.type(name, 'aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffffgggggggggg')
+		expect(name).toHaveValue('aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffff')
 
 		await user.clear(name)
 		await user.type(name, 'Urpo Urveloinen')
