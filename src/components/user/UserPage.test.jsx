@@ -73,7 +73,7 @@ describe('UserPage', () => {
 		const button2 = screen.getByText('Muokkaa')
 		await user.click(button2)
 		expect(screen.getByLabelText('Käyttäjänimi')).not.toBeDisabled()
-		expect(screen.getByLabelText('Nimi')).not.toBeDisabled()
+		expect(screen.getByLabelText('Etu- ja sukunimi')).not.toBeDisabled()
 		expect(screen.getByLabelText('Sähköposti')).not.toBeDisabled()
 		expect(screen.getByLabelText('Puhelinnumero')).not.toBeDisabled()
 	})

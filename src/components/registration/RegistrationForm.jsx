@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import TermsofserviceModal from '../TermsofserviceModal'
 import PrivacyPolicyModal from '../PrivacyPolicyModal'
+import {EMAIL_ERROR, NAME_ERROR, PASSWORD_ERROR, PHONE_ERROR, USERNAME_ERROR} from '../../utils/error_messages.js'
 
 const RegistrationForm = ({
 	validated,
@@ -25,59 +26,55 @@ const RegistrationForm = ({
 						type="text"
 						minLength="3"
 						maxLength="32"
-						placeholder="Käyttäjänimi"
 						onChange={(e) => setUsername(e.target.value)}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna kelvollinen käyttäjänimi! Pituus 3-32 merkkiä
+						{USERNAME_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
 					<Form.Control
 						type="email"
-						placeholder="Sähköposti"
 						onChange={(e) => setEmail(e.target.value)}
-						pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+						pattern="([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
 						maxLength="100"
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!
+						{EMAIL_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="password" label="Salasana" className="mb-3">
 					<Form.Control
 						type="password"
 						minLength="10"
-						placeholder="Salasana"
 						onChange={(e) => setPassword(e.target.value)}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna kelvollinen salasana! Pituus 10-100 merkkiä
+						{PASSWORD_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Etu- ja sukunimi" className="mb-3">
 					<Form.Control
+						data-testid="name"
 						type="text"
-						maxLength="100"
-						placeholder="Etu- ja sukunimi"
+						maxLength="60"
 						onChange={(e) => setName(e.target.value)}
 					/>
 					<Form.Control.Feedback type="invalid">
-						Nimen maksimipituus on 100 merkkiä!
+						{NAME_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="phone" label="Puhelinnumero" className="mb-3">
 					<Form.Control
 						type="phone"
-						placeholder="Puhelinnumero"
 						onChange={(e) => setPhone(e.target.value)}
 						pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 					/>
 					<Form.Control.Feedback type="invalid">
-					Puhelinnumerossa voi olla vain plus-merkki, välilyöntejä ja 7-15 numeroa!
+						{PHONE_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<Form.Group controlId="terms-of-services" className="mb-3" style={{display: 'inline-flex'}}>
