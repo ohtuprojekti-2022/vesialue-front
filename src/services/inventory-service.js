@@ -14,7 +14,7 @@ export const addInventory = async (
 	phone,
 	moreInfo
 ) => {
-	const request = await axios.post(
+	try {const request = await axios.post(
 		`${REACT_APP_BACKEND_URL}/api/inventory`,
 		{
 			areas,
@@ -31,6 +31,9 @@ export const addInventory = async (
 		headers()
 	)
 	return request.data
+	} catch (error) {
+		return null
+	}
 }
 
 export const getInventory = async id => {
@@ -42,10 +45,14 @@ export const getInventory = async id => {
 }
 
 export const getAllAreas = async () => {
-	const request = await axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/areas`
-	)
-	return request.data
+	try {
+		const request = await axios.get(
+			`${REACT_APP_BACKEND_URL}/api/inventory/areas`
+		)
+		return request.data
+	} catch (error) {
+		return [[], []]
+	}
 }
 
 export const getAllInventories = () => {
@@ -61,10 +68,14 @@ export const getAllInventories = () => {
 }
 
 export const getInventoryById = async inventoryId => {
-	const request = await axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/${inventoryId}`
-	)
-	return request.data
+	try {
+		const request = await axios.get(
+			`${REACT_APP_BACKEND_URL}/api/inventory/${inventoryId}`
+		)
+		return request.data
+	} catch (error) {
+		return null
+	}
 }
 
 export const requestEdit = async (
@@ -78,7 +89,7 @@ export const requestEdit = async (
 	editReason,
 	originalReport
 ) => {
-	const request = await axios.post(
+	try {const request = await axios.post(
 		`${REACT_APP_BACKEND_URL}/api/inventory/edit`,
 		{
 			areas,
@@ -94,6 +105,9 @@ export const requestEdit = async (
 		headers()
 	)
 	return request.data
+	} catch (error) {
+		return null
+	}
 }
 
 export const getAllEditedInventories = async () => {
@@ -112,10 +126,14 @@ export const getAllEditedInventories = async () => {
 }
 
 export const getEditedInventoryById = async inventoryId => {
-	const request = await axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/edit/${inventoryId}`
-	)
-	return request.then(response => response.data)
+	try {
+		const request = await axios.get(
+			`${REACT_APP_BACKEND_URL}/api/inventory/edit/${inventoryId}`
+		)
+		return request.then(response => response.data)
+	} catch (error) {
+		return null
+	}
 }
 
 export const rejectEditById = async id => {
@@ -127,18 +145,23 @@ export const rejectEditById = async id => {
 }
 
 export const approveEditById = async id => {
-	const request = await axios.put(
-		`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
-		{},
-		headers()
-	)
-	return request.data
+	try {
+		const request = await axios.put(
+			`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
+			{},
+			headers()
+		)
+		return request.data
+	} catch (error) {
+		return null
+	}
 }
 
 export const requestDelete = async (
 	reason,
 	inventory
 ) => {
+	try {
 	const request = await axios.post(
 		`${REACT_APP_BACKEND_URL}/api/inventory/delete`,
 		{
@@ -148,6 +171,9 @@ export const requestDelete = async (
 		headers()
 	)
 	return request.data
+	} catch (error) {
+		return null
+	}
 }
 
 export const getAllDeletedInventories = () => {
@@ -166,10 +192,14 @@ export const getAllDeletedInventories = () => {
 }
 
 export const getDeletedInventoryById = async inventoryId => {
-	const request = await axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/delete/${inventoryId}`
-	)
-	return request.then(response => response.data)
+	try {
+		const request = await axios.get(
+			`${REACT_APP_BACKEND_URL}/api/inventory/delete/${inventoryId}`
+		)
+		return request.then(response => response.data)
+	} catch (error) {
+		return null
+	}
 }
 
 export const deleteInventoryById = async id => {
@@ -194,6 +224,14 @@ export default {
 	getAllAreas,
 	getAllInventories,
 	getInventoryById,
+	requestEdit,
+	getAllEditedInventories,
+	getEditedInventoryById,
 	rejectEditById,
+	approveEditById,
+	requestDelete,
+	getAllDeletedInventories,
+	getDeletedInventoryById,
+	deleteInventoryById,
 	rejectDeletionById
 }
