@@ -12,7 +12,6 @@ import DeleteInventoryForm from './components/inventory/DeleteInventoryForm'
 import UserPage from './components/user/UserPage'
 import EditedReport from './components/inventory/EditedReport'
 import EditedReportList from './components/inventory/EditedReportList'
-import UploadTest from './components/UploadTest'
 import DeletedReportList from './components/inventory/DeletedReportList'
 import { useDispatch } from 'react-redux'
 import { initializeInventories } from './redux/reducers/inventoryReducer'
@@ -69,7 +68,6 @@ const App = () => {
 					path="muokatut"
 					element={admin ? <EditedReportList /> : <Navigate to="/" />}
 				/>
-				<Route path="uploadtest" element={<UploadTest/>} />
 				<Route
 					path="poistetut"
 					element={admin ? <DeletedReportList /> : <Navigate to="/" />}
