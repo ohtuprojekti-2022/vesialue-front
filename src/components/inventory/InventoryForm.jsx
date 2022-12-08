@@ -142,6 +142,11 @@ const InventoryForm = props => {
 					/>
 					{props.attachments && (
 						<>
+							<Form.Text>
+								Voit lisätä max. 5 liitetiedostoa. Liitetiedostojen maksimikoko on 64 megatavua.
+								Liitetiedostot ovat tarkoitettu viistokaiutusdatalle ja valokuville.<br />
+								Jos sinulla on isoja liitetiedostoja ja enemmän aineistoa sukelluksesta, kerro siitä raportissasi!
+							</Form.Text>
 							<Form.Control
 								type="file" multiple
 								required
