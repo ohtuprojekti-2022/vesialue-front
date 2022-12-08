@@ -14,7 +14,7 @@ import {
 	translateVisibility,
 } from '../../utils/tools'
 import { useSelector } from 'react-redux'
-import { Button, Nav } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import AdminDeleteModal from './AdminDeleteModal'
@@ -23,10 +23,10 @@ import DeleteRequestView from './DeleteRequestView'
 import { selectEditedInventoryByOriginalId } from '../../redux/reducers/editedInventoryReducer'
 import EditRequestView from './EditRequestView'
 import REACT_APP_BACKEND_URL from '../../utils/config'
+import { RenderLongText } from '../RenderLongText'
 
 const InventoryReport = () => {
 	let { id } = useParams()
-	const [showMoreText, setShowMoreText] = useState(false)
 	const [showAdminModal, setShowAdminModal] = useState(false)
 	const [report, areas, userDetails, deleteRequest, editRequest] = useSelector(state => {
 		return [
@@ -117,17 +117,7 @@ const InventoryReport = () => {
 						)}
 						<ListGroup.Item>
 							<b>Kuvaus:</b>{' '}
-							{showMoreText
-								? report.moreInfo
-								: report.moreInfo.substring(0, 300)}
-							{report.moreInfo.length > 300 && (
-								<Nav.Link
-									style={{ color: 'blue' }}
-									onClick={() => setShowMoreText(!showMoreText)}
-								>
-									{showMoreText ? 'Näytä vähemmän⯅' : 'Näytä enemmän⯆'}
-								</Nav.Link>
-							)}
+							<RenderLongText text={report.moreInfo} maxLength={300} />
 						</ListGroup.Item>
 						<ListGroup.Item><b>Tekijä:</b> {parseCreator(report)}</ListGroup.Item>
 						{parseEmail(report) !== '' && (
