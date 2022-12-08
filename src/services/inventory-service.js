@@ -38,11 +38,12 @@ export const addInventory = async (
 }
 
 export const getInventory = async id => {
-	try {const request = axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
-		headers()
-	)
-	return request.then(response => response.data)
+	try {
+		const request = axios.get(
+			`${REACT_APP_BACKEND_URL}/api/inventory/${id}`,
+			headers()
+		)
+		return request.then(response => response.data)
 	} catch (error) {
 		return null
 	}
@@ -118,16 +119,17 @@ export const requestEdit = async (
 export const getAllEditedInventories = async () => {
 	const auth = headers()
 	if (!auth.headers || !auth.headers.Authorization) return []
-	try {const request = axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/edit`,
-		auth
-	)
-	return request
-		.then(response => response.data)
-		.catch(error => {
-			console.log(error)
-			return []
-		})
+	try {
+		const request = axios.get(
+			`${REACT_APP_BACKEND_URL}/api/inventory/edit`,
+			auth
+		)
+		return request
+			.then(response => response.data)
+			.catch(error => {
+				console.log(error)
+				return []
+			})
 	} catch (error) {
 		return []
 	}
@@ -186,17 +188,18 @@ export const requestDelete = async (
 
 export const getAllDeletedInventories = () => {
 	const auth = headers()
-	try {if (!auth.headers || !auth.headers.Authorization) return []
-	const request = axios.get(
-		`${REACT_APP_BACKEND_URL}/api/inventory/delete`,
-		auth
-	)
-	return request
-		.then(response => response.data)
-		.catch(error => {
-			console.log(error)
-			return []
-		})
+	try {
+		if (!auth.headers || !auth.headers.Authorization) return []
+		const request = axios.get(
+			`${REACT_APP_BACKEND_URL}/api/inventory/delete`,
+			auth
+		)
+		return request
+			.then(response => response.data)
+			.catch(error => {
+				console.log(error)
+				return []
+			})
 	} catch (error) {
 		return []
 	}
