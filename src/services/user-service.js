@@ -9,7 +9,7 @@ export const registerNewUser = async (
 	phone,
 	name
 ) => {
-	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/register`, {
+	try {const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/register`, {
 		username,
 		password,
 		email,
@@ -17,18 +17,24 @@ export const registerNewUser = async (
 		name,
 	})
 	return request.data
+	} catch (error) {
+		return null
+	}
 }
 
 export const loginRequest = async (username, password) => {
-	const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/login`, {
+	try {const request = await axios.post(`${REACT_APP_BACKEND_URL}/api/login`, {
 		username,
 		password,
 	})
 	return request.data
+	} catch (error) {
+		return null
+	}
 }
 
 export const setAdmin = async (username, admin_value) => {
-	const request = await axios.post(
+	try {const request = await axios.post(
 		`${REACT_APP_BACKEND_URL}/api/user/admin`,
 		{
 			username,
@@ -37,10 +43,13 @@ export const setAdmin = async (username, admin_value) => {
 		headers()
 	)
 	return request.data
+	} catch (error) {
+		return null
+	}
 }
 
 export const userEditRequest = async (name, email, phone, username) => {
-	const request = await axios.put(
+	try {const request = await axios.put(
 		`${REACT_APP_BACKEND_URL}/api/user/edit`,
 		{
 			name,
@@ -51,10 +60,13 @@ export const userEditRequest = async (name, email, phone, username) => {
 		headers()
 	)
 	return request.data
+	} catch (error) {
+		return null
+	}
 }
 
 export const passwordEditRequest = async (username, current_password, new_password) => {
-	const request = await axios.post(
+	try {const request = await axios.post(
 		`${REACT_APP_BACKEND_URL}/api/user/edit-password`,
 		{
 			current_password,
@@ -63,5 +75,8 @@ export const passwordEditRequest = async (username, current_password, new_passwo
 		headers()
 	)
 	return request.data
+	} catch (error) {
+		return null
+	}
 }
 export default { registerNewUser, loginRequest, setAdmin, userEditRequest, passwordEditRequest }
