@@ -21,6 +21,19 @@ const editReason = 'testauksen takia'
 
 describe('inventory-service', () => {
 
+    beforeEach(() => {
+        localStorage.setItem('userDetails', JSON.stringify({
+            auth: 'xyz',
+            user: {
+                id: 'abc',
+                name: '',
+                email: 'test@email.com',
+                phone: '',
+                username: 'testperson',
+            }}),
+        )
+    })
+
     test('addInventory is called', async () => {
         const results = await inventoryservice.addInventory(
             areas,
@@ -34,6 +47,12 @@ describe('inventory-service', () => {
             phone,
             moreInfo
         )
+        
+        expect(results).toBeDefined()
+    })
+
+    test('getInventory is called', async () => {
+        const results = await inventoryservice.getInventory('1')
         
         expect(results).toBeDefined()
     })
@@ -62,6 +81,12 @@ describe('inventory-service', () => {
             editReason,
             '1'
         )
+        
+        expect(results).toBeDefined()
+    })
+
+    test('getAllEditedInventories is called', async () => {
+        const results = await inventoryservice.getAllEditedInventories()
         
         expect(results).toBeDefined()
     })
