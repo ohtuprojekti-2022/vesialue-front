@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, FloatingLabel, Form } from 'react-bootstrap'
+import { Button, Container, FloatingLabel, Form, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
@@ -16,52 +16,74 @@ const DeleteInventoryForm = () => {
 	const [validated, setValidated] = useState(false)
 	const navigate = useNavigate()
 
+	const [show, setShow] = useState(false)
+
+	const handleClose = () => setShow(false)
+	const handleShow = (e) => {
+		const form = e.currentTarget
+		const valid = form.checkValidity()
+		setValidated(true)
+		e.preventDefault()
+		if (valid) setShow(true)
+	}
+
+
 	const handleSubmit = async e => {
 		e.preventDefault()
-		const confirmed = window.confirm(
-			'Oletko varma että haluat poistaa tämän inventoinnin?'
-		)
-		if (confirmed) {
-			try {
-				setValidated(true)
+		try {
+			setValidated(true)
 
-				const result = await requestDelete(deleteReason, report.id)
+			const result = await requestDelete(deleteReason, report.id)
 
-				dispatch(appendDeletedInventories(result))
+			dispatch(appendDeletedInventories(result))
 
-				navigate(`/raportti/${report.id}`)
-			} catch (error) {
-				console.log('deletion request failed')
-			}
+			navigate(`/raportti/${report.id}`)
+		} catch (error) {
+			console.log('deletion request failed')
 		}
 	}
 
 	return (
-		<Form
-			style={{ marginTop: '1rem', marginBottom: '1rem' }}
-			noValidate
-			validated={validated}
-			onSubmit={handleSubmit}
-		>
-			<FloatingLabel
-				controlId="deleteReason"
-				label="Poiston syy"
-				className="mb-3"
+		<Container>
+			<Form
+				style={{ marginTop: '1rem', marginBottom: '1rem' }}
+				noValidate
+				validated={validated}
+				onSubmit={handleShow}
 			>
-				<Form.Control
-					data-testid="deleteReason"
-					type="text"
-					maxLength="500"
-					defaultValue={deleteReason}
-					onChange={e => setDeleteReason(e.target.value)}
-					required
-				/>
-				<Form.Control.Feedback type="invalid">
-					Syy poistolle vaaditaan. {'(max 500 merkkiä)'}
-				</Form.Control.Feedback>
-			</FloatingLabel>
-			<Button type="submit">Pyydä inventoinnin poistoa</Button>
-		</Form>
+				<FloatingLabel
+					controlId="deleteReason"
+					label="Poiston syy"
+					className="mb-3"
+				>
+					<Form.Control
+						data-testid="deleteReason"
+						type="text"
+						maxLength="500"
+						defaultValue={deleteReason}
+						onChange={e => setDeleteReason(e.target.value)}
+						required
+					/>
+					<Form.Control.Feedback type="invalid">
+						Syy poistolle vaaditaan. {'(max 500 merkkiä)'}
+					</Form.Control.Feedback>
+				</FloatingLabel>
+				<Button type="submit">Pyydä inventoinnin poistoa</Button>
+			</Form>
+			<Modal show={show} onHide={handleClose} style={{ zIndex: 2001 }}>
+				<Modal.Header closeButton>
+					<Modal.Title>Oletko varma että haluat poistaa tämän inventoinnin?</Modal.Title>
+				</Modal.Header>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleClose}>
+						Älä poista
+					</Button>
+					<Button variant="primary" onClick={handleSubmit}>
+						Poista
+					</Button>
+				</Modal.Footer>
+			</Modal>
+		</Container>
 	)
 }
 
