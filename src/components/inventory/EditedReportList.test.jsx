@@ -9,6 +9,7 @@ import { login } from '../../redux/reducers/userReducer'
 import { appendInventory } from '../../redux/reducers/inventoryReducer'
 import { appendAreas } from '../../redux/reducers/areaReducer'
 import { setEditedInventories } from '../../redux/reducers/editedInventoryReducer'
+import userEvent from '@testing-library/user-event'
 
 const user = {'auth':'xyz', 
 	'user':{'id':'u1', 
@@ -95,6 +96,12 @@ describe('EditedReportList with report', () => {
 		expect(screen.getByText('Miko')).not.toBeNull()
 		expect(screen.getByText('01.04.2022')).not.toBeNull()
 		expect(screen.getByText('huvin vuoksi')).not.toBeNull()
+	})
+
+	test('List item can be clicked', async () => {
+		const request = screen.getByText('Miko')
+		const user = userEvent.setup()
+		await user.click(request)
 	})
 
 })
