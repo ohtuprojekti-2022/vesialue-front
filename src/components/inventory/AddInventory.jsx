@@ -28,6 +28,7 @@ const AddInventory = () => {
 	const [attachmentFiles, setAttachmentFiles] = useState(null)
 	const navigate = useNavigate()
 	const [showMTI, setShowMTI] = useState(false)
+	const [submitted, setSubmitted] = useState(false)
 
 	const addAlert = (text) => {
 		setAlert(text)
@@ -53,6 +54,7 @@ const AddInventory = () => {
 		setValidated(true)
 		event.preventDefault()
 		if (valid && confirmDate()) {
+			setSubmitted(true)
 			try {
 				const [inventory, areas] = await addInventory(
 					mapLayers.map((layer) => layer.latlngs),
@@ -98,6 +100,7 @@ const AddInventory = () => {
 			} catch (error) {
 				addAlert(error.toString())
 			}
+			setSubmitted(false)
 		}
 	}
 
@@ -127,6 +130,7 @@ const AddInventory = () => {
 				setEmail={setEmail}
 				setPhone={setPhone}
 				setAttachmentFiles={setAttachmentFiles}
+				submitted={submitted}
 			/>
 			<MaptoolinfoModal
 				show={showMTI}

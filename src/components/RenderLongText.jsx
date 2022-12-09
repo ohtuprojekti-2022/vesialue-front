@@ -24,12 +24,12 @@ const RenderLongText = ({ text, maxLength = 300 }) => {
 			}
 			{text.length > maxLength && (
 				<Nav.Link
-					style={{ color: 'blue' }}
+					style={{ color: 'blue', marginTop: '-1em' }}
 					onClick={() => setShowMoreText(!showMoreText)}
 				>
 					{showMoreText ? 'Näytä vähemmän ⯅' : 'Näytä enemmän ⯆'}
 				</Nav.Link>
-			)}
+			) || <div style={{ marginTop: '-1em' }}></div>}
 		</div>
 	)
 }
