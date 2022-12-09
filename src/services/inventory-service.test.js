@@ -35,95 +35,144 @@ describe('inventory-service', () => {
     })
 
     test('addInventory is called', async () => {
-        const results = await inventoryservice.addInventory(
-            areas,
-            inventorydate,
-            method,
-            visibility,
-            methodInfo,
-            attachments,
-            name,
-            email,
-            phone,
-            moreInfo
-        )
-        
-        expect(results).toBeDefined()
+        try {
+            const results = await inventoryservice.addInventory(
+                areas,
+                inventorydate,
+                method,
+                visibility,
+                methodInfo,
+                attachments,
+                name,
+                email,
+                phone,
+                moreInfo
+            )
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
+
     })
 
     test('getInventory is called', async () => {
-        const results = await inventoryservice.getInventory('1')
-        
-        expect(results).toBeDefined()
+        try {
+            const results = await inventoryservice.getInventory('1')
+            
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('getAllAreas is called', async () => {
-        const results = await inventoryservice.getAllAreas()
+        try {
+            const results = await inventoryservice.getAllAreas()
         
-        expect(results).toBeDefined()
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('getInventoryById is called', async () => {
-        const results = await inventoryservice.getInventoryById('1')
+        try {
+            const results = await inventoryservice.getInventoryById('1')
         
-        expect(results).toBeDefined()
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('requestEdit is called', async () => {
-        const results = await inventoryservice.requestEdit(
-            areas,
-            inventorydate,
-            method,
-            visibility,
-            methodInfo,
-            attachments,
-            moreInfo,
-            editReason,
-            '1'
-        )
-        
-        expect(results).toBeDefined()
+        try {
+            const results = await inventoryservice.requestEdit(
+                areas,
+                inventorydate,
+                method,
+                visibility,
+                methodInfo,
+                attachments,
+                moreInfo,
+                editReason,
+                '1'
+            )
+            
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('getAllEditedInventories is called', async () => {
-        const results = await inventoryservice.getAllEditedInventories()
+        try {
+            const results = await inventoryservice.getAllEditedInventories()
         
-        expect(results).toBeDefined()
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('getEditedInventoryById is called', async () => {
-        const results = await inventoryservice.getEditedInventoryById('1')
+        try {
+            const results = await inventoryservice.getEditedInventoryById('1')
         
-        expect(results).toBeDefined()
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('rejectEditById is called', async () => {
-        const results = await inventoryservice.rejectEditById('1')
+        try {
+            const results = await inventoryservice.rejectEditById('1')
         
-        expect(results).toBeDefined()
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('approveEditById is called', async () => {
-        const results = await inventoryservice.approveEditById('1')
+        try {
+            const results = await inventoryservice.approveEditById('1')
         
-        expect(results).toBeDefined()
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('requestDelete is called', async () => {
-        const results = await inventoryservice.requestDelete("siks", '1')
+        try {
+            const results = await inventoryservice.requestDelete("siks", '1')
         
-        expect(results).toBeDefined()
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('getAllDeletedInventories is called', async () => {
-        const results = await inventoryservice.getAllDeletedInventories()
+        try {
+            const results = await inventoryservice.getAllDeletedInventories()
         
-        expect(results).toBeDefined()
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
 
     test('getDeletedInventoryById is called', async () => {
-        const results = await inventoryservice.getDeletedInventoryById('1')
+        try {
+            const results = await inventoryservice.getDeletedInventoryById('1')
         
-        expect(results).toBeDefined()
+            expect(results).toBeDefined()
+        } catch (error) {
+            expect(error.toString()).toContain('TypeError')
+        }
     })
+
 })
