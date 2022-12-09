@@ -275,7 +275,6 @@ const InventoryForm = props => {
 						<Button variant="primary"
 							type="submit"
 							data-testid="submit"
-							className="mb-5"
 							disabled={!checked}
 							style={{ display: 'block' }}>
 							Lähetä
@@ -285,7 +284,6 @@ const InventoryForm = props => {
 					<Button variant="primary"
 						type="submit"
 						data-testid="submit"
-						className="mb-5"
 						style={{ display: 'block' }}>
 						Lähetä
 					</Button>

@@ -4,7 +4,7 @@ const Footer = ({ setShowTOS }) => {
 	return (
 		<footer
 			className="page-footer font-small blue pt-4"
-			style={{ background: '#eee', marginTop: 'auto' }}
+			style={{ background: '#eee', marginTop: '50px' }}
 		>
 			<div className="container-fluid text-center text-md-left">
 				<div className="row">
