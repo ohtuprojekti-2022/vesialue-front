@@ -16,7 +16,7 @@ import {
 	translateVisibility,
 } from '../../utils/tools'
 import Map from '../map/Map'
-import { RenderLongText } from '../RenderLongText'
+import RenderLongText from '../RenderLongText'
 import EditInventoryForm from './EditInventoryForm'
 
 const EditInventory = () => {
@@ -191,18 +191,21 @@ const EditInventory = () => {
 					</Map>
 					<ListGroup>
 						<ListGroup.Item>
-							<b>Päivämäärä:</b> {formatDate(inventorydate)}
+							<div className="fw-bold">Päivämäärä</div>
+							{formatDate(inventorydate)}
 						</ListGroup.Item>
 						<ListGroup.Item>
-							<b>Tapa:</b> {translateMethod(method, methodInfo)}
+							<div className="fw-bold">Tapa</div>
+							{translateMethod(method, methodInfo)}
 						</ListGroup.Item>
 						{(method === 'dive' || method === 'sight') && (
 							<ListGroup.Item>
-								<b>Näkyvyys:</b> {translateVisibility(visibility)}
+								<div className="fw-bold">Näkyvyys</div>
+								{translateVisibility(visibility)}
 							</ListGroup.Item>
 						)}
 						<ListGroup.Item>
-							<b>Kuvaus:</b>{' '}
+							<div className="fw-bold">Kuvaus</div>
 							<RenderLongText text={moreInfo} maxLength={300} />
 						</ListGroup.Item>
 					</ListGroup>

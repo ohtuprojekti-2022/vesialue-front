@@ -3,7 +3,7 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import { RenderLongText } from './RenderLongText'
+import RenderLongText from './RenderLongText'
 
 
 describe('RenderLongText', () => {

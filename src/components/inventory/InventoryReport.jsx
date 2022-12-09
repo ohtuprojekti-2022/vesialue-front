@@ -23,7 +23,7 @@ import DeleteRequestView from './DeleteRequestView'
 import { selectEditedInventoryByOriginalId } from '../../redux/reducers/editedInventoryReducer'
 import EditRequestView from './EditRequestView'
 import REACT_APP_BACKEND_URL from '../../utils/config'
-import { RenderLongText } from '../RenderLongText'
+import RenderLongText  from '../RenderLongText'
 
 const InventoryReport = () => {
 	let { id } = useParams()
@@ -105,33 +105,42 @@ const InventoryReport = () => {
 					</Map>
 					<ListGroup>
 						<ListGroup.Item>
-							<b>Päivämäärä:</b> {formatDate(report.inventorydate)}
+							<div className="fw-bold">Päivämäärä</div>
+							{formatDate(report.inventorydate)}
 						</ListGroup.Item>
 						<ListGroup.Item>
-							<b>Tapa:</b> {translateMethod(report.method, report.methodInfo)}
+							<div className="fw-bold">Tapa</div>
+							{translateMethod(report.method, report.methodInfo)}
 						</ListGroup.Item>
 						{(report.method === 'dive' || report.method === 'sight') && (
 							<ListGroup.Item>
-								<b>Näkyvyys:</b> {translateVisibility(report.visibility)}
+								<div className="fw-bold">Näkyvyys</div>
+								{translateVisibility(report.visibility)}
 							</ListGroup.Item>
 						)}
 						<ListGroup.Item>
-							<b>Kuvaus:</b>{' '}
+							<div className="fw-bold">Kuvaus</div>
 							<RenderLongText text={report.moreInfo} maxLength={300} />
 						</ListGroup.Item>
-						<ListGroup.Item><b>Tekijä:</b> {parseCreator(report)}</ListGroup.Item>
+						<ListGroup.Item>
+							<div className="fw-bold">Tekijä</div>
+							{parseCreator(report)}
+						</ListGroup.Item>
 						{parseEmail(report) !== '' && (
-							<ListGroup.Item><b>Sähköposti:</b> {parseEmail(report)}</ListGroup.Item>
+							<ListGroup.Item>
+								<div className="fw-bold">Sähköposti</div>
+								{parseEmail(report)}</ListGroup.Item>
 						)}
 						{parsePhone(report) !== '' && (
 							<ListGroup.Item>
-								<b>Puhelinnumero:</b> {parsePhone(report)}
+								<div className="fw-bold">Puhelinnumero</div>
+								{parsePhone(report)}
 							</ListGroup.Item>
 						)}
 					</ListGroup>
 					{(report.attachments && report.attachment_files.length > 0) && (
 						<ListGroup>
-							<b>Liitteet:</b>
+							<div className="fw-bold">Liitteet</div>
 							{report.attachment_files.map(file => (
 								<ListGroup.Item key={file.filename}>
 									{file.filename}
