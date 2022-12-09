@@ -70,15 +70,18 @@ const DeleteInventoryForm = () => {
 				</FloatingLabel>
 				<Button type="submit">Pyydä inventoinnin poistoa</Button>
 			</Form>
-			<Modal show={show} onHide={handleClose} style={{ zIndex: 2001 }}>
+			<Modal size="lg" show={show} onHide={handleClose} style={{ zIndex: 2001 }}>
 				<Modal.Header closeButton>
 					<Modal.Title>Oletko varma että haluat poistaa tämän inventoinnin?</Modal.Title>
 				</Modal.Header>
+				<Modal.Body>
+					Jos poistopyyntö hyväksytään, inventointi poistetaan pysyvästi.
+				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
 						Älä poista
 					</Button>
-					<Button variant="primary" onClick={handleSubmit}>
+					<Button variant="danger" onClick={handleSubmit}>
 						Poista
 					</Button>
 				</Modal.Footer>
