@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Form, FloatingLabel, Button, Modal } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { passwordEditRequest } from '../../services/user-service'
 import { Alert } from 'react-bootstrap'
 import { login } from '../../redux/reducers/userReducer'
@@ -9,10 +9,6 @@ import {PASSWORD_ERROR} from '../../utils/error_messages.js'
 const PasswordEditModal = ({show, close}) => {
 	
 	const dispatch = useDispatch()
-	const userDetails = useSelector(({ userDetails }) => {
-		return userDetails
-	})
-	const username = userDetails.user.username
 	const [currentPassword, setCurrentPassword] = useState('')
 	const [newPassword, setNewPassword] = useState('')
 	const [validated, setValidated] = useState(false)
@@ -33,7 +29,7 @@ const PasswordEditModal = ({show, close}) => {
 		event.preventDefault()
 		if (valid) {
 			try {
-				const data = await passwordEditRequest(username, currentPassword, newPassword)
+				const data = await passwordEditRequest(currentPassword, newPassword)
 				dispatch(login(data))
 				setFormSubmitionStatus('submitted')
 				setValidated(false)
