@@ -24,7 +24,7 @@ const Navbar = () => {
 					className="d-inline-block align-top"
 					alt="MAS logo"
 				/>{' '}
-				Vesialueen inventointi-ilmoitus
+				Inventointi-ilmoitus
 			</BNavbar.Brand>
 			<BNavbar.Toggle aria-controls="basic-navbar-nav" />
 			<BNavbar.Collapse id="responsive-navbar-nav">

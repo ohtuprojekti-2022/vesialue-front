@@ -102,7 +102,7 @@ const AddInventory = () => {
 	}
 
 	return (
-		<Container fluid="sm">
+		<Container fluid="sm" style={{paddingBottom:'0.5em'}}>
 			<h2>Lisää inventointi 
 				<button style={{backgroundColor: 'Transparent', border: 'none', float: 'right', paddingRight: '25px'}} 
 					onClick={() => setShowMTI(true)}>
