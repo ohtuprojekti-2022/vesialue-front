@@ -63,14 +63,14 @@ store.dispatch(appendDeletedInventories(deleteRequest))
 
 
 let button
-describe('RejectDeletionButtonUser', () => {
+describe('RejectDeletionButton user', () => {
 	beforeEach(() => {
 		renderWithProviders(
 			<MemoryRouter>
-				<RejectDeletionButton id={'del1'}/>
+				<RejectDeletionButton id={'del1'} isAdmin={false}/>
 			</MemoryRouter>
 		)
-		button = screen.getByText('Hylkää poistopyyntö')
+		button = screen.getByText('Peruuta poistopyyntö')
 	})
 
 	test('button is defined', () => {
@@ -100,5 +100,18 @@ describe('RejectDeletionButtonUser', () => {
 		)
 		const notification = screen.queryByText('Olet tehnyt tälle inventoinnille poistopyynnön')
 		expect(notification).not.toBeInTheDocument()
+	})
+})
+
+
+
+describe('RejectDeletionButton admin', () => {
+	test('button text is different for admins', () => {
+		renderWithProviders(
+			<MemoryRouter>
+				<RejectDeletionButton id={'d1'} isAdmin={true}/>
+			</MemoryRouter>
+		)
+		expect(screen.getByText('Hylkää poistopyyntö')).toBeVisible()
 	})
 })

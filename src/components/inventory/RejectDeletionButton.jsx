@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { rejectDeletionById } from '../../services/inventory-service'
 import { removeDeletedInventoryById } from '../../redux/reducers/deletedInventoryReducer'
 
-const RejectDeletionButton = ({ id }) => {
+const RejectDeletionButton = ({ id, isAdmin }) => {
 	const dispatch = useDispatch()
 	const handleClick = async () => {
 		try {
@@ -21,7 +21,9 @@ const RejectDeletionButton = ({ id }) => {
 			onClick={handleClick}
 			style={{ marginLeft: '0.5rem', marginTop: '0.5rem' }}
 		>
-			Hylkää poistopyyntö
+			{isAdmin ?
+				'Hylkää poistopyyntö':
+				'Peruuta poistopyyntö'}
 		</Button>
 	)
 }

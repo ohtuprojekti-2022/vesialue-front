@@ -18,7 +18,7 @@ const DeleteRequestView = ({ deleteRequest, isAdmin }) => {
 				<p style={{ marginBottom: '0.5rem' }}>
 					Poiston syy: {deleteRequest.reason}
 				</p>
-				<RejectDeletionButton id={deleteRequest.id} />
+				<RejectDeletionButton id={deleteRequest.id} isAdmin={isAdmin} />
 				{isAdmin && (
 					<Button
 						onClick={() => setShowAdminModal(true)}
