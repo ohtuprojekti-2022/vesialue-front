@@ -75,4 +75,11 @@ describe('PasswordEditModal', () => {
 		await user.click(submitButton)
 		expect(screen.getByText('Salasanat eivät täsmää!')).toBeVisible()
 	})
+
+	test('Close button can be clicked', async () => {
+		const user = userEvent.setup()
+		const closebutton = screen.getByLabelText('Close')
+		await user.click(closebutton)
+	})
+	
 })
