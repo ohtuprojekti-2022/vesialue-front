@@ -59,7 +59,7 @@ describe('EditInventoryForm', () => {
 
 	test('methods can be checked', async () => {
 		const user = userEvent.setup()
-		echo = screen.getByTestId('echo')
+		const echo = screen.getByTestId('echo')
 		await user.click(echo)
 	})
 
