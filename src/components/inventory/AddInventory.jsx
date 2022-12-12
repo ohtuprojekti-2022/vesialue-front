@@ -29,6 +29,7 @@ const AddInventory = () => {
 	const navigate = useNavigate()
 	const [showMTI, setShowMTI] = useState(false)
 	const [showDateConfirm, setShowDateConfirm] = useState(false)
+	const [submitted, setSubmitted] = useState(false)
 
 	const addAlert = (text) => {
 		setAlert(text)
@@ -68,6 +69,7 @@ const AddInventory = () => {
 		}
 		
 		if (valid && dateIsOK) {
+			setSubmitted(true)
 			try {
 				const [inventory, areas] = await addInventory(
 					mapLayers.map((layer) => layer.latlngs),
@@ -113,6 +115,7 @@ const AddInventory = () => {
 			} catch (error) {
 				addAlert(error.toString())
 			}
+			setSubmitted(false)
 		}
 	}
 
@@ -142,6 +145,7 @@ const AddInventory = () => {
 				setEmail={setEmail}
 				setPhone={setPhone}
 				setAttachmentFiles={setAttachmentFiles}
+				submitted={submitted}
 			/>
 			<Modal size='lg' show={showDateConfirm} onHide={handleCloseDateModal} style={{ zIndex: 2001 }}>
 				<Modal.Header closeButton>
@@ -154,8 +158,11 @@ const AddInventory = () => {
 					<Button variant='secondary' onClick={handleCloseDateModal}>
 						Peruuta
 					</Button>
-					<Button variant='primary' onClick={handleSubmit}>
-						Vahvista
+					<Button variant='primary'
+						onClick={handleSubmit}
+						style={{ display: 'block' }}
+						disabled={submitted}>
+						{submitted ? 'Lähetetään...' : 'Vahvista'}
 					</Button>
 				</Modal.Footer>
 			</Modal>

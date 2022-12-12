@@ -12,6 +12,8 @@ describe('EditInventoryForm', () => {
 	const mockSetEditReason = jest.fn()
 	const mockSetAttachments = jest.fn()
 	const mockSetMethodInfo = jest.fn()
+	const mockSetMethod = jest.fn()
+	const mockSetVisibility = jest.fn()
     
 	beforeEach(() => {
 		renderWithProviders(
@@ -21,6 +23,8 @@ describe('EditInventoryForm', () => {
 					setEditReason={mockSetEditReason}
 					setAttachments={mockSetAttachments}
 					setMethodInfo={mockSetMethodInfo}
+					setMethod={mockSetMethod}
+					setVisibility={mockSetVisibility}
 				/>
 			</MemoryRouter>
 		)
@@ -51,6 +55,12 @@ describe('EditInventoryForm', () => {
 		attachments = screen.getByTestId('attachments')
 		await user.click(attachments)
 		expect(attachments).toBeChecked()
+	})
+
+	test('methods can be checked', async () => {
+		const user = userEvent.setup()
+		const echo = screen.getByTestId('echo')
+		await user.click(echo)
 	})
 
 })

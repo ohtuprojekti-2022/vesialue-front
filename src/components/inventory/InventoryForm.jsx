@@ -275,17 +275,18 @@ const InventoryForm = props => {
 						<Button variant="primary"
 							type="submit"
 							data-testid="submit"
-							disabled={!checked}
+							disabled={!checked || props.submitted}
 							style={{ display: 'block' }}>
-							Lähetä
+							{props.submitted ? 'Lähetetään...' : 'Lähetä'}
 						</Button>
 					</>
 				) ||
 					<Button variant="primary"
 						type="submit"
 						data-testid="submit"
-						style={{ display: 'block' }}>
-						Lähetä
+						style={{ display: 'block' }}
+						disabled={props.submitted}>
+						{props.submitted ? 'Lähetetään...' : 'Lähetä'}
 					</Button>
 				}
 			</Form>

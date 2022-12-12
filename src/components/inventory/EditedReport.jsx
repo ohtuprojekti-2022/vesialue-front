@@ -17,6 +17,7 @@ import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { Table, Container } from 'react-bootstrap'
 import ApproveButton from './ApproveButton'
 import RejectButton from './RejectButton'
+import { textToParagraphs } from '../RenderLongText'
 
 const EditedReport = () => {
 	const userDetails = useSelector(({ userDetails }) => {
@@ -44,7 +45,7 @@ const EditedReport = () => {
 	)
 
 	return (
-		<Container style={{marginBottom: '0.5rem'}}>
+		<Container style={{ marginBottom: '0.5rem' }}>
 			<Map center={center} autoZoom={true}>
 				{areas.map((area) => (
 					<Polygon
@@ -97,10 +98,14 @@ const EditedReport = () => {
 					</tr>
 					<tr>
 						<td>
-							<b>Muuta tietoa</b>
+							<b>Kuvaus</b>
 						</td>
-						<td>{original.moreInfo}</td>
-						<td>{report.moreInfo}</td>
+						<td>
+							{textToParagraphs(original.moreInfo)}
+						</td>
+						<td>
+							{textToParagraphs(report.moreInfo)}
+						</td>
 					</tr>
 					<tr>
 						<td>
@@ -111,7 +116,7 @@ const EditedReport = () => {
 				</tbody>
 			</Table>
 			{userDetails.user.admin > 0 &&
-			<ApproveButton id={report.id} />}
+				<ApproveButton id={report.id} />}
 			<RejectButton id={report.id} originalReportId={original.id} isAdmin={userDetails.user.admin > 0} />
 		</Container>
 	)

@@ -136,11 +136,18 @@ describe('Registration Form', () => {
 		expect(mockHandleSubmit).toBeCalledTimes(1)
 	})
 
-	test('Terms of Service and Privacy Policy can be clicked', async () => {
+	test('Terms of Service can be opened and closed', async () => {
 		const user = userEvent.setup()
 		const tos = screen.getByTestId('tos')
-		const pp = screen.getByTestId('pp')
 		await user.click(tos)
+		expect(screen.getByText('Käyttöehdot')).not.toBeNull()
+		const tosclose = screen.getByText('Sulje')
+		await user.click(tosclose)
+	})
+
+	test('Privacy Policy can be opened', async () => {
+		const user = userEvent.setup()
+		const pp = screen.getByTestId('pp')
 		await user.click(pp)
 	})
 

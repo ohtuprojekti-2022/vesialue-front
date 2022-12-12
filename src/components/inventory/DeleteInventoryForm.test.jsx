@@ -31,5 +31,25 @@ describe('DeleteInventoryForm', () => {
 		await user.type(deleteReason, 'Testin takia')
 		expect(deleteReason).toHaveValue('Testin takia')
 	})
+
+	test('deletion modal is shown', async () => {
+		const user = userEvent.setup()
+		await user.type(deleteReason, 'Testin takia')
+		const button = screen.getByText('Pyydä inventoinnin poistoa')
+		await user.click(button)
+		expect(screen.getByText('Oletko varma että haluat poistaa tämän inventoinnin?')).not.toBeNull()
+	})
+
+	test('delete and cancel buttons can be clicked', async () => {
+		const user = userEvent.setup()
+		await user.type(deleteReason, 'Testin takia')
+		const button = screen.getByText('Pyydä inventoinnin poistoa')
+		await user.click(button)
+		const deletebutton = screen.getByText('Poista')
+		const cancelbutton = screen.getByText('Älä poista')
+		await user.click(deletebutton)
+		await user.click(cancelbutton)
+		
+	})
         
 })
