@@ -50,13 +50,6 @@ describe('EditInventoryForm', () => {
 		expect(editReason).toHaveValue('koska tuntui siltä')
 	})
 
-	test('attachments can be checked', async () => {
-		const user = userEvent.setup()
-		attachments = screen.getByTestId('attachments')
-		await user.click(attachments)
-		expect(attachments).toBeChecked()
-	})
-
 	test('methods can be checked', async () => {
 		const user = userEvent.setup()
 		const echo = screen.getByTestId('echo')
