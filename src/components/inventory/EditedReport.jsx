@@ -17,7 +17,7 @@ import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { Table, Container } from 'react-bootstrap'
 import ApproveButton from './ApproveButton'
 import RejectButton from './RejectButton'
-import { textToParagraphs } from '../RenderLongText'
+import { renderWithLineBreaks } from '../RenderLongText'
 
 const EditedReport = () => {
 	const userDetails = useSelector(({ userDetails }) => {
@@ -101,10 +101,10 @@ const EditedReport = () => {
 							<b>Kuvaus</b>
 						</td>
 						<td>
-							{textToParagraphs(original.moreInfo)}
+							{renderWithLineBreaks(original.moreInfo)}
 						</td>
 						<td>
-							{textToParagraphs(report.moreInfo)}
+							{renderWithLineBreaks(report.moreInfo)}
 						</td>
 					</tr>
 					<tr>
