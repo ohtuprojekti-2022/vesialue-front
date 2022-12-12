@@ -156,20 +156,24 @@ const InventoryReport = () => {
 									>
 										Lataa
 									</Button>
-									<Button
-										variant="danger"
-										style={{ marginLeft: '1rem' }}
-										size="sm"
-										onClick={async () => {
-											const removedId = await deleteAttachment(file.attachment)
-											dispatch(removeAttachmentById({
-												inventoryId: report.id,
-												attachmentId: removedId.deleted
-											}))
-										}}
-									>
+									{report.user &&
+										userDetails &&
+										userDetails.user.id === report.user.id && (
+										<Button
+											variant="danger"
+											style={{ marginLeft: '1rem' }}
+											size="sm"
+											onClick={async () => {
+												const removedId = await deleteAttachment(file.attachment)
+												dispatch(removeAttachmentById({
+													inventoryId: report.id,
+													attachmentId: removedId.deleted
+												}))
+											}}
+										>
 										Poista
-									</Button>
+										</Button>
+									)}
 								</ListGroup.Item>
 							))}
 						</ListGroup>
