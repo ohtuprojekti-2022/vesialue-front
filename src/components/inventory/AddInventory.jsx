@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Container, Alert } from 'react-bootstrap'
+import { Container, Alert, Modal, Button } from 'react-bootstrap'
 import { addInventory } from '../../services/inventory-service'
 import { uploadAttachment } from '../../services/attachment-service'
 import InventoryForm from './InventoryForm'
@@ -28,6 +28,7 @@ const AddInventory = () => {
 	const [attachmentFiles, setAttachmentFiles] = useState(null)
 	const navigate = useNavigate()
 	const [showMTI, setShowMTI] = useState(false)
+	const [showDateConfirm, setShowDateConfirm] = useState(false)
 
 	const addAlert = (text) => {
 		setAlert(text)
@@ -38,11 +39,17 @@ const AddInventory = () => {
 
 	const dispatch = useDispatch()
 
+	const handleCloseDateModal = () => {
+		setShowDateConfirm(false)
+		
+	}
+
 	const confirmDate = () => {
 		const invDate = Date.parse(inventorydate)
 		const fiveYearsAgo = new Date().setFullYear(new Date().getFullYear() - 5)
-		if (invDate < fiveYearsAgo) {
-			return window.confirm(`Asettamasi ajankohta on yli viisi vuotta sitten. Onko ajankohta ${formatDate(inventorydate)} oikein?`)
+		if ((invDate < fiveYearsAgo)) {
+			setShowDateConfirm(true)
+			return false
 		}
 		return true
 	}
@@ -52,7 +59,15 @@ const AddInventory = () => {
 		const valid = form.checkValidity()
 		setValidated(true)
 		event.preventDefault()
-		if (valid && confirmDate()) {
+
+		let dateIsOK = true
+		if (!showDateConfirm){
+			dateIsOK = confirmDate()
+		} else {
+			dateIsOK = true
+		}
+		
+		if (valid && dateIsOK) {
 			try {
 				const [inventory, areas] = await addInventory(
 					mapLayers.map((layer) => layer.latlngs),
@@ -128,6 +143,22 @@ const AddInventory = () => {
 				setPhone={setPhone}
 				setAttachmentFiles={setAttachmentFiles}
 			/>
+			<Modal size='lg' show={showDateConfirm} onHide={handleCloseDateModal} style={{ zIndex: 2001 }}>
+				<Modal.Header closeButton>
+					<Modal.Title>Tarkista ajankohta</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					Asettamasi ajankohta on yli viisi vuotta sitten. Onko ajankohta {formatDate(inventorydate)} oikein?
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant='secondary' onClick={handleCloseDateModal}>
+						Peruuta
+					</Button>
+					<Button variant='primary' onClick={handleSubmit}>
+						Vahvista
+					</Button>
+				</Modal.Footer>
+			</Modal>
 			<MaptoolinfoModal
 				show={showMTI}
 				close={() => setShowMTI(false)}
