@@ -1,5 +1,6 @@
 import axios from 'axios'
 import REACT_APP_BACKEND_URL from '../utils/config'
+import { headers } from '../utils/tools'
 
 export const uploadAttachment = async (formData) => {
 	const response = await axios({
@@ -11,4 +12,15 @@ export const uploadAttachment = async (formData) => {
 	return response.data
 }
 
-export default uploadAttachment
+export const deleteAttachment = async (attachmentId) => {
+	const response = await axios.delete(
+		`${REACT_APP_BACKEND_URL}/api/files/${attachmentId}`,
+		headers()
+	)
+	return response.data
+}
+
+export default {
+	uploadAttachment,
+	deleteAttachment
+}

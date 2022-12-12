@@ -17,6 +17,13 @@ const inventorySlice = createSlice({
 		removeInventoryById: (state, action) => {
 			return state.filter(i => i.id !== action.payload)
 		},
+		removeAttachmentById: (state, action) => {
+			const inv = state.filter(i => i.id === action.payload.inventoryId)[0]
+			return state.map(i => i.id === action.payload.inventoryId ?
+				{ ...inv, attachment_files: inv.attachment_files.filter(a =>
+					a.attachment !== action.payload.attachmentId
+				)} : i)
+		}
 	},
 })
 
@@ -46,6 +53,6 @@ export const updateInventories = (inventory) => {
 export const selectInventoryById = (state, id) =>
 	state.inventories.find((i) => i.id === id)
 
-export const { setInventories, appendInventory, removeInventory, removeInventoryById } =
+export const { setInventories, appendInventory, removeInventory, removeInventoryById, removeAttachmentById } =
 	inventorySlice.actions
 export default inventorySlice.reducer

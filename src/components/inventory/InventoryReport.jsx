@@ -13,9 +13,9 @@ import {
 	translateMethod,
 	translateVisibility,
 } from '../../utils/tools'
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { Button } from 'react-bootstrap'
-import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
+import { selectInventoryById, removeAttachmentById } from '../../redux/reducers/inventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import AdminDeleteModal from './AdminDeleteModal'
 import { selectDeletedInventoryByInventory } from '../../redux/reducers/deletedInventoryReducer'
@@ -24,9 +24,11 @@ import { selectEditedInventoryByOriginalId } from '../../redux/reducers/editedIn
 import EditRequestView from './EditRequestView'
 import REACT_APP_BACKEND_URL from '../../utils/config'
 import RenderLongText  from '../RenderLongText'
+import { deleteAttachment } from '../../services/attachment-service'
 
 const InventoryReport = () => {
 	let { id } = useParams()
+	const dispatch = useDispatch()
 	const [showAdminModal, setShowAdminModal] = useState(false)
 	const [report, areas, userDetails, deleteRequest, editRequest] = useSelector(state => {
 		return [
@@ -153,6 +155,20 @@ const InventoryReport = () => {
 										}
 									>
 										Lataa
+									</Button>
+									<Button
+										variant="danger"
+										style={{ marginLeft: '1rem' }}
+										size="sm"
+										onClick={async () => {
+											const removedId = await deleteAttachment(file.attachment)
+											dispatch(removeAttachmentById({
+												inventoryId: report.id,
+												attachmentId: removedId.deleted
+											}))
+										}}
+									>
+										Poista
 									</Button>
 								</ListGroup.Item>
 							))}
