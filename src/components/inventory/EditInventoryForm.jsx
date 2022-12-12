@@ -139,15 +139,6 @@ const EditInventoryForm = (props) => {
 					</Form.Control.Feedback>
 				</FloatingLabel>
 			)}
-			<Form.Group controlId="attachments" className="mb-3">
-				<Form.Check
-					data-testid="attachments"
-					type="checkbox"
-					label="Minulla on liitetiedosto(ja)"
-					onChange={() => props.setAttachments(!props.attachments)}
-					checked={props.attachments}
-				/>
-			</Form.Group>
 			<FloatingLabel style={{paddingTop: '2rem'}} controlId="moreInfo" label="Kuvaus" className="mb-3">
 				<Form.Control
 					ref={moreInfoRef}
