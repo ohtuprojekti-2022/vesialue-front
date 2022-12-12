@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import React, { useEffect, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { registerNewUser } from '../../services/user-service'
@@ -16,7 +16,11 @@ const Registration = () => {
 	const [name, setName] = useState('')
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
-	const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('userDetails')))
+	const loggedInStatus = useRef(
+		localStorage.getItem('userDetails')
+			? true
+			: false
+	)
 	const navigate = useNavigate()
 
 	const addAlert = (text) => {
@@ -26,10 +30,6 @@ const Registration = () => {
 		}, 7500)
 
 	}
-
-	useEffect(() => {
-		setLoggedIn(Boolean(localStorage.getItem('userDetails')))
-	}, [])
 
 	const handleSubmit = async (event) => {
 		const form = event.currentTarget
@@ -78,7 +78,7 @@ const Registration = () => {
 		<Container fluid="sm">
 			<h2>Luo uusi tunnus</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
-			{loggedIn && (
+			{loggedInStatus.current === true && (
 				<Alert variant="danger">
 					Kirjaudu ulos luodaksesi uusi käyttäjätunnus!
 				</Alert>
