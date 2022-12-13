@@ -66,6 +66,7 @@ const InventoryReport = () => {
 					alert('Voit lisätä raporttiin enintään 5 liitetiedostoa!')
 					setValidated(false)
 					setAttachmentFiles(null)
+					event.target.reset()
 					return
 				}
 
@@ -77,6 +78,7 @@ const InventoryReport = () => {
 				try {
 					const attachmentReferences = await uploadAttachment(formData)
 					// Update attachment file references to the new inventory
+					setAttachmentFiles(null)
 					dispatch(addAttachments({
 						inventoryId: report.id,
 						newAttachments: attachmentReferences
@@ -88,6 +90,10 @@ const InventoryReport = () => {
 		} catch (error) {
 			alert(error.toString())
 		}
+
+		// Clear upload form
+		event.target.reset()
+
 	}
 
 	return (
@@ -227,6 +233,7 @@ const InventoryReport = () => {
 							handleAttachmentUpload={handleAttachmentUpload}
 							setAttachmentFiles={setAttachmentFiles}
 							validated={validated}
+							attachmentLength={report.attachment_files ? report.attachment_files.length : 0}
 						/>
 					)}
 				</Card.Body>

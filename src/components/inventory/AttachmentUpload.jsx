@@ -15,7 +15,7 @@ const AttachmentUpload = props => {
                         Liitetiedostot ovat tarkoitettu viistokaiutusdatalle ja valokuville.<br />
                         Jos sinulla on isoja liitetiedostoja ja enemmän aineistoa sukelluksesta, kerro siitä raportissasi!
 				</Form.Text>
-				<Form.Control
+				{(props.attachmentLength < 5 && (<Form.Control
 					type="file" multiple
 					required
 					data-testid="attachment"
@@ -37,15 +37,25 @@ const AttachmentUpload = props => {
 						props.setAttachmentFiles(event.target.files)
 					}
 					}
-				/>
+				/>)) || (
+					<Form.Control type="file" disabled />
+				)}
 				<Form.Control.Feedback type="invalid">
 					{ATTACHMENT_ERROR}
 				</Form.Control.Feedback>
-				<Button
-					type="submit"
-				>
+				{(props.attachmentLength < 5 && (
+					<Button
+						type="submit"
+					>
                     Lisää liitetiedosto
-				</Button>
+					</Button>)) || (
+					<Button
+						type="submit"
+						disabled
+					>
+						Lisää liitetiedosto
+					</Button>
+				)}
 			</Form.Group>
 		</Form>
 	)
