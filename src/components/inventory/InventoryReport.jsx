@@ -233,7 +233,7 @@ const InventoryReport = () => {
 							handleAttachmentUpload={handleAttachmentUpload}
 							setAttachmentFiles={setAttachmentFiles}
 							validated={validated}
-							attachmentLength={report.attachment_files.length}
+							attachmentLength={report.attachment_files ? report.attachment_files.length : 0}
 						/>
 					)}
 				</Card.Body>
