@@ -13,9 +13,9 @@ import {
 	translateMethod,
 	translateVisibility,
 } from '../../utils/tools'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Button } from 'react-bootstrap'
-import { selectInventoryById, removeAttachmentById } from '../../redux/reducers/inventoryReducer'
+import { selectInventoryById, removeAttachmentById, addAttachments } from '../../redux/reducers/inventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import AdminDeleteModal from './AdminDeleteModal'
 import { selectDeletedInventoryByInventory } from '../../redux/reducers/deletedInventoryReducer'
@@ -77,7 +77,10 @@ const InventoryReport = () => {
 				try {
 					const attachmentReferences = await uploadAttachment(formData)
 					// Update attachment file references to the new inventory
-					report.attachment_files = attachmentReferences
+					dispatch(addAttachments({
+						inventoryId: report.id,
+						newAttachments: attachmentReferences
+					}))
 				} catch(error) {
 					console.log(error)
 				}
