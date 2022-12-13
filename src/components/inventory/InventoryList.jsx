@@ -2,6 +2,9 @@ import React from 'react'
 import InventoryListItem from './InventoryListItem'
 import Table from 'react-bootstrap/Table'
 
+/**
+ * Renders a list of all inventory reports that have been added
+ */
 const InventoryList = ({ data, columns }) => {
 	columns = columns
 		? columns

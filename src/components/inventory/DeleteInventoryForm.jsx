@@ -6,6 +6,9 @@ import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { requestDelete } from '../../services/inventory-service'
 import { appendDeletedInventories } from '../../redux/reducers/deletedInventoryReducer'
 
+/**
+ * Renders a form that allows users to submit a deletion request and specify a reason for doing so
+ */
 const DeleteInventoryForm = () => {
 	let { id } = useParams()
 	const [deleteReason, setDeleteReason] = useState('')

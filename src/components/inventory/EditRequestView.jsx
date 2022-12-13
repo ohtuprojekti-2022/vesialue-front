@@ -3,6 +3,9 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
+/**
+ * Renders an alert for an inventory that has an edit request. Admins can approve the edit
+ */
 const EditRequestView = ({ editRequest, isAdmin }) => {
 	const navigate = useNavigate()
 	return (

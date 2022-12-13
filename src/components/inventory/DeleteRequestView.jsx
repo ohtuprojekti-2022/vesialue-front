@@ -4,6 +4,9 @@ import RejectDeletionButton from './RejectDeletionButton'
 import AdminDeleteModal from './AdminDeleteModal'
 import { Button } from 'react-bootstrap'
 
+/**
+ * Renders an alert for an inventory that has a deletion request. Admins can approve the deletion
+ */
 const DeleteRequestView = ({ deleteRequest, isAdmin }) => {
 	const [showAdminModal, setShowAdminModal] = useState(false)
 

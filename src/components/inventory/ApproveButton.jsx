@@ -7,6 +7,9 @@ import { updateAreas } from '../../redux/reducers/areaReducer'
 import { updateInventories } from '../../redux/reducers/inventoryReducer'
 import { removeEditedInventoryById } from '../../redux/reducers/editedInventoryReducer'
 
+/**
+ * Button for admins that approves an edit request for an inventory
+ */
 const ApproveButton = ({ id }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()

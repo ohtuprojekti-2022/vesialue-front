@@ -19,6 +19,9 @@ import ApproveButton from './ApproveButton'
 import RejectButton from './RejectButton'
 import { renderWithLineBreaks } from '../RenderLongText'
 
+/**
+ * Renders a side-by-side view of an edited report and the original report before the edits for comparison
+ */
 const EditedReport = () => {
 	const userDetails = useSelector(({ userDetails }) => {
 		return userDetails

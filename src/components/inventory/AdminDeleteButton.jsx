@@ -7,7 +7,9 @@ import { removeInventoryById } from '../../redux/reducers/inventoryReducer'
 import { removeEditedInventoryByOriginalId } from '../../redux/reducers/editedInventoryReducer'
 import { removeDeletedInventoryByInventory } from '../../redux/reducers/deletedInventoryReducer'
 
-
+/**
+ * Button seen by admins that deletes an inventory regardless of whether a deletion request was made or not
+ */
 const AdminDeleteButton = ({ id }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()

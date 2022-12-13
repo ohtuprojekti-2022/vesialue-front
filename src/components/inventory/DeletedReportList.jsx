@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux'
 import { Container, Table } from 'react-bootstrap'
 import DeletedInventoryItem from './DeletedInventoryItem'
 
+/**
+ * Renders a list of all deletion requests
+ */
 const DeletedReportList = () => {
 	const deletedInventories = useSelector((state) => {
 		return state.deletedInventories

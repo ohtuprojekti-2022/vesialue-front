@@ -12,6 +12,9 @@ import { appendAreas } from '../../redux/reducers/areaReducer'
 import { formatDate } from '../../utils/tools'
 import MaptoolinfoModal from '../MaptoolinfoModal'
 
+/**
+ * Functionality for adding a new inventory according to the details specified in InventoryForm
+ */
 const AddInventory = () => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')

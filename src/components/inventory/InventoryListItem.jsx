@@ -6,6 +6,10 @@ import {
 	translateMethod,
 } from '../../utils/tools'
 
+
+/**
+ * Renders a single inventory report list item, containing some info about the report
+ */
 const InventoryListItem = ({ report, columns }) => {
 	const navigate = useNavigate()
 

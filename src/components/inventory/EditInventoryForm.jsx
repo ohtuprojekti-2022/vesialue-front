@@ -14,6 +14,10 @@ import { autosizeTextarea } from '../../utils/tools'
 	setMoreInfo,
 }
 */
+
+/**
+ * Renders a form with which the user can edit their inventory report by changing the details
+ */
 const EditInventoryForm = (props) => {
 	const handleMethodChange = (e) => {
 		props.setMethod(e.target.value)

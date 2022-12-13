@@ -19,6 +19,9 @@ import Map from '../map/Map'
 import RenderLongText from '../RenderLongText'
 import EditInventoryForm from './EditInventoryForm'
 
+/**
+ * Functionality for editing an existing inventory according to the details specified in EditInventoryForm
+ */
 const EditInventory = () => {
 	let { id } = useParams()
 	const [report, areas, userId] = useSelector((state) => {

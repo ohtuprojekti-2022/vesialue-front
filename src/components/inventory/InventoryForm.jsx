@@ -5,6 +5,9 @@ import PrivacyPolicyModal from '../PrivacyPolicyModal'
 import { autosizeTextarea } from '../../utils/tools'
 import { AREA_ERROR, ATTACHMENT_ERROR, DATE_ERROR, DESCRIPTION_ERROR, EMAIL_ERROR, METHOD_ERROR, NAME_ERROR, PHONE_ERROR } from '../../utils/error_messages.js'
 
+/**
+ * Renders the form in which the user can enter details about their inventory report and handles the inputs
+ */
 const InventoryForm = props => {
 	const handleMethodChange = e => {
 		props.setMethod(e.target.value)

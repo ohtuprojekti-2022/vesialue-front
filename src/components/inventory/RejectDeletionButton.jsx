@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux'
 import { rejectDeletionById } from '../../services/inventory-service'
 import { removeDeletedInventoryById } from '../../redux/reducers/deletedInventoryReducer'
 
+/**
+ * Button seen by admins that rejects a deletion request of a report
+ */
 const RejectDeletionButton = ({ id, isAdmin }) => {
 	const dispatch = useDispatch()
 	const handleClick = async () => {

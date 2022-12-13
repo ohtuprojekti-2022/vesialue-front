@@ -27,6 +27,10 @@ import RenderLongText  from '../RenderLongText'
 import {deleteAttachment, uploadAttachment} from '../../services/attachment-service'
 import AttachmentUpload from './AttachmentUpload'
 
+
+/**
+ * Renders a single inventory report and its details, as well as edit- and deletion-buttons
+ */
 const InventoryReport = () => {
 	let { id } = useParams()
 	const dispatch = useDispatch()
