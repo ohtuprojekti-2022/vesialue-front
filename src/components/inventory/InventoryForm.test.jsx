@@ -33,6 +33,7 @@ describe('InventoryForm', () => {
 	const mockSetName = jest.fn()
 	const mockSetEmail = jest.fn()
 	const mockSetPhone = jest.fn()
+	const mockSetAttachmentFiles = jest.fn()
 
 	beforeEach(() => {
 		render(
@@ -52,6 +53,7 @@ describe('InventoryForm', () => {
 					setName={mockSetName}
 					setEmail={mockSetEmail}
 					setPhone={mockSetPhone}
+					setAttachmentFiles={mockSetAttachmentFiles}
 				/>
 			</MemoryRouter>
 		)
@@ -215,5 +217,13 @@ describe('InventoryForm', () => {
 		await user.click(pp)
 		const pp_modal = screen.getByTestId('pp-modal')
 		expect(pp_modal).toBeVisible()
+	})
+
+	test('File can be changed', async () => {
+		const user = userEvent.setup()
+		const file = new File(['data'], 'tiedosto.txt')
+		const upload = screen.getByTestId('attachment')
+		await user.upload(upload, file)
+
 	})
 })
