@@ -1,5 +1,6 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { getAllInventories } from '../../services/inventory-service'
+import { resetNotification, setNotification } from './notificationReducer'
 
 const inventorySlice = createSlice({
 	name: 'inventories',
@@ -34,19 +35,12 @@ const inventorySlice = createSlice({
 
 export const initializeInventories = () => {
 	return async (dispatch) => {
+		dispatch(setNotification({ spinner: true, message: 'Haetaan inventointeja...' }))
 		const inventories = await getAllInventories()
 		dispatch(setInventories(inventories))
+		dispatch(resetNotification())
 	}
 }
-
-export const getInventoriesByUserId = createSelector(
-	[(state) => state.inventories, (_state, userId) => userId],
-	// Output selector gets (inventories, userId) as args
-	(inventories, userId) =>
-		inventories.filter(
-			(inventory) => inventory.user && inventory.user.id === userId
-		)
-)
 
 export const updateInventories = (inventory) => {
 	return (dispatch) => {

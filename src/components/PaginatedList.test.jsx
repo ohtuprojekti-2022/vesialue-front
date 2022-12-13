@@ -10,12 +10,12 @@ describe('PaginatedList not yet loaded', () => {
 	beforeEach(() => {
 		renderWithProviders(
 			<MemoryRouter>
-				<PaginatedList data={[]}/>
+				<PaginatedList />
 			</MemoryRouter>
 		)	
 	})
 
 	test('Does not render table if the list is empty', () => {
-		expect(screen.getByText('Haetaan raportteja...')).not.toBeNull()
+		expect(screen.getByText('Ei inventointeja')).not.toBeNull()
 	})
 })

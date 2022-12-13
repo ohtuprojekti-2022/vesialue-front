@@ -82,8 +82,7 @@ const Registration = () => {
 				<Alert variant="danger">
 					Kirjaudu ulos luodaksesi uusi käyttäjätunnus!
 				</Alert>
-			)}
-			{!localStorage.getItem('userDetails') && (
+			) || (
 				<RegistrationForm
 					validated={validated}
 					handleSubmit={handleSubmit}
