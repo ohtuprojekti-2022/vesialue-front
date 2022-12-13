@@ -78,6 +78,7 @@ const InventoryReport = () => {
 				try {
 					const attachmentReferences = await uploadAttachment(formData)
 					// Update attachment file references to the new inventory
+					setAttachmentFiles(null)
 					dispatch(addAttachments({
 						inventoryId: report.id,
 						newAttachments: attachmentReferences
@@ -232,6 +233,7 @@ const InventoryReport = () => {
 							handleAttachmentUpload={handleAttachmentUpload}
 							setAttachmentFiles={setAttachmentFiles}
 							validated={validated}
+							attachmentLength={report.attachment_files.length}
 						/>
 					)}
 				</Card.Body>
