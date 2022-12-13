@@ -13,9 +13,9 @@ import {
 	translateMethod,
 	translateVisibility,
 } from '../../utils/tools'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Button } from 'react-bootstrap'
-import { selectInventoryById, removeAttachmentById } from '../../redux/reducers/inventoryReducer'
+import { selectInventoryById, removeAttachmentById, addAttachments } from '../../redux/reducers/inventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import AdminDeleteModal from './AdminDeleteModal'
 import { selectDeletedInventoryByInventory } from '../../redux/reducers/deletedInventoryReducer'
@@ -24,12 +24,15 @@ import { selectEditedInventoryByOriginalId } from '../../redux/reducers/editedIn
 import EditRequestView from './EditRequestView'
 import REACT_APP_BACKEND_URL from '../../utils/config'
 import RenderLongText  from '../RenderLongText'
-import { deleteAttachment } from '../../services/attachment-service'
+import {deleteAttachment, uploadAttachment} from '../../services/attachment-service'
+import AttachmentUpload from './AttachmentUpload'
 
 const InventoryReport = () => {
 	let { id } = useParams()
 	const dispatch = useDispatch()
 	const [showAdminModal, setShowAdminModal] = useState(false)
+	const [attachmentFiles, setAttachmentFiles] = useState(null)
+	const [validated, setValidated] = useState(false)
 	const [report, areas, userDetails, deleteRequest, editRequest] = useSelector(state => {
 		return [
 			selectInventoryById(state, id),
@@ -50,6 +53,42 @@ const InventoryReport = () => {
 			return [...prev, getCenter(current.coordinates)]
 		}, [])
 	)
+
+	const handleAttachmentUpload = async (event) => {
+		const form = event.currentTarget
+		const valid = form.checkValidity()
+		setValidated(true)
+		event.preventDefault()
+
+		try {
+			if (valid) {
+				if ((report.attachment_files.length + attachmentFiles.length) > 5) {
+					alert('Voit lisätä raporttiin enintään 5 liitetiedostoa!')
+					setValidated(false)
+					setAttachmentFiles(null)
+					return
+				}
+
+				const formData = new FormData()
+				for (let i = 0; i < attachmentFiles.length; i++) {
+					formData.append('file', attachmentFiles[i])
+				}
+				formData.append('inventory', report.id)
+				try {
+					const attachmentReferences = await uploadAttachment(formData)
+					// Update attachment file references to the new inventory
+					dispatch(addAttachments({
+						inventoryId: report.id,
+						newAttachments: attachmentReferences
+					}))
+				} catch(error) {
+					console.log(error)
+				}
+			}
+		} catch (error) {
+			alert(error.toString())
+		}
+	}
 
 	return (
 		<div className="d-flex justify-content-around">
@@ -141,42 +180,54 @@ const InventoryReport = () => {
 						)}
 					</ListGroup>
 					{(report.attachments && report.attachment_files.length > 0) && (
-						<ListGroup>
-							<div className="fw-bold">Liitteet</div>
-							{report.attachment_files.map(file => (
-								<ListGroup.Item key={file.filename}>
-									{file.filename}
-									<Button
-										style={{ marginLeft: '1rem' }}
-										size="sm"
-										onClick={() => window.open(
-											`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`,
-											'_blank')
-										}
-									>
-										Lataa
-									</Button>
-									{report.user &&
-										userDetails &&
-										userDetails.user.id === report.user.id && (
+						<div>
+							<ListGroup>
+								<div className="fw-bold">Liitteet</div>
+								{report.attachment_files.map(file => (
+									<ListGroup.Item key={file.filename}>
+										{file.filename}
 										<Button
-											variant="danger"
 											style={{ marginLeft: '1rem' }}
 											size="sm"
-											onClick={async () => {
-												const removedId = await deleteAttachment(file.attachment)
-												dispatch(removeAttachmentById({
-													inventoryId: report.id,
-													attachmentId: removedId.deleted
-												}))
-											}}
+											onClick={() => window.open(
+												`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`,
+												'_blank')
+											}
 										>
-										Poista
+										Lataa
 										</Button>
-									)}
-								</ListGroup.Item>
-							))}
-						</ListGroup>
+										{report.user &&
+										userDetails &&
+										userDetails.user.id === report.user.id && (
+											<Button
+												variant="danger"
+												style={{ marginLeft: '1rem' }}
+												size="sm"
+												onClick={async () => {
+													const removedId = await deleteAttachment(file.attachment)
+													dispatch(removeAttachmentById({
+														inventoryId: report.id,
+														attachmentId: removedId.deleted
+													}))
+												}}
+											>
+										Poista
+											</Button>
+										)}
+									</ListGroup.Item>
+								))}
+							</ListGroup>
+
+						</div>
+					)}
+					{report.user &&
+						userDetails &&
+						userDetails.user.id === report.user.id && (
+						<AttachmentUpload
+							handleAttachmentUpload={handleAttachmentUpload}
+							setAttachmentFiles={setAttachmentFiles}
+							validated={validated}
+						/>
 					)}
 				</Card.Body>
 				<AdminDeleteModal
