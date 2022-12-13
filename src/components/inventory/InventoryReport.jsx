@@ -66,6 +66,7 @@ const InventoryReport = () => {
 					alert('Voit lisätä raporttiin enintään 5 liitetiedostoa!')
 					setValidated(false)
 					setAttachmentFiles(null)
+					event.target.reset()
 					return
 				}
 
@@ -88,6 +89,10 @@ const InventoryReport = () => {
 		} catch (error) {
 			alert(error.toString())
 		}
+
+		// Clear upload form
+		event.target.reset()
+
 	}
 
 	return (
