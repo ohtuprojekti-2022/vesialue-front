@@ -9,53 +9,54 @@ const AttachmentUpload = props => {
 			validated={props.validated}
 			onSubmit={props.handleAttachmentUpload}
 		>
-			<Form.Group controlId="attachments" className="mb-3">
+			<Form.Group
+				controlId="attachments"
+				className="mb-3"
+				style={{ marginTop: '0.5rem' }}
+			>
 				<Form.Text>
-                        Voit lisätä max. 5 liitetiedostoa. Liitetiedostojen maksimikoko on 64 megatavua.
-                        Liitetiedostot ovat tarkoitettu viistokaiutusdatalle ja valokuville.<br />
-                        Jos sinulla on isoja liitetiedostoja ja enemmän aineistoa sukelluksesta, kerro siitä raportissasi!
+					Voit lisätä max. 5 liitetiedostoa. Liitetiedostojen maksimikoko on 64
+					megatavua. Liitetiedostot ovat tarkoitettu viistokaiutusdatalle ja
+					valokuville.
+					<br />
+					Jos sinulla on isoja liitetiedostoja ja enemmän aineistoa
+					sukelluksesta, kerro siitä raportissasi!
 				</Form.Text>
-				{(props.attachmentLength < 5 && (<Form.Control
-					type="file" multiple
-					required
-					data-testid="attachment"
-					onChange={event => {
-						// Check if there are more than 5 attachments
-						if (event.target.files.length > 5) {
-							event.target.value = null
-							props.setAttachmentFiles(null)
-							alert('Raporttiin voi lisätä enintään viisi liitetiedostoa!')
-						}
-						// Go through the attachment files. Discard attachment if over 64 MB
-						for (let i = 0; i < event.target.files.length; i++) {
-							if (event.target.files[i].size > 67108864) {
+				{(props.attachmentLength < 5 && (
+					<Form.Control
+						type="file"
+						multiple
+						required
+						data-testid="attachment"
+						onChange={event => {
+							// Check if there are more than 5 attachments
+							if (event.target.files.length > 5) {
 								event.target.value = null
 								props.setAttachmentFiles(null)
-								alert('Liitetiedoston maksimikoko on 64 megatavua!')
+								alert('Raporttiin voi lisätä enintään viisi liitetiedostoa!')
 							}
-						}
-						props.setAttachmentFiles(event.target.files)
-					}
-					}
-				/>)) || (
-					<Form.Control type="file" disabled />
-				)}
+							// Go through the attachment files. Discard attachment if over 64 MB
+							for (let i = 0; i < event.target.files.length; i++) {
+								if (event.target.files[i].size > 67108864) {
+									event.target.value = null
+									props.setAttachmentFiles(null)
+									alert('Liitetiedoston maksimikoko on 64 megatavua!')
+								}
+							}
+							props.setAttachmentFiles(event.target.files)
+						}}
+					/>
+				)) || <Form.Control type="file" disabled />}
 				<Form.Control.Feedback type="invalid">
 					{ATTACHMENT_ERROR}
 				</Form.Control.Feedback>
-				{(props.attachmentLength < 5 && (
-					<Button
-						type="submit"
-					>
-                    Lisää liitetiedosto
-					</Button>)) || (
-					<Button
-						type="submit"
-						disabled
-					>
-						Lisää liitetiedosto
-					</Button>
-				)}
+				<Button
+					style={{ marginTop: '0.5rem' }}
+					type="submit"
+					disabled={props.attachmentLength >= 5}
+				>
+					Lisää liitetiedosto
+				</Button>
 			</Form.Group>
 		</Form>
 	)

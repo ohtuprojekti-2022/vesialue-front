@@ -14,8 +14,12 @@ import {
 	translateVisibility,
 } from '../../utils/tools'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button } from 'react-bootstrap'
-import { selectInventoryById, removeAttachmentById, addAttachments } from '../../redux/reducers/inventoryReducer'
+import { Button, Col, Row } from 'react-bootstrap'
+import {
+	selectInventoryById,
+	removeAttachmentById,
+	addAttachments,
+} from '../../redux/reducers/inventoryReducer'
 import { selectAreasByReportId } from '../../redux/reducers/areaReducer'
 import AdminDeleteModal from './AdminDeleteModal'
 import { selectDeletedInventoryByInventory } from '../../redux/reducers/deletedInventoryReducer'
@@ -23,10 +27,12 @@ import DeleteRequestView from './DeleteRequestView'
 import { selectEditedInventoryByOriginalId } from '../../redux/reducers/editedInventoryReducer'
 import EditRequestView from './EditRequestView'
 import REACT_APP_BACKEND_URL from '../../utils/config'
-import RenderLongText  from '../RenderLongText'
-import {deleteAttachment, uploadAttachment} from '../../services/attachment-service'
+import RenderLongText from '../RenderLongText'
+import {
+	deleteAttachment,
+	uploadAttachment,
+} from '../../services/attachment-service'
 import AttachmentUpload from './AttachmentUpload'
-
 
 /**
  * Renders a single inventory report and its details, as well as edit- and deletion-buttons
@@ -37,15 +43,17 @@ const InventoryReport = () => {
 	const [showAdminModal, setShowAdminModal] = useState(false)
 	const [attachmentFiles, setAttachmentFiles] = useState(null)
 	const [validated, setValidated] = useState(false)
-	const [report, areas, userDetails, deleteRequest, editRequest] = useSelector(state => {
-		return [
-			selectInventoryById(state, id),
-			selectAreasByReportId(state, id),
-			state.userDetails,
-			selectDeletedInventoryByInventory(state, id),
-			selectEditedInventoryByOriginalId(state, id)
-		]
-	})
+	const [report, areas, userDetails, deleteRequest, editRequest] = useSelector(
+		state => {
+			return [
+				selectInventoryById(state, id),
+				selectAreasByReportId(state, id),
+				state.userDetails,
+				selectDeletedInventoryByInventory(state, id),
+				selectEditedInventoryByOriginalId(state, id),
+			]
+		}
+	)
 	const navigate = useNavigate()
 
 	if (!report || !areas) {
@@ -58,7 +66,7 @@ const InventoryReport = () => {
 		}, [])
 	)
 
-	const handleAttachmentUpload = async (event) => {
+	const handleAttachmentUpload = async event => {
 		const form = event.currentTarget
 		const valid = form.checkValidity()
 		setValidated(true)
@@ -66,7 +74,7 @@ const InventoryReport = () => {
 
 		try {
 			if (valid) {
-				if ((report.attachment_files.length + attachmentFiles.length) > 5) {
+				if (report.attachment_files.length + attachmentFiles.length > 5) {
 					alert('Voit lisätä raporttiin enintään 5 liitetiedostoa!')
 					setValidated(false)
 					setAttachmentFiles(null)
@@ -83,11 +91,14 @@ const InventoryReport = () => {
 					const attachmentReferences = await uploadAttachment(formData)
 					// Update attachment file references to the new inventory
 					setAttachmentFiles(null)
-					dispatch(addAttachments({
-						inventoryId: report.id,
-						newAttachments: attachmentReferences
-					}))
-				} catch(error) {
+					setValidated(false)
+					dispatch(
+						addAttachments({
+							inventoryId: report.id,
+							newAttachments: attachmentReferences,
+						})
+					)
+				} catch (error) {
 					console.log(error)
 				}
 			}
@@ -97,12 +108,10 @@ const InventoryReport = () => {
 
 		// Clear upload form
 		event.target.reset()
-
 	}
 
 	return (
 		<div className="d-flex justify-content-around">
-
 			<Card
 				style={{ width: '40rem', marginBottom: '1rem' }}
 				data-testid="report-card"
@@ -115,24 +124,27 @@ const InventoryReport = () => {
 								isAdmin={userDetails.user.admin > 0}
 							/>
 						)}
-						{userDetails &&
-							editRequest && (
+						{userDetails && editRequest && (
 							<EditRequestView
 								editRequest={editRequest}
-								isAdmin={userDetails.user.admin > 0} />
+								isAdmin={userDetails.user.admin > 0}
+							/>
 						)}
 						Raportti{' '}
 						{report.user &&
 							userDetails &&
 							userDetails.user.id === report.user.id && (
-							<Button onClick={() => navigate(`/raportti/${report.id}/muokkaa`)}>
+							<Button
+								onClick={() => navigate(`/raportti/${report.id}/muokkaa`)}
+							>
 									Muokkaa
 							</Button>
 						)}{' '}
 						{report.user &&
 							userDetails &&
 							userDetails.user.id === report.user.id &&
-							userDetails.user.admin < 1 && !deleteRequest && (
+							userDetails.user.admin < 1 &&
+							!deleteRequest && (
 							<Button
 								variant="danger"
 								onClick={() => navigate(`/raportti/${report.id}/poista`)}
@@ -141,16 +153,13 @@ const InventoryReport = () => {
 							</Button>
 						)}
 						{userDetails && userDetails.user.admin > 0 && !deleteRequest && (
-							<Button
-								variant="danger"
-								onClick={() => setShowAdminModal(true)}
-							>
+							<Button variant="danger" onClick={() => setShowAdminModal(true)}>
 								Poista
 							</Button>
 						)}
 					</Card.Title>
-					<Map center={center} autoZoom={true} >
-						{areas.map((area) => (
+					<Map center={center} autoZoom={true}>
+						{areas.map(area => (
 							<Area key={area.id} coordinates={area.coordinates} />
 						))}
 					</Map>
@@ -180,7 +189,8 @@ const InventoryReport = () => {
 						{parseEmail(report) !== '' && (
 							<ListGroup.Item>
 								<div className="fw-bold">Sähköposti</div>
-								{parseEmail(report)}</ListGroup.Item>
+								{parseEmail(report)}
+							</ListGroup.Item>
 						)}
 						{parsePhone(report) !== '' && (
 							<ListGroup.Item>
@@ -189,45 +199,59 @@ const InventoryReport = () => {
 							</ListGroup.Item>
 						)}
 					</ListGroup>
-					{(report.attachment_files && report.attachment_files.length > 0) && (
+					{report.attachment_files && report.attachment_files.length > 0 && (
 						<div>
+							<div
+								className="fw-bold"
+								style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}
+							>
+								Liitteet
+							</div>
 							<ListGroup>
-								<div className="fw-bold">Liitteet</div>
 								{report.attachment_files.map(file => (
-									<ListGroup.Item key={file.filename}>
-										{file.filename}
-										<Button
-											style={{ marginLeft: '1rem' }}
-											size="sm"
-											onClick={() => window.open(
-												`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`,
-												'_blank')
-											}
-										>
-										Lataa
-										</Button>
-										{report.user &&
-										userDetails &&
-										userDetails.user.id === report.user.id && (
-											<Button
-												variant="danger"
-												style={{ marginLeft: '1rem' }}
-												size="sm"
-												onClick={async () => {
-													const removedId = await deleteAttachment(file.attachment)
-													dispatch(removeAttachmentById({
-														inventoryId: report.id,
-														attachmentId: removedId.deleted
-													}))
-												}}
-											>
-										Poista
-											</Button>
-										)}
+									<ListGroup.Item key={file.attachment}>
+										<Row>
+											<Col>{file.filename}</Col>
+											<Col md="auto">
+												<Button
+													style={{ marginLeft: '1rem' }}
+													size="sm"
+													onClick={() =>
+														window.open(
+															`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`,
+															'_blank'
+														)
+													}
+												>
+													Lataa
+												</Button>
+												{report.user &&
+													userDetails &&
+													userDetails.user.id === report.user.id && (
+													<Button
+														variant="danger"
+														style={{ marginLeft: '1rem' }}
+														size="sm"
+														onClick={async () => {
+															const removedId = await deleteAttachment(
+																file.attachment
+															)
+															dispatch(
+																removeAttachmentById({
+																	inventoryId: report.id,
+																	attachmentId: removedId.deleted,
+																})
+															)
+														}}
+													>
+															Poista
+													</Button>
+												)}
+											</Col>
+										</Row>
 									</ListGroup.Item>
 								))}
 							</ListGroup>
-
 						</div>
 					)}
 					{report.user &&
@@ -237,7 +261,9 @@ const InventoryReport = () => {
 							handleAttachmentUpload={handleAttachmentUpload}
 							setAttachmentFiles={setAttachmentFiles}
 							validated={validated}
-							attachmentLength={report.attachment_files ? report.attachment_files.length : 0}
+							attachmentLength={
+								report.attachment_files ? report.attachment_files.length : 0
+							}
 						/>
 					)}
 				</Card.Body>
