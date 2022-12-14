@@ -14,7 +14,7 @@ import {
 	translateVisibility,
 } from '../../utils/tools'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Col, Row } from 'react-bootstrap'
+import { Accordion, Button, Col, Row } from 'react-bootstrap'
 import {
 	selectInventoryById,
 	removeAttachmentById,
@@ -43,6 +43,7 @@ const InventoryReport = () => {
 	const [showAdminModal, setShowAdminModal] = useState(false)
 	const [attachmentFiles, setAttachmentFiles] = useState(null)
 	const [validated, setValidated] = useState(false)
+	const [uploading, setUploading] = useState(false)
 	const [report, areas, userDetails, deleteRequest, editRequest] = useSelector(
 		state => {
 			return [
@@ -88,16 +89,18 @@ const InventoryReport = () => {
 				}
 				formData.append('inventory', report.id)
 				try {
+					setUploading(true)
 					const attachmentReferences = await uploadAttachment(formData)
 					// Update attachment file references to the new inventory
-					setAttachmentFiles(null)
 					setValidated(false)
+					setAttachmentFiles(null)
 					dispatch(
 						addAttachments({
 							inventoryId: report.id,
 							newAttachments: attachmentReferences,
 						})
 					)
+					setUploading(false)
 				} catch (error) {
 					console.log(error)
 				}
@@ -108,6 +111,22 @@ const InventoryReport = () => {
 
 		// Clear upload form
 		event.target.reset()
+	}
+
+	const handleDeleteAttachment = async file => {
+		if (
+			window.confirm(
+				`Haluatko varmasti että tiedosto ${file.filename} poistetaan?\nJos painat OK, poistetaan pysyvästi!`
+			)
+		) {
+			const removedId = await deleteAttachment(file.attachment)
+			dispatch(
+				removeAttachmentById({
+					inventoryId: report.id,
+					attachmentId: removedId.deleted,
+				})
+			)
+		}
 	}
 
 	return (
@@ -200,59 +219,50 @@ const InventoryReport = () => {
 						)}
 					</ListGroup>
 					{report.attachment_files && report.attachment_files.length > 0 && (
-						<div>
-							<div
-								className="fw-bold"
-								style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}
-							>
-								Liitteet
-							</div>
-							<ListGroup>
-								{report.attachment_files.map(file => (
-									<ListGroup.Item key={file.attachment}>
-										<Row>
-											<Col>{file.filename}</Col>
-											<Col md="auto">
-												<Button
-													style={{ marginLeft: '1rem' }}
-													size="sm"
-													onClick={() =>
-														window.open(
-															`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`,
-															'_blank'
-														)
-													}
-												>
-													Lataa
-												</Button>
-												{report.user &&
-													userDetails &&
-													userDetails.user.id === report.user.id && (
-													<Button
-														variant="danger"
-														style={{ marginLeft: '1rem' }}
-														size="sm"
-														onClick={async () => {
-															const removedId = await deleteAttachment(
-																file.attachment
-															)
-															dispatch(
-																removeAttachmentById({
-																	inventoryId: report.id,
-																	attachmentId: removedId.deleted,
-																})
-															)
-														}}
-													>
-															Poista
-													</Button>
-												)}
-											</Col>
-										</Row>
-									</ListGroup.Item>
-								))}
-							</ListGroup>
-						</div>
+						<Accordion style={{ marginTop: '1rem' }}>
+							<Accordion.Item eventKey="0">
+								<Accordion.Header>
+									<b>Liittee ({report.attachment_files.length}kpl)</b>
+								</Accordion.Header>
+								<Accordion.Body>
+									<ListGroup>
+										{report.attachment_files.map(file => (
+											<ListGroup.Item key={file.attachment}>
+												<Row>
+													<Col>{file.filename}</Col>
+													<Col md="auto">
+														<Button
+															style={{ marginLeft: '1rem' }}
+															size="sm"
+															onClick={() =>
+																window.open(
+																	`${REACT_APP_BACKEND_URL}/api/files/${file.attachment}`,
+																	'_blank'
+																)
+															}
+														>
+															Lataa
+														</Button>
+														{report.user &&
+															userDetails &&
+															userDetails.user.id === report.user.id && (
+															<Button
+																variant="danger"
+																style={{ marginLeft: '1rem' }}
+																size="sm"
+																onClick={() => handleDeleteAttachment(file)}
+															>
+																	Poista
+															</Button>
+														)}
+													</Col>
+												</Row>
+											</ListGroup.Item>
+										))}
+									</ListGroup>
+								</Accordion.Body>
+							</Accordion.Item>
+						</Accordion>
 					)}
 					{report.user &&
 						userDetails &&
@@ -264,6 +274,7 @@ const InventoryReport = () => {
 							attachmentLength={
 								report.attachment_files ? report.attachment_files.length : 0
 							}
+							uploading={uploading}
 						/>
 					)}
 				</Card.Body>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Spinner } from 'react-bootstrap'
 import { ATTACHMENT_ERROR } from '../../utils/error_messages'
 
 const AttachmentUpload = props => {
@@ -50,13 +50,26 @@ const AttachmentUpload = props => {
 				<Form.Control.Feedback type="invalid">
 					{ATTACHMENT_ERROR}
 				</Form.Control.Feedback>
-				<Button
-					style={{ marginTop: '0.5rem' }}
-					type="submit"
-					disabled={props.attachmentLength >= 5}
-				>
-					Lisää liitetiedosto
-				</Button>
+
+				{props.uploading ? (
+					<Button style={{ marginTop: '0.5rem' }} disabled>
+						<Spinner
+							as="span"
+							animation="border"
+							size="sm"
+							role="status"
+							aria-hidden="true"
+						/> Ladataan...
+					</Button>
+				) : (
+					<Button
+						style={{ marginTop: '0.5rem' }}
+						type="submit"
+						disabled={props.attachmentLength >= 5}
+					>
+						Lisää liitetiedosto
+					</Button>
+				)}
 			</Form.Group>
 		</Form>
 	)
