@@ -21,14 +21,16 @@ const inventorySlice = createSlice({
 		removeAttachmentById: (state, action) => {
 			const inv = state.filter(i => i.id === action.payload.inventoryId)[0]
 			return state.map(i => i.id === action.payload.inventoryId ?
-				{ ...inv, attachment_files: inv.attachment_files.filter(a =>
-					a.attachment !== action.payload.attachmentId
-				)} : i)
+				{
+					...inv, attachment_files: inv.attachment_files.filter(a =>
+						a.attachment !== action.payload.attachmentId
+					)
+				} : i)
 		},
 		addAttachments: (state, action) => {
 			const inv = state.filter(i => i.id === action.payload.inventoryId)[0]
 			return state.map(i => i.id === action.payload.inventoryId ?
-				{ ...inv, attachment_files: action.payload.newAttachments } : i)
+				{ ...inv, attachment_files: action.payload.newAttachments, attachments: true } : i)
 		}
 	},
 })
