@@ -12,6 +12,9 @@ export const renderWithLineBreaks = (textContent) => {
 	})
 }
 
+/**
+ * Component used for rendering very long texts
+ */
 const RenderLongText = ({ text, maxLength = 300 }) => {
 	const [showMoreText, setShowMoreText] = useState(false)
 

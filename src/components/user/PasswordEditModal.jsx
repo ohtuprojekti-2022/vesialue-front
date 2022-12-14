@@ -6,6 +6,9 @@ import { Alert } from 'react-bootstrap'
 import { login } from '../../redux/reducers/userReducer'
 import {PASSWORD_ERROR} from '../../utils/error_messages.js'
 
+/**
+ * Renders a modal that the user can use to change their password
+ */
 const PasswordEditModal = ({show, close}) => {
 	
 	const dispatch = useDispatch()

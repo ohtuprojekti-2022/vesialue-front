@@ -2,6 +2,9 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 
+/**
+ * Button with functionality for changing the order of the inventories in the list
+ */
 const SortButton = ({ handleSort }) => {
 	const filter = useSelector(({ filter }) => filter)
 

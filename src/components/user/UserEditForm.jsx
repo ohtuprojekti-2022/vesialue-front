@@ -2,6 +2,9 @@ import React from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import {EMAIL_ERROR, NAME_ERROR, PHONE_ERROR, USERNAME_ERROR} from '../../utils/error_messages.js'
 
+/**
+ * Renders the form with which the user can edit their own user details, excluding the password
+ */
 const UserEditForm = props => {
 
 	return (

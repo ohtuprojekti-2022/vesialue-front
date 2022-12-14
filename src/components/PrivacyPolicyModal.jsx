@@ -2,6 +2,9 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 
+/**
+ * Renders a modal containing the privacy policy of the application
+ */
 const TermsofserviceModal = ({ show, close }) => {
 	return (
 		<div className="container" data-testid="pp-modal">

@@ -1,5 +1,8 @@
 import React from 'react'
 
+/**
+ * Renders a footer for the site containing information about the application
+ */
 const Footer = ({ setShowTOS }) => {
 	return (
 		<footer

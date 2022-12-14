@@ -1,6 +1,9 @@
 import React from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 
+/**
+ * Renders the form in which the user can enter their credentials for logging in
+ */
 const LoginForm = ({ validated, handleSubmit, setUsername, setPassword }) => {
 	return (
 		<Form

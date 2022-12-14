@@ -4,6 +4,9 @@ import TermsofserviceModal from '../TermsofserviceModal'
 import PrivacyPolicyModal from '../PrivacyPolicyModal'
 import {EMAIL_ERROR, NAME_ERROR, PASSWORD_ERROR, PHONE_ERROR, USERNAME_ERROR} from '../../utils/error_messages.js'
 
+/**
+ * Renders the form with which the user can register to the service
+ */
 const RegistrationForm = ({
 	validated,
 	handleSubmit,

@@ -5,7 +5,9 @@ import { filteredInventoriesAndAreas } from '../utils/tools'
 import InventoryList from './inventory/InventoryList'
 import Notification from './Notification'
 
-
+/**
+ * Functionality for splitting the list of inventories into pages
+ */
 const PaginatedList = ({ perPageNumber, columns }) => {
 	let filterResults
 	const [filteredInventories] = useSelector(({ inventories, filter }) => {

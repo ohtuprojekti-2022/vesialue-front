@@ -10,6 +10,9 @@ import UserEditForm from './UserEditForm'
 import PasswordEditModal from './PasswordEditModal'
 import PaginatedList from './../PaginatedList'
 
+/**
+ * Renders information of the current logged in user
+ */
 const UserInfo = ({ userDetails, dispatch }) => {
 	const [edit, setEdit] = useState(false)
 	const [username, setUsername] = useState(userDetails.user.username)
@@ -84,6 +87,9 @@ const UserInfo = ({ userDetails, dispatch }) => {
 	)
 }
 
+/**
+ * Renders the user page that contains the user's info and allows them to edit it
+ */
 const UserPage = () => {
 	const userDetails = useSelector(({ userDetails }) => {
 		return userDetails

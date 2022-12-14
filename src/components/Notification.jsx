@@ -2,6 +2,9 @@ import React from 'react'
 import { Spinner } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 
+/**
+ * Renders a notification
+ */
 const Notification = () => {
 	const notification = useSelector(state => state.notification)
 

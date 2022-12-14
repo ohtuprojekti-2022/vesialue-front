@@ -7,6 +7,9 @@ import RegistrationForm from './RegistrationForm'
 import { login } from '../../redux/reducers/userReducer'
 import { useDispatch } from 'react-redux'
 
+/**
+ * Functionality for registering a new user
+ */
 const Registration = () => {
 	const dispatch = useDispatch()
 	const [username, setUsername] = useState('')

@@ -5,6 +5,9 @@ import Map from './map/Map'
 import PaginatedList from './PaginatedList'
 import FilterForm from './FilterForm'
 
+/**
+ * Renders all the components used in the front page of the application
+ */
 function Frontpage() {
 	return (
 		<Container>
