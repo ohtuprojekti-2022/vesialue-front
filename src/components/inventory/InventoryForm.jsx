@@ -145,7 +145,7 @@ const InventoryForm = props => {
 						</Form.Control.Feedback>
 					</FloatingLabel>
 				)}
-				{localStorage.getItem('userDetails') && (
+				{(localStorage.getItem('userDetails') && (
 					<Form.Group controlId="attachments" className="mb-3">
 						<Form.Check
 							data-testid="attachments"
@@ -194,6 +194,11 @@ const InventoryForm = props => {
 							</>
 						)}
 					</Form.Group>
+				)) || (
+					<>
+						<Form.Text>Kirjaudu sisään lisätäksesi liitetiedostoja</Form.Text>
+						<Form.Check disabled label="Minulla on liitetiedosto(ja)" />
+					</>
 				)}
 				<FloatingLabel
 					style={{ paddingTop: '2rem' }}
@@ -298,24 +303,26 @@ const InventoryForm = props => {
 							<Form.Check
 								data-testid="terms-of-services"
 								type="checkbox"
+								label={
+									<>
+										Hyväksyn{' '}
+										<span style={{ cursor: 'pointer' }}>
+											<a
+												className="text-primary"
+												data-testid="pp"
+												href="https://www.mas.fi/fi/tietosuojaseloste"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												tietosuojaselosteen
+											</a>
+										</span>
+										.
+									</>
+								}
 								checked={checked}
 								onChange={() => setChecked(!checked)}
 							/>
-							<span style={{ paddingLeft: '10px' }}>
-								Hyväksyn{' '}
-								<span style={{ cursor: 'pointer' }}>
-									<a
-										className="text-primary"
-										data-testid="pp"
-										href="https://www.mas.fi/fi/tietosuojaseloste"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										tietosuojaselosteen
-									</a>
-								</span>
-								.
-							</span>
 						</Form.Group>
 						{(props.submitted && (
 							<Button variant="primary" disabled style={{ display: 'block' }}>
