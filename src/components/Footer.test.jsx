@@ -31,12 +31,6 @@ describe('Footer', () => {
 		expect(screen.getByText('Helsingin Yliopisto')).not.toBeNull()
 	})
 
-	test('Terms of Service can be clicked', async () => {
-		const user = userEvent.setup()
-		const tos = screen.getByTestId('tos')
-		await user.click(tos)
-	})
-
 	test('Privacy policy can be clicked', async () => {
 		const user = userEvent.setup()
 		const pp = screen.getByTestId('pp')

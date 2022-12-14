@@ -19,7 +19,6 @@ describe('InventoryForm', () => {
 		email,
 		phone,
 		terms,
-		tos,
 		pp,
 		submitButton
 
@@ -70,7 +69,6 @@ describe('InventoryForm', () => {
 		email = screen.getByTestId('email')
 		phone = screen.getByTestId('phone')
 		terms = screen.getByTestId('terms-of-services')
-		tos = screen.getByTestId('tos')
 		pp = screen.getByTestId('pp')
 		submitButton = screen.getByRole('button', { name: /lähetä/i })
 
@@ -203,13 +201,6 @@ describe('InventoryForm', () => {
 		await user.click(terms)
 		expect(terms).toBeChecked()
 		expect(submitButton).not.toBeDisabled()
-	})
-
-	test('Open the terms of services', async () => {
-		const user = userEvent.setup()
-		await user.click(tos)
-		const tos_modal = screen.getByTestId('tos-modal')
-		expect(tos_modal).toBeVisible()
 	})
 
 	test('Open the privacy policy', async () => {

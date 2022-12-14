@@ -3,7 +3,7 @@ import React from 'react'
 /**
  * Renders a footer for the site containing information about the application
  */
-const Footer = ({ setShowTOS }) => {
+const Footer = () => {
 	return (
 		<footer
 			className="page-footer font-small blue pt-4"
@@ -42,11 +42,6 @@ const Footer = ({ setShowTOS }) => {
 					<div className="col-md-3 mb-md-0 mb-3">
 						<h5 className="text-uppercase"></h5>
 						<ul className="list-unstyled">
-							<li>
-								<a href="#!" onClick={() => setShowTOS(true)} data-testid="tos">
-									Käyttöehdot
-								</a>
-							</li>
 							<li>
 								<a className="text-primary" data-testid="pp" href="https://www.mas.fi/fi/tietosuojaseloste" target="_blank" rel="noopener noreferrer">
 									Tietosuojaseloste
