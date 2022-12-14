@@ -3,11 +3,15 @@ import REACT_APP_BACKEND_URL from '../utils/config'
 import { headers } from '../utils/tools'
 
 export const uploadAttachment = async (formData) => {
+	const { Authorization } = headers().headers
 	const response = await axios({
 		method: 'post',
 		url: `${REACT_APP_BACKEND_URL}/api/files/upload`,
 		data: formData,
-		headers: { 'Content-Type': 'multipart/form-data' },
+		headers: {
+			'Content-Type': 'multipart/form-data',
+			'Authorization': Authorization
+		},
 	})
 	return response.data
 }
