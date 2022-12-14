@@ -13,7 +13,6 @@ describe('InventoryForm', () => {
 		checkEcho,
 		checkDive,
 		checkOther,
-		attachments,
 		moreInfo,
 		name,
 		email,
@@ -63,7 +62,6 @@ describe('InventoryForm', () => {
 		checkEcho = screen.getByTestId('echo')
 		checkDive = screen.getByTestId('dive')
 		checkOther = screen.getByTestId('other')
-		attachments = screen.getByTestId('attachments')
 		moreInfo = screen.getByTestId('moreInfo')
 		name = screen.getByTestId('name')
 		email = screen.getByTestId('email')
@@ -165,12 +163,6 @@ describe('InventoryForm', () => {
 		expect(moreInfo).toHaveValue('testi-info')
 	})
 
-	test('changing attachments work', async () => {
-		const user = userEvent.setup()
-		await user.click(attachments)
-		expect(attachments).toBeChecked()
-	})
-
 	test('changing methodInfo works', async () => {
 		const user = userEvent.setup()
 		await user.click(checkOther)
@@ -208,13 +200,5 @@ describe('InventoryForm', () => {
 		await user.click(pp)
 		const pp_modal = screen.getByTestId('pp-modal')
 		expect(pp_modal).toBeVisible()
-	})
-
-	test('File can be changed', async () => {
-		const user = userEvent.setup()
-		const file = new File(['data'], 'tiedosto.txt')
-		const upload = screen.getByTestId('attachment')
-		await user.upload(upload, file)
-
 	})
 })

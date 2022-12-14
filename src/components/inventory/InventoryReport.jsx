@@ -14,7 +14,7 @@ import {
 	translateVisibility,
 } from '../../utils/tools'
 import { useDispatch, useSelector } from 'react-redux'
-import { Accordion, Button, Col, Row } from 'react-bootstrap'
+import { Accordion, Button, Col, Row, Spinner } from 'react-bootstrap'
 import {
 	selectInventoryById,
 	removeAttachmentById,
@@ -58,7 +58,7 @@ const InventoryReport = () => {
 	const navigate = useNavigate()
 
 	if (!report || !areas) {
-		return <p>ladataan raporttia...</p>
+		return <><Spinner animation='border' /> <p>Ladataan raporttia...</p></>
 	}
 
 	const center = getCenter(
