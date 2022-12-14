@@ -185,7 +185,7 @@ const InventoryReport = () => {
 							</ListGroup.Item>
 						)}
 					</ListGroup>
-					{(report.attachments && report.attachment_files.length > 0) && (
+					{(report.attachment_files && report.attachment_files.length > 0) && (
 						<div>
 							<ListGroup>
 								<div className="fw-bold">Liitteet</div>
