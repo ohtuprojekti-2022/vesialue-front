@@ -222,7 +222,7 @@ const InventoryReport = () => {
 						<Accordion style={{ marginTop: '1rem' }}>
 							<Accordion.Item eventKey="0">
 								<Accordion.Header>
-									<b>Liittee ({report.attachment_files.length}kpl)</b>
+									<b>Liitteet ({report.attachment_files.length}kpl)</b>
 								</Accordion.Header>
 								<Accordion.Body>
 									<ListGroup>
