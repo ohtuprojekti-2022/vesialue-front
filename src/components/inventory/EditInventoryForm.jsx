@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
+import { autosizeTextarea } from '../../utils/tools'
 
 /*
 {
@@ -13,6 +14,10 @@ import { Button, FloatingLabel, Form } from 'react-bootstrap'
 	setMoreInfo,
 }
 */
+
+/**
+ * Renders a form with which the user can edit their inventory report by changing the details
+ */
 const EditInventoryForm = (props) => {
 	const handleMethodChange = (e) => {
 		props.setMethod(e.target.value)
@@ -23,6 +28,12 @@ const EditInventoryForm = (props) => {
 			? props.setMethodInfo(props.methodInfo)
 			: props.setMethodInfo('')
 	}
+	const moreInfoRef = useRef(null)
+
+	useEffect(() => {
+		const moreInfoField = moreInfoRef.current
+		autosizeTextarea(moreInfoField)
+	}, [])
 
 	return (
 		<Form
@@ -132,26 +143,22 @@ const EditInventoryForm = (props) => {
 					</Form.Control.Feedback>
 				</FloatingLabel>
 			)}
-			<Form.Group controlId="attachments" className="mb-3">
-				<Form.Check
-					data-testid="attachments"
-					type="checkbox"
-					label="Minulla on liitetiedosto(ja)"
-					onChange={() => props.setAttachments(!props.attachments)}
-					checked={props.attachments}
-				/>
-			</Form.Group>
-			<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
+			<FloatingLabel style={{paddingTop: '2rem'}} controlId="moreInfo" label="Kuvaus" className="mb-3">
 				<Form.Control
+					ref={moreInfoRef}
 					data-testid="moreInfo"
-					type="text"
-					maxLength="500"
+					as="textarea"
+					maxLength="5000"
 					defaultValue={props.moreInfo}
-					onChange={(e) => props.setMoreInfo(e.target.value)}
+					style={{ maxHeight: '12rem' }}
+					onChange={(e) => {
+						props.setMoreInfo(e.target.value)
+						autosizeTextarea(e.target)		
+					}}
 					required
 				/>
 				<Form.Control.Feedback type="invalid">
-					{'Kirjoita kuvaus (max 500 merkkiä)'}
+					{'Kirjoita kuvaus (max 5000 merkkiä)'}
 				</Form.Control.Feedback>
 			</FloatingLabel>
 			<FloatingLabel
@@ -161,10 +168,13 @@ const EditInventoryForm = (props) => {
 			>
 				<Form.Control
 					data-testid="editReason"
-					type="text"
+					as="textarea"
 					maxLength="500"
 					defaultValue={props.editReason}
-					onChange={(e) => props.setEditReason(e.target.value)}
+					onChange={(e) => {
+						props.setEditReason(e.target.value)
+						autosizeTextarea(e.target)
+					}}
 					required
 				/>
 				<Form.Control.Feedback type="invalid">

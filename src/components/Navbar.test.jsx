@@ -7,6 +7,7 @@ import { renderWithProviders } from '../utils/test-tools'
 import store from '../redux/store'
 import { login } from '../redux/reducers/userReducer'
 import userEvent from '@testing-library/user-event'
+import axios from 'axios'
 
 jest.mock('axios')
 
@@ -57,6 +58,7 @@ describe('Navbar when logged in', () => {
 	})
 
 	test('shows user as Käyttäjä when logged out', async () => {
+		axios.get.mockResolvedValueOnce('mock response')
 		const DropDown = screen.getByRole('button', { name: /mikko1/i })
 		const user = userEvent.setup()
 		await user.click(DropDown)

@@ -6,6 +6,9 @@ import { initializeInventories } from '../redux/reducers/inventoryReducer'
 import { useDispatch } from 'react-redux'
 import { initializeEditedInventories } from '../redux/reducers/editedInventoryReducer'
 
+/**
+ * Functionality for logging out the currently logged in user in the session
+ */
 const LogoutButton = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()

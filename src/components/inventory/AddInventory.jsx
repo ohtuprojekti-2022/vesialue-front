@@ -1,8 +1,9 @@
 /* istanbul ignore file */
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Container, Alert } from 'react-bootstrap'
+import { Container, Alert, Modal, Button } from 'react-bootstrap'
 import { addInventory } from '../../services/inventory-service'
+import { uploadAttachment } from '../../services/attachment-service'
 import InventoryForm from './InventoryForm'
 import Map from '../map/Map'
 import { useDispatch } from 'react-redux'
@@ -11,6 +12,9 @@ import { appendAreas } from '../../redux/reducers/areaReducer'
 import { formatDate } from '../../utils/tools'
 import MaptoolinfoModal from '../MaptoolinfoModal'
 
+/**
+ * Functionality for adding a new inventory according to the details specified in InventoryForm
+ */
 const AddInventory = () => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
@@ -24,8 +28,11 @@ const AddInventory = () => {
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
 	const [mapLayers, setMapLayers] = useState([])
+	const [attachmentFiles, setAttachmentFiles] = useState(null)
 	const navigate = useNavigate()
 	const [showMTI, setShowMTI] = useState(false)
+	const [showDateConfirm, setShowDateConfirm] = useState(false)
+	const [submitted, setSubmitted] = useState(false)
 
 	const addAlert = (text) => {
 		setAlert(text)
@@ -36,11 +43,17 @@ const AddInventory = () => {
 
 	const dispatch = useDispatch()
 
+	const handleCloseDateModal = () => {
+		setShowDateConfirm(false)
+		
+	}
+
 	const confirmDate = () => {
 		const invDate = Date.parse(inventorydate)
 		const fiveYearsAgo = new Date().setFullYear(new Date().getFullYear() - 5)
-		if (invDate < fiveYearsAgo) {
-			return window.confirm(`Asettamasi ajankohta on yli viisi vuotta sitten. Onko ajankohta ${formatDate(inventorydate)} oikein?`)
+		if ((invDate < fiveYearsAgo)) {
+			setShowDateConfirm(true)
+			return false
 		}
 		return true
 	}
@@ -50,7 +63,16 @@ const AddInventory = () => {
 		const valid = form.checkValidity()
 		setValidated(true)
 		event.preventDefault()
-		if (valid && confirmDate()) {
+
+		let dateIsOK = true
+		if (!showDateConfirm){
+			dateIsOK = confirmDate()
+		} else {
+			dateIsOK = true
+		}
+		
+		if (valid && dateIsOK) {
+			setSubmitted(true)
 			try {
 				const [inventory, areas] = await addInventory(
 					mapLayers.map((layer) => layer.latlngs),
@@ -64,6 +86,22 @@ const AddInventory = () => {
 					phone,
 					moreInfo
 				)
+
+				// attachment upload
+				if (attachments) {
+					const formData = new FormData()
+					for (let i = 0; i < attachmentFiles.length; i++) {
+						formData.append('file', attachmentFiles[i])
+					}
+					formData.append('inventory', inventory.id)
+					try {
+						const attachmentReferences = await uploadAttachment(formData)
+						// Update attachment file references to the new inventory
+						inventory.attachment_files = attachmentReferences
+					} catch(error) {
+						console.log(error)
+					}
+				}
 
 				dispatch(appendInventory(inventory))
 				dispatch(appendAreas(areas))
@@ -80,11 +118,12 @@ const AddInventory = () => {
 			} catch (error) {
 				addAlert(error.toString())
 			}
+			setSubmitted(false)
 		}
 	}
 
 	return (
-		<Container fluid="sm">
+		<Container fluid="sm" style={{paddingBottom:'0.5em'}}>
 			<h2>Lisää inventointi 
 				<button style={{backgroundColor: 'Transparent', border: 'none', float: 'right', paddingRight: '25px'}} 
 					onClick={() => setShowMTI(true)}>
@@ -108,7 +147,28 @@ const AddInventory = () => {
 				setName={setName}
 				setEmail={setEmail}
 				setPhone={setPhone}
+				setAttachmentFiles={setAttachmentFiles}
+				submitted={submitted}
 			/>
+			<Modal size='lg' show={showDateConfirm} onHide={handleCloseDateModal} style={{ zIndex: 2001 }}>
+				<Modal.Header closeButton>
+					<Modal.Title>Tarkista ajankohta</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					Asettamasi ajankohta on yli viisi vuotta sitten. Onko ajankohta {formatDate(inventorydate)} oikein?
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant='secondary' onClick={handleCloseDateModal}>
+						Peruuta
+					</Button>
+					<Button variant='primary'
+						onClick={handleSubmit}
+						style={{ display: 'block' }}
+						disabled={submitted}>
+						{submitted ? 'Lähetetään...' : 'Vahvista'}
+					</Button>
+				</Modal.Footer>
+			</Modal>
 			<MaptoolinfoModal
 				show={showMTI}
 				close={() => setShowMTI(false)}

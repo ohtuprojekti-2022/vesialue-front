@@ -2,6 +2,9 @@ import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import AdminDeleteButton from './AdminDeleteButton'
 
+/**
+ * Renders a confirmation modal for an admin about to delete an inventory report
+ */
 const AdminDeleteModal = ({ show, close, id }) => {
 	return (
 		<div className="container" data-testid="admin-delete-modal">

@@ -75,7 +75,7 @@ const App = () => {
 			</Routes>
 			<TermsofserviceModal show={showTOS} close={() => setShowTOS(false)} />
 			<PrivacyPolicyModal show={showPP} close={() => setShowPP(false)} />
-			<Footer setShowTOS={setShowTOS} setShowPP={setShowPP} />
+			<Footer />
 		</Container>
 	)
 }

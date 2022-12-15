@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import LogoutButton from './LogoutButton'
 
+/**
+ * Renders the navigation bar on the top of the screen that is used to access different parts of the website
+ */
 const Navbar = () => {
 	const userDetails = useSelector(({ userDetails }) => {
 		return userDetails
@@ -24,7 +27,7 @@ const Navbar = () => {
 					className="d-inline-block align-top"
 					alt="MAS logo"
 				/>{' '}
-				Vesialueen inventointi-ilmoitus
+				Inventointi-ilmoitus
 			</BNavbar.Brand>
 			<BNavbar.Toggle aria-controls="basic-navbar-nav" />
 			<BNavbar.Collapse id="responsive-navbar-nav">

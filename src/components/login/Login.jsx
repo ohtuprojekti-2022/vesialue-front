@@ -9,6 +9,9 @@ import { initializeInventories } from '../../redux/reducers/inventoryReducer'
 import { useDispatch } from 'react-redux'
 import { initializeEditedInventories } from '../../redux/reducers/editedInventoryReducer'
 
+/**
+ * Functionality for logging in a user
+ */
 const Login = () => {
 	const dispatch = useDispatch()
 	const [username, setUsername] = useState('')

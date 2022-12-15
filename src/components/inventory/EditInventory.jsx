@@ -16,8 +16,12 @@ import {
 	translateVisibility,
 } from '../../utils/tools'
 import Map from '../map/Map'
+import RenderLongText from '../RenderLongText'
 import EditInventoryForm from './EditInventoryForm'
 
+/**
+ * Functionality for editing an existing inventory according to the details specified in EditInventoryForm
+ */
 const EditInventory = () => {
 	let { id } = useParams()
 	const [report, areas, userId] = useSelector((state) => {
@@ -190,20 +194,26 @@ const EditInventory = () => {
 					</Map>
 					<ListGroup>
 						<ListGroup.Item>
-							Päivämäärä: {formatDate(inventorydate)}
+							<div className="fw-bold">Päivämäärä</div>
+							{formatDate(inventorydate)}
 						</ListGroup.Item>
 						<ListGroup.Item>
-							Tapa: {translateMethod(method, methodInfo)}
+							<div className="fw-bold">Tapa</div>
+							{translateMethod(method, methodInfo)}
 						</ListGroup.Item>
 						{(method === 'dive' || method === 'sight') && (
 							<ListGroup.Item>
-								Näkyvyys: {translateVisibility(visibility)}
+								<div className="fw-bold">Näkyvyys</div>
+								{translateVisibility(visibility)}
 							</ListGroup.Item>
 						)}
-						<ListGroup.Item>Kuvaus: {moreInfo}</ListGroup.Item>
+						<ListGroup.Item>
+							<div className="fw-bold">Kuvaus</div>
+							<RenderLongText text={moreInfo} maxLength={300} />
+						</ListGroup.Item>
 					</ListGroup>
 					<br />
-					Muokkauksen syy: {editReason}
+					<b>Muokkauksen syy:</b> {editReason}
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>

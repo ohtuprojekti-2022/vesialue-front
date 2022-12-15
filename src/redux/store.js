@@ -5,6 +5,7 @@ import userReducer from './reducers/userReducer'
 import filterReducer from './reducers/filterReducer'
 import editedInventoryReducer from './reducers/editedInventoryReducer'
 import deletedInventoryReducer from './reducers/deletedInventoryReducer'
+import notificationReducer from './reducers/notificationReducer'
 
 export default configureStore({
 	reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
 		userDetails: userReducer,
 		filter: filterReducer,
 		editedInventories: editedInventoryReducer,
-		deletedInventories: deletedInventoryReducer
+		deletedInventories: deletedInventoryReducer,
+		notification: notificationReducer
 	},
 })

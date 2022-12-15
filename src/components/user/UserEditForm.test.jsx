@@ -110,7 +110,7 @@ describe('UserEditForm', () => {
 		await user.click(submitButton)
 		expect(
 			screen.getByText(
-				'Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!'
+				'Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com! Pituus enintään 60 merkkiä.'
 			)
 		).toBeVisible()
 	})
@@ -121,7 +121,7 @@ describe('UserEditForm', () => {
 		await user.click(submitButton)
 		expect(
 			screen.getByText(
-				'Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!'
+				'Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com! Pituus enintään 60 merkkiä.'
 			)
 		).toBeVisible()
 	})
@@ -135,5 +135,13 @@ describe('UserEditForm', () => {
 				'Puhelinnumerossa voi olla vain plus-merkki, välilyöntejä ja 7-15 numeroa!'
 			)
 		).toBeVisible()
+	})
+
+	test('handleSubmit is called', async () => {
+		const user = userEvent.setup()
+		name.value = ''
+		await user.type(name, 'Testi')
+		await user.click(submitButton)
+		expect(mockHandleSubmit).toBeCalledTimes(1)
 	})
 })

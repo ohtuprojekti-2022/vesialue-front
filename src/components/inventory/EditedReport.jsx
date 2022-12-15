@@ -17,7 +17,11 @@ import { selectInventoryById } from '../../redux/reducers/inventoryReducer'
 import { Table, Container } from 'react-bootstrap'
 import ApproveButton from './ApproveButton'
 import RejectButton from './RejectButton'
+import { renderWithLineBreaks } from '../RenderLongText'
 
+/**
+ * Renders a side-by-side view of an edited report and the original report before the edits for comparison
+ */
 const EditedReport = () => {
 	const userDetails = useSelector(({ userDetails }) => {
 		return userDetails
@@ -44,7 +48,7 @@ const EditedReport = () => {
 	)
 
 	return (
-		<Container style={{marginBottom: '0.5rem'}}>
+		<Container style={{ marginBottom: '0.5rem' }}>
 			<Map center={center} autoZoom={true}>
 				{areas.map((area) => (
 					<Polygon
@@ -97,10 +101,14 @@ const EditedReport = () => {
 					</tr>
 					<tr>
 						<td>
-							<b>Muuta tietoa</b>
+							<b>Kuvaus</b>
 						</td>
-						<td>{original.moreInfo}</td>
-						<td>{report.moreInfo}</td>
+						<td>
+							{renderWithLineBreaks(original.moreInfo)}
+						</td>
+						<td>
+							{renderWithLineBreaks(report.moreInfo)}
+						</td>
 					</tr>
 					<tr>
 						<td>
@@ -111,7 +119,7 @@ const EditedReport = () => {
 				</tbody>
 			</Table>
 			{userDetails.user.admin > 0 &&
-			<ApproveButton id={report.id} />}
+				<ApproveButton id={report.id} />}
 			<RejectButton id={report.id} originalReportId={original.id} isAdmin={userDetails.user.admin > 0} />
 		</Container>
 	)

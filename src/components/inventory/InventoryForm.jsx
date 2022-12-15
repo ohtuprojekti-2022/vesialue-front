@@ -1,8 +1,22 @@
 import React, { useState } from 'react'
-import { Form, FloatingLabel, Button } from 'react-bootstrap'
+import { Form, FloatingLabel, Button, Spinner } from 'react-bootstrap'
 import TermsofserviceModal from '../TermsofserviceModal'
 import PrivacyPolicyModal from '../PrivacyPolicyModal'
+import { autosizeTextarea } from '../../utils/tools'
+import {
+	AREA_ERROR,
+	ATTACHMENT_ERROR,
+	DATE_ERROR,
+	DESCRIPTION_ERROR,
+	EMAIL_ERROR,
+	METHOD_ERROR,
+	NAME_ERROR,
+	PHONE_ERROR,
+} from '../../utils/error_messages.js'
 
+/**
+ * Renders the form in which the user can enter details about their inventory report and handles the inputs
+ */
 const InventoryForm = props => {
 	const handleMethodChange = e => {
 		props.setMethod(e.target.value)
@@ -32,7 +46,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna inventointialue! Alue piirretään ylläolevalle kartalle
+						{AREA_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
@@ -50,7 +64,7 @@ const InventoryForm = props => {
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						Anna inventoinnin ajankohta! Valitse ajankohta kalenterista tai kirjoita se kenttään
+						{DATE_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<div key="method" className="mb-3">
@@ -127,70 +141,130 @@ const InventoryForm = props => {
 							required
 						/>
 						<Form.Control.Feedback type="invalid">
-							Anna inventointimenetelmän tiedot!
+							{METHOD_ERROR}
 						</Form.Control.Feedback>
 					</FloatingLabel>
 				)}
-				<Form.Group controlId="attachments" className="mb-3">
-					<Form.Check
-						data-testid="attachments"
-						type="checkbox"
-						label="Minulla on liitetiedosto(ja)"
-						onClick={() => props.setAttachments(!props.attachments)}
-					/>
-				</Form.Group>
-				<FloatingLabel controlId="moreInfo" label="Kuvaus" className="mb-3">
+				{(localStorage.getItem('userDetails') && (
+					<Form.Group controlId="attachments" className="mb-3">
+						<Form.Check
+							data-testid="attachments"
+							type="checkbox"
+							label="Minulla on liitetiedosto(ja)"
+							onClick={() => props.setAttachments(!props.attachments)}
+						/>
+						{props.attachments && (
+							<>
+								<Form.Text>
+									Voit lisätä max. 5 liitetiedostoa. Liitetiedostojen
+									maksimikoko on 64 megatavua. Liitetiedostot ovat tarkoitettu
+									viistokaiutusdatalle ja valokuville.
+									<br />
+									Jos sinulla on isoja liitetiedostoja ja enemmän aineistoa
+									sukelluksesta, kerro siitä raportissasi!
+								</Form.Text>
+								<Form.Control
+									type="file"
+									multiple
+									required
+									data-testid="attachment"
+									onChange={event => {
+										// Check if there are more than 5 attachments
+										if (event.target.files.length > 5) {
+											event.target.value = null
+											props.setAttachmentFiles(null)
+											alert(
+												'Raporttiin voi lisätä enintään viisi liitetiedostoa!'
+											)
+										}
+										// Go through the attachment files. Discard attachment if over 64 MB
+										for (let i = 0; i < event.target.files.length; i++) {
+											if (event.target.files[i].size > 67108864) {
+												event.target.value = null
+												props.setAttachmentFiles(null)
+												alert('Liitetiedoston maksimikoko on 64 megatavua!')
+											}
+										}
+										props.setAttachmentFiles(event.target.files)
+									}}
+								/>
+								<Form.Control.Feedback type="invalid">
+									{ATTACHMENT_ERROR}
+								</Form.Control.Feedback>
+							</>
+						)}
+					</Form.Group>
+				)) || (
+					<>
+						<Form.Text>Kirjaudu sisään lisätäksesi liitetiedostoja</Form.Text>
+						<Form.Check disabled label="Minulla on liitetiedosto(ja)" />
+					</>
+				)}
+				<FloatingLabel
+					style={{ paddingTop: '2rem' }}
+					controlId="moreInfo"
+					label="Kuvaus"
+					className="mb-3"
+				>
 					<Form.Control
 						data-testid="moreInfo"
-						type="text"
-						maxLength="500"
-						onChange={e => props.setMoreInfo(e.target.value)}
+						as="textarea"
+						maxLength="5000"
+						style={{ maxHeight: '12rem' }}
+						onChange={e => {
+							props.setMoreInfo(e.target.value)
+							autosizeTextarea(e.target)
+						}}
 						required
 					/>
 					<Form.Control.Feedback type="invalid">
-						{'Kirjoita kuvaus (max 500 merkkiä)'}
+						{DESCRIPTION_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="name" label="Nimi" className="mb-3">
-					{(localStorage.getItem('userDetails')) && (
+					{(localStorage.getItem('userDetails') && (
 						<Form.Control
 							data-testid="name"
 							type="text"
-							defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.name}
+							defaultValue={
+								JSON.parse(localStorage.getItem('userDetails')).user.name
+							}
 							disabled
 						/>
-					) ||
+					)) || (
 						<Form.Control
 							data-testid="name"
 							type="text"
 							maxLength="100"
 							onChange={e => props.setName(e.target.value)}
 						/>
-					}
+					)}
 					<Form.Control.Feedback type="invalid">
-						Nimen maksimipituus on 100 merkkiä!
+						{NAME_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel controlId="email" label="Sähköposti" className="mb-3">
-					{(localStorage.getItem('userDetails')) && (
+					{(localStorage.getItem('userDetails') && (
 						<Form.Control
 							data-testid="email"
 							type="text"
-							defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.email}
+							defaultValue={
+								JSON.parse(localStorage.getItem('userDetails')).user.email
+							}
 							disabled
 						/>
-					) ||
+					)) || (
 						<Form.Control
 							data-testid="email"
 							type="email"
 							onChange={e => props.setEmail(e.target.value)}
-							pattern='([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+							pattern="([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
 							maxLength="100"
 							required
 						/>
-					}
+					)}
 					<Form.Control.Feedback type="invalid">
-						Sähköpostiosoitteen tulee olla muotoa esimerkki@domain.com!
+						{EMAIL_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
 				<FloatingLabel
@@ -198,66 +272,109 @@ const InventoryForm = props => {
 					label="Puhelinnumero"
 					className="mb-3"
 				>
-					{(localStorage.getItem('userDetails')) && (
+					{(localStorage.getItem('userDetails') && (
 						<Form.Control
 							data-testid="phone"
 							type="text"
-							defaultValue={JSON.parse(localStorage.getItem('userDetails')).user.phone}
+							defaultValue={
+								JSON.parse(localStorage.getItem('userDetails')).user.phone
+							}
 							disabled
 						/>
-					) ||
+					)) || (
 						<Form.Control
 							data-testid="phone"
 							type="phone"
 							onChange={e => props.setPhone(e.target.value)}
 							pattern="^\+?(?:[0-9][ |-]?){6,14}[0-9]$"
 						/>
-					}
+					)}
 					<Form.Control.Feedback type="invalid">
-						Puhelinnumerossa voi olla vain numeroita, välejä ja plus-merkki!
+						{PHONE_ERROR}
 					</Form.Control.Feedback>
 				</FloatingLabel>
-				{!(localStorage.getItem('userDetails')) && (
+				{(!localStorage.getItem('userDetails') && (
 					<>
-						<Form.Group controlId="terms-of-services" className="mb-3" style={{display: 'inline-flex'}}>
+						<Form.Group
+							controlId="terms-of-services"
+							className="mb-3"
+							style={{ display: 'inline-flex' }}
+						>
 							<Form.Check
 								data-testid="terms-of-services"
 								type="checkbox"
+								label={
+									<>
+										Hyväksyn{' '}
+										<span style={{ cursor: 'pointer' }}>
+											<a
+												className="text-primary"
+												data-testid="pp"
+												href="https://www.mas.fi/fi/tietosuojaseloste"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												tietosuojaselosteen
+											</a>
+										</span>
+										.
+									</>
+								}
 								checked={checked}
 								onChange={() => setChecked(!checked)}
 							/>
-							<span style={{paddingLeft: '10px'}}>
-								Hyväksyn <span style={{cursor: 'pointer'}}>
-									<a className="text-primary" data-testid="tos" onClick={() => setShowTOS(true)} >käyttöehdot</a> ja <a className="text-primary" data-testid="pp"onClick={() => setShowPP(true)} >tietosuojaselosteen</a></span>.
-							</span>
 						</Form.Group>
-						<Button variant="primary"
-							type="submit"
-							data-testid="submit"
-							className="mb-5"
-							disabled={!checked}
-							style={{display: 'block'}}>
-							Lähetä
-						</Button>
+						{(props.submitted && (
+							<Button variant="primary" disabled style={{ display: 'block' }}>
+								<Spinner
+									as="span"
+									animation="border"
+									size="sm"
+									role="status"
+									aria-hidden="true"
+								/>{' '}
+								Lähetetään...
+							</Button>
+						)) || (
+							<Button
+								variant="primary"
+								type="submit"
+								data-testid="submit"
+								disabled={!checked}
+								style={{ display: 'block' }}
+							>
+								Lähetä
+							</Button>
+						)}
 					</>
-				) ||
-					<Button variant="primary"
-						type="submit"
-						data-testid="submit"
-						className="mb-5"
-						style={{display: 'block'}}>
-						Lähetä
-					</Button>
-				}
+				)) || (
+					<>
+						{(props.submitted && (
+							<Button variant="primary" disabled style={{ display: 'block' }}>
+								<Spinner
+									as="span"
+									animation="border"
+									size="sm"
+									role="status"
+									aria-hidden="true"
+								/>{' '}
+								Lähetetään...
+							</Button>
+						)) || (
+							<Button
+								variant="primary"
+								type="submit"
+								data-testid="submit"
+								style={{ display: 'block' }}
+							>
+								Lähetä
+							</Button>
+						)}
+					</>
+				)}
 			</Form>
-			<TermsofserviceModal
-				show={showTOS}
-				close={() => setShowTOS(false)}
-			/>
-			<PrivacyPolicyModal
-				show={showPP}
-				close={() => setShowPP(false)}
-			/>
+			<TermsofserviceModal show={showTOS} close={() => setShowTOS(false)} />
+			<PrivacyPolicyModal show={showPP} close={() => setShowPP(false)} />
 		</>
 	)
 }
