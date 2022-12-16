@@ -11,6 +11,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateFilter, resetFilter } from '../redux/reducers/filterReducer'
 import SortButton from './SortButton'
 
+/**
+ * Renders the form with which the user can filter the inventories visible in the list of inventory reports
+ */
 const FilterForm = () => {
 	const filter = useSelector(({ filter }) => filter)
 	const dispatch = useDispatch()

@@ -58,7 +58,7 @@ describe('PasswordEditModal', () => {
 		const user = userEvent.setup()
 		await user.click(submitButton)
 		expect(screen.getByText('Anna salasana!')).toBeVisible()
-		expect(screen.getByText('Anna kelvollinen salasana! Pituus 10-100 merkkiä')).toBeVisible()
+		expect(screen.getByText('Anna kelvollinen salasana! Pituus 10-100 merkkiä.')).toBeVisible()
 		expect(screen.getByText('Salasanat eivät täsmää!')).toBeVisible()
 	})
 
@@ -75,4 +75,11 @@ describe('PasswordEditModal', () => {
 		await user.click(submitButton)
 		expect(screen.getByText('Salasanat eivät täsmää!')).toBeVisible()
 	})
+
+	test('Close button can be clicked', async () => {
+		const user = userEvent.setup()
+		const closebutton = screen.getByLabelText('Close')
+		await user.click(closebutton)
+	})
+	
 })

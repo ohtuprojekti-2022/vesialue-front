@@ -13,13 +13,11 @@ describe('InventoryForm', () => {
 		checkEcho,
 		checkDive,
 		checkOther,
-		attachments,
 		moreInfo,
 		name,
 		email,
 		phone,
 		terms,
-		tos,
 		pp,
 		submitButton
 
@@ -33,6 +31,7 @@ describe('InventoryForm', () => {
 	const mockSetName = jest.fn()
 	const mockSetEmail = jest.fn()
 	const mockSetPhone = jest.fn()
+	const mockSetAttachmentFiles = jest.fn()
 
 	beforeEach(() => {
 		render(
@@ -52,6 +51,7 @@ describe('InventoryForm', () => {
 					setName={mockSetName}
 					setEmail={mockSetEmail}
 					setPhone={mockSetPhone}
+					setAttachmentFiles={mockSetAttachmentFiles}
 				/>
 			</MemoryRouter>
 		)
@@ -62,13 +62,11 @@ describe('InventoryForm', () => {
 		checkEcho = screen.getByTestId('echo')
 		checkDive = screen.getByTestId('dive')
 		checkOther = screen.getByTestId('other')
-		attachments = screen.getByTestId('attachments')
 		moreInfo = screen.getByTestId('moreInfo')
 		name = screen.getByTestId('name')
 		email = screen.getByTestId('email')
 		phone = screen.getByTestId('phone')
 		terms = screen.getByTestId('terms-of-services')
-		tos = screen.getByTestId('tos')
 		pp = screen.getByTestId('pp')
 		submitButton = screen.getByRole('button', { name: /lähetä/i })
 
@@ -165,12 +163,6 @@ describe('InventoryForm', () => {
 		expect(moreInfo).toHaveValue('testi-info')
 	})
 
-	test('changing attachments work', async () => {
-		const user = userEvent.setup()
-		await user.click(attachments)
-		expect(attachments).toBeChecked()
-	})
-
 	test('changing methodInfo works', async () => {
 		const user = userEvent.setup()
 		await user.click(checkOther)
@@ -201,13 +193,6 @@ describe('InventoryForm', () => {
 		await user.click(terms)
 		expect(terms).toBeChecked()
 		expect(submitButton).not.toBeDisabled()
-	})
-
-	test('Open the terms of services', async () => {
-		const user = userEvent.setup()
-		await user.click(tos)
-		const tos_modal = screen.getByTestId('tos-modal')
-		expect(tos_modal).toBeVisible()
 	})
 
 	test('Open the privacy policy', async () => {

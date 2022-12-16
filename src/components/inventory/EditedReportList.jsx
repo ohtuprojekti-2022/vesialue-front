@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux'
 import { Container, Table } from 'react-bootstrap'
 import EditedInventoryListItem from './EditedInventoryItem'
 
+/**
+ * Renders a list of all edit requests
+ */
 const EditedReportList = () => {
 	const editedInventories = useSelector((state) => {
 		return state.editedInventories

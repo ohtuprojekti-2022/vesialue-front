@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-import { filteredInventories } from '../utils/tools'
+import { filteredInventoriesAndAreas } from '../utils/tools'
 import InventoryList from './inventory/InventoryList'
+import Notification from './Notification'
 
-const PaginatedList = ({perPageNumber, columns}) => {
-	const [inventories] = useSelector(({ inventories, filter }) => {
-		return filteredInventories(inventories, filter)
+/**
+ * Functionality for splitting the list of inventories into pages
+ */
+const PaginatedList = ({ perPageNumber, columns }) => {
+	let filterResults
+	const [filteredInventories] = useSelector(({ inventories, filter }) => {
+		const [filteredInventories] = filteredInventoriesAndAreas(inventories, [], filter)
+		filterResults = !(filteredInventories.length === 0 && inventories.length > 0)
+		return [filteredInventories]
 	})
-	inventories.reverse()
+
+	const notification = useSelector(state => state.notification)
 
 	const [currentPage, setCurrentPage] = useState(1)
 	const [recordsPerPage] = useState(perPageNumber)
 
 	const indexOfLastRecord = currentPage * recordsPerPage
 	const indexOfFirstRecord = indexOfLastRecord - recordsPerPage
-	const currentRecords = inventories.slice(indexOfFirstRecord, indexOfLastRecord)
-	const nPages = Math.ceil(inventories.length / recordsPerPage)
+	const currentRecords = filteredInventories.slice(indexOfFirstRecord, indexOfLastRecord)
+	const nPages = Math.ceil(filteredInventories.length / recordsPerPage)
+
 
 	useEffect(() => {
 		setCurrentPage(1)
@@ -26,13 +35,13 @@ const PaginatedList = ({perPageNumber, columns}) => {
 		const visibleNumbers = nPages == 1
 			? [1] : (nPages == 2
 				? [1, 2] : (currentPage == 1
-					? [currentPage, currentPage + 1 ,currentPage + 2] : (currentPage == nPages
+					? [currentPage, currentPage + 1, currentPage + 2] : (currentPage == nPages
 						? [currentPage - 2, currentPage - 1, currentPage] : [currentPage - 1, currentPage, currentPage + 1])))
 		const nextPage = () => {
-			if(currentPage !== nPages) setCurrentPage(currentPage + 1)
+			if (currentPage !== nPages) setCurrentPage(currentPage + 1)
 		}
 		const prevPage = () => {
-			if(currentPage !== 1) setCurrentPage(currentPage - 1)
+			if (currentPage !== 1) setCurrentPage(currentPage - 1)
 		}
 		return (
 			<nav>
@@ -41,7 +50,7 @@ const PaginatedList = ({perPageNumber, columns}) => {
 						key={'previous'}>
 						<a className="page-link"
 							onClick={prevPage}
-							style={{cursor:'pointer'}}>
+							style={{ cursor: 'pointer' }}>
 							Edellinen
 						</a>
 					</li>
@@ -50,7 +59,7 @@ const PaginatedList = ({perPageNumber, columns}) => {
 							key={'first'}>
 							<a onClick={() => setCurrentPage(1)}
 								className='page-link'
-								style={{cursor:'pointer'}}>
+								style={{ cursor: 'pointer' }}>
 								{1}
 							</a>
 						</li>
@@ -65,10 +74,10 @@ const PaginatedList = ({perPageNumber, columns}) => {
 					}
 					{visibleNumbers.map((pgNumber) => (
 						<li key={pgNumber}
-							className= {`page-item ${currentPage == pgNumber ? 'active' : ''} `} >
+							className={`page-item ${currentPage == pgNumber ? 'active' : ''} `} >
 							<a onClick={() => setCurrentPage(pgNumber)}
 								className='page-link'
-								style={{cursor:'pointer'}}>
+								style={{ cursor: 'pointer' }}>
 								{pgNumber}
 							</a>
 						</li>
@@ -86,7 +95,7 @@ const PaginatedList = ({perPageNumber, columns}) => {
 							key={'last'}>
 							<a onClick={() => setCurrentPage(nPages)}
 								className='page-link'
-								style={{cursor:'pointer'}}>
+								style={{ cursor: 'pointer' }}>
 								{nPages}
 							</a>
 						</li>
@@ -95,7 +104,7 @@ const PaginatedList = ({perPageNumber, columns}) => {
 						key={'next'}>
 						<a className="page-link"
 							onClick={nextPage}
-							style={{cursor:'pointer'}}>
+							style={{ cursor: 'pointer' }}>
 							Seuraava
 						</a>
 					</li>
@@ -106,14 +115,14 @@ const PaginatedList = ({perPageNumber, columns}) => {
 
 	return (
 		<Container>
-			{inventories.length !== 0 && (
+			{filteredInventories.length !== 0 && (
 				<>
 					<Pagination
 						nPages={nPages}
 						currentPage={currentPage}
 						setCurrentPage={setCurrentPage}
 					/>
-					<InventoryList 
+					<InventoryList
 						data={currentRecords}
 						columns={columns}
 					/>
@@ -123,9 +132,12 @@ const PaginatedList = ({perPageNumber, columns}) => {
 						setCurrentPage={setCurrentPage}
 					/>
 				</>
-			) || window.location.pathname === '/' &&
-				<p> Haetaan raportteja... </p>
-			|| <p>Et ole vielä tehnyt inventointeja</p>
+			)
+				|| window.location.pathname === '/omasivu' && <p>Et ole vielä tehnyt inventointeja</p>
+				|| !filterResults && window.location.pathname === '/' && <p><b>Ei hakuehtoja vastaavia inventointeja</b></p>
+				|| notification.message && window.location.pathname === '/' && <Notification />
+				|| <p><b>Ei inventointeja</b></p>
+
 			}
 		</Container>
 	)

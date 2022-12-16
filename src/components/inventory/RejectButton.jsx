@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { rejectEditById } from '../../services/inventory-service'
 import { removeEditedInventoryById } from '../../redux/reducers/editedInventoryReducer'
 
+/**
+ * Button for admins that rejects an edit request for an inventory
+ */
 const RejectButton = ({ id, originalReportId, isAdmin }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()

@@ -50,22 +50,6 @@ const inventory2 = {'id': '2',
 	'city': 'Maarianhamina'
 }
 
-describe('InventoryList no reports', () => {
-
-	beforeEach(() => {
-		renderWithProviders(
-			<MemoryRouter>
-				<InventoryList data={[]}/>
-			</MemoryRouter>
-		)	
-	})
-
-	test('Does not render table if the list is empty', () => {
-		expect(screen.getByText('Ei tuloksia')).not.toBeNull()
-	})
-
-})
-
 describe('InventoryList with reports', () => {
 	let inventoryList
 	

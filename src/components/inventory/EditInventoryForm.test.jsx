@@ -7,11 +7,12 @@ import { renderWithProviders } from '../../utils/test-tools'
 import userEvent from '@testing-library/user-event'
 
 describe('EditInventoryForm', () => {
-	let moreInfo, editReason, attachments
+	let moreInfo, editReason
 	const mockSetMoreInfo = jest.fn()
 	const mockSetEditReason = jest.fn()
-	const mockSetAttachments = jest.fn()
 	const mockSetMethodInfo = jest.fn()
+	const mockSetMethod = jest.fn()
+	const mockSetVisibility = jest.fn()
     
 	beforeEach(() => {
 		renderWithProviders(
@@ -19,8 +20,9 @@ describe('EditInventoryForm', () => {
 				<EditInventoryForm 
 					setMoreInfo={mockSetMoreInfo}
 					setEditReason={mockSetEditReason}
-					setAttachments={mockSetAttachments}
 					setMethodInfo={mockSetMethodInfo}
+					setMethod={mockSetMethod}
+					setVisibility={mockSetVisibility}
 				/>
 			</MemoryRouter>
 		)
@@ -46,11 +48,10 @@ describe('EditInventoryForm', () => {
 		expect(editReason).toHaveValue('koska tuntui siltä')
 	})
 
-	test('attachments can be checked', async () => {
+	test('methods can be checked', async () => {
 		const user = userEvent.setup()
-		attachments = screen.getByTestId('attachments')
-		await user.click(attachments)
-		expect(attachments).toBeChecked()
+		const echo = screen.getByTestId('echo')
+		await user.click(echo)
 	})
 
 })

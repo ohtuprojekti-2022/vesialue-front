@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Alert } from 'react-bootstrap'
 import { registerNewUser } from '../../services/user-service'
@@ -7,6 +7,9 @@ import RegistrationForm from './RegistrationForm'
 import { login } from '../../redux/reducers/userReducer'
 import { useDispatch } from 'react-redux'
 
+/**
+ * Functionality for registering a new user
+ */
 const Registration = () => {
 	const dispatch = useDispatch()
 	const [username, setUsername] = useState('')
@@ -16,6 +19,11 @@ const Registration = () => {
 	const [name, setName] = useState('')
 	const [validated, setValidated] = useState(false)
 	const [alert, setAlert] = useState(null)
+	const loggedInStatus = useRef(
+		localStorage.getItem('userDetails')
+			? true
+			: false
+	)
 	const navigate = useNavigate()
 
 	const addAlert = (text) => {
@@ -23,6 +31,7 @@ const Registration = () => {
 		setTimeout(() => {
 			setAlert(null)
 		}, 7500)
+
 	}
 
 	const handleSubmit = async (event) => {
@@ -72,12 +81,11 @@ const Registration = () => {
 		<Container fluid="sm">
 			<h2>Luo uusi tunnus</h2>
 			{alert && <Alert variant="danger">{alert}</Alert>}
-			{localStorage.getItem('userDetails') && (
+			{loggedInStatus.current === true && (
 				<Alert variant="danger">
 					Kirjaudu ulos luodaksesi uusi käyttäjätunnus!
 				</Alert>
-			)}
-			{!localStorage.getItem('userDetails') && (
+			) || (
 				<RegistrationForm
 					validated={validated}
 					handleSubmit={handleSubmit}

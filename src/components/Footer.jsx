@@ -1,6 +1,9 @@
 import React from 'react'
 
-const Footer = ({ setShowTOS, setShowPP }) => {
+/**
+ * Renders a footer for the site containing information about the application
+ */
+const Footer = () => {
 	return (
 		<footer
 			className="page-footer font-small blue pt-4"
@@ -13,7 +16,11 @@ const Footer = ({ setShowTOS, setShowPP }) => {
 						<p>Finlands Marinarkeologiska Sällskap rf</p>
 						<p>
 							Sähköposti:{' '}
-							<a href="mailto:mas@mas.fi?subject=Viesti%20verkkosivulta">
+							<a
+								href="mailto:mas@mas.fi?subject=Viesti%20verkkosivulta"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
 								mas@mas.fi
 							</a>
 						</p>
@@ -25,13 +32,31 @@ const Footer = ({ setShowTOS, setShowPP }) => {
 						<h5 className="text-uppercase">Linkkejä</h5>
 						<ul className="list-unstyled">
 							<li>
-								<a href="https://mas.fi/">mas.fi</a>
+								<a
+									href="https://mas.fi/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									mas.fi
+								</a>
 							</li>
 							<li>
-								<a href="https://mas.fi/yhteystiedot">Yhteystiedot</a>
+								<a
+									href="https://mas.fi/yhteystiedot"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Yhteystiedot
+								</a>
 							</li>
 							<li>
-								<a href="https://mas.mikrojebe.fi/">MAS-portaali</a>
+								<a
+									href="https://mas.mikrojebe.fi/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									MAS-portaali
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -40,12 +65,13 @@ const Footer = ({ setShowTOS, setShowPP }) => {
 						<h5 className="text-uppercase"></h5>
 						<ul className="list-unstyled">
 							<li>
-								<a href="#!" onClick={() => setShowTOS(true)} data-testid="tos">
-									Käyttöehdot
-								</a>
-							</li>
-							<li>
-								<a href="#!" onClick={() => setShowPP(true)} data-testid="pp">
+								<a
+									className="text-primary"
+									data-testid="pp"
+									href="https://www.mas.fi/fi/tietosuojaseloste"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									Tietosuojaseloste
 								</a>
 							</li>
@@ -61,8 +87,22 @@ const Footer = ({ setShowTOS, setShowPP }) => {
 			</div>
 
 			<div className="footer-copyright text-center py-3">
-				Tämä verkkosovellus on lisensoitu MIT-lisenssillä © 2022 Copyright:{' '}
-				<a href="https://www.helsinki.fi/">Helsingin Yliopisto</a>
+				Tämä verkkosovellus on lisensoitu{' '}
+				<a
+					href="https://github.com/ohtuprojekti-2022/vesialueen-inventointi-ilmoitus/blob/main/LICENSE"
+					target="_blank"
+					rel="license noreferrer"
+				>
+					MIT-lisenssillä
+				</a>{' '}
+				© 2022 Copyright:{' '}
+				<a
+					href="https://www.helsinki.fi/"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Helsingin Yliopisto
+				</a>
 			</div>
 		</footer>
 	)

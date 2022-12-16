@@ -2,6 +2,9 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { parseCreator, formatDate } from '../../utils/tools'
 
+/**
+ * Renders a single edit request list item, containing some info about the report
+ */
 const EditedInventoryListItem = ({ report }) => {
 	const navigate = useNavigate()
 	return(

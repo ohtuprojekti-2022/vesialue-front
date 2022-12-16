@@ -48,16 +48,12 @@ export const getAllAreas = async () => {
 	return request.data
 }
 
-export const getAllInventories = () => {
-	try {
-		const request = axios.get(
-			`${REACT_APP_BACKEND_URL}/api/inventory`,
-			headers()
-		)
-		return request.then(response => response.data)
-	} catch (error) {
-		return [[], []]
-	}
+export const getAllInventories = async () => {
+	const request = await axios.get(
+		`${REACT_APP_BACKEND_URL}/api/inventory`,
+		headers()
+	)
+	return request.data
 }
 
 export const getInventoryById = async inventoryId => {
@@ -96,7 +92,7 @@ export const requestEdit = async (
 	return request.data
 }
 
-export const getAllEditedInventories = async () => {
+export const getAllEditedInventories = () => {
 	const auth = headers()
 	if (!auth.headers || !auth.headers.Authorization) return []
 	const request = axios.get(
@@ -194,6 +190,14 @@ export default {
 	getAllAreas,
 	getAllInventories,
 	getInventoryById,
+	requestEdit,
+	getAllEditedInventories,
+	getEditedInventoryById,
 	rejectEditById,
+	approveEditById,
+	requestDelete,
+	getAllDeletedInventories,
+	getDeletedInventoryById,
+	deleteInventoryById,
 	rejectDeletionById
 }

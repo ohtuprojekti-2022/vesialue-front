@@ -2,6 +2,9 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 
+/**
+ * Renders a modal that gives the user information on how to use the map tool for drawing areas on the map
+ */
 const MaptoolinfoModal = ({ show, close }) => {
 	return (
 		<div className="container" data-testid="maptoolinfo-modal">

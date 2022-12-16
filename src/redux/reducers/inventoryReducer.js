@@ -1,5 +1,6 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { getAllInventories } from '../../services/inventory-service'
+import { resetNotification, setNotification } from './notificationReducer'
 
 const inventorySlice = createSlice({
 	name: 'inventories',
@@ -12,29 +13,63 @@ const inventorySlice = createSlice({
 			state.push(action.payload)
 		},
 		removeInventory: (state, action) => {
-			return state.filter(i => i.id !== action.payload.id)
+			return state.filter((i) => i.id !== action.payload.id)
 		},
 		removeInventoryById: (state, action) => {
-			return state.filter(i => i.id !== action.payload)
+			return state.filter((i) => i.id !== action.payload)
+		},
+		removeAttachmentById: (state, action) => {
+			const inv = state.filter((i) => i.id === action.payload.inventoryId)[0]
+			return state.map((i) =>
+				i.id === action.payload.inventoryId
+					? {
+						...inv,
+						attachment_files: inv.attachment_files.filter(
+							(a) => a.attachment !== action.payload.attachmentId
+						),
+					}
+					: i
+			)
+		},
+		addAttachments: (state, action) => {
+			const inv = state.filter((i) => i.id === action.payload.inventoryId)[0]
+			return state.map((i) =>
+				i.id === action.payload.inventoryId
+					? {
+						...inv,
+						attachment_files: action.payload.newAttachments,
+						attachments: true,
+					}
+					: i
+			)
 		},
 	},
 })
 
 export const initializeInventories = () => {
 	return async (dispatch) => {
-		const inventories = await getAllInventories()
-		dispatch(setInventories(inventories))
+		dispatch(
+			setNotification({ spinner: true, message: 'Haetaan inventointeja...' })
+		)
+		try {
+			const inventories = await getAllInventories()
+			dispatch(setInventories(inventories))
+			dispatch(resetNotification())
+		} catch {
+			dispatch(
+				setNotification({
+					spinner: false,
+					message: 'Inventointien haku epäonnistui!',
+				})
+			)
+			if (
+				window.confirm('Inventointien haku epäonnistui!\n\nYritä uudelleen?')
+			) {
+				location.reload()
+			}
+		}
 	}
 }
-
-export const getInventoriesByUserId = createSelector(
-	[(state) => state.inventories, (_state, userId) => userId],
-	// Output selector gets (inventories, userId) as args
-	(inventories, userId) =>
-		inventories.filter(
-			(inventory) => inventory.user && inventory.user.id === userId
-		)
-)
 
 export const updateInventories = (inventory) => {
 	return (dispatch) => {
@@ -46,6 +81,12 @@ export const updateInventories = (inventory) => {
 export const selectInventoryById = (state, id) =>
 	state.inventories.find((i) => i.id === id)
 
-export const { setInventories, appendInventory, removeInventory, removeInventoryById } =
-	inventorySlice.actions
+export const {
+	setInventories,
+	appendInventory,
+	removeInventory,
+	removeInventoryById,
+	removeAttachmentById,
+	addAttachments,
+} = inventorySlice.actions
 export default inventorySlice.reducer
